@@ -1,0 +1,618 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: white;
+  font-size: 3rem;
+}
+
+.h1Wrapper {
+  padding: 2rem 3rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+.cancelBtn {
+  min-width: 145px;
+  height: 74px;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 39px;
+  border-radius: 8px;
+  border: 1px solid #CEDC00;
+  padding: 12px 28px 12px 28px;
+  background-color: inherit;
+}
+
+.nextBtn {
+  background-color: #CEDC00 !important;
+}
+
+.fullScreen {
+  height: 100vh;
+  position: relative;
+}
+
+.startScreen {
+  background-image: url('../public/startBG.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
+
+.overlay {
+  background: linear-gradient(180deg, rgba(37, 36, 36, 0.47) 0%, rgba(39, 37, 37, 0.47) 6.29%, rgba(39, 38, 38, 0.47) 12.58%, rgba(49, 49, 49, 0) 89.84%);
+  height: 100%;
+}
+
+.greenRibbon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #CEDB00;
+}
+
+.langMenuBtn {
+  background-color: inherit;
+  width: 300px;
+  height: 320px;
+  border-radius: 12.8px;
+  border: 1.07px solid #D3D3D3;
+  box-shadow: 0px 15px 40px 0px #0000000D;
+
+}
+
+.langMenuBtn img {
+  height: 155px;
+}
+
+.categoryBtn {
+  width: 146px;
+  height: 114.33px;
+  padding: 14px 10px 14px 10px;
+  gap: 0px;
+  border-radius: 5.66px 0px 0px 0px;
+  opacity: 0px;
+  background-color: white;
+  border: none;
+  box-shadow: 0px 3.77px 18.85px 0px #0000001A;
+  border-radius: 5.66px;
+}
+
+.specialOfferDiv {
+  width: 100%;
+  background-color: #FFF5F5;
+  min-height: 200.68px;
+  border-radius: 11.7px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  font-weight: 600;
+}
+
+.specialOfferDiv button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #CEDB00;
+  width: 58.5px;
+  height: 43.88px;
+  border-radius: 25.01px 0px 13.34px 0px;
+  opacity: 0px;
+  border: none;
+
+}
+
+.mealsListing {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  overflow-y: scroll;
+  max-height: 75% !important;
+}
+
+
+.mealCard {
+  width: 185px;
+  height: 197.85px;
+  top: 478px;
+  left: 204px;
+  padding: 12.48px 0 0 10.48px;
+  gap: 0px;
+  border-radius: 13.86px;
+  opacity: 0px;
+  box-shadow: 0px 2.6px 6.93px -0.87px #3232470D;
+  /* box-shadow: 0px 0px 0.87px 0px #0C1A4B3D; */
+  border: 1.07px solid #D3D3D3;
+
+}
+
+.mealCard p {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+
+}
+
+.mealCard button {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  width: 50.25px;
+  height: 38.99px;
+  gap: 0px;
+  border-radius: 25.99px 0px 13.86px 0px;
+  opacity: 0px;
+  background-color: #CEDB00;
+  border: none;
+}
+
+.redTopTexture {
+  background-image: url('../public/redTopTexture.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 392px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.redTopTexture .message {
+  transform: rotate(-7.6deg);
+  width: 55%;
+  text-align: left;
+  font-size: 64px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 90px;
+  color: white;
+}
+
+.redTopTexture .extrasWrapper .smallMessage {
+  width: 90%;
+  text-align: left;
+  font-size: 39px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 69px;
+  color: white;
+  text-align: center;
+}
+
+.redTopTexture .extrasWrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upgradeBtnsWrapper {
+  width: 100%;
+  margin-top: 4rem;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.upgradeBtnsWrapper button {
+  flex-basis: 50%;
+  padding: 18px 24px 18px 24px;
+  border-radius: 16px;
+  opacity: 0px;
+
+  background-color: #FFFFFF;
+  border: 1.5px solid #D3D3D3;
+
+  box-shadow: 0px 29.93px 74.82px 0px #00000014;
+
+}
+
+.upgradeBtnsWrapper button div {
+  border: 1px solid #CED1D9;
+  margin-bottom: 1rem;
+}
+
+.upgradeBtnsWrapper .topPicImage {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 42px;
+  margin-bottom: 0.8rem;
+}
+
+.upgradeBtnsWrapper .price {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.upgradeBottomRibbon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  padding: 18px 30px 18px 30px;
+  opacity: 0px;
+  border-top: 1px solid #9D989F;
+  box-shadow: 0px 2px 20px 1px #0000001A;
+
+}
+
+.upgradeBottomRibbon div p {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 39px;
+}
+
+.upgradeBottomRibbon div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.extrasWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.extraBtn {
+  position: relative;
+  width: 222px;
+  height: 250px;
+  padding: 8px 12px 0px 12px;
+  border-radius: 16px;
+  opacity: 0px;
+  border: 1px solid #D9D9D9;
+  /* box-shadow: 0px 3.42px 9.13px -1.14px #3232470D; */
+
+  box-shadow: 0px 0px 1.14px 0px #0C1A4B3D;
+
+}
+
+.extraBtn .extraBtnButton {
+  width: 46px;
+  height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #CEDC00;
+  opacity: 0px;
+
+  position: absolute;
+  bottom: 4%;
+  right: 10px;
+  border-radius: 5px;
+}
+
+.drinksBtnButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  width: 66px;
+  height: 50px;
+  padding: 10px 18px 10px 18px;
+  gap: 0px;
+  border-radius: 34px 0px 16px 0px;
+  opacity: 0px;
+  border: none;
+  background-color: #CEDB00;
+}
+
+.drinksCardQuantityWrapper {
+  width: 106px;
+  height: 50px;
+  padding: 8px 0px 0px 0px;
+  gap: 9px;
+  border-radius: 34px 0px 16px 0px;
+  opacity: 0px;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  background-color: #CEDB00;
+}
+
+.drinksCardQuantityWrapper button {
+  background-color: inherit;
+  border: none;
+}
+
+.drinksCardQuantityWrapper .minusIcon {
+  width: 17.95px;
+  height: 3.79px;
+}
+
+.checkoutCard {
+  height: 218px;
+  border-radius: 16px;
+  border: 1px solid #D9D9D9;
+  opacity: 0px;
+  box-shadow: 1px 1px 10px 2px #0000001A;
+  margin-bottom: 1rem;
+
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+.checkoutCardTitle {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 48px;
+  margin-bottom: 0.8rem;
+}
+
+.checkoutCardDetailsParagraph {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  color: #9D989F;
+}
+
+.checkoutCard img {
+  width: 175px;
+  height: 175px;
+}
+
+.checkoutCard .checkoutCardPrice,
+.checkoutCardBtn {
+  position: absolute;
+}
+
+.checkoutCardPrice {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+
+}
+
+.checkoutCardBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  width: 80px;
+  height: 48px;
+  gap: 0px;
+  border-radius: 30px 0px 16px 0px;
+  opacity: 0px;
+  background-color: #CEDC00;
+  border: none;
+
+}
+
+.checkoutCardBtn img {
+  width: 20.95px;
+  height: 20.79px;
+  top: 8.85px;
+  left: 8.91px;
+  gap: 0px;
+  opacity: 0px;
+
+}
+
+.checkoutCardQuantityWrapper {
+  width: 134px;
+  height: 68px;
+  gap: 0px;
+  border-radius: 30px 0px 16px 0px;
+  opacity: 0px;
+  background-color: #CEDC00;
+  border: none;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkoutCardQuantityWrapper button {
+  background-color: inherit;
+
+  width: 40px;
+  height: 40px;
+  gap: 0px;
+  opacity: 0px;
+
+  border: none;
+}
+
+.checkoutCardQuantityWrapper .icon {
+  width: 24.95px;
+  height: 24.79px;
+  gap: 0px;
+  opacity: 0px;
+
+}
+
+.checkoutCardQuantityWrapper .minusIcon {
+  width: 24.95px;
+  height: 5.79px;
+  gap: 0px;
+  opacity: 0px;
+
+}
+
+.quantityCounter {
+  font-size: 28px;
+  font-weight: 590;
+  line-height: 44.8px;
+
+}
+
+.modal {
+  position: absolute;
+  background-color: rgba(39, 38, 38, 0.605);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal .modalScreen {
+  width: 50%;
+  margin: 0 auto;
+  height: 250px;
+  background-color: white;
+  border: 1.51px solid #CEDC00;
+  box-shadow: 1px 1px 15px 2px #f5f5f538;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalInnerWrapper p {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.modalBtnWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modalBtnWrapper button {
+  width: 145px;
+  height: 74px;
+  padding: 12px 28px 12px 28px;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px;
+  opacity: 0px;
+  font-size: 24px;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  background-color: inherit;
+  border: 1.05px solid #CEDB00;
+}
+
+.modalBtnWrapper button:first-child {
+  background-color: #CEDB00;
+}
+
+
+.paymentInfoWrapper {
+  width: 740px;
+  height: 237px;
+  top: 176px;
+  left: 30px;
+  gap: 7.57px;
+  border-radius: 8px;
+  border: 1.51px solid #CEDB00;
+  opacity: 0px;
+  margin: 0 auto;
+  box-shadow: 1px 1px 15px 2px #CEDC0026;
+
+  padding: 1.5rem;
+
+
+}
+
+.paymentOrdersWrapper {
+  min-height: 85%;
+  overflow-y: scroll;
+}
+
+.totalWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.elipse {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url("../public/elipse.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 25vh;
+}
+
+.qrCode {
+  width: 328px;
+
+  margin: 0 auto;
+  height: 331.69px;
+  padding: 9.21px;
+  border-radius: 23.17px;
+  border: 11.58px solid #CEDC00;
+  box-shadow: 0px 18.43px 46.07px 0px #00000014;
+  background-color: inherit;
+  font-size: 180px;
+}
+
+.orderNoWrapper {
+  width: 510.49px;
+  height: 253.65px;
+  padding: 50.83px 45.74px 50.83px 45.74px;
+  border-radius: 15.25px;
+  border: 1.27px solid #CEDC00;
+  box-shadow: 0px 25.41px 63.53px 0px #00000014;
+
+  margin: 3rem auto;
+
+}
+
+.orderNoTitle {
+  font-size: 30.74px;
+  font-weight: 600;
+  line-height: 43.2px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.orderNO {
+  font-size: 55.74px;
+  font-weight: 600;
+  line-height: 43.2px;
+  text-align: center;
+}
