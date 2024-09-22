@@ -4,10 +4,12 @@ import BottomGreenRibbon from "../Reusables/BottomGreenRibbon";
 import Logo from "../Reusables/Logo";
 import { StepContext } from "../../Contexts/StepContext/StepContext";
 import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
+import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
 const ChooseLang = () => {
   const { handleStepChange } = useContext(StepContext);
   const {setTakeaway} = useContext(OrderContext)
+  const { data } = useContext(DataContext);
 
 
   return (
@@ -21,7 +23,7 @@ const ChooseLang = () => {
           padding: "4rem",
         }}
       >
-        <Logo />
+        <Logo source={data.ThemeResponse.LogoImage.Url}/>
       </div>
       <div style={{ marginBottom: "4rem" }}>
         <BigerHeading text="Welkom bij Eazie wilt u uw bestelling" width={60} />

@@ -62,7 +62,7 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #CEDB00;
+  background-color: #f1f1f0;
 }
 
 .langMenuBtn {
@@ -123,6 +123,7 @@ img {
   flex-wrap: wrap;
   margin-top: 2rem;
   overflow-y: scroll;
+  scroll-behavior: smooth;
   max-height: 75% !important;
 }
 

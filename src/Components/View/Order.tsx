@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { meals } from "../../Data/Meals";
-import { MealType } from "../../Types/Types";
+import { MainCategory2, Product } from "../../Types/Types";
 import BottomGreenRibbon from "../Reusables/BottomGreenRibbon";
 import Logo from "../Reusables/Logo";
 import CategoryCard from "../Reusables/OrderPage/CategoryCard";
@@ -9,32 +9,45 @@ import SpecialPromo from "../Reusables/OrderPage/SpecialPromo";
 import { useContext } from "react";
 import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../Contexts/StepContext/StepContext";
+import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
 const Order = () => {
-  const { getOrderTotal, orders } = useContext(OrderContext);
+
+  const { data } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
+  const { getOrderTotal, orders } = useContext(OrderContext);
 
-  const [selectedCategory, setselectedCategory] = useState("");
-  const [mealsToDisplay, setMealsToDisplay] = useState<MealType[]>(meals);
+  const allCategories = data.TMKData[0].MainCategories
 
-  const allCategories = Array.from(new Set(meals.map((meal) => meal.category)));
-  const specialOfferItem = meals.find((meal) => meal.mothlySpecial);
-
-  const handleCategoryChange = (cat: string) => {
-    setselectedCategory(cat);
-
-    setMealsToDisplay(
-      meals.slice().filter((meal) => meal.category.toLowerCase() === cat)
+  const getAllProducts = (categories: MainCategory2[]) => {
+    return categories.flatMap(category => 
+      category.SubCategories.flatMap(subCategory => 
+        subCategory.Products.map(p => p)
+      )
     );
   };
 
   const total = getOrderTotal();
+  const allProducts = getAllProducts(allCategories)
 
-  console.log(total);
+  const [selectedCategory, setselectedCategory] = useState(data.TMKData[0].MainCategories[0].MainCategoryId);
+  const [mealsToDisplay, setMealsToDisplay] = useState<Product[]>(allProducts.filter(p => p.MainCategoryId === selectedCategory));
+
+  const specialOfferItem = meals.find((meal) => meal.mothlySpecial);
+
+  const handleCategoryChange = (catID: number) => {
+    setselectedCategory(catID);
+
+    //OVDE SE MENAT JADENJATA NA RENDER  
+    const filteredProducts: Product[] = allProducts.filter(p => p.MainCategoryId === catID)
+
+    setMealsToDisplay(filteredProducts)
+  };
+
   
-
+  
   return (
-    <section className="startScreen">
+    <section className="startScreen" style={{backgroundImage: `url('${data.ThemeResponse.CoverImage.Url}')`}}>
       <div className="overlay">
         <div
           style={{
@@ -45,7 +58,7 @@ const Order = () => {
             padding: "2rem",
           }}
         >
-          <Logo width={166} />
+          <Logo source={data.ThemeResponse.LogoImage.Url} width={166} />
         </div>
 
         <div
@@ -56,7 +69,7 @@ const Order = () => {
             padding: "2rem 1rem",
             backgroundColor: "white",
             minHeight: "71%",
-            maxHeight: "71%",
+            maxHeight: "79%",
             overflow: "hidden",
           }}
         >
@@ -73,8 +86,8 @@ const Order = () => {
           >
             {allCategories.map((category) => (
               <CategoryCard
-                key={category}
-                text={category}
+                key={category.MainCategoryId}
+                category={category}
                 currentCategory={selectedCategory}
                 handleCategoryChange={handleCategoryChange}
               />
@@ -85,7 +98,7 @@ const Order = () => {
           <div style={{ flexBasis: "78%" }}>
             {specialOfferItem && <SpecialPromo item={specialOfferItem} />}
 
-            <Listing meals={mealsToDisplay} />
+            <Listing products={mealsToDisplay} selectedCategory={selectedCategory}/>
           </div>
         </div>
 

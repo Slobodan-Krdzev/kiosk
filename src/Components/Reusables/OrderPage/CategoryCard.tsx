@@ -1,11 +1,13 @@
+import {MainCategory2 } from "../../../Types/Types";
+
 type CategoryCardPropsType = {
-  text: string;
-  currentCategory: string;
-  handleCategoryChange: (cat: string) => void;
+  category: MainCategory2;
+  currentCategory: number;
+  handleCategoryChange: (catID: number) => void;
 };
 
 const CategoryCard = ({
-  text,
+  category: {Name, PictureUrl, MainCategoryId},
   currentCategory,
   handleCategoryChange,
 }: CategoryCardPropsType) => {
@@ -13,23 +15,23 @@ const CategoryCard = ({
     <button
       className="categoryBtn"
       style={{
-        backgroundColor: currentCategory === text ? "#CEDC00" : "#FFFFFF",
+        backgroundColor: currentCategory === MainCategoryId ? "#CEDC00" : "#FFFFFF",
       }}
       onClick={() => {
-        handleCategoryChange(text)
+        handleCategoryChange(MainCategoryId)
       }}
     >
-      <img src={`/category.png`} alt={text} style={{ width: "42.5px" }} />
+      <img src={PictureUrl} alt={Name.toLowerCase()} style={{ width: "42.5px" }} />
       <p
         style={{
-          fontSize: "22px",
+          fontSize: "16px",
           textTransform: "capitalize",
           fontWeight: 600,
           marginTop: "1rem",
-          lineHeight: "28px",
+          lineHeight: "20px",
         }}
       >
-        {text}
+        {Name}
       </p>
     </button>
   );

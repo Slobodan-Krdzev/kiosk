@@ -6,8 +6,8 @@ const Finish = () => {
   const {finalInfo} = useContext(StepContext)
 
   console.log('====================================');
-    console.log('FINNISHED ORDER', "Order Number: ", finalInfo.orderNum, "Order: ", finalInfo.orderDet);
-    console.log('====================================');
+  console.log('FINNISHED ORDER', "Order Number: ", finalInfo.orderNum, "Order: ", finalInfo.orderDet);
+  console.log('====================================');
     
 
   return (

@@ -1,17 +1,20 @@
 import { useContext } from "react";
 import BottomGreenRibbon from "../Reusables/BottomGreenRibbon";
 import { StepContext } from "../../Contexts/StepContext/StepContext";
-import Logo from "../Reusables/Logo";
+// import Logo from "../Reusables/Logo";
+import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
 const StartScreen = () => {
   const { handleStepChange } = useContext(StepContext);
+  const { data } = useContext(DataContext);
+
 
   return (
-    <section className="startScreen">
+    <section className="startScreen" style={{backgroundImage: `url('${data.ThemeResponse.CoverImage.Url}')`}}>
       <div className="overlay">
         <div className="h1Wrapper">
           <h1 className="text-5xl">
-            Enjoy Life, <br /> eat healthy
+            {data.ThemeResponse.RestaurantName}
           </h1>
         </div>
 
@@ -21,10 +24,11 @@ const StartScreen = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
+            
           }}
         >
 
-            <Logo />
+            {/* <Logo source={data.ThemeResponse.LogoImage.Url}/> */}
         </div>
       </div>
       <BottomGreenRibbon>
@@ -35,14 +39,14 @@ const StartScreen = () => {
             fontFamily: "sans-serif",
             backgroundColor: "inherit",
             minWidth: "100%",
-            minHeight: "200px",
+            minHeight: "150px",
             border: "none",
           }}
           onClick={() => {
             handleStepChange("lang");
           }}
         >
-          TIK OM TE STARTEN
+          Start Order
         </button>
       </BottomGreenRibbon>
     </section>
