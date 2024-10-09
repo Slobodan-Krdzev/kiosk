@@ -15,7 +15,7 @@ const CheckoutCard = ({ order, theme }: CheckoutCardPropsType) => {
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
   );
-  const { setSingleMealQuantity, orders } = useContext(OrderContext);
+  const { setSingleMealQuantity } = useContext(OrderContext);
 
   return (
     <div className={styles.checkoutCard}>
