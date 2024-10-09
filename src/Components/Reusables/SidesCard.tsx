@@ -1,62 +1,47 @@
-import { SidesType } from "../../Types/Types";
+import { Option } from "../../Types/Types";
 
 type SidesCardPropsType = {
-    extraType?: string;
-    text: string;
-    image: string;
-    price: number;
-    selected: SidesType | undefined;
-    extra: {
-      id: number;
-      name: string;
-      price: number;
-      image: string;
-    };
-    handleSelect: (extra: {
-      id: number;
-      name: string;
-      price: number;
-      image: string;
-    }) => void;
-    handleRemove: (extra: {
-      id: number;
-      name: string;
-      price: number;
-      image: string;
-    }) => void;
+    selected: Option[] | undefined;
+    extra: Option;
+    handleSelect: (extra: Option) => void;
+    handleRemove: (extra: Option) => void;
   };
 
 const SidesCard = ({
-    text,
-    image,
-    price,
     handleSelect,
+    handleRemove,
     extra,
     selected
   }: SidesCardPropsType) => {
 
-    const selectedType = selected?.type;
+  const sideIsSelected = (selected && selected.find(side => extra.Id === side.Id)) 
 
   return (
     <div className="extraBtn">
-      <img src={image} alt={text} />
+      <img src={extra.PictureUrl} alt={extra.Name} />
       <p style={{ fontSize: "26px", fontWeight: 600, lineHeight: "39px" }}>
-        {text}
+        {extra.Name}
       </p>
       <p style={{ fontSize: "20px", fontWeight: 500, lineHeight: "32px" }}>
-        {price}
+        {extra.Price}
       </p>
       <button
         className="extraBtnButton"
         style={{
-          backgroundColor: selectedType === extra.name ? "#CEDC00" : "inherit",
-          borderColor: selectedType === extra.name ? "" : "#CEDC00",
+          backgroundColor: sideIsSelected ? "#CEDC00" : "inherit",
+          borderColor: sideIsSelected ? "" : "#CEDC00",
         }}
         onClick={() => {
+
+          if(sideIsSelected) {
+            handleRemove(extra)
+          }else {
             handleSelect(extra)
+          }
+
         }}
       >
-        <img src={selectedType === extra.name ? "/checkMark.png" : "/plus.png"} alt="Button" />
+        <img src={sideIsSelected ? "/checkMark.png" : "/plus.png"} alt="Button" />
       </button>
     </div>
   )

@@ -1,36 +1,14 @@
 import { useState } from "react";
+import { DrinksType, Option } from "../../Types/Types";
 
 type DrinksCardPropsType = {
-  text: string;
-  image: string;
-  price: number;
-  extra: {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-  };
-  addDrink: (drink: {
-    id: number;
-    name: string;
-    price: number;
-    quntity: number;
-    totalPrice: number;
-  }) => void;
-  removeDrink: (id: number) => void;
-  addQuantity: (drink: {
-    id: number;
-    name: string;
-    price: number;
-    quntity: number;
-    totalPrice: number;
-  }) => void;
+  extra: Option;
+  addDrink: (drink: Option) => void;
+  removeDrink: (drink: Option) => void;
+  addQuantity: (drink: DrinksType) => void;
 };
 
 const DrinksCard = ({
-  text,
-  image,
-  price,
   extra,
   addDrink,
   removeDrink,
@@ -41,12 +19,12 @@ const DrinksCard = ({
 
   return (
     <div className="extraBtn">
-      <img src={image} alt={text} />
+      <img src={extra.PictureUrl} alt={extra.Name} />
       <p style={{ fontSize: "26px", fontWeight: 600, lineHeight: "39px" }}>
-        {text}
+        {extra.Name}
       </p>
       <p style={{ fontSize: "20px", fontWeight: 500, lineHeight: "32px" }}>
-        {price}
+        {extra.Price}
       </p>
 
       {!isSelected && (
@@ -54,13 +32,7 @@ const DrinksCard = ({
           className="drinksBtnButton"
           onClick={() => {
             setIsSelected(!isSelected);
-            addDrink({
-              id: extra.id,
-              name: extra.name,
-              price: extra.price,
-              quntity: quantity,
-              totalPrice: extra.price * quantity,
-            });
+            addDrink(extra);
           }}
         >
           <img src={isSelected ? "/checkMark.png" : "/plus.png"} alt="Button" />
@@ -74,17 +46,15 @@ const DrinksCard = ({
               if (quantity === 1) {
                 setQuantity(1);
                 setIsSelected(false);
-                removeDrink(extra.id);
+                removeDrink(extra);
               } else if (quantity === 0) {
-                removeDrink(extra.id);
+                removeDrink(extra);
               } else {
                 setQuantity(quantity - 1);
                 addQuantity({
-                  id: extra.id,
-                  name: extra.name,
-                  price: extra.price,
-                  quntity: quantity - 1,
-                  totalPrice: (quantity - 1) * extra.price,
+                  drink: extra,
+                  quantity: quantity - 1,
+                  total: (quantity - 1) * extra.Price,
                 });
               }
             }}
@@ -96,11 +66,9 @@ const DrinksCard = ({
             onClick={() => {
               setQuantity(quantity + 1);
               addQuantity({
-                id: extra.id,
-                name: extra.name,
-                price: extra.price,
-                quntity: quantity + 1,
-                totalPrice: (quantity + 1) * extra.price,
+                drink: extra,
+                quantity: quantity + 1,
+                total: (quantity + 1) * extra.Price,
               });
 
               console.log(quantity + 1);

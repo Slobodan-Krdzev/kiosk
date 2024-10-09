@@ -1,0 +1,14 @@
+.mealsListing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-auto-rows: 192px; /* od ovde setirame height na karticka */
+    gap: 10px; 
+    
+}
+
+@media (max-width: 425px) {
+    .mealsListing{
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+  }

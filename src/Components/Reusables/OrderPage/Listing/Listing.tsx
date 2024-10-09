@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
-import { Product } from "../../../Types/Types";
-import MealCard from "./MealCard";
+import { Product, ThemeType } from "../../../../Types/Types";
+import MealCard from "../MealCard/MealCard";
+import styles from"./ListingStyles.module.css"
 
 type ListingPropsType = {
   products: Product[];
-  selectedCategory: number
+  selectedCategory: number;
+  theme:ThemeType
 };
 
-const Listing = ({ products, selectedCategory }: ListingPropsType) => {
-  const containerRef = useRef<null | HTMLDivElement>(null);
+const Listing = ({ products, selectedCategory, theme }: ListingPropsType) => {
 
+  const containerRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
 
@@ -24,9 +26,9 @@ const Listing = ({ products, selectedCategory }: ListingPropsType) => {
 
   if (products.length) {
     return (
-      <div className="mealsListing" ref={containerRef}>
+      <div className={styles.mealsListing} ref={containerRef}>
         {products.map((p) => (
-          <MealCard key={p.ProductId} product={p} />
+          <MealCard key={p.ProductId} product={p} theme={theme}/>
         ))}
       </div>
     );

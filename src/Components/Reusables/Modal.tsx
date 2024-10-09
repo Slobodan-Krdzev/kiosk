@@ -1,6 +1,6 @@
 
 type ModalPropsType = {
-    children: JSX.Element
+    children: JSX.Element,
 }
 
 const Modal = ({children}: ModalPropsType) => {

@@ -6,16 +6,18 @@ import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
 const StartScreen = () => {
   const { handleStepChange } = useContext(StepContext);
-  const { data } = useContext(DataContext);
-
+  const { data, theme } = useContext(DataContext);
 
   return (
-    <section className="startScreen" style={{backgroundImage: `url('${data.ThemeResponse.CoverImage.Url}')`}}>
+    <section
+      className="startScreen"
+      style={{
+        backgroundImage: `url('${data.ThemeResponse.CoverImage.Url ?? ""}')`,
+      }}
+    >
       <div className="overlay">
         <div className="h1Wrapper">
-          <h1 className="text-5xl">
-            {data.ThemeResponse.RestaurantName}
-          </h1>
+          <h1 className="fontDancing">Enjoy Life <br /> Eat Healthy</h1>
         </div>
 
         <div
@@ -24,22 +26,21 @@ const StartScreen = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            
           }}
         >
-
-            {/* <Logo source={data.ThemeResponse.LogoImage.Url}/> */}
+          {/* <Logo source={data.ThemeResponse.LogoImage.Url}/> */}
         </div>
       </div>
       <BottomGreenRibbon>
         <button
+          className="fontRaleway startBtn"
           style={{
-            fontSize: "2rem",
+            lineHeight: '34px',
             fontWeight: 600,
-            fontFamily: "sans-serif",
-            backgroundColor: "inherit",
+            textTransform: 'uppercase',
+            backgroundColor: theme.bgColor,
+            color: theme.textColor,
             minWidth: "100%",
-            minHeight: "150px",
             border: "none",
           }}
           onClick={() => {

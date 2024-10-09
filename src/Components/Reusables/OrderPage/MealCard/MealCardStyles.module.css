@@ -1,0 +1,35 @@
+.card {
+    padding: 0.4rem;
+    border-radius: 13.86px;
+    box-shadow: 0px 2.6px 6.93px -0.87px #3232470D;
+    border: 1.07px solid #D3D3D3;
+    position: relative;
+}
+
+.imgWrapper {
+    width: 90%;
+    margin: 0.2rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.productImage {
+    width: 80%;
+    height: 95px;
+    border-radius: 37px;
+    margin: 0 auto;
+}
+
+.productBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25%;
+    height: 15%;
+
+    font-size: 20.7px;
+    border-radius: 25.99px 0px 13.86px 0px;
+    border: none;
+}
+

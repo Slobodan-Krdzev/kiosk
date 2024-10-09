@@ -7,13 +7,13 @@ type BigerHeadingPropsType = {
 const BigerHeading = ({ text, fontSize = 58, width = 100 }: BigerHeadingPropsType) => {
   return (
     <p
+    className="fontRaleway"
       style={{
         fontSize: `${fontSize}px`,
         fontWeight: 600,
-        lineHeight: "68.09px",
         textAlign: "center",
         width: `${width}%`,
-        margin: '0 auto'
+        // margin: '0 auto'
       }}
     >
       {text}

@@ -1,0 +1,58 @@
+.orderView {
+    min-height: 100vh;
+}
+
+.orderViewLogoWrapperTop {
+    height: 15vh;
+    background: radial-gradient(90.37% 586.33% at 9.63% 73.7%, rgba(32, 29, 34, 0.429) 9.69%, rgba(0, 0, 0, 0.55) 29.4%, rgba(0, 0, 0, 0.55) 56.15%, rgba(32, 29, 34, 0.55) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orderViewMidSection {
+    height: 75vh;
+    background-color: white;
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+.orderViewSidebar {
+    flex-basis: 20%;
+    padding: 0.5rem 1rem;
+    overflow-y: scroll;
+}
+
+.orderViewRightSide {
+    flex-basis: 80%;
+    overflow-y: scroll;
+    padding: 0.5rem 1rem 0 0;
+}
+
+.orderViewRightSide::-webkit-scrollbar {
+    display: none;
+}
+
+.orderViewSidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.orderViewRightSide,
+.orderViewSidebar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.bottomRibbonContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 10vh;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+

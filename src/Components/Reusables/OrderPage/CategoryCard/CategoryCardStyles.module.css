@@ -1,0 +1,18 @@
+.categoryCard {
+    height: 114.33px;
+    padding: 14px 10px 14px 10px;
+  
+    background-color: #ffffff;
+    border: none;
+    box-shadow: 0px 3.77px 18.85px 0px #0000001A;
+    border-radius: 5.66px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .categoryCard:not(:last-child){
+    margin-bottom: 0.5rem;
+  }

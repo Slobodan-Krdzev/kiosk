@@ -1,0 +1,19 @@
+.paymentSingleCard{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.top {
+    flex-basis: 60%;
+}
+
+.productNameP {
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.productNameP span {
+    text-transform: lowercase;
+}

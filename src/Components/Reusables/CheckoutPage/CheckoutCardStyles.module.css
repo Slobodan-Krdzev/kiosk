@@ -1,0 +1,204 @@
+.checkoutCard {
+    height: 218px;
+    max-width: 100%;
+    border-radius: 16px;
+    border: 1px solid #D9D9D9;
+    opacity: 0px;
+    box-shadow: 1px 1px 10px 2px #0000001A;
+    margin-bottom: 1rem;
+
+    position: relative;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.checkoutCard img {
+    border-radius: 1rem;
+}
+
+
+.checkoutCardInfoWrapper {
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    padding: 0.5rem 0;
+}
+
+.checkoutCardMealName {
+    margin-bottom: 1rem;
+}
+
+.mealInfoWrapper p {
+    text-transform: capitalize;
+
+}
+
+.mealInfoWrapper p:not(:last-child) {
+    margin-bottom: 0.4rem;
+}
+
+
+.checkoutCard img {
+    width: 175px;
+    height: 175px;
+}
+
+.checkoutCard .checkoutCardPrice,
+.checkoutCardBtn {
+    position: absolute;
+}
+
+.checkoutCardPrice {
+    position: absolute;
+    top: 15%;
+    right: 2%;
+    
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 36px;
+
+}
+
+.checkoutCardBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    width: 80px;
+    height: 48px;
+    gap: 0px;
+    border-radius: 30px 0px 16px 0px;
+    opacity: 0px;
+    background-color: #CEDC00;
+    border: none;
+
+    font-size: 24px;
+}
+
+
+.checkoutCardQuantityWrapper {
+    width: 134px;
+    height: 68px;
+    gap: 0px;
+    border-radius: 30px 0px 16px 0px;
+    opacity: 0px;
+    background-color: #CEDC00;
+    border: none;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkoutCardQuantityWrapper button {
+    background-color: inherit;
+    border: none;
+
+}
+
+.quantityCounter {
+    font-size: 28px;
+    font-weight: 590;
+    line-height: 44.8px;
+
+}
+
+@media (max-width: 800px) {
+
+    .checkoutCardBtn {
+        width: 90px;
+        height: 50px;
+        font-size: 28px;
+    }
+
+    .checkoutCardQuantityWrapper {
+        width: 120px;
+        height: 60px;
+        border: none;
+    }
+
+    .checkoutCardQuantityWrapper button {
+        background-color: inherit;
+        border: none;
+        font-size: 28px;
+    }
+
+    .quantityCounter {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 425px) {
+    .checkoutCard {
+        height: 150px;
+        max-width: 100%;
+        border-radius: 16px;
+        border: 1px solid #D9D9D9;
+        opacity: 0px;
+        box-shadow: 1px 1px 10px 2px #0000001A;
+        margin-bottom: 1rem;
+
+        position: relative;
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .checkoutCard img {
+        width: 110px;
+        height: 100%;
+    }
+
+    .checkoutCardInfoWrapper {
+        padding: 0.2rem;
+    }
+
+    .checkoutCardMealName {
+        margin-bottom: 0.2rem;
+    }
+
+    .mealInfoWrapper p:not(:last-child) {
+        margin-bottom: 0.1rem;
+    }
+
+    .checkoutCardPrice {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .checkoutCardBtn {
+        width: 50px;
+        height: 34px;
+        gap: 0px;
+        border-radius: 30px 0px 16px 0px;
+        border: none;
+    }
+
+    .checkoutCardQuantityWrapper {
+        width: 80px;
+        height: 40px;
+        border: none;
+    }
+
+    .checkoutCardQuantityWrapper button {
+        background-color: inherit;
+        border: none;
+        font-size: 24px;
+    }
+
+    .quantityCounter {
+        font-size: 20px;
+    }
+}

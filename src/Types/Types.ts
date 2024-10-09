@@ -20,23 +20,21 @@ export type SidesType = {
 };
 
 export type DrinksType = {
-  id: number;
-  name: string;
-  price: number;
-  quntity: number;
-  totalPrice: number;
+  drink: Option,
+  quantity: number,
+  total: number
 };
 
 export type SingleMealType = {
   id: number;
-  meal: MealType | undefined;
+  product: Product | undefined;
   image: string | undefined;
   isTakeaway: boolean;
-  menuUpgrade: boolean;
-  supersize: boolean;
-  extras: ExtraType[];
-  sides: SidesType | undefined;
-  drinks: DrinksType[];
+  menuUpgrade: Option | undefined;
+  supersize: Option | undefined;
+  extras: Option[] | undefined;
+  sides: Option[] | undefined;
+  drinks: DrinksType[] | undefined;
   originalTotal: number;
   totalPrice: number;
   quantity: number;
@@ -549,3 +547,13 @@ export interface ServerSettings {
   MediumLevel: number;
   Color: string;
 }
+
+export interface ThemeType {
+  bgColor: string,
+  textColor: string,
+  activeTextColor: string
+}
+
+
+
+

@@ -1,26 +1,51 @@
-import { useContext, useState } from "react";
-import UpgradeBtn from "./UpgradeBtn";
+import { useContext } from "react";
 import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
+import { Option, ThemeType, UpsaleStep } from "../../Types/Types";
+import ButtonOptionSelector from "./ButtonOptionSelector/ButtonOptionSelector";
 
 type UpgradeMenuWrapperPropsTypes = {
   setType: string;
   topTextNormal: string;
   topTextUpgrade: string;
+  data: UpsaleStep;
+  theme: ThemeType;
+  handleOptionChange: (option: Option) => void,
+  selectedOption: Option | undefined
 };
 
 const UpgradeMenuWrapper = ({
-  setType,
-  topTextNormal,
-  topTextUpgrade,
+  data,
+  theme,
+  handleOptionChange,
+  selectedOption
 }: UpgradeMenuWrapperPropsTypes) => {
-  const [option, setOption] = useState<"normal" | "menu" | "">("");
-  const { setMenuUpgrade, setNoMenu, setNoSupersize, setSupersizeUpgrade, singleMeal } =
-    useContext(OrderContext);
+  const {
+    singleMeal
 
+  } = useContext(OrderContext);
+
+  
   return (
     <div className="upgradeBtnsWrapper">
-      <button
-        style={{ border: option === "normal" ? "2px solid #CEDC00" : "" }}
+      {data.Options.map((o) => (
+        <ButtonOptionSelector
+          key={o.Id}
+          option={o}
+          singleMeal={singleMeal}
+          handleOptionChange={handleOptionChange}
+          theme={theme}
+          optionSelected={selectedOption}
+        />
+      ))}
+
+
+
+
+
+
+      {
+      /* <button
+        style={{ border: option === "normal" ? `2px solid ${theme.activeTextColor}` : "" }}
         onClick={() => {
           if (option === "normal") {
             setOption("");
@@ -36,10 +61,10 @@ const UpgradeMenuWrapper = ({
         }}
       >
         <UpgradeBtn
-          itemName={singleMeal.meal!.name}
+          itemName={singleMeal.product!.Name}
           image={"/chillyBurger2.png"}
           toptext={topTextNormal}
-          price={"Item Price"}
+          price={`${singleMeal.product!.Price} ${singleMeal.product!.PriceValue}`}
         />
       </button>
       <button
@@ -59,12 +84,12 @@ const UpgradeMenuWrapper = ({
         }}
       >
         <UpgradeBtn
-          itemName={singleMeal.meal!.name + " Menu"}
+          itemName={singleMeal.product!.Name + " Menu"}
           image={"/chillyBuregerMenu.png"}
           toptext={topTextUpgrade}
           price={"+ 5.89"}
-        />
-      </button>
+        /> 
+       </button> */}
     </div>
   );
 };

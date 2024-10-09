@@ -1,53 +1,35 @@
 import { useState } from "react";
+import { Option, ThemeType } from "../../Types/Types";
 
 type ExtrasCardPropsType = {
-  extraType?: string;
-  text: string;
-  image: string;
-  price: number;
-  extra: {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-  };
-  handleSelect: (extra: {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-  }) => void;
-  handleRemove: (extra: {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-  }) => void;
+  extra: Option;
+  theme: ThemeType
+  handleSelect: (extra: Option) => void;
+  handleRemove: (extra: Option) => void;
 };
 
 const ExtrasCard = ({
-  text,
-  image,
-  price,
-  handleSelect,
+  
   extra,
+  theme,
+  handleSelect
 }: ExtrasCardPropsType) => {
   const [isSelected, setIsSelected] = useState(false);
 
   return (
     <div className="extraBtn">
-      <img src={image} alt={text} />
+      <img src={extra.PictureUrl} alt={extra.Name} />
       <p style={{ fontSize: "26px", fontWeight: 600, lineHeight: "39px" }}>
-        {text}
+        {extra.Name}
       </p>
       <p style={{ fontSize: "20px", fontWeight: 500, lineHeight: "32px" }}>
-        {price}
+        {extra.Price}
       </p>
       <button
         className="extraBtnButton"
         style={{
-          backgroundColor: isSelected ? "#CEDC00" : "inherit",
-          borderColor: isSelected ? "" : "#CEDC00",
+          backgroundColor: isSelected ? theme.activeTextColor : "inherit",
+          borderColor: isSelected ? "" : theme.activeTextColor,
         }}
         onClick={() => {
           setIsSelected(!isSelected);

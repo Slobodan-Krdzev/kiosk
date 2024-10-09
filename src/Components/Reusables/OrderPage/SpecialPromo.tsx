@@ -1,10 +1,11 @@
-import { MealType } from "../../../Types/Types";
+import { MealType, ThemeType } from "../../../Types/Types";
 
 type SpecialPromoPropsType = {
   item: MealType;
+  theme:ThemeType
 };
 
-const SpecialPromo = ({ item }: SpecialPromoPropsType) => {
+const SpecialPromo = ({ item, theme }: SpecialPromoPropsType) => {
   return (
     <div className="specialOfferDiv">
       <div style={{ padding: "2rem" }}>
@@ -28,8 +29,9 @@ const SpecialPromo = ({ item }: SpecialPromoPropsType) => {
       <p style={{ position: "absolute", bottom: "15%", paddingLeft: "2rem" }}>
         Now: {item.price}
       </p>
-      <button>
-        <img src="/plus.png" alt="Add" />
+      <button style={{fontSize: 33, backgroundColor: theme.activeTextColor, color: theme.textColor}}>
+        {/* <img src="/plus.png" alt="Add" /> */}
+        &#43;
       </button>
     </div>
   );
