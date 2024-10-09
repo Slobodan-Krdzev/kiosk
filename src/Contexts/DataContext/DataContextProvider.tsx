@@ -17,13 +17,15 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   console.log(data);
   console.log('====================================');
 
+  if (isError) {
+    return <>Error od context</>;
+  }
+
   if (isLoading) {
     return <>Loading od context</>;
   }
 
-  if (isError) {
-    return <>Error od context</>;
-  }
+  
 
   const categoryToRender:MainCategory2 = data.TMKData[0].MainCategories.find(
     (cat: MainCategory2) => cat.MainCategoryId === 40394
