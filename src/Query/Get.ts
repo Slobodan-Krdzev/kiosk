@@ -1,6 +1,6 @@
 const Get = async () => {
   const response = await fetch(
-    "http://dev.revelapps.com:9091/service/getresources?deviceid=2&menuid=23"
+    "/api/service/getresources?deviceid=2&menuid=23"
   );
 
   if (!response.ok) {
