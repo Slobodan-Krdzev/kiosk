@@ -13,6 +13,10 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     queryKey: ["data"],
   });
 
+  console.log('====================================');
+  console.log(data);
+  console.log('====================================');
+
   if (isLoading) {
     return <>Loading od context</>;
   }
