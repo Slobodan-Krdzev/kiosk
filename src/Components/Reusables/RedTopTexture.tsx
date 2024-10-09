@@ -1,16 +1,11 @@
-
 type RedTopTexturePropsType = {
-    text?: string;
-    children: JSX.Element
-    image: string
-}
+  text?: string;
+  children: JSX.Element;
+  image: string;
+};
 
-const RedTopTexture = ({children, image}: RedTopTexturePropsType) => {
-  return (
-    <div className="redTopTexture">
-        {children}
-    </div>
-  )
-}
+const RedTopTexture = ({ children }: RedTopTexturePropsType) => {
+  return <div className="redTopTexture">{children}</div>;
+};
 
-export default RedTopTexture
+export default RedTopTexture;
