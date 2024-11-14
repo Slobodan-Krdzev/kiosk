@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BigerHeading from "../Reusables/BigerHeading";
 import ExtrasCard from "../Reusables/ExtrasCard";
 import RedTopTexture from "../Reusables/RedTopTexture";
@@ -8,44 +8,6 @@ import { Option } from "../../Types/Types";
 import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
 import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
-// const extras = [
-//   {
-//     id: 1,
-//     name: "Ketchup",
-//     price: 1.4,
-//     image: "/extras.png",
-//   },
-//   {
-//     id: 2,
-//     name: "Mayo",
-//     price: 1.4,
-//     image: "/extras.png",
-//   },
-//   {
-//     id: 3,
-//     name: "Mustard",
-//     price: 1.4,
-//     image: "/extras.png",
-//   },
-//   {
-//     id: 4,
-//     name: "Pesto",
-//     price: 2.4,
-//     image: "/extras.png",
-//   },
-//   {
-//     id: 5,
-//     name: "BBQ Sauce",
-//     price: 2.4,
-//     image: "/extras.png",
-//   },
-//   {
-//     id: 6,
-//     name: "Tsatziki",
-//     price: 3.4,
-//     image: "/extras.png",
-//   },
-// ];
 
 const Extras = () => {
   const { handleStepChange } = useContext(StepContext);
@@ -53,15 +15,12 @@ const Extras = () => {
   const { data, theme } = useContext(DataContext);
   const extrasOptions =
     data.TMKData[0].UpsaleColletions[0].UpsaleSteps[2].Options;
+    const maxSelection = 2
+    
 
   const [selectedExtras, setSelectedExtras] = useState<Option[]>([]);
 
   const handleSelectedExtras = (extra: Option) => {
-    // const formatedExtra: ExtraType = {
-    //   id: extra.id,
-    //   type: extra.name,
-    //   price: extra.price,
-    // };
 
     setSelectedExtras([...selectedExtras, extra]);
   };
@@ -73,6 +32,8 @@ const Extras = () => {
 
     setSelectedExtras(filteredExtras);
   };
+
+  useEffect(() => {}, [selectedExtras])
 
   return (
     <section className="fullScreen">
@@ -91,7 +52,7 @@ const Extras = () => {
           fontSize={40}
         />
 
-        <div className="extrasWrapper">
+        <div className="extrasWrapper" style={{marginTop: '2rem'}}>
           {extrasOptions.map((extra: Option) => (
             <ExtrasCard
               key={extra.Id}
@@ -99,15 +60,18 @@ const Extras = () => {
               theme={theme}
               handleSelect={handleSelectedExtras}
               handleRemove={handleRemoveExtra}
+              maxSelection={maxSelection}
+              currentSelectionLength={selectedExtras.length}
             />
           ))}
         </div>
       </div>
 
       <UpgradeBottomRibbon>
-        <div>
+        <div className="bottomRibbonBtnWrapper">
           <button
-            className="cancelBtn"
+            className="bottomRibbonBtn fontRaleway"
+            style={{borderColor: theme.activeTextColor}}
             onClick={() => {
               handleStepChange("supersize");
             }}
@@ -116,7 +80,11 @@ const Extras = () => {
           </button>
           <p>2/5</p>
           <button
-            className="cancelBtn nextBtn"
+            className="bottomRibbonBtn fontRaleway "
+            disabled={!selectedExtras.length}
+            style={{
+              backgroundColor: theme.activeTextColor,
+            }}
             onClick={() => {
               handleStepChange("sides");
               setExtras(selectedExtras);

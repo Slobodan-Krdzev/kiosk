@@ -1,17 +1,23 @@
-import { Option } from "../../Types/Types";
+import { Option, ThemeType } from "../../Types/Types";
 
 type SidesCardPropsType = {
     selected: Option[] | undefined;
     extra: Option;
     handleSelect: (extra: Option) => void;
     handleRemove: (extra: Option) => void;
+    theme:ThemeType;
+    maxSelection: number;
+    currentSelectionCount: number
   };
 
 const SidesCard = ({
     handleSelect,
     handleRemove,
     extra,
-    selected
+    selected,
+    theme,
+    maxSelection,
+    currentSelectionCount
   }: SidesCardPropsType) => {
 
   const sideIsSelected = (selected && selected.find(side => extra.Id === side.Id)) 
@@ -26,10 +32,11 @@ const SidesCard = ({
         {extra.Price}
       </p>
       <button
+        disabled={currentSelectionCount >= maxSelection && !sideIsSelected}
         className="extraBtnButton"
         style={{
-          backgroundColor: sideIsSelected ? "#CEDC00" : "inherit",
-          borderColor: sideIsSelected ? "" : "#CEDC00",
+          backgroundColor: sideIsSelected ? theme.activeTextColor : "inherit",
+          borderColor: sideIsSelected ? "" : theme.activeTextColor,
         }}
         onClick={() => {
 
@@ -41,7 +48,7 @@ const SidesCard = ({
 
         }}
       >
-        <img src={sideIsSelected ? "/checkMark.png" : "/plus.png"} alt="Button" />
+        {currentSelectionCount >= maxSelection ? <span style={{fontSize:16}}>max</span>: sideIsSelected ?  <span>&#10003;</span> : <span>&#43;</span> }
       </button>
     </div>
   )

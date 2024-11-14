@@ -1,0 +1,14 @@
+.startScreen {
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.startScreenOverlay {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}

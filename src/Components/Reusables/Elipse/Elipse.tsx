@@ -8,8 +8,8 @@ const Elipse = ({color}: ElipsePropsType) => {
     <svg
       className="elipse"
       width="800"
-      height="312"
-      viewBox="0 0 800 312"
+      height="212"
+      viewBox="0 0 1100 312"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

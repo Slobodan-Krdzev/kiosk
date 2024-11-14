@@ -1,5 +1,5 @@
 .checkoutCard {
-    height: 218px;
+    height: 198px;
     max-width: 100%;
     border-radius: 16px;
     border: 1px solid #D9D9D9;
@@ -19,18 +19,50 @@
     border-radius: 1rem;
 }
 
+.checkoutCardActionBtnsWrapper {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+}
+
+.checkoutCardActionBtnsWrapper button {
+    background-color: inherit;
+    border: none;
+}
+
+.checkoutCardActionBtnsWrapper button:first-child {
+    margin-right: 25px;
+}
 
 .checkoutCardInfoWrapper {
     flex-basis: 60%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: start;
     padding: 0.5rem 0;
+    position: relative;
 }
 
 .checkoutCardMealName {
-    margin-bottom: 1rem;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 34px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.checkoutCardExtrasText {
+    font-size: 16px;
+    font-weight: 274;
+    line-height: 28px;
+    letter-spacing: -0.25999999046325684px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #5A5A5A;
 }
 
 .mealInfoWrapper p {
@@ -55,12 +87,15 @@
 
 .checkoutCardPrice {
     position: absolute;
-    top: 15%;
-    right: 2%;
-    
-    font-size: 28px;
-    font-weight: 500;
-    line-height: 36px;
+    bottom: 0%;
+    left: 0%;
+
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 33px;
+    text-align: right;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 
 }
 
@@ -83,7 +118,7 @@
 
 .checkoutCardQuantityWrapper {
     width: 134px;
-    height: 68px;
+    height: 58px;
     gap: 0px;
     border-radius: 30px 0px 16px 0px;
     opacity: 0px;
@@ -103,15 +138,18 @@
 .checkoutCardQuantityWrapper button {
     background-color: inherit;
     border: none;
-
 }
 
 .quantityCounter {
     font-size: 28px;
-    font-weight: 590;
+    font-weight: 400;
     line-height: 44.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 
 }
+
 
 @media (max-width: 800px) {
 

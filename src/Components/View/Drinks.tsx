@@ -8,47 +8,8 @@ import { DrinksType, Option } from "../../Types/Types";
 import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
 import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
-// const drinks = [
-//   {
-//     id: 1,
-//     name: "Coca Cola",
-//     price: 1.2,
-//     image: "/coke.png",
-//   },
-//   {
-//     id: 2,
-//     name: "Coca Cola2",
-//     price: 1.4,
-//     image: "/coke.png",
-//   },
-//   {
-//     id: 3,
-//     name: "Coca Cola3",
-//     price: 4.4,
-//     image: "/coke.png",
-//   },
-//   {
-//     id: 4,
-//     name: "Coca Cola4",
-//     price: 1.4,
-//     image: "/coke.png",
-//   },
-//   {
-//     id: 5,
-//     name: "Coca Cola5",
-//     price: 2.4,
-//     image: "/coke.png",
-//   },
-//   {
-//     id: 6,
-//     name: "Coca Cola6",
-//     price: 3.4,
-//     image: "/coke.png",
-//   },
-// ];
-
 const Drinks = () => {
-  const { data } = useContext(DataContext);
+  const { data, theme } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
   const { setDrinks, placeMealInOrders, singleMeal } = useContext(OrderContext);
   const [selectedDrinks, setSelectedDrinks] = useState<
@@ -59,7 +20,11 @@ const Drinks = () => {
     data.TMKData[0].UpsaleColletions[0].UpsaleSteps[4].Options;
 
   const handleAddDrink = (drink: Option) => {
-    const formatedDrink: DrinksType = { drink, quantity: 1, total: drink.Price };
+    const formatedDrink: DrinksType = {
+      drink,
+      quantity: 1,
+      total: drink.Price,
+    };
 
     if (!selectedDrinks) {
       setSelectedDrinks([formatedDrink]);
@@ -76,26 +41,22 @@ const Drinks = () => {
   };
 
   const handeAddQuantityToDrink = (drink: DrinksType) => {
-    const filteredDrinks = selectedDrinks && selectedDrinks.map((d) => {
-      if (d.drink.Id === drink.drink.Id) {
-        return { ...d, quantity: drink.quantity, total: drink.total };
-      } else {
-        return d;
-      }
-    });
+    const filteredDrinks =
+      selectedDrinks &&
+      selectedDrinks.map((d) => {
+        if (d.drink.Id === drink.drink.Id) {
+          return { ...d, quantity: drink.quantity, total: drink.total };
+        } else {
+          return d;
+        }
+      });
 
     setSelectedDrinks(filteredDrinks);
   };
 
   useEffect(() => {
     if (selectedDrinks) setDrinks(selectedDrinks);
-
-
-  console.log("SINGLE MEAL DRINKS", selectedDrinks);
-
   }, [selectedDrinks]);
-
-  console.log("SINGLE MEAL DRINKS", singleMeal);
 
   return (
     <section className="fullScreen">
@@ -119,15 +80,17 @@ const Drinks = () => {
               addDrink={handleAddDrink}
               removeDrink={handleRemoveDrink}
               addQuantity={handeAddQuantityToDrink}
+              theme={theme}
             />
           ))}
         </div>
       </div>
 
       <UpgradeBottomRibbon>
-        <div>
+        <div className="bottomRibbonBtnWrapper">
           <button
-            className="cancelBtn"
+            className="bottomRibbonBtn fontRaleway"
+            style={{ borderColor: theme.activeTextColor }}
             onClick={() => {
               handleStepChange("sides");
             }}
@@ -136,7 +99,10 @@ const Drinks = () => {
           </button>
           <p>3/5</p>
           <button
-            className="cancelBtn nextBtn"
+            className="bottomRibbonBtn fontRaleway"
+            style={{
+              backgroundColor: theme.activeTextColor,
+            }}
             onClick={() => {
               handleStepChange("checkout");
               placeMealInOrders(singleMeal);

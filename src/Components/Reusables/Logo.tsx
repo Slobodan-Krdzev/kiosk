@@ -3,8 +3,8 @@ type LogoPropsType = {
     source: string
 }
 
-const Logo = ({width = 240, source}: LogoPropsType) => {
-  return <img src={source} alt="Logo" style={{width: `${width}px`}}/>;
+const Logo = ({width = 60, source}: LogoPropsType) => {
+  return <img src={source} alt="Logo" style={{width: `${width}%`}}/>;
 };
 
 export default Logo;

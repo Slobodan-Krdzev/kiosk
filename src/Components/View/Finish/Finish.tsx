@@ -1,11 +1,12 @@
 import { useContext } from "react";
+import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import styles from "./FinnishViewStyles.module.css";
-import { DataContext } from "../../../Contexts/DataContext/Datacontext";
-import Elipse from "../../Reusables/Elipse/Elipse";
+import { motion } from "framer-motion";
+import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 
 const Finish = () => {
-  const { finalInfo } = useContext(StepContext);
+  const { finalInfo, handleStepChange } = useContext(StepContext);
   const { theme } = useContext(DataContext);
 
   console.log("====================================");
@@ -19,15 +20,26 @@ const Finish = () => {
   console.log("====================================");
 
   return (
-    <section className={styles.finishView}>
+    <motion.section
+      key={"finnish"}
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100vw" }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={"fullScreenTablet"}
+    >
+      <p className={`biggerPageTitles fontSF`} style={{ paddingTop: "2rem" }}>
+        Order Succesfull!
+      </p>
+
       <div className={styles.checkMarkWrapper}>
         <div
           style={{ backgroundColor: theme.activeTextColor }}
           className={styles.checkMark}
         >
           <svg
-            width="73"
-            height="55"
+            width="53"
+            height="35"
             viewBox="0 0 73 55"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -40,20 +52,68 @@ const Finish = () => {
         </div>
       </div>
 
-      <p className={`${styles.successMsg} fontRaleway`}>
-        Order Succesfull!
-      </p>
-      <p className="pageTitleHeading fontRaleway" style={{textAlign: 'center'}}>
-        You can pick up your order at the counter.
+      <p className={`${styles.subTitle} fontSF`}>
+        Pick up your order at the counter.
       </p>
 
-      <div className={styles.orderNoWrapper} style={{borderColor: theme.activeTextColor}}>
-        <p className={`pageTitleHeading fontRaleway`}>Your Order Number</p>
-        <p className={`${styles.orderNO} fontRaleway`}>{finalInfo.orderNum}</p>
+      <div
+        className={styles.orderNoWrapper}
+        style={{ borderColor: theme.activeTextColor }}
+      >
+        <p className={`${styles.orderNO} fontSF`}>{finalInfo.orderNum}</p>
       </div>
 
-      <Elipse color={theme.activeTextColor}/>
-    </section>
+      <form
+        className="formStyles"
+        style={{ width: "95%", margin: "0 auto" }}
+        onSubmit={(e) => {
+          e.preventDefault;
+        }}
+      >
+        <label className="noteLabel" htmlFor="emailInput">
+          Enter your email to receive your receipt?
+        </label>
+        <input
+          style={{ border: theme.activeTextColor }}
+          className="noteInput fontSF"
+          type="email"
+          required
+          placeholder="example@examplemail.com"
+          onFocus={() => {}}
+          onBlur={() => {}}
+        />
+      </form>
+
+      <div style={{position: 'fixed', bottom: 25, left: 0, right: 0}}>
+        <BottomGreenRibbon bgColor={theme.activeTextColor}>
+          <button
+            className="fontSF"
+            style={{
+              lineHeight: "34px",
+              fontSize: 28,
+              fontWeight: 400,
+              textTransform: "capitalize",
+              backgroundColor: "inherit",
+              color: "#202020",
+              minWidth: "100%",
+              minHeight: "100%",
+              cursor: "pointer",
+              padding: "4%",
+              outline: "none",
+              border: "none",
+              borderRadius: "70px",
+            }}
+            onClick={() => {
+              
+              alert('Order is Finished - Timer Starts Now')
+              handleStepChange("start")
+            }}
+          >
+            Place Order
+          </button>
+        </BottomGreenRibbon>
+      </div>
+    </motion.section>
   );
 };
 

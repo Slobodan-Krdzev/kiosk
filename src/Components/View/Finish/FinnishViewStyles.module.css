@@ -1,19 +1,13 @@
-.finishView{
-    height: 100vh;
-  width: 100%;
-  position: relative;
-}
-
 .checkMarkWrapper {
-    height: 30vh;
+    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .checkMark {
-    width: 133.1px;
-    height: 133.1px;
+    width: 93.1px;
+    height: 93.1px;
     gap: 0px;
     opacity: 0px;
     border-radius: 30rem;
@@ -21,6 +15,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.subTitle {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 42.96px;
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
 }
 
 .successMsg {
@@ -31,14 +36,15 @@
 }
 
 .orderNoWrapper {
-    width: 510.49px;
+    width: 95%;
     height: 253.65px;
-    padding: 50.83px 45.74px 50.83px 45.74px;
     border-radius: 15.25px;
     border: 1.27px solid #CEDC00;
     box-shadow: 0px 25.41px 63.53px 0px #00000014;
-
-    margin: 3rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto 2rem;
 
 }
 
@@ -49,7 +55,11 @@
 }
 
 .orderNO {
-    font-size: 100.74px;
-    font-weight: 600;
-    text-align: center;
+font-size: 100px;
+font-weight: 400;
+line-height: 43.2px;
+text-align: center;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+
 }

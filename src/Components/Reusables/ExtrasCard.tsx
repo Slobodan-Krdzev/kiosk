@@ -6,13 +6,17 @@ type ExtrasCardPropsType = {
   theme: ThemeType
   handleSelect: (extra: Option) => void;
   handleRemove: (extra: Option) => void;
+  maxSelection: number;
+  currentSelectionLength: number
 };
 
 const ExtrasCard = ({
-  
   extra,
   theme,
-  handleSelect
+  handleSelect,
+  handleRemove,
+  maxSelection,
+  currentSelectionLength
 }: ExtrasCardPropsType) => {
   const [isSelected, setIsSelected] = useState(false);
 
@@ -26,6 +30,7 @@ const ExtrasCard = ({
         {extra.Price}
       </p>
       <button
+        disabled={currentSelectionLength >= maxSelection && !isSelected}
         className="extraBtnButton"
         style={{
           backgroundColor: isSelected ? theme.activeTextColor : "inherit",
@@ -35,13 +40,16 @@ const ExtrasCard = ({
           setIsSelected(!isSelected);
 
           if (isSelected) {
-            handleSelect(extra);
+            handleRemove(extra);
+
           } else {
             handleSelect(extra);
+
           }
         }}
-      >
-        <img src={isSelected ? "/checkMark.png" : "/plus.png"} alt="Button" />
+      > 
+        {currentSelectionLength >= maxSelection ? <span style={{fontSize:16}}>max</span>: isSelected ?  <span>&#10003;</span> : <span>&#43;</span> }
+        
       </button>
     </div>
   );

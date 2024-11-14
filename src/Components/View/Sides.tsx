@@ -8,52 +8,15 @@ import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
 import SidesCard from "../Reusables/SidesCard";
 import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
-// const sides = [
-//   {
-//     id: 1,
-//     name: "Fries",
-//     price: 1.4,
-//     image: "/sides.png",
-//   },
-//   {
-//     id: 2,
-//     name: "Fries2",
-//     price: 1.4,
-//     image: "/sides.png",
-//   },
-//   {
-//     id: 3,
-//     name: "Fries3",
-//     price: 1.4,
-//     image: "/sides.png",
-//   },
-//   {
-//     id: 4,
-//     name: "Fries4",
-//     price: 1.4,
-//     image: "/sides.png",
-//   },
-//   {
-//     id: 5,
-//     name: "Fries5",
-//     price: 1.4,
-//     image: "/sides.png",
-//   },
-//   {
-//     id: 6,
-//     name: "Fries6",
-//     price: 1.4,
-//     image: "/sides.png",
-//   },
-// ];
 
 const Sides = () => {
   const { handleStepChange } = useContext(StepContext);
   const { setSides, singleMeal } = useContext(OrderContext);
-  const { data} = useContext(DataContext);
-  const [selectedSides, setSelectedSides] = useState<Option[] | undefined>();
+  const { data, theme} = useContext(DataContext);
+  const [selectedSides, setSelectedSides] = useState<Option[]>([]);
 
   const sidesOptions =data.TMKData[0].UpsaleColletions[0].UpsaleSteps[3].Options;
+  const maxCount = 2
 
   const handleSelectedSides = (side: Option) => {
     if (!selectedSides) {
@@ -69,6 +32,9 @@ const Sides = () => {
 
     setSelectedSides(filteresSides)
   }
+
+  console.log(maxCount,"maxcount", selectedSides.length);
+  
 
   return (
     <section className="fullScreen">
@@ -92,15 +58,20 @@ const Sides = () => {
               handleSelect={handleSelectedSides}
               handleRemove={handleRemoveExtra}
               selected={selectedSides!}
+              theme={theme}
+              maxSelection={maxCount}
+              currentSelectionCount={selectedSides?.length}
             />
           ))}
         </div>
       </div>
 
       <UpgradeBottomRibbon>
-        <div>
+        <div className="bottomRibbonBtnWrapper">
           <button
-            className="cancelBtn"
+            className="bottomRibbonBtn fontRaleway"
+            style={{borderColor: theme.activeTextColor}}
+
             onClick={() => {
               handleStepChange("extras");
             }}
@@ -109,7 +80,12 @@ const Sides = () => {
           </button>
           <p>3/5</p>
           <button
-            className="cancelBtn nextBtn"
+           disabled={selectedSides!.length >= maxCount}
+            className="bottomRibbonBtn fontRaleway "
+            style={{
+              backgroundColor: theme.activeTextColor,
+            }}
+
             onClick={() => {
               handleStepChange("drinks");
 

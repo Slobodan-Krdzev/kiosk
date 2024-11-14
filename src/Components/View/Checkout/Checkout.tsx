@@ -1,34 +1,34 @@
+import { motion } from "framer-motion";
 import { useContext, useState } from "react";
+import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import CheckoutCard from "../../Reusables/CheckoutPage/CheckoutCard";
-import Modal from "../../Reusables/Modal";
 import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon";
 import styles from "./CheckoutStyles.module.css";
-import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 
 const Checkout = () => {
   const { handleStepChange } = useContext(StepContext);
-  const { orders, cancelOrder } = useContext(OrderContext);
+  const { orders } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
 
-  const [isModalShown, setIsModalShown] = useState(false);
+  // const [isModalShown, setIsModalShown] = useState(false);
+  const [isRibbonShown, setIsRibbonShown] = useState(true);
 
-  console.log("====================================");
-  console.log("ORDERS", orders);
-  console.log("====================================");
+  const hideShowRibbon = (value: boolean) => {
+    setIsRibbonShown(value);
+  };
 
   return (
-    <section className={styles.checkoutView}>
-      <div className={styles.topWrapper}>
-        <p className="bottomRibbonHeadingBig fontRaleway">MY ORDER</p>
-        <p
-          className="mediumSizeDimmedHeading fontRaleway"
-          color={theme.textColor}
-        >
-          Dine in
-        </p>
-      </div>
+    <motion.section
+      className={`fullScreenTablet`}
+      key={"checkout"}
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100vw" }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    >
+      <p className={`fontSF biggerPageTitles`}>MY ORDER</p>
 
       <div className={styles.checkoutCardWrapper}>
         {orders.map((product) => (
@@ -36,45 +36,58 @@ const Checkout = () => {
             key={product.product!.ProductId}
             order={product}
             theme={theme}
+            ordersLength={orders.length}
+            hideShowRibbon={hideShowRibbon}
           />
         ))}
+
+        <form
+          className="formStyles"
+          onSubmit={(e) => {
+            e.preventDefault();
+            hideShowRibbon(true)
+
+            // OVDE SE DODAVA FULL ORDER NOTE
+            e.currentTarget.reset()
+          }}
+        >
+          <label htmlFor="orderNoteInput" className="noteLabel fontSF">
+            Do you want to leave a note for your order?
+          </label>
+
+          <input
+            style={{ borderColor: theme.activeTextColor }}
+            type="text"
+            id="orderNoteInput"
+            required
+            className="noteInput"
+            onFocus={() => {
+              hideShowRibbon(false)
+            }}
+            onBlur={() => {
+              hideShowRibbon(true)
+            }}
+          />
+        </form>
       </div>
 
-      <UpgradeBottomRibbon>
-        <div style={{ width: "100%" }}>
-          <button
-            style={{
-              borderColor: theme.activeTextColor,
+      {isRibbonShown && (
+        <div className={`${styles.bottomRibbon}`}>
+          <UpgradeBottomRibbon
+            nextText="Place Order"
+            backText="Back to Menu"
+            backStep={"order"}
+            nextStep={"preview"}
+            disableNextBtn={false}
+            nextAction={() => {
+              handleStepChange("preview");
             }}
-            className="bottomRibbonDefaultBtn"
-            onClick={() => {
-              setIsModalShown(true);
-            }}
-          >
-            Cancel Order
-          </button>
-          <button
-            className="bottomRibbonDefaultBtn"
-            style={{ backgroundColor: theme.activeTextColor }}
-            onClick={() => {
-              handleStepChange("order");
-            }}
-          >
-            Add Meal
-          </button>
-          <button
-            style={{ backgroundColor: theme.activeTextColor }}
-            className="bottomRibbonDefaultBtn"
-            onClick={() => {
-              handleStepChange("payment");
-            }}
-          >
-            Checkout
-          </button>
+          />
         </div>
-      </UpgradeBottomRibbon>
+      )}
 
-      {isModalShown && (
+      {/* OVA STOESHE ZA CANCEL ORDER CONFIRM AMA VEKJE NEMAME  */}
+      {/* {isModalShown && (
         <Modal>
           <div
             className="modalInnerWrapper "
@@ -105,8 +118,8 @@ const Checkout = () => {
             </div>
           </div>
         </Modal>
-      )}
-    </section>
+      )} */}
+    </motion.section>
   );
 };
 

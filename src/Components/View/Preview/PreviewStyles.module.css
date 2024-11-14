@@ -5,27 +5,16 @@
     padding-top: 4rem;
 }
 
-.subTitle {
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 47.73px;
-    letter-spacing: 0.01em;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-
-}
-
 .paymentInfoWrapper {
     width: 95%;
-    height: 240px;
+    height: 68%;
     border-radius: 8px;
     border: 1.51px solid;
     opacity: 0px;
-    margin: 2rem auto;
+    margin: 1rem auto 4rem;
     box-shadow: 1px 1px 15px 2px #CEDC0026;
 
-    padding: 1.5rem;
+    position: relative;
 }
 
 .paymentOrdersWrapper {
@@ -38,6 +27,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem;
+}
+
+.totalPriceHeading {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.64px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+}
+
+.orderTotal {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.64px;
+    text-align: right;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 
 }
 
@@ -60,10 +69,21 @@
 }
 
 
+.totalWrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+
+
 .qrCode {
 
     width: 50%;
-    margin: 2rem auto;
+    margin: 0 auto;
+    font-size: 140px;
+    font-weight: 600;
     background-color: inherit;
 
     --s: 100px;

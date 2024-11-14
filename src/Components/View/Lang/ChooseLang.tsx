@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { motion } from "framer-motion";
+import { useContext, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import BigerHeading from "../../Reusables/BigerHeading";
-import Elipse from "../../Reusables/Elipse/Elipse";
+import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import Logo from "../../Reusables/Logo";
 import styles from "./ChooseLangStyles.module.css";
 
@@ -11,27 +11,57 @@ const ChooseLang = () => {
   const { handleStepChange } = useContext(StepContext);
   const { setTakeaway } = useContext(OrderContext);
   const { data, theme } = useContext(DataContext);
+  const [option, setOption] = useState<"Take Away" | "Dine In" | undefined>(
+    undefined
+  );
 
   return (
-    <section className="fullScreen">
+    <motion.section
+      key={"lang"}
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100vw" }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className="fullScreenTablet"
+      style={{ backgroundColor: "#fafafa" }}
+    >
       <div className={styles.logoWrapper}>
-        <Logo source={data.ThemeResponse.LogoImage.Url} width={350} />
+        <Logo source={data.ThemeResponse.LogoImage.Url} width={80} />
       </div>
-      <div style={{ marginBottom: "3rem", width: "70%", margin: "2rem auto" }}>
-       
-        <p className="bigestTitleHeading fontRaleway">Welkom bij Eazie wilt u uw bestelling</p>
+      <div style={{ width: "80%", margin: "0.6rem auto" }}>
+        <p className="bigestTitleHeading fontSF">
+          Welkome to <br /> {data.ThemeResponse.RestaurantName}
+        </p>
       </div>
 
       <div className={styles.langViewMenuOptionsWrapper}>
-        <button
-          className={styles.langMenuBtn}
+        <motion.button
+          animate={{
+            scale: option == "Take Away" ? 1.15 : 1,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 10,
+          }}
+          className={`fontSF ${styles.langMenuBtn}`}
+          disabled={option === "Dine In"}
+          style={{
+            backgroundColor:
+              option === "Take Away" ? `${theme.activeTextColor}40` : option === 'Dine In' ? '#F1F1F1' : "",
+            border: option === 'Take Away' ? `1px solid ${theme.activeTextColor}` : "",
+          }}
           onClick={() => {
-            handleStepChange("order");
+            if (option === "Take Away") {
+              handleStepChange("order");
+            } else {
+              setOption("Take Away");
+            }
           }}
         >
           <svg
-            width="174"
-            height="177"
+            width="106"
+            height="106"
             viewBox="0 0 100 157"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -42,19 +72,38 @@ const ChooseLang = () => {
             />
           </svg>
 
-          <BigerHeading text="Hier Opeten" width={100} fontSize={30} />
-        </button>
+          <p className={`fontSF ${styles.menuOptionsText}`}>Take Away</p>
+        </motion.button>
 
-        <button
-          className={styles.langMenuBtn}
+          {/* DINE IN OPCIJA   */}
+        <motion.button
+          animate={{
+            scale: option == "Dine In" ? 1.15 : 1,
+          }}
+          transition={{
+            type: "tween",
+            stiffness: 200,
+            damping: 10,
+          }}
+          className={`fontSF ${styles.langMenuBtn}`}
+          disabled={option === "Take Away"}
+          style={{
+            backgroundColor:
+              option === "Dine In"
+                ? `${theme.activeTextColor}40`
+                : option === "Take Away"
+                ? "#F1F1F1"
+                : "",
+                border: option === 'Dine In' ? `1px solid ${theme.activeTextColor}` : "",
+          }}
           onClick={() => {
-            handleStepChange("order");
+            setOption("Dine In");
             setTakeaway();
           }}
         >
           <svg
-            width="174"
-            height="177"
+            width="106"
+            height="106"
             viewBox="0 0 174 177"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -84,15 +133,47 @@ const ChooseLang = () => {
             />
           </svg>
 
-          <BigerHeading text="Meenemen" width={100} fontSize={30} />
-        </button>
+          <p className={`fontSF ${styles.menuOptionsText}`}>Dine In</p>
+        </motion.button>
       </div>
 
       <div style={{ width: "70%", margin: "4rem auto", textAlign: "center" }}>
         lang menu goes here
       </div>
-      <Elipse color={theme.activeTextColor} />
-    </section>
+
+      <BottomGreenRibbon
+        bgColor={
+          option === undefined
+            ? `${theme.activeTextColor}40`
+            : theme.activeTextColor
+        }
+      >
+        <button
+          disabled={option === undefined}
+          className="fontSF"
+          style={{
+            lineHeight: "34px",
+            fontSize: 28,
+            fontWeight: 400,
+            textTransform: "capitalize",
+            backgroundColor: "inherit",
+            color: option === undefined ? `#20202085` : "#202020",
+            minWidth: "100%",
+            minHeight: "100%",
+            cursor: "pointer",
+            padding: "4%",
+            outline: "none",
+            border: "none",
+            borderRadius: "70px",
+          }}
+          onClick={() => {
+            handleStepChange("order");
+          }}
+        >
+          Place Order
+        </button>
+      </BottomGreenRibbon>
+    </motion.section>
   );
 };
 

@@ -1,35 +1,75 @@
 .card {
-    padding: 0.4rem;
-    border-radius: 13.86px;
+    padding: 12px;
+    border-radius: 16px;
     box-shadow: 0px 2.6px 6.93px -0.87px #3232470D;
-    border: 1.07px solid #D3D3D3;
+    /* border: 1.07px solid #D3D3D3; */
     position: relative;
+    /* height: 197px; */
+    background-color: white;
+    overflow: hidden;
 }
 
-.imgWrapper {
-    width: 90%;
-    margin: 0.2rem auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.productImage {
-    width: 80%;
-    height: 95px;
-    border-radius: 37px;
-    margin: 0 auto;
-}
-
-.productBtn {
+.infoBtn {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 25%;
-    height: 15%;
-
-    font-size: 20.7px;
-    border-radius: 25.99px 0px 13.86px 0px;
+    top: 5%;
+    right: 5%;
+    width: 17.5px;
+    height: 17.5px;
+    border-radius: 90px;
+    background-color: #0DB5D6;
+    color: white;
     border: none;
 }
 
+.imgWrapper {
+    width: 85%;
+    margin: 0rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem 0;
+    margin-bottom: 0.8rem;
+}
+
+.productImage {
+    width: 90%;
+    height: 90px;
+    margin: 0 auto;
+    border-radius: 0.8rem;
+}
+
+.productBtn {
+    background-color: inherit;
+    font-size: 20.7px;
+    border: none;
+}
+
+.productBtnsWrapper{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 25.99px 0px 13.86px 0px;
+}
+
+.productQuantity{
+    margin: 0 5%;
+}
+
+.productNameHeading {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.4300000071525574px;
+    text-align: left;
+    color: #202020;
+    white-space: nowrap;
+}
+
+.productPriceHeading {
+    font-size: 16px;
+    font-weight: 400;
+    color: #202020;
+  }

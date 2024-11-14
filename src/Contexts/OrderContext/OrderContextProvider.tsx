@@ -20,6 +20,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     originalTotal: 0,
     totalPrice: 0,
     quantity: 1,
+    note: "",
   };
 
   const [orders, setOrders] = useState<SingleMealType[]>([]);
@@ -44,6 +45,9 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     setSingleMeal({ ...singleMeal, drinks });
 
   const placeMealInOrders = (meal: SingleMealType) => {
+    console.log("====================================");
+    console.log(meal);
+    console.log("====================================");
     const startingPrice = meal.product!.Price;
 
     if (meal.menuUpgrade) {
@@ -74,6 +78,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
         originalTotal: finalPrice,
         totalPrice: finalPrice,
         quantity: meal.quantity,
+        note: "",
       };
 
       setOrders([...orders, finnishedMeal]);
@@ -92,11 +97,18 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
         originalTotal: startingPrice,
         totalPrice: startingPrice,
         quantity: meal.quantity,
+        note: meal.note,
       };
 
       setOrders([...orders, finnishedMeal]);
       setSingleMeal(startingMealFormula);
     }
+
+    console.log(orders);
+  };
+
+  const removeMealFromOrders = (productId: number) => {
+    setOrders(orders.filter((m) => m.product?.ProductId !== productId));
   };
 
   const setSingleMealQuantity = (
@@ -105,7 +117,6 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   ) => {
     const filteredOrders = orders.map((o) => {
       if (o.product!.ProductId === meal.id) {
-
         const originalTotal = o.originalTotal;
         const newQuantity =
           countType === "minus" ? o.quantity - 1 : o.quantity + 1;
@@ -125,6 +136,18 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     });
 
     setOrders(filteredOrders);
+  };
+
+  const setSingleMealNote = (note: string, meal: SingleMealType) => {
+    setOrders(
+      orders.map((order) => {
+        if (meal.product?.ProductId === order.id) {
+          return { ...order, note };
+        } else {
+          return order;
+        }
+      })
+    );
   };
 
   const cancelOrder = () => {
@@ -148,9 +171,11 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     setSides,
     setDrinks,
     placeMealInOrders,
+    removeMealFromOrders,
     setSingleMealQuantity,
     cancelOrder,
     getOrderTotal,
+    setSingleMealNote,
   };
 
   return (

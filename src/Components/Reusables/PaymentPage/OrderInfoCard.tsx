@@ -1,34 +1,40 @@
-import { SingleMealType, ThemeType } from "../../../Types/Types";
+import { SingleMealType  } from "../../../Types/Types";
 import styles from "./OrderInfoCardStyles.module.css";
 
 type OrderInfoCardPropsType = {
   order: SingleMealType;
-  theme: ThemeType
 };
 
-const OrderInfoCard = ({ order, theme }: OrderInfoCardPropsType) => {
-
+const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
   return (
     <div className={styles.paymentSingleCard}>
-      <div className={styles.top}>
-        <p className={`productNameHeading fontRaleway ${styles.productNameP}`}>
-          {order.product!.Name}{" "}
-          <span >{`x ${order.quantity}`}</span>
-          
+      <div>
+        <p className={`fontSF ${styles.productName}`}>
+          {order.product!.Name.substring(0, 15)}...{" "}
+          <span>{`x ${order.quantity}`}</span>
         </p>
 
         {order.sides && (
-          <p style={{color: theme.textColor, fontSize: '16px'}}
-          className="productPriceHeading fontRaleway"
+          <p
+            style={{ color: '#898989' }}
+            className={`${styles.sidesText} fontSF`}
           >
-            Plus {order.sides[0].Name} {`(${order.sides[0].Price} )`}
+            {order.sides[0].Name} {`(${order.sides[0].Price} )`}
+          </p>
+        )}
+
+        {order.note !== '' && (
+          <p
+            style={{ color: '#898989' }}
+            className={`${styles.sidesText} fontSF`}
+          >
+            Note: {order.note} 
           </p>
         )}
       </div>
 
-      <p
-      className="productPriceHeading fontRaleway"> 
-        {order.totalPrice.toFixed(2)} {order.product?.PriceValue ?? ''}
+      <p className="fontSF">
+        {order.totalPrice.toFixed(2)} {order.product?.PriceValue ?? ""}
       </p>
     </div>
   );

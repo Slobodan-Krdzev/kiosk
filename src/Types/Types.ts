@@ -38,6 +38,7 @@ export type SingleMealType = {
   originalTotal: number;
   totalPrice: number;
   quantity: number;
+  note: string
 };
 
 export type FinalInfoType = {

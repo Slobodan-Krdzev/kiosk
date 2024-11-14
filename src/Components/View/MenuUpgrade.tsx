@@ -48,15 +48,7 @@ const MenuUpgrade = () => {
       </div>
 
       <UpgradeBottomRibbon>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "0 2rem",
-            height: "100%",
-          }}
-        >
+        <div className="bottomRibbonBtnWrapper" >
           <button
             className="bottomRibbonBtn fontRaleway"
             style={{borderColor: theme.activeTextColor}}

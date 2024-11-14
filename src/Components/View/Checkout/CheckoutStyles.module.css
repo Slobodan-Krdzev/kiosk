@@ -4,15 +4,6 @@
     position: relative;
 }
 
-.topWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 95%;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-
 .checkoutCardWrapper {
     width: 100%;
     max-height: 80vh;
@@ -30,6 +21,13 @@
     
     scrollbar-width: none;
     
+}
+
+.bottomRibbon{
+    position: fixed;
+    bottom: 5%;
+    left: 0;
+    right: 0;
 }
 
 @media only screen and (max-width: 468px) {

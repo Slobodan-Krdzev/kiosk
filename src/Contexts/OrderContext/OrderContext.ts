@@ -15,9 +15,11 @@ export type OrderContextValue = {
     setSides: (sides: Option[]) => void,
     setDrinks: (drinks: DrinksType[]) => void,
     placeMealInOrders: (meal: SingleMealType) => void,
+    removeMealFromOrders: (productId: number) => void,
     setSingleMealQuantity: (meal: SingleMealType, countType: 'minus' | 'plus') => void,
     getOrderTotal: () => number,
-    cancelOrder:() => void
+    cancelOrder:() => void,
+    setSingleMealNote: (note: string, meal: SingleMealType) => void
 }
 
 export const OrderContext = createContext({} as OrderContextValue)

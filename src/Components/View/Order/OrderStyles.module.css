@@ -1,9 +1,13 @@
-.orderView {
+/* .orderView {
     min-height: 100vh;
+} */
+
+.orderView {
+    position: relative;
 }
 
 .orderViewLogoWrapperTop {
-    height: 15vh;
+    height: 10vh;
     background: radial-gradient(90.37% 586.33% at 9.63% 73.7%, rgba(32, 29, 34, 0.429) 9.69%, rgba(0, 0, 0, 0.55) 29.4%, rgba(0, 0, 0, 0.55) 56.15%, rgba(32, 29, 34, 0.55) 100%);
     display: flex;
     justify-content: center;
@@ -11,24 +15,28 @@
 }
 
 .orderViewMidSection {
-    height: 75vh;
-    background-color: white;
-    padding: 0.5rem 0;
+    width: 100%;
+    background-color: #E9E9E9;
+    height: calc(100vh - 20vh);
     display: flex;
     justify-content: space-between;
-    gap: 0.8rem;
+    gap: 2%
 }
 
 .orderViewSidebar {
     flex-basis: 20%;
-    padding: 0.5rem 1rem;
+    padding-left: 2%;
+    padding-right: 1%;
+
+    padding-top: 2%;
     overflow-y: scroll;
 }
 
 .orderViewRightSide {
     flex-basis: 80%;
+    padding-right: 2%;
+    padding-top: 2%;
     overflow-y: scroll;
-    padding: 0.5rem 1rem 0 0;
 }
 
 .orderViewRightSide::-webkit-scrollbar {
@@ -49,10 +57,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    min-height: 10vh;
-    max-width: 100%;
+    gap: 40px;
+    min-height: 100px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 40px;
 }
 
+.ribbonContentWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    cursor: pointer;
+}
+
+.ribbonTextStyles{
+
+    font-weight: 400;
+    font-size: 34px;
+}

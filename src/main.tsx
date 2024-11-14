@@ -6,6 +6,7 @@ import DataContextProvider from "./Contexts/DataContext/DataContextProvider.tsx"
 import OrderContextProvider from "./Contexts/OrderContext/OrderContextProvider.tsx";
 import StepContextProvider from "./Contexts/StepContext/StepContextProvider.tsx";
 import "./index.css";
+import { AnimatePresence } from "framer-motion";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <OrderContextProvider>
         <QueryClientProvider client={queryClient}>
           <DataContextProvider>
-            <App />
+            <AnimatePresence mode="wait">
+              <App />
+            </AnimatePresence>
           </DataContextProvider>
         </QueryClientProvider>
       </OrderContextProvider>

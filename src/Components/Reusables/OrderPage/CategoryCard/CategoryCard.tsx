@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { SubCategory2, ThemeType } from "../../../../Types/Types";
 import styles from "./CategoryCardStyles.module.css";
 
@@ -14,13 +15,28 @@ const CategoryCard = ({
   handleCategoryChange,
   theme,
 }: CategoryCardPropsType) => {
+
+  
   return (
-    <div
+    <motion.div
+      animate={{
+        scale: currentCategory === SubCategoryId ? 1.05 : 1,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 10,
+      }}
       className={styles.categoryCard}
       style={{
         backgroundColor:
-          currentCategory === SubCategoryId ? theme.activeTextColor : "#FFFFFF",
-        color: theme.textColor,
+          currentCategory === SubCategoryId
+            ? `${theme.activeTextColor}90`
+            : "#FFFFFF",
+        border:
+          currentCategory === SubCategoryId
+            ? `1px solid ${theme.activeTextColor}`
+            : "",
       }}
       onClick={() => {
         handleCategoryChange(SubCategoryId);
@@ -29,23 +45,41 @@ const CategoryCard = ({
       <img
         src={"/category.png"}
         alt={Name.toLowerCase()}
-        style={{ width: "42.5px" }}
+        style={{ width: "32.5px", height: "22.5px" }}
       />
 
-      <p
-        className="fontRaleway"
+
+      <motion.p
+        animate={{
+          x: currentCategory === SubCategoryId ? ["20%", "-20%"] : 0,
+        }}
+        transition={{
+          duration: 5,
+          ease: "linear",
+          repeat: Infinity,
+        }}
+        key={
+          currentCategory === SubCategoryId
+            ? "movingTextActive"
+            : "movingTextInactive"
+        }
+        className={`fontSF`}
         style={{
-          fontSize: 16,
+          fontSize: 20,
           textTransform: "capitalize",
-          fontWeight: 600,
+          fontWeight: 400,
           marginTop: "0.3rem",
-          lineHeight: "20px",
+          lineHeight: "25px",
           textAlign: "center",
         }}
       >
-        {Name.length > 10 ? `${Name.substring(0, 8)}...` : Name}
-      </p>
-    </div>
+        {currentCategory === SubCategoryId
+          ? Name
+          : Name.length > 8
+          ? `${Name.substring(0, 5)}...`
+          : Name}
+      </motion.p>
+    </motion.div>
   );
 };
 

@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { DrinksType, Option } from "../../Types/Types";
+import { DrinksType, Option, ThemeType } from "../../Types/Types";
 
 type DrinksCardPropsType = {
   extra: Option;
   addDrink: (drink: Option) => void;
   removeDrink: (drink: Option) => void;
   addQuantity: (drink: DrinksType) => void;
+  theme: ThemeType;
 };
 
 const DrinksCard = ({
@@ -13,6 +14,7 @@ const DrinksCard = ({
   addDrink,
   removeDrink,
   addQuantity,
+  theme,
 }: DrinksCardPropsType) => {
   const [isSelected, setIsSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -29,19 +31,24 @@ const DrinksCard = ({
 
       {!isSelected && (
         <button
+          style={{ backgroundColor: theme.activeTextColor, fontSize: 30 }}
           className="drinksBtnButton"
           onClick={() => {
             setIsSelected(!isSelected);
             addDrink(extra);
           }}
         >
-          <img src={isSelected ? "/checkMark.png" : "/plus.png"} alt="Button" />
+          {isSelected ? <span>&#10003;</span> : <span>&#43;</span>}
         </button>
       )}
 
       {isSelected && (
-        <div className="drinksCardQuantityWrapper">
+        <div
+          className="drinksCardQuantityWrapper"
+          style={{ backgroundColor: theme.activeTextColor }}
+        >
           <button
+          style={{fontSize: 30}}
             onClick={() => {
               if (quantity === 1) {
                 setQuantity(1);
@@ -59,7 +66,7 @@ const DrinksCard = ({
               }
             }}
           >
-            <img src="/minus.png" alt="Add" className="minusIcon" />
+            &#8722;
           </button>
           <p className="quantityCounter">{quantity}</p>
           <button
