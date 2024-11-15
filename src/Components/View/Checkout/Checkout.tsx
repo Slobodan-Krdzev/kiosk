@@ -30,7 +30,7 @@ const Checkout = () => {
     >
       <p className={`fontSF biggerPageTitles`}>MY ORDER</p>
 
-      <div className={styles.checkoutCardWrapper}>
+      <div className={`hideScrollBar ${styles.checkoutCardWrapper}`}>
         {orders.map((product) => (
           <CheckoutCard
             key={product.product!.ProductId}

@@ -6,9 +6,9 @@
 }
 
 .subTitle {
-    font-size: 40px;
+    font-size: calc(40px / 1.33);
     font-weight: 400;
-    line-height: 47.73px;
+    line-height: calc(47.73px / 1.33);
     letter-spacing: 0.01em;
     text-align: center;
     text-underline-position: from-font;
@@ -16,34 +16,9 @@
 
 }
 
-.paymentInfoWrapper {
-    width: 95%;
-    height: 240px;
-    border-radius: 8px;
-    border: 1.51px solid;
-    opacity: 0px;
-    margin: 2rem auto;
-    box-shadow: 1px 1px 15px 2px #CEDC0026;
-
-    padding: 1.5rem;
-}
-
-.paymentOrdersWrapper {
-    height: 80%;
-    overflow-y: scroll;
-}
-
-.totalWrapper {
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-}
-
 .midSection {
     text-align: center;
-    padding-top: 4rem;
+    padding-top: 6rem;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -61,10 +36,10 @@
 
 
 .qrCode {
-
+    
     width: 50%;
-    margin: 2rem auto;
-    background-color: inherit;
+    margin: 4rem auto;
+    background-color: white;
 
     --s: 100px;
     /* the size on the corner */

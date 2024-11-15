@@ -45,11 +45,11 @@ const CategoryCard = ({
       <img
         src={"/category.png"}
         alt={Name.toLowerCase()}
-        style={{ width: "32.5px", height: "22.5px" }}
+        style={{ width: "24.4px", height: "24.4px" }}
       />
 
 
-      <motion.p
+      {/* <motion.p
         animate={{
           x: currentCategory === SubCategoryId ? ["20%", "-20%"] : 0,
         }}
@@ -78,7 +78,16 @@ const CategoryCard = ({
           : Name.length > 8
           ? `${Name.substring(0, 5)}...`
           : Name}
-      </motion.p>
+      </motion.p> */}
+      <p className={`fontSF`}
+        style={{
+          fontSize: 'calc(20px / 1.33)',
+          textTransform: "capitalize",
+          fontWeight: 400,
+          marginTop: "calc(0.3rem / 1.33)",
+          lineHeight: "calc(25px / 1.33)",
+          textAlign: "center",
+        }}>{Name.length > 15 ? `${Name.substring(0, 5)}...` : Name}</p>
     </motion.div>
   );
 };

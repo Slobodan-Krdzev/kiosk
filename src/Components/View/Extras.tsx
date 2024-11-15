@@ -1,17 +1,15 @@
 import { useContext, useEffect, useState } from "react";
+import { DataContext } from "../../Contexts/DataContext/Datacontext";
+import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
+import { Option } from "../../Types/Types";
 import BigerHeading from "../Reusables/BigerHeading";
 import ExtrasCard from "../Reusables/ExtrasCard";
 import RedTopTexture from "../Reusables/RedTopTexture";
-import UpgradeBottomRibbon from "../Reusables/UpgradeBottomRibbon";
-import { StepContext } from "../../Contexts/StepContext/StepContext";
-import { Option } from "../../Types/Types";
-import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
-import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
 
 const Extras = () => {
-  const { handleStepChange } = useContext(StepContext);
-  const { setExtras, singleMeal } = useContext(OrderContext);
+  // const { handleStepChange } = useContext(StepContext);
+  const {  singleMeal } = useContext(OrderContext);
   const { data, theme } = useContext(DataContext);
   const extrasOptions =
     data.TMKData[0].UpsaleColletions[0].UpsaleSteps[2].Options;
@@ -67,33 +65,6 @@ const Extras = () => {
         </div>
       </div>
 
-      <UpgradeBottomRibbon>
-        <div className="bottomRibbonBtnWrapper">
-          <button
-            className="bottomRibbonBtn fontRaleway"
-            style={{borderColor: theme.activeTextColor}}
-            onClick={() => {
-              handleStepChange("supersize");
-            }}
-          >
-            Cancel
-          </button>
-          <p>2/5</p>
-          <button
-            className="bottomRibbonBtn fontRaleway "
-            disabled={!selectedExtras.length}
-            style={{
-              backgroundColor: theme.activeTextColor,
-            }}
-            onClick={() => {
-              handleStepChange("sides");
-              setExtras(selectedExtras);
-            }}
-          >
-            Next
-          </button>
-        </div>
-      </UpgradeBottomRibbon>
     </section>
   );
 };

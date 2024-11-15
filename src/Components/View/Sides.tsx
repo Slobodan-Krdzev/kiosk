@@ -1,17 +1,15 @@
 import { useContext, useState } from "react";
+import { DataContext } from "../../Contexts/DataContext/Datacontext";
+import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
+import { Option } from "../../Types/Types";
 import BigerHeading from "../Reusables/BigerHeading";
 import RedTopTexture from "../Reusables/RedTopTexture";
-import UpgradeBottomRibbon from "../Reusables/UpgradeBottomRibbon";
-import { StepContext } from "../../Contexts/StepContext/StepContext";
-import { Option } from "../../Types/Types";
-import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
 import SidesCard from "../Reusables/SidesCard";
-import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
 
 const Sides = () => {
-  const { handleStepChange } = useContext(StepContext);
-  const { setSides, singleMeal } = useContext(OrderContext);
+  // const { handleStepChange } = useContext(StepContext);
+  const { singleMeal } = useContext(OrderContext);
   const { data, theme} = useContext(DataContext);
   const [selectedSides, setSelectedSides] = useState<Option[]>([]);
 
@@ -66,36 +64,6 @@ const Sides = () => {
         </div>
       </div>
 
-      <UpgradeBottomRibbon>
-        <div className="bottomRibbonBtnWrapper">
-          <button
-            className="bottomRibbonBtn fontRaleway"
-            style={{borderColor: theme.activeTextColor}}
-
-            onClick={() => {
-              handleStepChange("extras");
-            }}
-          >
-            Cancel
-          </button>
-          <p>3/5</p>
-          <button
-           disabled={selectedSides!.length >= maxCount}
-            className="bottomRibbonBtn fontRaleway "
-            style={{
-              backgroundColor: theme.activeTextColor,
-            }}
-
-            onClick={() => {
-              handleStepChange("drinks");
-
-              if (selectedSides) setSides(selectedSides);
-            }}
-          >
-            Next
-          </button>
-        </div>
-      </UpgradeBottomRibbon>
     </section>
   );
 };

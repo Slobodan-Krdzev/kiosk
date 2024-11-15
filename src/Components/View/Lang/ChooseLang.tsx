@@ -28,9 +28,9 @@ const ChooseLang = () => {
       <div className={styles.logoWrapper}>
         <Logo source={data.ThemeResponse.LogoImage.Url} width={80} />
       </div>
-      <div style={{ width: "80%", margin: "0.6rem auto" }}>
-        <p className="bigestTitleHeading fontSF">
-          Welkome to <br /> {data.ThemeResponse.RestaurantName}
+      <div style={{ width: "95%", margin: "0.6rem auto" }}>
+        <p className={`${styles.restName} fontSF`}>
+          Welkome to <br /> {data.ThemeResponse.RestaurantName}!
         </p>
       </div>
 
@@ -48,8 +48,15 @@ const ChooseLang = () => {
           disabled={option === "Dine In"}
           style={{
             backgroundColor:
-              option === "Take Away" ? `${theme.activeTextColor}40` : option === 'Dine In' ? '#F1F1F1' : "",
-            border: option === 'Take Away' ? `1px solid ${theme.activeTextColor}` : "",
+              option === "Take Away"
+                ? `${theme.activeTextColor}40`
+                : option === "Dine In"
+                ? "#F1F1F1"
+                : "",
+            border:
+              option === "Take Away"
+                ? `1px solid ${theme.activeTextColor}`
+                : "",
           }}
           onClick={() => {
             if (option === "Take Away") {
@@ -60,50 +67,8 @@ const ChooseLang = () => {
           }}
         >
           <svg
-            width="106"
-            height="106"
-            viewBox="0 0 100 157"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6.84879 0.8139C6.84879 0.8139 0.932129 42.5971 0.932129 48.5661C0.932129 54.5351 14.2446 66.4731 14.2446 66.4731L12.7655 146.124C12.7655 152.714 18.0668 156.008 24.5988 156.008C31.1308 156.008 36.4321 152.714 36.4321 146.124L34.9529 66.4731C34.9529 66.4731 48.2654 54.2844 48.2654 48.5661C48.2654 42.8478 42.3488 0.8139 42.3488 0.8139H36.4321V39.6125C36.4321 40.4041 36.1204 41.1632 35.5656 41.7229C35.0108 42.2826 34.2584 42.5971 33.4738 42.5971C32.6892 42.5971 31.9367 42.2826 31.3819 41.7229C30.8271 41.1632 30.5154 40.4041 30.5154 39.6125C30.5154 39.0574 28.4801 0.8139 28.4801 0.8139H20.7174C20.7174 0.8139 18.6821 39.0574 18.6821 39.6125C18.6821 40.4041 18.3704 41.1632 17.8156 41.7229C17.2608 42.2826 16.5084 42.5971 15.7238 42.5971C14.9392 42.5971 14.1867 42.2826 13.6319 41.7229C13.0771 41.1632 12.7655 40.4041 12.7655 39.6125V0.8139H6.84879ZM70.2695 1.18995C66.7846 2.03158 66.0154 5.79803 66.0154 9.9465V146.118C66.0154 152.708 71.3167 156.003 77.8487 156.003C84.3807 156.003 89.4986 152.702 89.4986 146.118C89.4986 115.753 83.582 99.5654 83.582 84.3742C83.582 77.5218 95.5987 68.6996 95.5987 36.8071C95.5987 17.3003 78.4641 1.18398 71.9321 1.18398C71.3167 1.18398 70.7665 1.0646 70.2695 1.18398V1.18995Z"
-              fill={theme.activeTextColor}
-            />
-          </svg>
-
-          <p className={`fontSF ${styles.menuOptionsText}`}>Take Away</p>
-        </motion.button>
-
-          {/* DINE IN OPCIJA   */}
-        <motion.button
-          animate={{
-            scale: option == "Dine In" ? 1.15 : 1,
-          }}
-          transition={{
-            type: "tween",
-            stiffness: 200,
-            damping: 10,
-          }}
-          className={`fontSF ${styles.langMenuBtn}`}
-          disabled={option === "Take Away"}
-          style={{
-            backgroundColor:
-              option === "Dine In"
-                ? `${theme.activeTextColor}40`
-                : option === "Take Away"
-                ? "#F1F1F1"
-                : "",
-                border: option === 'Dine In' ? `1px solid ${theme.activeTextColor}` : "",
-          }}
-          onClick={() => {
-            setOption("Dine In");
-            setTakeaway();
-          }}
-        >
-          <svg
-            width="106"
-            height="106"
+            width="117"
+            height="117"
             viewBox="0 0 174 177"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -133,30 +98,74 @@ const ChooseLang = () => {
             />
           </svg>
 
+          <p className={`fontSF ${styles.menuOptionsText}`}>Take Away</p>
+        </motion.button>
+
+        {/* DINE IN OPCIJA   */}
+        <motion.button
+          animate={{
+            scale: option == "Dine In" ? 1.15 : 1,
+          }}
+          transition={{
+            type: "tween",
+            stiffness: 200,
+            damping: 10,
+          }}
+          className={`fontSF ${styles.langMenuBtn}`}
+          disabled={option === "Take Away"}
+          style={{
+            backgroundColor:
+              option === "Dine In"
+                ? `${theme.activeTextColor}40`
+                : option === "Take Away"
+                ? "#F1F1F1"
+                : "",
+            border:
+              option === "Dine In" ? `1px solid ${theme.activeTextColor}` : "",
+          }}
+          onClick={() => {
+            setOption("Dine In");
+            setTakeaway();
+          }}
+        >
+          <svg
+            width="117"
+            height="117"
+            viewBox="0 0 100 157"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.84879 0.8139C6.84879 0.8139 0.932129 42.5971 0.932129 48.5661C0.932129 54.5351 14.2446 66.4731 14.2446 66.4731L12.7655 146.124C12.7655 152.714 18.0668 156.008 24.5988 156.008C31.1308 156.008 36.4321 152.714 36.4321 146.124L34.9529 66.4731C34.9529 66.4731 48.2654 54.2844 48.2654 48.5661C48.2654 42.8478 42.3488 0.8139 42.3488 0.8139H36.4321V39.6125C36.4321 40.4041 36.1204 41.1632 35.5656 41.7229C35.0108 42.2826 34.2584 42.5971 33.4738 42.5971C32.6892 42.5971 31.9367 42.2826 31.3819 41.7229C30.8271 41.1632 30.5154 40.4041 30.5154 39.6125C30.5154 39.0574 28.4801 0.8139 28.4801 0.8139H20.7174C20.7174 0.8139 18.6821 39.0574 18.6821 39.6125C18.6821 40.4041 18.3704 41.1632 17.8156 41.7229C17.2608 42.2826 16.5084 42.5971 15.7238 42.5971C14.9392 42.5971 14.1867 42.2826 13.6319 41.7229C13.0771 41.1632 12.7655 40.4041 12.7655 39.6125V0.8139H6.84879ZM70.2695 1.18995C66.7846 2.03158 66.0154 5.79803 66.0154 9.9465V146.118C66.0154 152.708 71.3167 156.003 77.8487 156.003C84.3807 156.003 89.4986 152.702 89.4986 146.118C89.4986 115.753 83.582 99.5654 83.582 84.3742C83.582 77.5218 95.5987 68.6996 95.5987 36.8071C95.5987 17.3003 78.4641 1.18398 71.9321 1.18398C71.3167 1.18398 70.7665 1.0646 70.2695 1.18398V1.18995Z"
+              fill={theme.activeTextColor}
+            />
+          </svg>
+
           <p className={`fontSF ${styles.menuOptionsText}`}>Dine In</p>
         </motion.button>
       </div>
 
       <div style={{ width: "70%", margin: "4rem auto", textAlign: "center" }}>
-        lang menu goes here
+        
+        <img src="/netherlands.png" alt="Dutch" width={43.6} height={43.6}/>
+        <img src="/English.png" alt="Dutch" width={43.6} height={43.6} style={{margin: '0 10px'}}/>
+        <img src="/German.png" alt="Dutch" width={43.6} height={43.6}/>
+
       </div>
 
-      <BottomGreenRibbon
-        bgColor={
-          option === undefined
-            ? `${theme.activeTextColor}40`
-            : theme.activeTextColor
-        }
-      >
+      <BottomGreenRibbon>
         <button
           disabled={option === undefined}
           className="fontSF"
           style={{
             lineHeight: "34px",
-            fontSize: 28,
+            fontSize: 20,
             fontWeight: 400,
             textTransform: "capitalize",
-            backgroundColor: "inherit",
+            backgroundColor:
+              option === undefined
+                ? `${theme.activeTextColor}40`
+                : theme.activeTextColor,
             color: option === undefined ? `#20202085` : "#202020",
             minWidth: "100%",
             minHeight: "100%",

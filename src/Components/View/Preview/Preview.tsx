@@ -53,11 +53,11 @@ const Preview = () => {
         <button
           className="fontSF"
           style={{
-            lineHeight: "34px",
-            fontSize: 28,
+            lineHeight: "calc(34px / 1.33)",
+            fontSize: 'calc(28px / 1.33)',
             fontWeight: 400,
             textTransform: "capitalize",
-            backgroundColor: "inherit",
+            backgroundColor: theme.activeTextColor,
             color: "#202020",
             minWidth: "100%",
             minHeight: "100%",

@@ -1,28 +1,35 @@
+.checkoutCardNoteInputWrapper{
+    margin-bottom: 0.6rem;
+}
+
 .checkoutCard {
-    height: 198px;
+    height: calc(198px / 1.33);
     max-width: 100%;
-    border-radius: 16px;
+    border-radius: calc(16px / 1.33);
     border: 1px solid #D9D9D9;
     opacity: 0px;
     box-shadow: 1px 1px 10px 2px #0000001A;
-    margin-bottom: 1rem;
+    margin-bottom: 0.1rem;
 
     position: relative;
     display: flex;
     justify-content: start;
     align-items: start;
     gap: 1.5rem;
-    padding: 1rem;
+    padding: 8px;
 }
 
-.checkoutCard img {
+.checkoutCardPicture {
     border-radius: 1rem;
+    width: calc(174px / 1.33);
+    height: calc(174px / 1.33);
 }
 
 .checkoutCardActionBtnsWrapper {
     position: absolute;
     top: 5%;
     right: 2%;
+    border-radius: calc(16px / 1.33);
 }
 
 .checkoutCardActionBtnsWrapper button {
@@ -46,18 +53,18 @@
 }
 
 .checkoutCardMealName {
-    font-size: 24px;
+    font-size: calc(24px / 1.33);
     font-weight: 400;
-    line-height: 34px;
+    line-height: calc(34px / 1.33);
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
 }
 
 .checkoutCardExtrasText {
-    font-size: 16px;
+    font-size: calc(16px / 1.33);
     font-weight: 274;
-    line-height: 28px;
+    line-height: calc(28px / 1.33);
     letter-spacing: -0.25999999046325684px;
     text-align: left;
     text-underline-position: from-font;
@@ -74,12 +81,6 @@
     margin-bottom: 0.4rem;
 }
 
-
-.checkoutCard img {
-    width: 175px;
-    height: 175px;
-}
-
 .checkoutCard .checkoutCardPrice,
 .checkoutCardBtn {
     position: absolute;
@@ -90,9 +91,9 @@
     bottom: 0%;
     left: 0%;
 
-    font-size: 22px;
+    font-size: calc(22px / 1.33);
     font-weight: 400;
-    line-height: 33px;
+    line-height: calc(33px / 1.33);
     text-align: right;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
@@ -104,21 +105,20 @@
     bottom: 0;
     right: 0;
 
-    width: 80px;
-    height: 48px;
+    width: calc(80px / 1.33);
+    height: calc(48px / 1.33);
     gap: 0px;
-    border-radius: 30px 0px 16px 0px;
-    opacity: 0px;
-    background-color: #CEDC00;
+    border-radius: calc(30px / 1.33) calc(16px / 1.33);
     border: none;
 
     font-size: 24px;
+    
 }
 
 
 .checkoutCardQuantityWrapper {
-    width: 134px;
-    height: 58px;
+    width: calc(134px / 1.33);
+    height: calc(58px / 1.33);
     gap: 0px;
     border-radius: 30px 0px 16px 0px;
     opacity: 0px;
@@ -138,105 +138,16 @@
 .checkoutCardQuantityWrapper button {
     background-color: inherit;
     border: none;
+    font-size: 30px;
 }
 
 .quantityCounter {
-    font-size: 28px;
+    font-size: calc(28px / 1.33);
     font-weight: 400;
-    line-height: 44.8px;
+    line-height: calc(44.8px / 1.33);
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
 
 }
 
-
-@media (max-width: 800px) {
-
-    .checkoutCardBtn {
-        width: 90px;
-        height: 50px;
-        font-size: 28px;
-    }
-
-    .checkoutCardQuantityWrapper {
-        width: 120px;
-        height: 60px;
-        border: none;
-    }
-
-    .checkoutCardQuantityWrapper button {
-        background-color: inherit;
-        border: none;
-        font-size: 28px;
-    }
-
-    .quantityCounter {
-        font-size: 26px;
-    }
-}
-
-@media (max-width: 425px) {
-    .checkoutCard {
-        height: 150px;
-        max-width: 100%;
-        border-radius: 16px;
-        border: 1px solid #D9D9D9;
-        opacity: 0px;
-        box-shadow: 1px 1px 10px 2px #0000001A;
-        margin-bottom: 1rem;
-
-        position: relative;
-        display: flex;
-        justify-content: start;
-        align-items: start;
-        gap: 1.5rem;
-        padding: 1rem;
-    }
-
-    .checkoutCard img {
-        width: 110px;
-        height: 100%;
-    }
-
-    .checkoutCardInfoWrapper {
-        padding: 0.2rem;
-    }
-
-    .checkoutCardMealName {
-        margin-bottom: 0.2rem;
-    }
-
-    .mealInfoWrapper p:not(:last-child) {
-        margin-bottom: 0.1rem;
-    }
-
-    .checkoutCardPrice {
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    .checkoutCardBtn {
-        width: 50px;
-        height: 34px;
-        gap: 0px;
-        border-radius: 30px 0px 16px 0px;
-        border: none;
-    }
-
-    .checkoutCardQuantityWrapper {
-        width: 80px;
-        height: 40px;
-        border: none;
-    }
-
-    .checkoutCardQuantityWrapper button {
-        background-color: inherit;
-        border: none;
-        font-size: 24px;
-    }
-
-    .quantityCounter {
-        font-size: 20px;
-    }
-}

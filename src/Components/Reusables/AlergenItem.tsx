@@ -1,4 +1,3 @@
-
 type AlergenItemPropsType = {
   children: JSX.Element;
   bgColor: string;
@@ -12,20 +11,23 @@ const AlergenItem = ({
   textColor = "white",
   text,
 }: AlergenItemPropsType) => {
-
   const styles = {
     backgroundColor: bgColor,
     color: textColor,
-    padding: "1.3%",
-    fontSize: 16,
-    marginRight: '2%',
-    borderRadius: 2
+    padding: "0.6% 1.6%",
+    fontSize: "calc(16px / 1.33)",
+    marginRight: "2%",
+    borderRadius: 2,
+    display: 'inline-flex',
+    justifyContent: 'start',
+    alignItems: 'center',
+    gap: '3px'
   };
 
   return (
     <span className="fontSF" style={styles}>
-      {children}
-     <span style={{marginLeft: '1.3%'}}>{text}</span> 
+      <div>{children}</div>
+      <span style={{ marginLeft: "2.3%", whiteSpace: 'nowrap' }}>{text}</span>
     </span>
   );
 };

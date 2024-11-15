@@ -12,18 +12,24 @@ type MealCardPropsType = {
 
 const MealCard = ({ product, theme }: MealCardPropsType) => {
   const { handleStepChange, handleSetMealForInfo } = useContext(StepContext);
-  const { setMeal, placeMealInOrders, removeMealFromOrders,  orders} = useContext(OrderContext);
+  const { placeMealInOrders, removeMealFromOrders, orders } =
+    useContext(OrderContext);
   const [isSelected, setIsSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
-  const isMealPlacedInOrders = Boolean(orders.find(meal => meal.id === product.ProductId))
-  
+  const isMealPlacedInOrders = Boolean(
+    orders.find((meal) => meal.id === product.ProductId)
+  );
+
   return (
     <motion.div
       id="productCard"
       animate={{
         scale: isSelected ? 1.03 : 1,
-        backgroundColor: isSelected || isMealPlacedInOrders ? `${theme.activeTextColor}60` : "white",
+        backgroundColor:
+          isSelected || isMealPlacedInOrders
+            ? `${theme.activeTextColor}60`
+            : "white",
       }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={styles.card}
@@ -31,11 +37,10 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         border: isSelected ? `1px solid ${theme.activeTextColor}` : "",
       }}
       onClick={() => {
-
         // const wrapperDiv = e.target as HTMLDivElement
         setIsSelected(!isSelected);
 
-        if (!isSelected ) {
+        if (!isSelected) {
           setQuantity(1);
           placeMealInOrders({
             id: product.ProductId,
@@ -50,38 +55,37 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
             originalTotal: product.Price,
             totalPrice: product.Price,
             quantity: quantity,
-            note: ""
-          })
-        }else{
-
-          removeMealFromOrders(product.ProductId)
+            note: "",
+          });
+        } else {
+          removeMealFromOrders(product.ProductId);
         }
-
-        
       }}
     >
-      {/* MEAL INFO TRIGER */}
-      <button
-        className={styles.infoBtn}
-        onClick={(e) => {
-
-          e.stopPropagation()
-          handleSetMealForInfo(product);
-          handleStepChange("mealInfo");
-        }}
-      >
-        &#8505;
-      </button>
+      
 
       <div className={styles.imgWrapper}>
         <img
           className={styles.productImage}
           src={`${product.SmallPictureUrl}`}
           alt={product.Name}
+          loading="lazy"
         />
+
+        {/* MEAL INFO TRIGER */}
+      <button
+        className={styles.infoBtn}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSetMealForInfo(product);
+          handleStepChange("mealInfo");
+        }}
+      >
+        &#8505;
+      </button>
       </div>
 
-      <motion.p
+      {/* <motion.p
         animate={{
           x: isSelected ? ["100%", "-100%"] : 0,
         }}
@@ -93,17 +97,10 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         className={`fontSF ${styles.productNameHeading}`}
       >
         {isSelected ? product.Name : `${product.Name.substring(0, 12)}...`}
-      </motion.p>
+      </motion.p> */}
+      <p className={`fontSF ${styles.productNameHeading}`}>{product.Name.length > 35 ? product.Name.substring(0, 30) : product.Name}</p>
 
-      <p
-        className={`fontSF ${styles.productPriceHeading}`}
-        style={{
-          position: "absolute",
-          bottom: 10,
-          fontSize: 16,
-          color: theme.textColor,
-        }}
-      >
+      <p  className={`fontSF ${styles.productPriceHeading}`}>
         {product.Price} {product.PriceValue}
       </p>
 
@@ -165,8 +162,8 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
             onClick={() => {
               setIsSelected(true);
               setQuantity((q) => q + 1);
-              
-              if(!isSelected) {
+
+              if (!isSelected) {
                 placeMealInOrders({
                   id: product.ProductId,
                   product: product,
@@ -180,10 +177,8 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                   originalTotal: product.Price,
                   totalPrice: product.Price,
                   quantity: 1,
-                  note: ''
-                })
-
-                
+                  note: "",
+                });
               }
             }}
           >
@@ -201,9 +196,8 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                 if (quantity <= 1) {
                   setQuantity(0);
                 } else {
-                  setQuantity((q) => q - 1)
+                  setQuantity((q) => q - 1);
                 }
-
               }}
             >
               &#8722;

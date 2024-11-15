@@ -1,17 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { StepContext } from "../../Contexts/StepContext/StepContext";
+import { DataContext } from "../../Contexts/DataContext/Datacontext";
+import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
+import { DrinksType, Option } from "../../Types/Types";
 import BigerHeading from "../Reusables/BigerHeading";
 import DrinksCard from "../Reusables/DrinksCard";
 import RedTopTexture from "../Reusables/RedTopTexture";
-import UpgradeBottomRibbon from "../Reusables/UpgradeBottomRibbon";
-import { DrinksType, Option } from "../../Types/Types";
-import { OrderContext } from "../../Contexts/OrderContext/OrderContext";
-import { DataContext } from "../../Contexts/DataContext/Datacontext";
 
 const Drinks = () => {
   const { data, theme } = useContext(DataContext);
-  const { handleStepChange } = useContext(StepContext);
-  const { setDrinks, placeMealInOrders, singleMeal } = useContext(OrderContext);
+  // const { handleStepChange } = useContext(StepContext);
+  const { setDrinks,  singleMeal } = useContext(OrderContext);
   const [selectedDrinks, setSelectedDrinks] = useState<
     DrinksType[] | undefined
   >([]);
@@ -86,7 +84,7 @@ const Drinks = () => {
         </div>
       </div>
 
-      <UpgradeBottomRibbon>
+      {/* <UpgradeBottomRibbon>
         <div className="bottomRibbonBtnWrapper">
           <button
             className="bottomRibbonBtn fontRaleway"
@@ -111,7 +109,7 @@ const Drinks = () => {
             Next
           </button>
         </div>
-      </UpgradeBottomRibbon>
+      </UpgradeBottomRibbon> */}
     </section>
   );
 };

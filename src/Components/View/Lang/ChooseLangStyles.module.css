@@ -1,44 +1,55 @@
 .logoWrapper {
     width: 100%;
+    height: calc(230px / 1.33);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0.3rem 0;
+    border: 2px solid red;
+    margin-bottom: 2rem;
+}
+
+.restName {
+    font-size: calc(50px / 1.33);
+    font-weight: 400;
+    line-height: calc(59.67px / 1.33);
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 }
 
 .langViewMenuOptionsWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
-    margin: 2rem auto;
-    gap: 1.5rem;
+    width: 85%;
+    margin: 6rem auto ;
+    gap: 1.8rem;
 }
 
 .langMenuBtn {
     background-color: inherit;
     border-radius: 12.8px;
     border: 0.70px solid #d3d3d399;
-    padding: 2rem;
-    flex-basis: 40%;
     box-shadow: 0px 10px 20px 5px #0000000D;
     font-weight: 400;
     font-size: 40px;
+    line-height: 36px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1px;
+
+    width: calc(300px / 1.33);
+    height: calc(320px / 1.33);
+
 }
 
 .menuOptionsText {
-    font-size: 30px;
+    font-size: calc(40px / 1.33);
     font-weight: 400;
-    line-height: 36px;
+    line-height: calc(36px / 1.33);
     text-align: center;
-
-}
-
-.langMenuBtn img {
-    height: 155px;
+    margin-top: calc(16px / 1.33);
 }

@@ -4,9 +4,11 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import styles from "./FinnishViewStyles.module.css";
 import { motion } from "framer-motion";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
+import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 
 const Finish = () => {
   const { finalInfo, handleStepChange } = useContext(StepContext);
+  const {cancelOrder} = useContext(OrderContext)
   const { theme } = useContext(DataContext);
 
   console.log("====================================");
@@ -28,7 +30,7 @@ const Finish = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={"fullScreenTablet"}
     >
-      <p className={`biggerPageTitles fontSF`} style={{ paddingTop: "2rem" }}>
+      <p className={`biggerPageTitles fontSF`} >
         Order Succesfull!
       </p>
 
@@ -65,7 +67,7 @@ const Finish = () => {
 
       <form
         className="formStyles"
-        style={{ width: "95%", margin: "0 auto" }}
+        style={{ width: "90%", margin: "0 auto" }}
         onSubmit={(e) => {
           e.preventDefault;
         }}
@@ -89,11 +91,11 @@ const Finish = () => {
           <button
             className="fontSF"
             style={{
-              lineHeight: "34px",
-              fontSize: 28,
+              lineHeight: "calc(34px / 1.33)",
+              fontSize: 'calc(28px / 1.33)',
               fontWeight: 400,
               textTransform: "capitalize",
-              backgroundColor: "inherit",
+              backgroundColor: theme.activeTextColor,
               color: "#202020",
               minWidth: "100%",
               minHeight: "100%",
@@ -107,6 +109,7 @@ const Finish = () => {
               
               alert('Order is Finished - Timer Starts Now')
               handleStepChange("start")
+              cancelOrder()
             }}
           >
             Place Order

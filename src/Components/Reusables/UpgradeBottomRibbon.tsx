@@ -28,8 +28,8 @@ const UpgradeBottomRibbon = ({
     left: 0,
     right: 0,
     width: "full",
-    height: "136px",
-    padding: "18px 30px 18px 30px",
+    height: "calc(136px / 1.33)",
+    padding: "calc(18px / 1.33) calc(30px / 1.33)",
     opacity: "0px",
     borderTop: "1px solid #9D989F",
     boxShadow: "0px 2px 20px 1px #0000001A",
@@ -41,11 +41,11 @@ const UpgradeBottomRibbon = ({
 
   const btnStyles = {
     width: "50%",
-    height: 100,
-    padding: "12px 28px 12px 28px",
-    borderRadius: "50px ",
+    height: 'calc(100px / 1.33)',
+    padding: "calc(12px / 1.33) calc(28px / 1.33)",
+    borderRadius: "calc(50px / 1.33) ",
     border: `1px solid ${theme.activeTextColor}`,
-    fontSize: 28,
+    fontSize: 'calc(28px / 1.33)',
     fontWeight: 500,
   };
 

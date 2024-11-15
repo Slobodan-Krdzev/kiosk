@@ -33,7 +33,7 @@ const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
         )}
       </div>
 
-      <p className="fontSF">
+      <p className={`${styles.totalPrice} fontSF`}>
         {order.totalPrice.toFixed(2)} {order.product?.PriceValue ?? ""}
       </p>
     </div>

@@ -7,6 +7,7 @@ import OrderContextProvider from "./Contexts/OrderContext/OrderContextProvider.t
 import StepContextProvider from "./Contexts/StepContext/StepContextProvider.tsx";
 import "./index.css";
 import { AnimatePresence } from "framer-motion";
+// import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <QueryClientProvider client={queryClient}>
           <DataContextProvider>
             <AnimatePresence mode="wait">
-              <App />
+              {/* <HelmetProvider> */}
+                <App />
+              {/* </HelmetProvider> */}
             </AnimatePresence>
           </DataContextProvider>
         </QueryClientProvider>

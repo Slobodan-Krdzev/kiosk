@@ -26,20 +26,14 @@ const MealInfo = ({ meal, theme }: MealInfoPropsType) => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div
-        style={{
-          backgroundColor: theme.bgColor,
-          padding: "3%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderBottom: "0.70px solid #9D989F",
-        }}
+        className={styles.mealPictureWrapper}
+        style={{ backgroundColor: theme.bgColor }}
       >
         <img
+          className={styles.mealPicture}
           src={meal.SmallPictureUrl}
           alt={meal.Name}
-          width={250}
-          height={250}
+          loading="lazy"
         />
       </div>
       <div
@@ -131,12 +125,13 @@ const MealInfo = ({ meal, theme }: MealInfoPropsType) => {
           )}
         </div>
         <p className={`fontSF ${styles.mealDescription}`}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,
-          odit atque! Explicabo earum pariatur veritatis amet eum obcaecati ab
-          alias optio quam expedita dicta dignissimos eligendi aperiam,
-          asperiores nobis est, molestias accusamus! Beatae nobis deleniti
-          inventore nemo quo assumenda natus reiciendis, totam excepturi optio
-          ipsa esse corporis commodi corrupti incidunt!
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum."
         </p>
 
         {Boolean(meal.ProductsTags.length) && (
@@ -153,7 +148,6 @@ const MealInfo = ({ meal, theme }: MealInfoPropsType) => {
         nextStep={meal.HasUpsaleCollection ? "menuUpgrade" : "order"}
         disableNextBtn={false}
         nextAction={() => {
-
           if (meal.HasUpsaleCollection) {
             console.log("HAS UPSALE");
           } else {

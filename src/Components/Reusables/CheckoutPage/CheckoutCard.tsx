@@ -40,8 +40,8 @@ const CheckoutCard = ({
             }}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -86,8 +86,8 @@ const CheckoutCard = ({
             }}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -134,12 +134,13 @@ const CheckoutCard = ({
         <img
           src={`${order.product!.SmallPictureUrl}`}
           alt={order.product!.Name}
+          className={styles.checkoutCardPicture}
         />
 
         <div className={styles.checkoutCardInfoWrapper}>
           <p className={`${styles.checkoutCardMealName} fontSF`}>
-            {order.product!.Name.length > 25
-              ? `${order.product!.Name.substring(0, 20)}...`
+            {order.product!.Name.length > 35
+              ? `${order.product!.Name.substring(0, 35)}...`
               : order.product!.Name}
           </p>
           <div className={styles.mealInfoWrapper}>

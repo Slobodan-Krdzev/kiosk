@@ -25,9 +25,7 @@ const Payment = () => {
       <p className="biggerPageTitles fontSF">PAYMENT</p>
 
       <div className={styles.midSection}>
-        <p className={`${styles.subTitle} fontSF`}>
-          Please scan your QR code
-        </p>
+        <p className={`${styles.subTitle} fontSF`}>Please scan your QR code</p>
 
         <button
           className={`fontSF ${styles.qrCode}`}
@@ -50,8 +48,8 @@ const Payment = () => {
           }}
         >
           <svg
-            width="147"
-            height="147"
+            width="117"
+            height="117"
             viewBox="0 0 147 147"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

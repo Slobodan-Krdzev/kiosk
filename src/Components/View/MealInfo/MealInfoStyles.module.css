@@ -1,7 +1,21 @@
+.mealPictureWrapper {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.70px solid #9D989F
+}
+
+.mealPicture {
+    height: calc(500px / 1.33);
+    width: calc(500px / 1.33);
+
+}
+
 .mealName {
-    font-size: 36px;
+    font-size: calc(36px / 1.33);
     font-weight: 400;
-    line-height: 41px;
+    line-height: calc(41px / 1.33);
     letter-spacing: 0.4000000059604645px;
     text-align: left;
     text-underline-position: from-font;
@@ -10,8 +24,8 @@
 }
 
 .mealDescription {
-    font-size: 22px;
-    line-height: 28px;
+    font-size: calc(22px / 1.33);
+    line-height: calc(28px / 1.33);
     margin: 1rem 0 0;
     font-weight: 274;
     letter-spacing: -0.25999999046325684px;
