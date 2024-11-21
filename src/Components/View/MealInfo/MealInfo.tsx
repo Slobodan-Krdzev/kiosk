@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Product, ThemeType } from "../../../Types/Types";
-import AlergenItem from "../../Reusables/AlergenItem";
-import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon";
+import AlergenItem from "../../Reusables/AlergenItem/AlergenItem";
+import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
 import styles from "./MealInfoStyles.module.css";
 import { useContext } from "react";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";

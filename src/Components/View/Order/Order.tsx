@@ -8,6 +8,7 @@ import Logo from "../../Reusables/Logo";
 import CategoryCard from "../../Reusables/OrderPage/CategoryCard/CategoryCard";
 import Listing from "../../Reusables/OrderPage/Listing/Listing";
 import styles from "./OrderStyles.module.css";
+import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
@@ -65,7 +66,7 @@ const Order = () => {
     return () => targetDiv!.removeEventListener("scroll", handleScroll);
   }, []);
 
-  console.log("ORDERS od Orders Screen", orders, orders.length);
+  // console.log("ORDERS od Orders Screen", orders, orders.length);
 
   return (
     <motion.section
@@ -82,7 +83,7 @@ const Order = () => {
         <Logo source={data.ThemeResponse.LogoImage.Url} width={60} />
       </div>
       <div className={styles.orderViewMidSection}>
-        <div className={`hideScrollBar ${styles.orderViewSidebar}`}>
+        <div className={` ${styles.orderViewSidebar}`}>
           {allCategories.map((category) => (
             <CategoryCard
               key={category.SubCategoryId}
@@ -99,28 +100,13 @@ const Order = () => {
             products={mealsToDisplay}
             selectedCategory={selectedCategory}
             theme={theme}
-            isRibbonVisible={Boolean(orders.length)}
           />
         </div>
       </div>
 
       {/* RIBBON */}
       {orders.length > 0 && isBottomRibbonVisible && (
-        <motion.div
-          initial={{ y: "10vh", opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: "10vh", opacity: 0 }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
-          style={{
-            position: "absolute",
-            bottom: "40px",
-            left: 0,
-            right: 0,
-            width: "95%",
-            margin: "0 auto",
-            borderRadius: "70px",
-          }}
-        >
+        <BottomGreenRibbon animate>
           <div
             className={styles.bottomRibbonContent}
             style={{
@@ -133,8 +119,7 @@ const Order = () => {
           >
             <div className={styles.ribbonContentWrapper}>
               <svg
-                width="50"
-                height="50"
+                className={styles.ribbonIcon}
                 viewBox="0 0 50 50"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +148,7 @@ const Order = () => {
               </svg>
 
               <span className={`fontSF ${styles.ribbonTextStyles}`}>
-                {orders.length}
+                {orders.length} 
               </span>
             </div>
 
@@ -171,9 +156,9 @@ const Order = () => {
               View Order &rsaquo;
             </p>
 
-            <p className={`fontSF ${styles.ribbonTextStyles}`}>{total} </p>
+            <p className={`fontSF ${styles.ribbonTextStyles}`}>{total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}</p>
           </div>
-        </motion.div>
+        </BottomGreenRibbon>
       )}
     </motion.section>
   );

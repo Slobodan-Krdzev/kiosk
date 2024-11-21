@@ -37,7 +37,7 @@ const ChooseLang = () => {
       <div className={styles.langViewMenuOptionsWrapper}>
         <motion.button
           animate={{
-            scale: option == "Take Away" ? 1.15 : 1,
+            scale: option == "Take Away" ? 1.1 : 1,
           }}
           transition={{
             type: "spring",
@@ -104,7 +104,7 @@ const ChooseLang = () => {
         {/* DINE IN OPCIJA   */}
         <motion.button
           animate={{
-            scale: option == "Dine In" ? 1.15 : 1,
+            scale: option == "Dine In" ? 1.1 : 1,
           }}
           transition={{
             type: "tween",
@@ -145,7 +145,7 @@ const ChooseLang = () => {
         </motion.button>
       </div>
 
-      <div style={{ width: "70%", margin: "4rem auto", textAlign: "center" }}>
+      <div className={styles.langSelectWrapper}>
         
         <img src="/netherlands.png" alt="Dutch" width={43.6} height={43.6}/>
         <img src="/English.png" alt="Dutch" width={43.6} height={43.6} style={{margin: '0 10px'}}/>

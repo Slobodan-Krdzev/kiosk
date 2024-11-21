@@ -15,8 +15,6 @@ const CategoryCard = ({
   handleCategoryChange,
   theme,
 }: CategoryCardPropsType) => {
-
-  
   return (
     <motion.div
       animate={{
@@ -45,49 +43,12 @@ const CategoryCard = ({
       <img
         src={"/category.png"}
         alt={Name.toLowerCase()}
-        style={{ width: "24.4px", height: "24.4px" }}
+        className={styles.image}
       />
 
-
-      {/* <motion.p
-        animate={{
-          x: currentCategory === SubCategoryId ? ["20%", "-20%"] : 0,
-        }}
-        transition={{
-          duration: 5,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-        key={
-          currentCategory === SubCategoryId
-            ? "movingTextActive"
-            : "movingTextInactive"
-        }
-        className={`fontSF`}
-        style={{
-          fontSize: 20,
-          textTransform: "capitalize",
-          fontWeight: 400,
-          marginTop: "0.3rem",
-          lineHeight: "25px",
-          textAlign: "center",
-        }}
-      >
-        {currentCategory === SubCategoryId
-          ? Name
-          : Name.length > 8
-          ? `${Name.substring(0, 5)}...`
-          : Name}
-      </motion.p> */}
-      <p className={`fontSF`}
-        style={{
-          fontSize: 'calc(20px / 1.33)',
-          textTransform: "capitalize",
-          fontWeight: 400,
-          marginTop: "calc(0.3rem / 1.33)",
-          lineHeight: "calc(25px / 1.33)",
-          textAlign: "center",
-        }}>{Name.length > 15 ? `${Name.substring(0, 5)}...` : Name}</p>
+      <p className={`fontSF ${styles.categoryCardText}`}>
+        {Name.length > 15 ? `${Name.substring(0, 5)}...` : Name}
+      </p>
     </motion.div>
   );
 };

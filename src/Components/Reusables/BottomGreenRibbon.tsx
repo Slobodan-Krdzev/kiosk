@@ -1,25 +1,34 @@
+import { motion } from "framer-motion";
+
 type BottomGreenRibbonPropsType = {
-    bgColor?: string
-    justify?: 'center' | 'space-between'
-    children: React.ReactNode
-}
+  bgColor?: string;
+  animate?: boolean;
+  children: React.ReactNode;
+};
 
-const BottomGreenRibbon = ({children, bgColor= 'white', justify = 'center'}: BottomGreenRibbonPropsType) => {
-  return (
-    <div className="bottomRibbon" 
-    // style={{
-    //   width: '95%',
-    //   margin: '0 auto',
-    //   backgroundColor: bgColor,
-    //   borderRadius: '70px',
-    //   display: 'flex',
-    //   justifyContent: justify,
-    //   boxShadow: "0px 10px 20px 5px #0000000D"
-    // }}
-    >
+const BottomGreenRibbon = ({
+  children,
+  animate = false
+}: BottomGreenRibbonPropsType) => {
+  if (animate) {
+    return (
+      <motion.div
+        initial={{ y: "10vh", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: "10vh", opacity: 0 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        className="bottomRibbon"
+      >
         {children}
-    </div>
-  )
-}
+      </motion.div>
+    );
+  }
 
-export default BottomGreenRibbon
+  return (
+    <div className="bottomRibbon">
+      {children}
+    </div>
+  );
+};
+
+export default BottomGreenRibbon;

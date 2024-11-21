@@ -7,7 +7,8 @@
 }
 
 .orderViewLogoWrapperTop {
-    height: calc(200px / 1.33);
+    /* height: calc(200px / 1.33); */
+    height: 15vh;
     background: radial-gradient(90.37% 586.33% at 9.63% 73.7%, rgba(32, 29, 34, 0.429) 9.69%, rgba(0, 0, 0, 0.55) 29.4%, rgba(0, 0, 0, 0.55) 56.15%, rgba(32, 29, 34, 0.55) 100%);
     display: flex;
     justify-content: center;
@@ -24,10 +25,10 @@
 }
 
 .orderViewSidebar {
-    flex-basis: 25%;
+    flex-basis: 20%;
     padding-left: 3%;
     padding-right: 1%;
-    padding-top: 3%;
+    padding-top: 2.5%;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -37,8 +38,7 @@
 .orderViewRightSide {
     flex-basis: 80%;
     padding-right: 3%;
-    padding-top: 3%;
-    height: 100vh;
+    max-height: 100%;
 }
 
 
@@ -46,13 +46,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 40px;
+    gap: 20px;
     min-height: calc(100px / 1.33);
     width: 100%;
     margin: 0 auto;
     padding: 0 40px;
     border-radius: calc(50px / 1.33)
+}
 
+.orderViewBottomRibbon {
+    position: fixed;
+    bottom: 2vh;
+    left: 0;
+    right: 0;
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 70px;
+}
+
+.ribbonIcon{
+    width: 50px;
+    height: 50px;
 }
 
 .ribbonContentWrapper {
@@ -62,8 +76,38 @@
     cursor: pointer;
 }
 
-.ribbonTextStyles{
+.ribbonTextStyles {
     font-weight: 400;
     font-size: calc(34px / 1.33);
     line-height: calc(41px / 1.33);
+}
+
+@media (max-width: 800px) {
+    .orderViewSidebar {
+        padding-top: 3%;
+    }
+
+}
+
+@media (max-width: 425px) {
+    .orderViewLogoWrapperTop {
+        height: 10%;
+    }
+
+    .orderViewSidebar {
+        width: 30%;
+    }
+
+    .orderViewRightSide {
+        width: 70%;
+    }
+
+    .ribbonTextStyles {
+        font-size: 5vw;
+        line-height: 99%;
+    }
+
+    .ribbonIcon{
+        width: 30px;
+    }
 }

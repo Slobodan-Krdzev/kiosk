@@ -1,17 +1,20 @@
 .logoWrapper {
     width: 100%;
-    height: calc(230px / 1.33);
+    /* height: calc(230px / 1.33); */
+    height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
     margin-bottom: 2rem;
+    background-color: gray;
 }
 
 .restName {
-    font-size: calc(50px / 1.33);
+    /* font-size: calc(50px / 1.33); */
+    font-size: 5vw;
     font-weight: 400;
-    line-height: calc(59.67px / 1.33);
+    /* line-height: calc(59.67px / 1.33); */
+    line-height: 90%;
     letter-spacing: 0.01em;
     text-align: center;
     text-underline-position: from-font;
@@ -22,9 +25,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 85%;
-    margin: 6rem auto ;
-    gap: 1.8rem;
+    width: 95%;
+    margin: 10vh auto ;
+    gap: 3vw;
 }
 
 .langMenuBtn {
@@ -33,7 +36,9 @@
     border: 0.70px solid #d3d3d399;
     box-shadow: 0px 10px 20px 5px #0000000D;
     font-weight: 400;
-    font-size: 40px;
+    /* font-size: 40px; */
+    font-size: 5vw;
+    color: black;
     line-height: 36px;
     display: flex;
     flex-direction: column;
@@ -41,15 +46,45 @@
     align-items: center;
     gap: 1px;
 
-    width: calc(300px / 1.33);
-    height: calc(320px / 1.33);
+     /* width: calc(300px / 1.33); */
+    /* height: calc(320px / 1.33); */ 
+    width: 45%;
+    height: 30vh;
 
 }
 
 .menuOptionsText {
-    font-size: calc(40px / 1.33);
+    /* font-size: calc(40px / 1.33); */
+    font-size: 5vw;
     font-weight: 400;
-    line-height: calc(36px / 1.33);
     text-align: center;
-    margin-top: calc(16px / 1.33);
+    margin-top: 1.3vh;
+}
+
+.langSelectWrapper{
+    width: 70%; 
+    margin: 10vh auto;
+    text-align: center
+}
+
+@media (max-width: 425px){
+
+    .logoWrapper{
+        height: 12vh;
+    }
+
+    .restName{
+        font-size: 7vw;
+    }
+
+    .langViewMenuOptionsWrapper{
+        margin: 5vh auto 2vh;
+    }
+
+    .langSelectWrapper{
+        margin: 2.5rem auto; 
+    }
+    .menuOptionsText{
+        font-size:6vw;
+    }
 }

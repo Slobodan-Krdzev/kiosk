@@ -1,36 +1,64 @@
 .mealPictureWrapper {
-    padding: 2rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 0.70px solid #9D989F
+  padding: 2vh 0;
+  display: flex;
+  height: 45%;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.7px solid #9d989f;
 }
 
 .mealPicture {
-    height: calc(500px / 1.33);
-    width: calc(500px / 1.33);
-
+  height: 40vh;
+  width: 55vw;
+  max-width: 500px;
+  border-radius: 0.5rem;
+  box-shadow: 0px 3.77px 18.85px 0px #0000001a;
 }
 
 .mealName {
-    font-size: calc(36px / 1.33);
-    font-weight: 400;
-    line-height: calc(41px / 1.33);
-    letter-spacing: 0.4000000059604645px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-
+  font-size: 4.2vw;
+  font-weight: 400;
+  line-height: 99%;
+  letter-spacing: 0.4000000059604645px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
 }
 
 .mealDescription {
-    font-size: calc(22px / 1.33);
-    line-height: calc(28px / 1.33);
-    margin: 1rem 0 0;
-    font-weight: 274;
-    letter-spacing: -0.25999999046325684px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
+  font-size: 2.8vw;
+  line-height: 2.4vh;
+  margin: 2vh 0 0;
+  font-weight: 274;
+  letter-spacing: -0.25999999046325684px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
 
+@media (max-width: 425px) {
+  .mealPictureWrapper {
+    padding: 2vh 0;
+    display: flex;
+    height: 30vh;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.7px solid #9d989f;
+  }
+
+  .mealPicture {
+    width: 55vw;
+  }
+
+  .mealName {
+    font-size: 6.2vw;
+    line-height: 99%;
+  }
+  
+  .mealDescription {
+    /* font-size: calc(22px / 1.33); */
+    font-size: 4vw;
+    line-height: 110%;
+    margin: 1rem 0 0;
+  }
 }

@@ -1,3 +1,5 @@
+import styles from "./AlergenItemStyles.module.css"
+
 type AlergenItemPropsType = {
   children: JSX.Element;
   bgColor: string;
@@ -11,21 +13,14 @@ const AlergenItem = ({
   textColor = "white",
   text,
 }: AlergenItemPropsType) => {
-  const styles = {
+  
+  const dynamicStyles = {
     backgroundColor: bgColor,
-    color: textColor,
-    padding: "0.6% 1.6%",
-    fontSize: "calc(16px / 1.33)",
-    marginRight: "2%",
-    borderRadius: 2,
-    display: 'inline-flex',
-    justifyContent: 'start',
-    alignItems: 'center',
-    gap: '3px'
+    color: textColor
   };
 
   return (
-    <span className="fontSF" style={styles}>
+    <span className={`${styles.alergenItem} fontSF`} style={dynamicStyles}>
       <div>{children}</div>
       <span style={{ marginLeft: "2.3%", whiteSpace: 'nowrap' }}>{text}</span>
     </span>

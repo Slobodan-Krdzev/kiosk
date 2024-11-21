@@ -1,0 +1,10 @@
+.alergenItem {
+    padding: 0.6% 1.6%;
+    font-size: 2vw;
+    margin-right: 2%;
+    border-radius: 2;
+    display: inline-flex;
+    justify-content: start;
+    align-items: center;
+    gap: 3px
+}

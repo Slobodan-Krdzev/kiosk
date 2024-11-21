@@ -4,7 +4,7 @@ import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import CheckoutCard from "../../Reusables/CheckoutPage/CheckoutCard";
-import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon";
+import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
 import styles from "./CheckoutStyles.module.css";
 
 const Checkout = () => {
