@@ -14,7 +14,7 @@
 
     .mealsListing {
         grid-template-columns: repeat(3, 1fr);
-        grid-auto-rows: 20.5%;
+        grid-auto-rows: 19.6%;
     }
 }
 
