@@ -100,6 +100,7 @@ const Order = () => {
             products={mealsToDisplay}
             selectedCategory={selectedCategory}
             theme={theme}
+            isRibbonVisible={orders.length > 0}
           />
         </div>
       </div>

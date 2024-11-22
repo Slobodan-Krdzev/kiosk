@@ -129,14 +129,13 @@ h1 {
 }
 
 .biggerPageTitles {
-  font-size: calc(50px / 1.33);
+  font-size: 5.5vw;
   font-weight: 500;
-  line-height: calc(59.67px / 1.33);
   letter-spacing: 0.01em;
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  padding: 1rem 0 2rem;
+  padding: 2.5rem 0 1.5rem;
   text-transform: uppercase;
 }
 

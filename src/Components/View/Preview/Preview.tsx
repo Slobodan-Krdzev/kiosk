@@ -26,10 +26,10 @@ const Preview = () => {
       <p className={`fontSF biggerPageTitles`}>ORDER PREVIEW</p>
 
       <div
-        className={styles.paymentInfoWrapper}
+        className={styles.previewInfoWrapper}
         style={{ borderColor: theme.activeTextColor }}
       >
-        <div className={styles.paymentOrdersWrapper}>
+        <div className={`hideScrollBar ${styles.previewOrdersWrapper}`}>
           {orders.map((order) => (
             <OrderInfoCard key={order.id} order={order} />
           ))}
@@ -37,12 +37,12 @@ const Preview = () => {
 
         <div className={styles.totalWrapper} style={{backgroundColor: theme.activeTextColor}}>
           <p
-            className={`fontSF ${styles.totalPriceHeading}`}
+            className={`fontSF`}
           >
             Total:
           </p>
           <p
-            className={`${styles.orderTotal} fontSF`}
+            className={`fontSF`}
           >
             {getOrderTotal()} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
           </p>

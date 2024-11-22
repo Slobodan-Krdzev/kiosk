@@ -1,32 +1,30 @@
 .checkoutCardWrapper {
-    width: 100%;
-    height: 80vh;
-    margin: 0 auto;
-    padding: 1% 2.5%;
-    overflow-y: scroll;
-    margin-bottom: 10px;
+  width: 100%;
+  height: calc(100% - 20vh);
+  margin: 0 auto;
+  padding: 2% 2.5% 3%;
+  overflow-y: scroll;
+  margin-bottom: 10px;
 }
 
 .checkoutCardWrapper::-webkit-scrollbar {
-    display: none;
-} 
-
-.checkoutCardWrapper {
-    -ms-overflow-style: none;
-    
-    scrollbar-width: none;
-    
+  display: none;
 }
 
-.bottomRibbon{
-    position: fixed;
-    bottom: 5%;
-    left: 0;
-    right: 0;
+.checkoutCardWrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bottomRibbon {
+  position: fixed;
+  bottom: 5%;
+  left: 0;
+  right: 0;
 }
 
 @media only screen and (max-width: 468px) {
-    .checkoutCardWrapper {
-        max-height: 78vh;
-    }
+  .checkoutCardWrapper {
+    max-height: 78vh;
+  }
 }

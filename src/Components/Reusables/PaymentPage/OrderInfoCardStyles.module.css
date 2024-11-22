@@ -9,44 +9,35 @@
 
 .productName {
     text-transform: capitalize;
-    font-size: calc(24px / 1.33);
+    font-size: 2vw;
     font-weight: 400;
-    line-height: calc(28.64px / 1.33);
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-
+    line-height: 99%;
 }
 
 .productName span {
     text-transform: lowercase;
 }
 
-.price {
-    font-size: calc(24px / 1.33);
-    font-weight: 400;
-    line-height: calc(28.64px / 1.33);
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-}
 
 .sidesText {
-    font-size: calc(20px / 1.33);
+    font-size: 1.5vw;
     font-weight: 400;
-    line-height: calc(23.87px / 1.33);
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-
 }
 
 .totalPrice {
-    font-size: calc(24px / 1.33);
+    font-size: 2vw;
     font-weight: 400;
-    line-height: calc(28.64px / 1.33);
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
 
+}
+
+@media (max-width: 801px) {
+    .productName, .totalPrice {
+        font-size: 3vw;
+    }
+}
+
+@media (max-width: 465px) {
+    .productName, .totalPrice {
+        font-size: 4vw;
+    }
 }

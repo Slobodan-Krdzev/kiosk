@@ -55,7 +55,7 @@ const Finish = () => {
       </div>
 
       <p className={`${styles.subTitle} fontSF`}>
-        Pick up your order at the counter.
+      You can pick up your order at the counter.
       </p>
 
       <div

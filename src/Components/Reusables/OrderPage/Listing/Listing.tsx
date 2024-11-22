@@ -7,12 +7,14 @@ type ListingPropsType = {
   products: Product[];
   selectedCategory: number;
   theme: ThemeType;
+  isRibbonVisible: boolean
 };
 
 const Listing = ({
   products,
   selectedCategory,
-  theme
+  theme,
+  isRibbonVisible
 }: ListingPropsType) => {
   const containerRef = useRef<null | HTMLDivElement>(null);
 
@@ -30,9 +32,9 @@ const Listing = ({
       <div
         className={`hideScrollBar ${styles.mealsListing}`}
         ref={containerRef}
-        // style={{
-        //   height: isRibbonVisible ?  `calc(100% - 10vh)` : `calc(100vh - calc(10vh - 70px))`
-        // }}
+        style={{
+          height: isRibbonVisible ?  `calc(100% - 24.3vh)` : ``
+        }}
       >
         {products.map((p) => (
           <MealCard key={p.ProductId} product={p} theme={theme} />

@@ -1,103 +1,63 @@
-.paymentView {
-    height: 100vh;
-    width: 100%;
-    position: relative;
-    padding-top: 4rem;
+.previewInfoWrapper {
+  width: 90%;
+  height: 70vh;
+  border-radius: 8px;
+  border: 1.51px solid;
+  opacity: 0px;
+  margin: 2rem auto 4rem;
+  box-shadow: 1px 1px 15px 2px #cedc0026;
+
+  position: relative;
 }
 
-.paymentInfoWrapper {
-    width: 90%;
-    height: calc(850px / 1.33);
-    border-radius: 8px;
-    border: 1.51px solid;
-    opacity: 0px;
-    margin: 1rem auto 4rem;
-    box-shadow: 1px 1px 15px 2px #CEDC0026;
-
-    position: relative;
-}
-
-.paymentOrdersWrapper {
-    height: 92%;
-    overflow-y: scroll;
+.previewOrdersWrapper {
+  height: 92%;
+  overflow-y: scroll;
 }
 
 .totalWrapper {
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    height: calc(78px / 1.33);
-}
-
-.totalPriceHeading {
-    font-size: calc(24px / 1.33);
-    font-weight: 400;
-    line-height: calc(28.64px / 1.33);
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-
-}
-
-.orderTotal {
-    font-size: calc(24px / 1.33);
-    font-weight: 400;
-    line-height: calc(28.64px / 1.33);
-    text-align: right;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  height: 7%;
+  font-size: 2.5vw;
 }
 
 .midSection {
-    text-align: center;
-    padding-top: 4rem;
+  text-align: center;
+  padding-top: 4rem;
 }
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.paymentOrdersWrapper::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.paymentOrdersWrapper {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-}
-
 
 .totalWrapper {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
+@media (max-width: 801px) {
+  .previewInfoWrapper {
+    margin: 0.5rem auto 2rem;
 
-.qrCode {
+  }
 
-    width: 50%;
-    margin: 0 auto;
-    font-size: 140px;
-    font-weight: 600;
-    background-color: inherit;
+  .totalWrapper {
+    font-size: 3.5vw;
+    padding: 6% 2%;
+  }
+}
 
-    --s: 100px;
-    /* the size on the corner */
-    --t: 10px;
-    /* the thickness of the border */
-    --g: 10%;
-    /* the gap between the border and image */
+@media (max-width: 467px) {
+  .previewInfoWrapper {
+    margin: 0.5rem auto 2rem;
 
-    padding: calc(var(--g) + var(--t));
-    outline-offset: calc(-1*var(--t));
-    mask:
-        conic-gradient(at var(--s) var(--s), #00000000 75%, #000 0) 0 0/calc(100% - var(--s)) calc(100% - var(--s)),
-        linear-gradient(#000 0 0) content-box;
-    transition: .4s;
+    height: 55vh;
+  }
+
+  .totalWrapper {
+    font-size: 5.5vw;
+    padding: 6% 2%;
+  }
 }
