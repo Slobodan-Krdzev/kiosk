@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import Get from "../../Query/Get";
 import { DataContext } from "./Datacontext";
 import { MainCategory2, Product, SubCategory2, ThemeType } from "../../Types/Types";
+import Loading from "../../Components/Loading";
 
 type DataContextProviderPropsType = {
   children: JSX.Element;
@@ -22,7 +23,7 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   }
 
   if (isLoading) {
-    return <>Loading od context</>;
+    return <Loading />;
   }
 
   

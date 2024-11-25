@@ -100,32 +100,23 @@ h1 {
 }
 
 .noteLabel {
-
-  font-size: calc(20px / var(--reset-size));
+  font-size: 2.2vw;
   font-weight: 400;
-  line-height: calc(34px / var(--reset-size));
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
+  padding-bottom: 1%;
 
 }
 
 .noteInput {
   box-shadow: 0px 1px 3px 0px #00000014;
-  height:  calc(60px / var(--reset-size));
-  padding: calc(30px / var(--reset-size)) calc(20px / var(--reset-size));
-  border-radius:  calc(16px / var(--reset-size));
+  height:  4vh;
+  padding: 1.3vh;
+  border-radius:  8px;
   border: 1px solid;
   opacity: 0px;
   outline: none;
-  font-size:  calc(20px / var(--reset-size));
+  font-size:  2vw;
   font-weight: 400;
-  line-height: calc(33.41px / var(--reset-size));
   letter-spacing: 0.01em;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-
 }
 
 .biggerPageTitles {

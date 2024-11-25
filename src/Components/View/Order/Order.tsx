@@ -66,8 +66,6 @@ const Order = () => {
     return () => targetDiv!.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // console.log("ORDERS od Orders Screen", orders, orders.length);
-
   return (
     <motion.section
       key={"order"}
@@ -96,6 +94,7 @@ const Order = () => {
         </div>
 
         <div className={styles.orderViewRightSide} ref={scrollingDiv}>
+          <div className={styles.promoBanner} > promo goes here </div>
           <Listing
             products={mealsToDisplay}
             selectedCategory={selectedCategory}

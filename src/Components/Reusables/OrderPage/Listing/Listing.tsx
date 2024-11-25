@@ -33,7 +33,7 @@ const Listing = ({
         className={`hideScrollBar ${styles.mealsListing}`}
         ref={containerRef}
         style={{
-          height: isRibbonVisible ?  `calc(100% - 24.3vh)` : ``
+          height: isRibbonVisible ?  `calc(100% - 24.3vh - 157px)` : ``
         }}
       >
         {products.map((p) => (

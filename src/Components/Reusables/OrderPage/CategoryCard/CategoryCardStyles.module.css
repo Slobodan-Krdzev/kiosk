@@ -1,9 +1,6 @@
 .categoryCard {
-  /* height: 80px; */
-  /* width: calc(165px / 1.33);
-     */
-  max-height: 160px;
-  height: 10%;
+  max-height: 77px;
+  height: 10vh;
   max-width: 220px;
   width: 100%;
   padding: 3%;
@@ -20,34 +17,22 @@
 }
 
 .categoryCard:not(:last-child) {
-  margin-bottom: 15px;
+  margin-bottom: 1vh;
 }
-
-/* .imgWrapper{
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10%;
-} */
 
 .image {
   width: 4vw;
   height: 35%;
   padding: 3% 0;
-  /* padding-top: 2%; */
 }
 
 .categoryCardText {
-  /* font-size: calc(20px / 1.33); */
   font-size: 2vw;
   width: 100%;
   margin: 0 auto;
   text-transform: capitalize;
   font-weight: 400;
-  /* margin-top: calc(0.3rem / 1.33); */
-  line-height: calc(25px / 1.33);
+  line-height: 99%;
   text-align: center;
   white-space: normal;
   overflow: hidden;

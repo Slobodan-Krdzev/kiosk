@@ -68,7 +68,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         <img
           className={styles.productImage}
           src={`${product.SmallPictureUrl}`}
-          alt={product.Name}
+          alt={product.Name.substring(0,5)}
           loading="lazy"
         />
 

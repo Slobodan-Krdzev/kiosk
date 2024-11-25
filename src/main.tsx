@@ -16,13 +16,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <StepContextProvider>
       <OrderContextProvider>
         <QueryClientProvider client={queryClient}>
-          <DataContextProvider>
-            <AnimatePresence mode="wait">
-              {/* <HelmetProvider> */}
-                <App />
-              {/* </HelmetProvider> */}
-            </AnimatePresence>
-          </DataContextProvider>
+          <AnimatePresence mode="wait">
+            <DataContextProvider>
+              <App />
+            </DataContextProvider>
+          </AnimatePresence>
         </QueryClientProvider>
       </OrderContextProvider>
     </StepContextProvider>
