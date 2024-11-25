@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-@import url('https://fonts.cdnfonts.com/css/noteworthy');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.cdnfonts.com/css/noteworthy");
 
-@import url('https://v1.fontapi.ir/css/SFProDisplay');
+@import url("https://v1.fontapi.ir/css/SFProDisplay");
 /* font-family: "Raleway", sans-serif; */
 /* font-family: "Dancing Script", cursive; */
 /* font-family: "Plus Jakarta Sans", sans-serif; */
@@ -30,11 +30,10 @@
 body {
   max-height: 100vh;
   overflow: hidden;
-  background-color: #FAFAFA;
-
+  background-color: #fafafa;
 }
 
-button{
+button {
   color: black;
 }
 
@@ -45,7 +44,7 @@ button{
 } */
 
 .fullScreenTablet {
-  height: 100vh
+  height: 100vh;
 }
 
 .fontDancing {
@@ -57,13 +56,11 @@ button{
 }
 
 .fontNoteworthy {
-
-  font-family: 'Noteworthy', sans-serif;
+  font-family: "Noteworthy", sans-serif;
 }
 
 .fontSF {
-  font-family: 'SF Pro Display', sans-serif;
-
+  font-family: "SF Pro Display", sans-serif;
 }
 
 h1 {
@@ -87,7 +84,7 @@ h1 {
 
 .hideScrollBar {
   scrollbar-width: none;
-    -ms-overflow-style: none;
+  -ms-overflow-style: none;
 }
 
 .hideScrollBar::-webkit-scrollbar {
@@ -103,20 +100,31 @@ h1 {
   font-size: 2.2vw;
   font-weight: 400;
   padding-bottom: 1%;
-
 }
 
 .noteInput {
   box-shadow: 0px 1px 3px 0px #00000014;
-  height:  4vh;
+  height: 4vh;
   padding: 1.3vh;
-  border-radius:  8px;
+  border-radius: 8px;
   border: 1px solid;
   opacity: 0px;
   outline: none;
-  font-size:  2vw;
+  font-size: 2vw;
   font-weight: 400;
   letter-spacing: 0.01em;
+}
+
+.submitBtn {
+  box-shadow: 0px 1px 3px 0px #00000014;
+  height: 4vh;
+  border-radius: 8px;
+  border: 1px solid;
+  outline: none;
+  font-size: 2.5vw;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  outline: none;
 }
 
 .biggerPageTitles {
@@ -166,10 +174,6 @@ h1 {
   font-size: 24px;
   font-weight: 600;
 }
-
-
-
-
 
 img {
   max-width: 100%;
@@ -258,10 +262,7 @@ img {
   min-height: 10vh;
 }
 
-
 /* LANG VIEW  */
-
-
 
 /* ORDER VIEW */
 
@@ -271,7 +272,13 @@ img {
 
 .overlay {
   /* background: linear-gradient(180deg, rgba(37, 36, 36, 0.47) 0%, rgba(39, 37, 37, 0.47) 6.29%, rgba(39, 38, 38, 0.47) 12.58%, rgba(49, 49, 49, 0) 89.84%); */
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.47) 0%, rgba(0, 0, 0, 0.47) 16%, rgba(0, 0, 0, 0.376) 31.5%, rgba(0, 0, 0, 0.188) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.47) 0%,
+    rgba(0, 0, 0, 0.47) 16%,
+    rgba(0, 0, 0, 0.376) 31.5%,
+    rgba(0, 0, 0, 0.188) 100%
+  );
   /* height: 100%; */
 }
 
@@ -282,7 +289,6 @@ img {
   right: 0;
   background-color: #f1f1f0;
 } */
-
 
 .categoryBtn:not(:last-child) {
   margin-bottom: 20px;
@@ -295,7 +301,7 @@ img {
 }
 
 .specialOfferDiv {
-  background-color: #FFF5F5;
+  background-color: #fff5f5;
   border: 2px solid green;
   flex-basis: 20%;
   border-radius: 11.7px;
@@ -313,19 +319,12 @@ img {
   height: 43.88px;
   border-radius: 25.01px 0px 13.34px 0px;
   border: none;
-
 }
-
-
-
-
-
 
 .mealCard p {
   font-size: 22px;
   font-weight: 600;
   text-align: center;
-
 }
 
 .mealCard button {
@@ -337,11 +336,11 @@ img {
   gap: 0px;
   border-radius: 25.99px 0px 13.86px 0px;
   opacity: 0px;
-  border: 0.3px solid #D3D3D3;
+  border: 0.3px solid #d3d3d3;
 }
 
 .redTopTexture {
-  background-image: url('../public/redTopTexture.png');
+  background-image: url("../public/redTopTexture.png");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 392px;
@@ -391,10 +390,8 @@ img {
   gap: 1rem;
 }
 
-
-
 .upgradeBtnsWrapper button div {
-  border: 1px solid #CED1D9;
+  border: 1px solid #ced1d9;
   margin-bottom: 1rem;
 }
 
@@ -410,7 +407,6 @@ img {
   font-weight: 400;
   line-height: 32px;
 }
-
 
 .upgradeBottomRibbon div p {
   font-weight: 500;
@@ -440,11 +436,10 @@ img {
   padding: 8px 12px 0px 12px;
   border-radius: 16px;
   opacity: 0px;
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
   /* box-shadow: 0px 3.42px 9.13px -1.14px #3232470D; */
 
-  box-shadow: 0px 0px 1.14px 0px #0C1A4B3D;
-
+  box-shadow: 0px 0px 1.14px 0px #0c1a4b3d;
 }
 
 .extraBtn .extraBtnButton {
@@ -470,7 +465,7 @@ img {
   border-radius: 34px 0px 16px 0px;
   opacity: 0px;
   border: none;
-  background-color: #CEDB00;
+  background-color: #cedb00;
 }
 
 .drinksCardQuantityWrapper {
@@ -490,7 +485,7 @@ img {
   align-items: center;
   gap: 10px;
 
-  background-color: #CEDB00;
+  background-color: #cedb00;
 }
 
 .drinksCardQuantityWrapper button {
@@ -503,9 +498,6 @@ img {
   height: 3.79px;
 }
 
-
-
-
 .checkoutCardBtn img {
   width: 20.95px;
   height: 20.79px;
@@ -513,10 +505,7 @@ img {
   left: 8.91px;
   gap: 0px;
   opacity: 0px;
-
 }
-
-
 
 .checkoutCardQuantityWrapper button {
   background-color: inherit;
@@ -534,7 +523,6 @@ img {
   height: 24.79px;
   gap: 0px;
   opacity: 0px;
-
 }
 
 .checkoutCardQuantityWrapper .minusIcon {
@@ -542,10 +530,7 @@ img {
   height: 5.79px;
   gap: 0px;
   opacity: 0px;
-
 }
-
-
 
 .modal {
   position: absolute;
@@ -598,13 +583,12 @@ img {
   margin-bottom: 2rem;
   font-weight: 600;
   background-color: inherit;
-  border: 1.05px solid #CEDB00;
+  border: 1.05px solid #cedb00;
 }
 
 .modalBtnWrapper button:first-child {
-  background-color: #CEDB00;
+  background-color: #cedb00;
 }
-
 
 .paymentInfoWrapper {
   width: 740px;
@@ -613,22 +597,18 @@ img {
   left: 30px;
   gap: 7.57px;
   border-radius: 8px;
-  border: 1.51px solid #CEDB00;
+  border: 1.51px solid #cedb00;
   opacity: 0px;
   margin: 0 auto;
-  box-shadow: 1px 1px 15px 2px #CEDC0026;
+  box-shadow: 1px 1px 15px 2px #cedc0026;
 
   padding: 1.5rem;
-
-
 }
 
 .paymentOrdersWrapper {
   min-height: 85%;
   overflow-y: scroll;
 }
-
-
 
 .elipse {
   position: fixed;
@@ -637,16 +617,7 @@ img {
   right: 0;
 }
 
-
-
-
-
-
-
-
-
 @media (max-width: 801px) {
-
   .appWrapper,
   .startScreen {
     width: 100vw;
@@ -656,14 +627,9 @@ img {
   .langMenuBtn {
     flex-basis: 50%;
   }
-
 }
 
-
 @media (max-width: 425px) {
-
-
-
   .productNameHeading {
     font-size: 14px;
   }
@@ -671,7 +637,6 @@ img {
   .startScreen .startBtn {
     font-size: 18px;
     min-height: 10vh;
-
   }
 
   .bottomRibbonDefaultBtn {
@@ -685,5 +650,4 @@ img {
     padding: 6px 14px;
     font-family: "Plus Jakarta Sans", sans-serif;
   }
-
 }

@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { SingleMealType, ThemeType } from "../../../Types/Types";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import styles from "./CheckoutCardStyles.module.css";
@@ -8,14 +8,14 @@ type CheckoutCardPropsType = {
   order: SingleMealType;
   theme: ThemeType;
   ordersLength: number;
-  hideShowRibbon: (value: boolean) => void
+  hideShowRibbon: (value: boolean) => void;
 };
 
 const CheckoutCard = ({
   order,
   theme,
   ordersLength,
-  hideShowRibbon
+  hideShowRibbon,
 }: CheckoutCardPropsType) => {
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
@@ -23,7 +23,7 @@ const CheckoutCard = ({
   const [isProductNoteInputVisible, setIsProductNoteInputVisible] =
     useState(false);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState(order.note ?? "" as string)
 
   const { setSingleMealQuantity, setSingleMealNote, removeMealFromOrders } =
     useContext(OrderContext);
@@ -36,7 +36,7 @@ const CheckoutCard = ({
           <button
             onClick={() => {
               setIsProductNoteInputVisible(!isProductNoteInputVisible);
-              hideShowRibbon(false)
+              hideShowRibbon(false);
             }}
           >
             <svg
@@ -48,28 +48,28 @@ const CheckoutCard = ({
             >
               <path
                 d="M20 8.25V18C20 21 18.21 22 16 22H8C5.79 22 4 21 4 18V8.25C4 5 5.79 4.25 8 4.25C8 4.87 8.24997 5.43 8.65997 5.84C9.06997 6.25 9.63 6.5 10.25 6.5H13.75C14.99 6.5 16 5.49 16 4.25C18.21 4.25 20 5 20 8.25Z"
-                stroke={'black'}
+                stroke={"black"}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M16 4.25C16 5.49 14.99 6.5 13.75 6.5H10.25C9.63 6.5 9.06997 6.25 8.65997 5.84C8.24997 5.43 8 4.87 8 4.25C8 3.01 9.01 2 10.25 2H13.75C14.37 2 14.93 2.25 15.34 2.66C15.75 3.07 16 3.63 16 4.25Z"
-                stroke={'black'}
+                stroke={"black"}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M8 13H12"
-                stroke={'black'}
+                stroke={"black"}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M8 17H16"
-                stroke={'black'}
+                stroke={"black"}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -219,27 +219,59 @@ const CheckoutCard = ({
 
       {isProductNoteInputVisible && (
         <form
-          className='formStyles'
+          className="formStyles"
           onSubmit={(e) => {
             e.preventDefault();
 
-            setSingleMealNote(inputRef.current?.value ?? "", order);
+            setSingleMealNote(inputValue ?? "", order);
             setIsProductNoteInputVisible(false);
-            hideShowRibbon(true)
-            e.currentTarget.reset()
+            hideShowRibbon(true);
+            e.currentTarget.reset();
           }}
         >
           <label htmlFor="note" className={`fontSF noteLabel`}>
             Product Note
           </label>
-          <input
-            ref={inputRef}
-            id="note"
-            type="text"
-            style={{ borderColor: theme.activeTextColor }}
-            className={`noteInput`}
-            required
-          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <input
+              id="note"
+              type="text"
+              style={{
+                borderColor: theme.activeTextColor,
+                width: inputValue.length > 4 ? "83%" : '100%',
+                borderTopRightRadius: inputValue.length > 4 ? 0 : 8,
+                borderBottomRightRadius: inputValue.length > 4 ? 0 : 8,
+              }}
+              className={`noteInput`}
+              required
+              value={inputValue}
+              onChange={e => {
+                setInputValue(e.currentTarget.value)
+              }}
+            />
+
+            {inputValue.length > 4 && (
+                <button
+                  type="submit"
+                  className={`submitBtn fontSF`}
+                  style={{
+                    backgroundColor: theme.activeTextColor,
+                    borderColor: theme.activeTextColor,
+                    width: "17%",
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                  }}
+                >
+                 {order.note ? "Edit" : "Add"} 
+                </button>
+              )}
+          </div>
         </form>
       )}
     </div>

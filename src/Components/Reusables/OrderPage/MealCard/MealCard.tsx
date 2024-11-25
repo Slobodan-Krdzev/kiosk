@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
-import { Product,ThemeType } from "../../../../Types/Types";
+import { Product, SingleMealType, ThemeType } from "../../../../Types/Types";
 import styles from "./MealCardStyles.module.css";
 
 type MealCardPropsType = {
@@ -12,8 +12,13 @@ type MealCardPropsType = {
 
 const MealCard = ({ product, theme }: MealCardPropsType) => {
   const { handleStepChange, handleSetMealForInfo } = useContext(StepContext);
-  const { placeMealInOrders, removeMealFromOrders, orders } =
-    useContext(OrderContext);
+  const {
+    placeMealInOrders,
+    removeMealFromOrders,
+    orders,
+    setSingleMealQuantity,
+  } = useContext(OrderContext);
+  
   const [isSelected, setIsSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -21,27 +26,29 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
     orders.find((meal) => meal.id === product.ProductId)
   );
 
+  const meal = orders.find(
+    (o) => o.product?.ProductId === product.ProductId
+  ) as SingleMealType;
+
   return (
     <motion.div
       id="productCard"
       animate={{
         scale: isMealPlacedInOrders ? 1.03 : 1,
-        backgroundColor:
-          isMealPlacedInOrders
-            ? `${theme.activeTextColor}60`
-            : "white",
+        backgroundColor: isMealPlacedInOrders
+          ? `${theme.activeTextColor}60`
+          : "white",
       }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={styles.card}
       style={{
-        border: isMealPlacedInOrders ? `1px solid ${theme.activeTextColor}` : "",
+        border: isMealPlacedInOrders
+          ? `1px solid ${theme.activeTextColor}`
+          : "",
       }}
       onClick={() => {
-
         if (isMealPlacedInOrders) {
-
           removeMealFromOrders(product.ProductId);
-
         } else {
           setQuantity(1);
           placeMealInOrders({
@@ -68,7 +75,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         <img
           className={styles.productImage}
           src={`${product.SmallPictureUrl}`}
-          alt={product.Name.substring(0,5)}
+          alt={product.Name.substring(0, 5)}
           loading="lazy"
         />
 
@@ -163,17 +170,21 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                   setQuantity(0);
                 } else {
                   setQuantity((q) => q - 1);
+
+                  setSingleMealQuantity(meal, "minus");
                 }
               }}
             >
               &#8722;
             </button>
-            <span className={styles.productQuantity}>{quantity}</span>
+            <span className={styles.productQuantity}>{meal.quantity}</span>
             <button
               className={styles.productBtn}
               onClick={(e) => {
                 e.stopPropagation();
                 setQuantity((quan) => quan + 1);
+
+                setSingleMealQuantity(meal, "plus");
               }}
             >
               &#43;
