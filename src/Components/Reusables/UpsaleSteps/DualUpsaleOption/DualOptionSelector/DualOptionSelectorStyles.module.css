@@ -54,16 +54,6 @@
   font-weight: 500;
 }
 
-.optionImage {
-  /* width: 90%;
-  height: 70%;
-  max-width: 220px;
-  max-height: 200px;
-  margin: 0.1vh 0;
-  flex-basis: 10%;
-  flex-shrink: 1; */
-}
-
 .optionName {
   font-size: 3.5vw;
   text-align: center;
@@ -71,7 +61,7 @@
 }
 
 .price{
-    font-size: 1.5vw;
+    font-size: 1.9vw;
   text-align: center;
 }
 
@@ -97,15 +87,4 @@
         width: 24px;
         height: 20px;
     }
-
-    /* .optionImage {
-        width: 90%;
-        height: 95%;
-        max-width: 220px;
-        max-height: 250px;
-        margin: 0.1vh 0;
-        flex-basis: 50%;
-      
-
-    } */
 }

@@ -32,5 +32,7 @@
     height: 10%;
   }
 
-  
+  .upgradeBtn {
+    font-size: 3.5vw;
+  }
 }

@@ -7,6 +7,7 @@ import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import styles from "./DualUpsaleOptionStyles.module.css";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
+import { motion } from "framer-motion";
 
 type DualUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -37,10 +38,15 @@ const DualUpsaleOption = ({
 
   const selectedOptionObject = options.find((o) => o.Name === selectedOption);
 
-  console.log("options", upsaleStepData);
-
   return (
-    <div className={styles.dualUpsaleView}>
+    <motion.section
+      key={"dual"}
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100vw" }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={styles.dualUpsaleView}
+    >
       <p className={`${styles.stepCounter} fontSF`}>
         {upsaleStep + 1} / {stepsLength}
       </p>
@@ -96,7 +102,7 @@ const DualUpsaleOption = ({
           handleStepChange("order");
         }}
       />
-    </div>
+    </motion.section>
   );
 };
 

@@ -35,6 +35,7 @@ const Upsale = () => {
           upsaleStepData={upsaleStepData}
           handleUpsaleStepChange={handleUpsaleStepChange}
           upsaleStep={upsaleStep}
+          stepsLength={stepsLength}
         />
       )}
     </section>

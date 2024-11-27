@@ -1,0 +1,69 @@
+.multiView {
+    position: relative;
+    height: calc(100vh - 10vh) !important
+}
+
+.stepCounter {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    width: 10%;
+    font-size: 3.5vw;
+    font-weight: 600;
+    letter-spacing: -0.2vw;
+}
+
+.topContent {
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    padding: 1vh;
+    /* gap: 2vh; */
+}
+
+.topContent img {
+
+    max-height: 70%;
+    margin-bottom: 1vh;
+    flex-basis: 85%;
+
+}
+
+.topText {
+    flex-basis: 15%;
+    font-size: 4vw;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 5vw;
+    font-weight: 400;
+    margin: 3vh 0 2vh;
+}
+
+.maxSelectionInfo{
+    width: 85%;
+    margin: 0 auto 1vh;
+    font-size: 2.8vw;
+    font-weight: 274;
+}
+
+.optionsWrapper {
+    width: 85%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 equal columns */
+    gap: 20px;
+    /* space between grid items */
+    overflow-y: scroll;
+}
+
+.stepCounter {
+    text-align: center;
+}
+
