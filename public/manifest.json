@@ -1,0 +1,15 @@
+{
+    "short_name": "KIOSK",
+    "name": "KIOSK",
+    "icons": [
+      {
+        "src": "/tabletmenukaart_logo.jpg",
+        "sizes": "103x101",
+        "type": "image/jpg"
+      }
+    ],
+    "start_url": "/",
+    "theme_color": "#000000",
+    "background_color": "#ffffff",
+    "display": "fullscreen"
+  }

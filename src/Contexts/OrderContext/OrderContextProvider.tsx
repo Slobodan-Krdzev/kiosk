@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DrinksType, Option, Product, SingleMealType } from "../../Types/Types";
+import { Option, Product, SingleMealType } from "../../Types/Types";
 import { OrderContext, OrderContextValue } from "./OrderContext";
 
 type OrderContextProviderPropsType = {
@@ -41,7 +41,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   const setExtras = (extras: Option[]) =>
     setSingleMeal({ ...singleMeal, extras });
   const setSides = (sides: Option[]) => setSingleMeal({ ...singleMeal, sides });
-  const setDrinks = (drinks: DrinksType[]) =>
+  const setDrinks = (drinks: Option[]) =>
     setSingleMeal({ ...singleMeal, drinks });
 
   const placeMealInOrders = (meal: SingleMealType) => {
@@ -55,7 +55,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
       const supersizePrice = meal.supersize!.Price;
       const extrasPrice = meal.extras!.reduce((a, b) => a + b.Price, 0);
       const sidesPrice = meal.sides!.reduce((a, b) => a + b.Price, 0);
-      const drinksPrice = meal.drinks!.reduce((a, b) => a + b.total, 0);
+      const drinksPrice = meal.drinks!.reduce((a, b) => a + b.Price, 0);
 
       const finalPrice =
         startingPrice! +

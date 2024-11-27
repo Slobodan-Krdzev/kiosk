@@ -8,26 +8,23 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+      },
       manifest: {
-        name: "My PWA App",
-        short_name: "PWA App",
-        description: "A full-screen PWA React app",
-        start_url: "/",
-        display: "standalone",
-        background_color: "#ffffff",
-        theme_color: "#000000",
+        short_name: "KIOSK",
+        name: "KIOSK",
         icons: [
           {
-            src: "/icons/hamburger.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-          {
-            src: "/icons/hamburger.png",
-            sizes: "512x512",
-            type: "image/png",
+            src: "/tabletmenukaart_logo.jpg",
+            sizes: "103x101",
+            type: "image/jpg",
           },
         ],
+        start_url: "/",
+        theme_color: "#000000",
+        background_color: "#ffffff",
+        display: "fullscreen",
       },
     }),
   ],

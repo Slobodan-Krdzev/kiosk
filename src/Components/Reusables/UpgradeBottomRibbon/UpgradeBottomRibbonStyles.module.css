@@ -21,7 +21,7 @@
   height: 90%;
   padding: 2%;
   border-radius: 50px;
-  font-size: 2vw;
+  font-size: 3vw;
   font-weight: 400;
   text-transform: capitalize;
   background-color: inherit;
@@ -32,7 +32,5 @@
     height: 10%;
   }
 
-  .upgradeBtn {
-    font-size: 3vw;
-  }
+  
 }

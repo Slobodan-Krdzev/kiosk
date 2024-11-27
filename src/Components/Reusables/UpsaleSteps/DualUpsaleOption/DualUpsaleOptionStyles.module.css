@@ -1,0 +1,47 @@
+.dualUpsaleView{
+    position: relative;
+    height: calc(100vh - 10vh) !important
+}
+
+.stepCounter{
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    width: 10%;
+    font-size: 3.5vw;
+    font-weight: 600;
+    letter-spacing: -0.2vw;
+}
+
+.topContent {
+    height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topText{
+    font-size: 6vw;
+    rotate: 352deg !important;
+}
+
+.subtitle{
+    text-align: center;
+    font-size: 5vw;
+    font-weight: 400;
+    margin: 7vh 0 5vh;
+}
+
+.optionsWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+    margin: 5vh 0;
+}
+
+.stepCounter{
+    text-align: center;
+}

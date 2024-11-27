@@ -66,6 +66,7 @@ const Order = () => {
     return () => targetDiv!.removeEventListener("scroll", handleScroll);
   }, []);
 
+
   return (
     <motion.section
       key={"order"}

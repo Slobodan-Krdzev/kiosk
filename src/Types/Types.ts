@@ -34,7 +34,7 @@ export type SingleMealType = {
   supersize: Option | undefined;
   extras: Option[] | undefined;
   sides: Option[] | undefined;
-  drinks: DrinksType[] | undefined;
+  drinks: Option[] | undefined;
   originalTotal: number;
   totalPrice: number;
   quantity: number;

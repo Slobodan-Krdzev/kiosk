@@ -11,6 +11,7 @@ import MealInfo from "./Components/View/MealInfo/MealInfo";
 import Preview from "./Components/View/Preview/Preview";
 import { DataContext } from "./Contexts/DataContext/Datacontext";
 import { StepContext } from "./Contexts/StepContext/StepContext";
+import Upsale from "./Components/View/Upsale/Upsale";
 
 function App() {
   const { step, mealForInfo } = useContext(StepContext);
@@ -23,17 +24,15 @@ function App() {
 
   console.log(data);
 
-
   return (
     <section className="appWrapper">
-
       <AnimatePresence mode="wait">
         {step === "start" && <StartScreen />}
         {step === "lang" && <ChooseLang />}
         {step === "order" && <Order />}
         {step === "mealInfo" && <MealInfo meal={mealForInfo} theme={theme} />}
-        {/* {step === "menuUpgrade" && upsaleColections && <MenuUpgrade />}
-        {step === "supersize" && upsaleColections && <SupersizeUpgrade />}
+        {step === "menuUpgrade" && <Upsale />}
+        {/*{step === "supersize" && upsaleColections && <SupersizeUpgrade />}
         {step === "extras" && upsaleColections && <Extras />}
         {step === "sides" && upsaleColections && <Sides />}
         {step === "drinks" && upsaleColections && <Drinks />} */}

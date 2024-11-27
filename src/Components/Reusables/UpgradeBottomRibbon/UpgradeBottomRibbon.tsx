@@ -1,15 +1,19 @@
 import { useContext } from "react";
-import { StepContext, StepType } from "../../../Contexts/StepContext/StepContext";
+import {
+  StepContext,
+  StepType,
+} from "../../../Contexts/StepContext/StepContext";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
-import styles from './UpgradeBottomRibbonStyles.module.css'
+import styles from "./UpgradeBottomRibbonStyles.module.css";
 
 type UpgradeBottomRibbonPropsType = {
   backText?: string;
   nextText?: string;
-  backStep: StepType;
-  nextStep: StepType;
+  backStep?: StepType;
+  nextStep?: StepType;
   disableNextBtn: boolean;
   nextAction: () => void;
+  backAction?: () => void;
 };
 
 const UpgradeBottomRibbon = ({
@@ -19,18 +23,20 @@ const UpgradeBottomRibbon = ({
   nextStep,
   disableNextBtn,
   nextAction,
+  backAction,
 }: UpgradeBottomRibbonPropsType) => {
   const { theme } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
 
-  
   const dynamicBtnStyles = {
-    border: `1px solid ${theme.activeTextColor}`
+    border: `1px solid ${theme.activeTextColor}`,
   };
 
   const handleNext = () => {
     nextAction();
-    handleStepChange(nextStep);
+    if (nextStep) {
+      handleStepChange(nextStep);
+    }
   };
 
   return (
@@ -39,14 +45,25 @@ const UpgradeBottomRibbon = ({
         className={`fontSF ${styles.upgradeBtn}`}
         style={dynamicBtnStyles}
         onClick={() => {
-          handleStepChange(backStep);
+          if (backAction) {
+            backAction();
+          }
+          if (backStep) {
+            handleStepChange(backStep);
+          }
         }}
       >
         {backText}
       </button>
       <button
         className={`fontSF ${styles.upgradeBtn}`}
-        style={{...dynamicBtnStyles, backgroundColor: theme.activeTextColor}}
+        style={{
+          ...dynamicBtnStyles,
+          backgroundColor: disableNextBtn
+            ? `${theme.activeTextColor}40`
+            : theme.activeTextColor,
+          color: disableNextBtn ? `gray` : "black",
+        }}
         disabled={disableNextBtn}
         onClick={handleNext}
       >

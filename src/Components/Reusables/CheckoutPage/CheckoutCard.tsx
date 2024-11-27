@@ -150,7 +150,7 @@ const CheckoutCard = ({
                 style={{ color: theme.textColor }}
               >
                 {order.sides.map((s) => (
-                  <span key={s.Id}>{s.Name} x 1</span>
+                  <span key={s.Id}>{s.Name} <span style={{textTransform: 'lowercase'}}>x1</span></span>
                 ))}
               </p>
             )}
@@ -158,8 +158,8 @@ const CheckoutCard = ({
             {order.drinks && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
                 {order.drinks.map((drink) => (
-                  <span key={drink.drink.Id}>
-                    {drink.drink.Name} x ${drink.quantity},
+                  <span key={drink.Id}>
+                    {drink.Name} <span style={{textTransform: 'lowercase'}}>x1</span>,
                   </span>
                 ))}
               </p>
@@ -168,7 +168,7 @@ const CheckoutCard = ({
             {order.extras && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
                 {order.extras.map((e) => (
-                  <span key={e.Id}>{e.Name} x 1</span>
+                  <span key={e.Id}>{e.Name} <span style={{textTransform: 'lowercase'}}>x1</span></span>
                 ))}
               </p>
             )}

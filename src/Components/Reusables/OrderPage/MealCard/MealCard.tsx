@@ -14,11 +14,12 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
   const { handleStepChange, handleSetMealForInfo } = useContext(StepContext);
   const {
     placeMealInOrders,
+    setMeal,
     removeMealFromOrders,
     orders,
     setSingleMealQuantity,
   } = useContext(OrderContext);
-  
+
   const [isSelected, setIsSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -47,25 +48,35 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           : "",
       }}
       onClick={() => {
-        if (isMealPlacedInOrders) {
-          removeMealFromOrders(product.ProductId);
+        if (product.HasUpsaleCollection && !isMealPlacedInOrders) {
+
+          console.log('====================================');
+          console.log('HAS UPSALE');
+          console.log('====================================');
+          setMeal(product)
+          handleStepChange('menuUpgrade')
+
         } else {
-          setQuantity(1);
-          placeMealInOrders({
-            id: product.ProductId,
-            product: product,
-            image: product.SmallPictureUrl,
-            isTakeaway: false,
-            menuUpgrade: undefined,
-            supersize: undefined,
-            extras: [],
-            sides: undefined,
-            drinks: [],
-            originalTotal: product.Price,
-            totalPrice: product.Price,
-            quantity: quantity,
-            note: "",
-          });
+          if (isMealPlacedInOrders) {
+            removeMealFromOrders(product.ProductId);
+          } else {
+            setQuantity(1);
+            placeMealInOrders({
+              id: product.ProductId,
+              product: product,
+              image: product.SmallPictureUrl,
+              isTakeaway: false,
+              menuUpgrade: undefined,
+              supersize: undefined,
+              extras: [],
+              sides: undefined,
+              drinks: [],
+              originalTotal: product.Price,
+              totalPrice: product.Price,
+              quantity: quantity,
+              note: "",
+            });
+          }
         }
 
         setIsSelected(!isSelected);
