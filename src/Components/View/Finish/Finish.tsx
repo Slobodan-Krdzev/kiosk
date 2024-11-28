@@ -1,11 +1,11 @@
+import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
-import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import styles from "./FinnishViewStyles.module.css";
-import { motion } from "framer-motion";
-import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
+import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import Counter from "../../Reusables/Counter/Counter";
+import styles from "./FinnishViewStyles.module.css";
 
 const Finish = () => {
   const { finalInfo } = useContext(StepContext);
@@ -15,13 +15,12 @@ const Finish = () => {
   const [isCounterVisible, setIsCounterVisible] = useState(false);
 
   console.log("====================================");
-  console.log(
-    "FINNISHED ORDER",
-    "Order Number: ",
-    finalInfo.orderNum,
-    "Order: ",
-    finalInfo.orderDet
-  );
+  console.log("FINNISHED ORDER" );
+  console.log("Order Number:",  finalInfo.orderNum,);
+  console.log("Order Note:",  finalInfo.orderNote,);
+  console.log("Order Type:",  finalInfo.orderType,);
+  console.log("Order Meals:",  finalInfo.orderDet,);
+
   console.log("====================================");
 
   return (
@@ -106,6 +105,7 @@ const Finish = () => {
               borderRadius: "70px",
             }}
             onClick={() => {
+
               cancelOrder();
               setIsCounterVisible(true)
             }}

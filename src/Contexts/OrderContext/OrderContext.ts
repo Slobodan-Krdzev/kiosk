@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Option, Product, SingleMealType } from "../../Types/Types";
+import {  Option, Product, SingleMealType } from "../../Types/Types";
 
 export type OrderContextValue = {
 
@@ -17,7 +17,7 @@ export type OrderContextValue = {
     placeMealInOrders: (meal: SingleMealType) => void,
     removeMealFromOrders: (productId: number) => void,
     setSingleMealQuantity: (meal: SingleMealType, countType: 'minus' | 'plus') => void,
-    getOrderTotal: () => number,
+    getOrderTotal: () => void,
     cancelOrder:() => void,
     setSingleMealNote: (note: string, meal: SingleMealType) => void
 }

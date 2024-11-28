@@ -8,7 +8,7 @@ import Logo from "../../Reusables/Logo";
 import styles from "./ChooseLangStyles.module.css";
 
 const ChooseLang = () => {
-  const { handleStepChange } = useContext(StepContext);
+  const { handleStepChange, handleSetTakeway } = useContext(StepContext);
   const { setTakeaway } = useContext(OrderContext);
   const { data, theme } = useContext(DataContext);
   const [option, setOption] = useState<"Take Away" | "Dine In" | undefined>(
@@ -59,6 +59,7 @@ const ChooseLang = () => {
                 : "",
           }}
           onClick={() => {
+            handleSetTakeway()
             if (option === "Take Away") {
               handleStepChange("order");
             } else {

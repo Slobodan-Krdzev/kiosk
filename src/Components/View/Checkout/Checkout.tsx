@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
@@ -8,9 +8,11 @@ import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBott
 import styles from "./CheckoutStyles.module.css";
 
 const Checkout = () => {
-  const { handleStepChange } = useContext(StepContext);
+  const { handleStepChange, handleOrderNote } = useContext(StepContext);
   const { orders } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
+
+  const orderNoteInput = useRef<HTMLInputElement | null>(null);
 
   // const [isModalShown, setIsModalShown] = useState(false);
   const [isRibbonShown, setIsRibbonShown] = useState(true);
@@ -45,10 +47,11 @@ const Checkout = () => {
           className="formStyles"
           onSubmit={(e) => {
             e.preventDefault();
-            hideShowRibbon(true)
+            hideShowRibbon(true);
 
             // OVDE SE DODAVA FULL ORDER NOTE
-            e.currentTarget.reset()
+            handleOrderNote(orderNoteInput.current!.value);
+            e.currentTarget.reset();
           }}
         >
           <label htmlFor="orderNoteInput" className="noteLabel fontSF">
@@ -56,16 +59,17 @@ const Checkout = () => {
           </label>
 
           <input
+            ref={orderNoteInput}
             style={{ borderColor: theme.activeTextColor }}
             type="text"
             id="orderNoteInput"
             required
             className="noteInput"
             onFocus={() => {
-              hideShowRibbon(false)
+              hideShowRibbon(false);
             }}
             onBlur={() => {
-              hideShowRibbon(true)
+              hideShowRibbon(true);
             }}
           />
         </form>

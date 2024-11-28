@@ -44,6 +44,8 @@ export type SingleMealType = {
 export type FinalInfoType = {
   orderNum: number | undefined;
   orderDet: SingleMealType[];
+  orderNote: string,
+  orderType: 'Takeway' | 'Dine In'
 };
 
 // FETCH DATA TYPE
@@ -555,6 +557,11 @@ export interface ThemeType {
   activeTextColor: string
 }
 
-
+export interface FinalOrderDatatype {
+  orders: SingleMealType[] | undefined,
+  orderTotal: number | undefined,
+  orderNumber: number | undefined,
+  orderNote: string
+}
 
 
