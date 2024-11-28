@@ -35,11 +35,11 @@ const DualOptionSelector = ({
       className={styles.option}
       role="button"
       style={{
-        pointerEvents:
-          currentSelectedOption !== undefined &&
-          currentSelectedOption !== option.Name
-            ? "none"
-            : "auto",
+        // pointerEvents:
+        //   currentSelectedOption !== undefined &&
+        //   currentSelectedOption !== option.Name
+        //     ? "none"
+        //     : "auto",
         backgroundColor:
           currentSelectedOption === undefined ? 'white' : 
           currentSelectedOption !== option.Name

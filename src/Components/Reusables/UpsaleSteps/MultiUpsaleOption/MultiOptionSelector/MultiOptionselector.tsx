@@ -39,11 +39,12 @@ const MultiOptionselector = ({
       className={styles.optionSelector}
       style={{
         ...dynamicStyles,
+        border:  isOptionSelected ? `1px solid ${theme.activeTextColor}` : "",
         backgroundColor:
           currentSelectedOptions.length === 0
             ? "white"
             : isOptionSelected
-            ? ""
+            ? `${theme.activeTextColor}40`
             : "#F1F1F1",
         pointerEvents: disableBtns ? "none" : "auto",
       }}

@@ -31,8 +31,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://dev.revelapps.com:9091", // Target your backend
-        changeOrigin: true, // Changes the origin of the host header to the target URL
+        target: "http://192.168.0.33:9094", 
+        changeOrigin: true, 
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""), // Remove '/api' from the request URL
       },

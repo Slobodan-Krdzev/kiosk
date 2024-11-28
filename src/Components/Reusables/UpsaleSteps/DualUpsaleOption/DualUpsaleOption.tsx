@@ -22,7 +22,7 @@ const DualUpsaleOption = ({
   upsaleStep,
   stepsLength,
 }: DualUpsaleOptionPropsType) => {
-  const { setMenuUpgrade, setSupersizeUpgrade } = useContext(OrderContext);
+  const { setMenuUpgrade, setSupersizeUpgrade, placeMealInOrders, singleMeal } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
   const { theme } = useContext(DataContext);
 
@@ -86,8 +86,17 @@ const DualUpsaleOption = ({
 
           // OVDE UPGRADE NA upgradeMEAL
           if (selectedOptionObject && upsaleStepData.DisplayOrder === 0) {
-            setMenuUpgrade(selectedOptionObject);
+            if (selectedOptionObject.Finish) {
+
+              // place in orders
+              placeMealInOrders(singleMeal)
+              handleStepChange("order");
+              
+            } else {
+              setMenuUpgrade(selectedOptionObject);
+            }
             setSelectedOption(undefined);
+
           }
 
           if (selectedOptionObject && upsaleStepData.DisplayOrder === 1) {
@@ -98,8 +107,8 @@ const DualUpsaleOption = ({
         }}
         backAction={() => {
           handleUpsaleStepChange("decrease");
-
-          handleStepChange("order");
+          
+          // handleStepChange("order");
         }}
       />
     </motion.section>

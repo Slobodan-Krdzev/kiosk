@@ -188,7 +188,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
             >
               &#8722;
             </button>
-            <span className={styles.productQuantity}>{meal.quantity}</span>
+            <span className={`fontSF ${styles.productQuantity}`}>{meal.quantity}</span>
             <button
               className={styles.productBtn}
               onClick={(e) => {

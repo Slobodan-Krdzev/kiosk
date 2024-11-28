@@ -122,7 +122,7 @@ const MultiUpsaleOption = ({
         }}
         backAction={() => {
           handleUpsaleStepChange("decrease");
-          handleStepChange("order");
+          // handleStepChange("order");
         }}
       />
     </motion.section>
