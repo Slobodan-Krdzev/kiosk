@@ -1,7 +1,7 @@
 .logoWrapper {
     width: 100%;
     /* height: calc(230px / 1.33); */
-    height: 15vh;
+    height: 25vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,6 +13,7 @@
     /* font-size: calc(50px / 1.33); */
     font-size: 5vw;
     font-weight: 400;
+    margin-top: 4vh;
     /* line-height: calc(59.67px / 1.33); */
     line-height: 90%;
     letter-spacing: 0.01em;
@@ -26,7 +27,7 @@
     justify-content: center;
     align-items: center;
     width: 95%;
-    margin: 10vh auto ;
+    margin: 5vh auto ;
     gap: 3vw;
 }
 
@@ -36,7 +37,6 @@
     border: 0.70px solid #d3d3d399;
     box-shadow: 0px 10px 20px 5px #0000000D;
     font-weight: 400;
-    /* font-size: 40px; */
     font-size: 5vw;
     color: black;
     line-height: 36px;
@@ -45,11 +45,8 @@
     justify-content: center;
     align-items: center;
     gap: 1px;
-
-     /* width: calc(300px / 1.33); */
-    /* height: calc(320px / 1.33); */ 
-    width: 45%;
-    height: 30vh;
+    width: 40%;
+    height: 28vh;
 
 }
 
@@ -63,7 +60,7 @@
 
 .langSelectWrapper{
     width: 70%; 
-    margin: 10vh auto;
+    margin: 7vh auto;
     text-align: center
 }
 

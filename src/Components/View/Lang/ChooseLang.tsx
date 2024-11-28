@@ -168,7 +168,7 @@ const ChooseLang = () => {
                 : theme.activeTextColor,
             color: option === undefined ? `#20202085` : "#202020",
             minWidth: "100%",
-            minHeight: "100%",
+            minHeight: "80%",
             cursor: "pointer",
             padding: "4%",
             outline: "none",

@@ -1,6 +1,6 @@
 .categoryCard {
-  max-height: 77px;
-  height: 10vh;
+  max-height: 120px;
+  height: 15vh;
   max-width: 220px;
   width: 100%;
   padding: 3%;
@@ -57,9 +57,9 @@
 } */
 
 @media (max-width: 810px) {
-
   .categoryCard {
-    height: 7.5%;
+    max-height: 150px;
+    height: 7.2vh;
   }
 
   .categoryCardText {
@@ -68,7 +68,6 @@
 }
 
 @media (max-width: 768px) {
-
   .categoryCard {
     height: 8%;
   }
@@ -77,7 +76,6 @@
     font-size: 2.5vw;
   }
 }
-
 
 @media (max-width: 425px) {
   .categoryCard {

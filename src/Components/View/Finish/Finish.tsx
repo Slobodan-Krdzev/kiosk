@@ -1,15 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import styles from "./FinnishViewStyles.module.css";
 import { motion } from "framer-motion";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
+import Counter from "../../Reusables/Counter/Counter";
 
 const Finish = () => {
-  const { finalInfo, handleStepChange } = useContext(StepContext);
-  const {cancelOrder} = useContext(OrderContext)
+  const { finalInfo } = useContext(StepContext);
+  const { cancelOrder } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
+
+  const [isCounterVisible, setIsCounterVisible] = useState(false);
 
   console.log("====================================");
   console.log(
@@ -28,11 +31,9 @@ const Finish = () => {
       animate={{ x: 0 }}
       exit={{ x: "100vw" }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={"fullScreenTablet"}
+      className={`fullScreenTablet ${styles.finnishView}`}
     >
-      <p className={`biggerPageTitles fontSF`} >
-        Order Succesfull!
-      </p>
+      <p className={`biggerPageTitles fontSF`}>Order Succesfull!</p>
 
       <div className={styles.checkMarkWrapper}>
         <div
@@ -55,7 +56,7 @@ const Finish = () => {
       </div>
 
       <p className={`${styles.subTitle} fontSF`}>
-      You can pick up your order at the counter.
+        You can pick up your order at the counter.
       </p>
 
       <div
@@ -86,13 +87,12 @@ const Finish = () => {
         />
       </form>
 
-      <div style={{position: 'fixed', bottom: 25, left: 0, right: 0}}>
+      <div style={{ position: "fixed", bottom: 25, left: 0, right: 0 }}>
         <BottomGreenRibbon bgColor={theme.activeTextColor}>
           <button
             className="fontSF"
             style={{
-              lineHeight: "calc(34px / 1.33)",
-              fontSize: 'calc(28px / 1.33)',
+              fontSize: "3.5vw",
               fontWeight: 400,
               textTransform: "capitalize",
               backgroundColor: theme.activeTextColor,
@@ -106,16 +106,22 @@ const Finish = () => {
               borderRadius: "70px",
             }}
             onClick={() => {
-              
-              alert('Order is Finished - Timer Starts Now')
-              handleStepChange("start")
-              cancelOrder()
+              cancelOrder();
+              setIsCounterVisible(true)
             }}
           >
-            Place Order
+            Send Receipt and Finnish
           </button>
         </BottomGreenRibbon>
       </div>
+
+      {isCounterVisible && (
+        <div className={styles.countOverlay}>
+          
+            <Counter start={5} />
+          
+        </div>
+      )}
     </motion.section>
   );
 };

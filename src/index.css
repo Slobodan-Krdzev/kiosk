@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import url("https://fonts.cdnfonts.com/css/noteworthy");
-
+@import url("https://db.onlinewebfonts.com/c/060fd297f19446447a9a1325ad5b889b?family=SF+Pro+Rounded");
 @import url("https://v1.fontapi.ir/css/SFProDisplay");
 /* font-family: "Raleway", sans-serif; */
 /* font-family: "Dancing Script", cursive; */
@@ -24,7 +24,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -63,6 +62,10 @@ button {
   font-family: "SF Pro Display", sans-serif;
 }
 
+.fontSFRounded{
+  font-family: "SF Pro Rounded";
+}
+
 h1 {
   color: white;
   font-size: 2rem;
@@ -77,8 +80,8 @@ h1 {
   bottom: 3%;
   left: 0;
   right: 0;
-  width: 95%;
-  height: 70px;
+  width: 90%;
+  height: 85px;
   margin: 0 auto;
 }
 
@@ -94,12 +97,15 @@ h1 {
 .formStyles {
   display: flex;
   flex-direction: column;
+  margin-top: 1vh;
 }
 
 .noteLabel {
   font-size: 2.2vw;
   font-weight: 400;
-  padding-bottom: 1%;
+  padding-bottom: 0.5vh;
+  font-family: "SF Pro Display", sans-serif;
+
 }
 
 .noteInput {
@@ -113,6 +119,8 @@ h1 {
   font-size: 2vw;
   font-weight: 400;
   letter-spacing: 0.01em;
+  font-family: "SF Pro Display", sans-serif;
+
 }
 
 .submitBtn {

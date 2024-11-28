@@ -92,8 +92,9 @@
 
 @media (max-width: 801px) {
   .productNameHeading {
-    font-size: 2.2vw;
+    font-size: 2vw;
     line-height: 100%;
+
   }
 
   .productPriceHeading {
@@ -122,6 +123,13 @@
   .imgWrapper {
     width: 100%;
     height: 84px;
+
+  }
+
+  .productNameHeading {
+    font-size: 2.4vw;
+    line-height: 100%;
+    margin-top: -0.5vh;
 
   }
 }

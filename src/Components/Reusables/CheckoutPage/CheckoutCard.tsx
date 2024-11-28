@@ -159,7 +159,7 @@ const CheckoutCard = ({
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
                 {order.drinks.map((drink) => (
                   <span key={drink.Id}>
-                    {drink.Name} <span style={{textTransform: 'lowercase'}}>x1</span>,
+                    {drink.Name} <span style={{textTransform: 'lowercase'}}>x1</span>
                   </span>
                 ))}
               </p>
@@ -168,7 +168,7 @@ const CheckoutCard = ({
             {order.extras && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
                 {order.extras.map((e) => (
-                  <span key={e.Id}>{e.Name} <span style={{textTransform: 'lowercase'}}>x1</span></span>
+                  <span key={e.Id}>{e.Name} <span style={{textTransform: 'lowercase'}}>x1</span> | </span>
                 ))}
               </p>
             )}
@@ -177,7 +177,6 @@ const CheckoutCard = ({
           {order.note !== "" && (
             <p
               className={`${styles.checkoutCardExtrasText} fontSF`}
-              style={{ fontSize: 14 }}
             >
               Note: {order.note}
             </p>

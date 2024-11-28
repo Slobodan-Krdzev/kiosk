@@ -54,7 +54,7 @@ const StartScreen = () => {
               backgroundColor: theme.activeTextColor,
               color: "#202020",
               minWidth: "100%",
-              minHeight: "100%",
+              minHeight: "80%",
               cursor: "pointer",
               outline: "none",
               border: "none",

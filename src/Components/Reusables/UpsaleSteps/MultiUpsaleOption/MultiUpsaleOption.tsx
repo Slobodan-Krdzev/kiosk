@@ -30,7 +30,7 @@ const MultiUpsaleOption = ({
   const [selectedOption, setSelectedOption] = useState<Option[]>([]);
 
   const options = upsaleStepData.Options;
-  const maxSelection = 1;
+  const maxSelection = upsaleStepData.MaxSelection;
 
   const handleOptionSelect = (option: Option) => {
     setSelectedOption([...selectedOption, option]);
@@ -96,7 +96,7 @@ const MultiUpsaleOption = ({
       {/* ribbon */}
 
       <UpgradeBottomRibbon
-        disableNextBtn={selectedOption === undefined}
+        disableNextBtn={!selectedOption.length}
         nextAction={() => {
           if (selectedOption.length && upsaleStepData.DisplayOrder === 2) {
             setExtras(selectedOption);
