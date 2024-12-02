@@ -17,7 +17,7 @@ export type OrderContextValue = {
     placeMealInOrders: (meal: SingleMealType) => void,
     removeMealFromOrders: (productId: number) => void,
     setSingleMealQuantity: (meal: SingleMealType, countType: 'minus' | 'plus') => void,
-    getOrderTotal: () => void,
+    getOrderTotal: () => number,
     cancelOrder:() => void,
     setSingleMealNote: (note: string, meal: SingleMealType) => void
 }

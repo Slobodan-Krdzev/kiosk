@@ -71,6 +71,8 @@ const DualUpsaleOption = ({
             <DualOptionSelector
               key={o.Id}
               option={o}
+              upsaleStep={upsaleStep}
+              options={options}
               currentSelectedOption={selectedOption}
               handleOptionSelect={handleOptionSelect}
             />
@@ -95,14 +97,14 @@ const DualUpsaleOption = ({
             } else {
               setMenuUpgrade(selectedOptionObject);
             }
-            setSelectedOption(undefined);
+            // setSelectedOption(undefined);
 
           }
 
           if (selectedOptionObject && upsaleStepData.DisplayOrder === 1) {
             // OVDE SUPERSIZE
             setSupersizeUpgrade(selectedOptionObject);
-            setSelectedOption(undefined);
+            // setSelectedOption(undefined);
           }
         }}
         backAction={() => {

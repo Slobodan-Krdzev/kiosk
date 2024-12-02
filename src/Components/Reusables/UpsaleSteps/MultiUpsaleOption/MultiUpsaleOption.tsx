@@ -28,6 +28,8 @@ const MultiUpsaleOption = ({
     useContext(OrderContext);
 
   const [selectedOption, setSelectedOption] = useState<Option[]>([]);
+  const [selectedSides, setSelectedSides] = useState<Option[]>([]);
+  const [selectedDrinks, setSelectedDrinks] = useState<Option[]>([]);
 
   const options = upsaleStepData.Options;
   const maxSelection = upsaleStepData.MaxSelection;
@@ -39,6 +41,16 @@ const MultiUpsaleOption = ({
   const handleRemoveOption = (option: Option) => {
     setSelectedOption(selectedOption.filter((o) => o.Id !== option.Id));
   };
+
+  const handleSelectSide = (side: Option) => {
+    setSelectedOption([...selectedOption, side]);
+  };
+
+  const handleSelectDrink = (drink: Option) => {
+    setSelectedOption([...selectedOption, drink]);
+  };
+
+  console.log("Single Meal", Boolean(singleMeal));
 
   return (
     <motion.section
@@ -86,6 +98,8 @@ const MultiUpsaleOption = ({
               option={o}
               currentSelectedOptions={selectedOption}
               handleOptionSelect={handleOptionSelect}
+              handleSelectSide={handleSelectSide}
+              handleSelectDrink={handleSelectDrink}
               handleRemoveOption={handleRemoveOption}
               disableBtns={maxSelection === selectedOption.length}
               upsaleStep={upsaleStep}
@@ -102,18 +116,18 @@ const MultiUpsaleOption = ({
             setExtras(selectedOption);
             setSelectedOption([]);
           } else if (
-            selectedOption.length &&
+            selectedSides.length &&
             upsaleStepData.DisplayOrder === 3
           ) {
             setSides(selectedOption);
-            setSelectedOption([]);
+            setSelectedSides([]);
           } else if (
-            selectedOption.length &&
+            selectedDrinks.length &&
             upsaleStepData.DisplayOrder === 4
           ) {
             setDrinks(selectedOption);
             placeMealInOrders({ ...singleMeal, drinks: selectedOption });
-            setSelectedOption([]);
+            setSelectedDrinks([]);
 
             handleStepChange("order");
           }

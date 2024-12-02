@@ -9,23 +9,29 @@ type DualOptionSelectorPropsType = {
   option: Option;
   handleOptionSelect: (option: string) => void;
   currentSelectedOption: string | undefined;
+  options: Option[],
+  upsaleStep: number
 };
 
 const DualOptionSelector = ({
   option,
   handleOptionSelect,
   currentSelectedOption,
+  options,
+  upsaleStep
 }: DualOptionSelectorPropsType) => {
   const { singleMeal } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
 
   console.log(singleMeal.product?.Price);
 
+  const indexOfSelector = options.indexOf(option)
+
   return (
     <motion.div
       animate={{
-        scaleY: currentSelectedOption === option.Name ? 1.1 : 1,
-        scaleX: currentSelectedOption === option.Name ? 1.05 : 1,
+        scaleY: currentSelectedOption === option.Name ? 1.1 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.1: 1,
+        scaleX: currentSelectedOption === option.Name ? 1.05 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.05: 1,
       }}
       transition={{
         type: "tween",
@@ -35,11 +41,6 @@ const DualOptionSelector = ({
       className={styles.option}
       role="button"
       style={{
-        // pointerEvents:
-        //   currentSelectedOption !== undefined &&
-        //   currentSelectedOption !== option.Name
-        //     ? "none"
-        //     : "auto",
         backgroundColor:
           currentSelectedOption === undefined ? 'white' : 
           currentSelectedOption !== option.Name

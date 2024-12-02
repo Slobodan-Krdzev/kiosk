@@ -62,7 +62,7 @@ button {
   font-family: "SF Pro Display", sans-serif;
 }
 
-.fontSFRounded{
+.fontSFRounded {
   font-family: "SF Pro Rounded";
 }
 
@@ -85,6 +85,20 @@ h1 {
   margin: 0 auto;
 }
 
+.bottomRibbonButton {
+  line-height: 34px;
+  font-size: 3vw;
+  font-weight: 400;
+  text-transform: capitalize;
+  min-width: 100%;
+  min-height: 80%;
+  cursor: pointer;
+  padding: 4%;
+  outline: none;
+  border: none;
+  border-radius: 70px;
+}
+
 .hideScrollBar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -105,7 +119,6 @@ h1 {
   font-weight: 400;
   padding-bottom: 0.5vh;
   font-family: "SF Pro Display", sans-serif;
-
 }
 
 .noteInput {
@@ -120,7 +133,6 @@ h1 {
   font-weight: 400;
   letter-spacing: 0.01em;
   font-family: "SF Pro Display", sans-serif;
-
 }
 
 .submitBtn {

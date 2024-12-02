@@ -31,7 +31,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://192.168.0.33:9094", 
+        target: "http://cms.dev.revelapps.com", 
         changeOrigin: true, 
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""), // Remove '/api' from the request URL
@@ -39,3 +39,7 @@ export default defineConfig({
     },
   },
 });
+
+// cms.dev.revelapps.com
+// http://cms.dev.revelapps.com/service/getresources?deviceid=2&menuid=0011002408
+

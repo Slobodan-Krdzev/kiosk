@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
@@ -16,9 +16,8 @@ const Order = () => {
   const { handleStepChange } = useContext(StepContext);
   const { getOrderTotal, orders } = useContext(OrderContext);
 
-  const [isBottomRibbonVisible, setIsBottomRibbonVisible] = useState(true);
+  const [isBottomRibbonVisible] = useState(true);
   const scrollingDiv = useRef<HTMLDivElement>(null);
-  const prevScrollTop = useRef(0);
 
   const total = getOrderTotal();
 
@@ -39,33 +38,6 @@ const Order = () => {
 
     setMealsToDisplay(filteredProducts);
   };
-
-
-  // NE JA KORISTIME DOKOLKU NE SE ODLUCI ZA ANIMACIJATA ZA BOTTOM RIBBON
-  useEffect(() => {
-    const handleScroll = () => {
-      if (scrollingDiv.current) {
-        const { scrollTop } = scrollingDiv.current;
-
-        // Proverka na scroll direction
-        if (scrollTop > prevScrollTop.current) {
-          // ovde se scrolla nadole
-          setIsBottomRibbonVisible(false);
-        } else {
-          // ovde se scrolla nagore
-          setIsBottomRibbonVisible(true);
-        }
-
-        // Update na previus scroll pozicija
-        prevScrollTop.current = scrollTop;
-      }
-    };
-
-    const targetDiv = scrollingDiv.current;
-    targetDiv!.addEventListener("scroll", handleScroll);
-
-    return () => targetDiv!.removeEventListener("scroll", handleScroll);
-  }, []);
 
 
   return (
