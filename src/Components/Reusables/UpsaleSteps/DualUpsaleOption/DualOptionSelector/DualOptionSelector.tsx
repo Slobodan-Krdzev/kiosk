@@ -7,8 +7,8 @@ import { motion } from "framer-motion";
 
 type DualOptionSelectorPropsType = {
   option: Option;
-  handleOptionSelect: (option: string) => void;
-  currentSelectedOption: string | undefined;
+  handleOptionSelect: (option: Option) => void;
+  currentSelectedOption: Option[];
   options: Option[],
   upsaleStep: number
 };
@@ -20,18 +20,22 @@ const DualOptionSelector = ({
   options,
   upsaleStep
 }: DualOptionSelectorPropsType) => {
-  const { singleMeal } = useContext(OrderContext);
+  const { singleMeal, setUpsale } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
 
   console.log(singleMeal.product?.Price);
 
   const indexOfSelector = options.indexOf(option)
 
+  const isOptionSelected = Boolean(currentSelectedOption.find(o => o.Id === option.Id))
+  const isOptionAllreayInSingleMeal = Boolean(singleMeal.upsale.find(o => o.Id === option.Id))
+
+
   return (
     <motion.div
       animate={{
-        scaleY: currentSelectedOption === option.Name ? 1.1 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.1: 1,
-        scaleX: currentSelectedOption === option.Name ? 1.05 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.05: 1,
+        scaleY: isOptionSelected || isOptionAllreayInSingleMeal ? 1.1 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.1: 1,
+        scaleX: isOptionSelected || isOptionAllreayInSingleMeal ? 1.05 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.05: 1,
       }}
       transition={{
         type: "tween",
@@ -42,25 +46,25 @@ const DualOptionSelector = ({
       role="button"
       style={{
         backgroundColor:
-          currentSelectedOption === undefined ? 'white' : 
-          currentSelectedOption !== option.Name
-            ? "#F1F1F1"
-            : `${theme.activeTextColor}40`,
+          isOptionSelected || isOptionAllreayInSingleMeal
+            ? `${theme.activeTextColor}40` : "#F1F1F1",
         border:
-          currentSelectedOption === option.Name
+        isOptionSelected || isOptionAllreayInSingleMeal
             ? `1px solid ${theme.activeTextColor}`
             : "none",
       }}
       onClick={() => {
-        handleOptionSelect(option.Name);
+        handleOptionSelect(option);
+
+        setUpsale(option)
       }}
     >
-      {option.OptionOrder === 0 && currentSelectedOption === option.Name  && (
+      {option.OptionOrder === 0 && isOptionSelected  && (
         <div
           style={{ backgroundColor: theme.activeTextColor }}
           className={`fontNoteworthy ${styles.topRightNote}`}
         >
-          {currentSelectedOption === option.Name ? (
+          {isOptionSelected ? (
             <svg
               viewBox="0 0 34 26"
               fill="none"
@@ -86,7 +90,7 @@ const DualOptionSelector = ({
           style={{ backgroundColor: theme.activeTextColor }}
           className={`fontNoteworthy ${styles.topRightNote}`}
         >
-          {currentSelectedOption === option.Name ? (
+          {isOptionSelected ? (
             <svg
               viewBox="0 0 34 26"
               fill="none"
@@ -120,7 +124,7 @@ const DualOptionSelector = ({
       </p>
       <img
         style={{
-          opacity: currentSelectedOption === undefined ? 1 :  currentSelectedOption !== option.Name ? 0.55 : 1,
+          opacity: currentSelectedOption === undefined ? 1 :  isOptionSelected ? 0.55 : 1,
         }}
         src={option.PictureUrl}
         alt={option.Name}

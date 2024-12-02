@@ -12,11 +12,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     product: undefined,
     image: undefined,
     isTakeaway: false,
-    menuUpgrade: undefined,
-    supersize: undefined,
-    extras: undefined,
-    drinks: undefined,
-    sides: undefined,
+    upsale: [],
     originalTotal: 0,
     totalPrice: 0,
     quantity: 1,
@@ -30,19 +26,24 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   const setTakeaway = () => setSingleMeal({ ...singleMeal, isTakeaway: true });
   const setMeal = (product: Product) =>
     setSingleMeal({ ...singleMeal, product, image: product.SmallPictureUrl });
-  const setNoMenu = (option: Option) =>
-    setSingleMeal({ ...singleMeal, menuUpgrade: option });
-  const setMenuUpgrade = (option: Option) =>
-    setSingleMeal({ ...singleMeal, menuUpgrade: option });
-  const setNoSupersize = (option: Option) =>
-    setSingleMeal({ ...singleMeal, supersize: option });
-  const setSupersizeUpgrade = (option: Option) =>
-    setSingleMeal({ ...singleMeal, supersize: option });
-  const setExtras = (extras: Option[]) =>
-    setSingleMeal({ ...singleMeal, extras });
-  const setSides = (sides: Option[]) => setSingleMeal({ ...singleMeal, sides });
-  const setDrinks = (drinks: Option[]) =>
-    setSingleMeal({ ...singleMeal, drinks });
+  // const setNoMenu = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, menuUpgrade: option });
+  // const setMenuUpgrade = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, menuUpgrade: option });
+  // const setNoSupersize = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, supersize: option });
+  // const setSupersizeUpgrade = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, supersize: option });
+  // const setExtras = (extras: Option[]) =>
+  //   setSingleMeal({ ...singleMeal, extras });
+  // const setSides = (sides: Option[]) => setSingleMeal({ ...singleMeal, sides });
+  // const setDrinks = (drinks: Option[]) =>
+  //   setSingleMeal({ ...singleMeal, drinks });
+
+  const setUpsale = (option: Option) => {
+
+    setSingleMeal({...singleMeal, upsale:[...singleMeal.upsale, option]})
+  }
 
   const placeMealInOrders = (meal: SingleMealType) => {
     console.log("====================================");
@@ -50,31 +51,34 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     console.log("====================================");
     const startingPrice = meal.product!.Price;
 
-    if (meal.menuUpgrade) {
-      const menuUpgradePrice = meal.menuUpgrade!.Price;
-      const supersizePrice = meal.supersize!.Price;
-      const extrasPrice = meal.extras!.reduce((a, b) => a + b.Price, 0);
-      const sidesPrice = meal.sides!.reduce((a, b) => a + b.Price, 0);
-      const drinksPrice = meal.drinks!.reduce((a, b) => a + b.Price, 0);
+    if (meal.upsale.length) {
+      // const menuUpgradePrice = meal.menuUpgrade!.Price;
+      // const supersizePrice = meal.supersize!.Price;
+      // const extrasPrice = meal.extras!.reduce((a, b) => a + b.Price, 0);
+      // const sidesPrice = meal.sides!.reduce((a, b) => a + b.Price, 0);
+      // const drinksPrice = meal.drinks!.reduce((a, b) => a + b.Price, 0);
+      
+
+      // const finalPrice =
+      //   startingPrice! +
+      //   menuUpgradePrice +
+      //   supersizePrice +
+      //   extrasPrice +
+      //   sidesPrice! +
+      //   drinksPrice;
+
+      const upsalePrices = meal.upsale.reduce((a,b) =>  a + b.Price,0)
 
       const finalPrice =
-        startingPrice! +
-        menuUpgradePrice +
-        supersizePrice +
-        extrasPrice +
-        sidesPrice! +
-        drinksPrice;
+        startingPrice! + upsalePrices;
+      
 
       const finnishedMeal: SingleMealType = {
         id: meal.product!.ProductId,
         product: meal.product,
         image: meal.product!.SmallPictureUrl,
         isTakeaway: meal.isTakeaway,
-        menuUpgrade: meal.menuUpgrade,
-        supersize: meal.supersize,
-        extras: meal.extras,
-        sides: meal.sides,
-        drinks: meal.drinks,
+        upsale: meal.upsale,
         originalTotal: finalPrice,
         totalPrice: finalPrice,
         quantity: meal.quantity,
@@ -89,11 +93,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
         product: meal.product,
         image: meal.product!.SmallPictureUrl,
         isTakeaway: meal.isTakeaway,
-        menuUpgrade: meal.menuUpgrade,
-        supersize: meal.supersize,
-        extras: meal.extras,
-        sides: meal.sides,
-        drinks: meal.drinks,
+        upsale: [],
         originalTotal: startingPrice,
         totalPrice: startingPrice,
         quantity: meal.quantity,
@@ -163,13 +163,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     singleMeal,
     setTakeaway,
     setMeal,
-    setMenuUpgrade,
-    setNoMenu,
-    setNoSupersize,
-    setSupersizeUpgrade,
-    setExtras,
-    setSides,
-    setDrinks,
+    setUpsale,
     placeMealInOrders,
     removeMealFromOrders,
     setSingleMealQuantity,

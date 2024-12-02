@@ -25,16 +25,17 @@ export type DrinksType = {
   total: number
 };
 
+export type UpsaleStepType = {
+  step: number,
+  options: Option[]
+}
+
 export type SingleMealType = {
   id: number;
   product: Product | undefined;
   image: string | undefined;
   isTakeaway: boolean;
-  menuUpgrade: Option | undefined;
-  supersize: Option | undefined;
-  extras: Option[] | undefined;
-  sides: Option[] | undefined;
-  drinks: Option[] | undefined;
+  upsale: UpsaleStepType[];
   originalTotal: number;
   totalPrice: number;
   quantity: number;
