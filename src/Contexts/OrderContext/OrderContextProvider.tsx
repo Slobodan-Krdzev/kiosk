@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Option, Product, SingleMealType } from "../../Types/Types";
+import { Product, SingleMealType } from "../../Types/Types";
 import { OrderContext, OrderContextValue } from "./OrderContext";
+import { UpsaleData } from "../UpsaleContext/UpsaleContext";
 
 type OrderContextProviderPropsType = {
   children: JSX.Element;
@@ -11,12 +12,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     id: 1,
     product: undefined,
     image: undefined,
-    isTakeaway: false,
-    menuUpgrade: undefined,
-    supersize: undefined,
-    extras: undefined,
-    drinks: undefined,
-    sides: undefined,
+    upsale: undefined,
     originalTotal: 0,
     totalPrice: 0,
     quantity: 1,
@@ -27,54 +23,65 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   const [singleMeal, setSingleMeal] =
     useState<SingleMealType>(startingMealFormula);
 
-  const setTakeaway = () => setSingleMeal({ ...singleMeal, isTakeaway: true });
+  // const setTakeaway = () => setSingleMeal({ ...singleMeal, isTakeaway: true });
   const setMeal = (product: Product) =>
     setSingleMeal({ ...singleMeal, product, image: product.SmallPictureUrl });
-  const setNoMenu = (option: Option) =>
-    setSingleMeal({ ...singleMeal, menuUpgrade: option });
-  const setMenuUpgrade = (option: Option) =>
-    setSingleMeal({ ...singleMeal, menuUpgrade: option });
-  const setNoSupersize = (option: Option) =>
-    setSingleMeal({ ...singleMeal, supersize: option });
-  const setSupersizeUpgrade = (option: Option) =>
-    setSingleMeal({ ...singleMeal, supersize: option });
-  const setExtras = (extras: Option[]) =>
-    setSingleMeal({ ...singleMeal, extras });
-  const setSides = (sides: Option[]) => setSingleMeal({ ...singleMeal, sides });
-  const setDrinks = (drinks: Option[]) =>
-    setSingleMeal({ ...singleMeal, drinks });
+  // const setNoMenu = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, menuUpgrade: option });
+  // const setMenuUpgrade = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, menuUpgrade: option });
+  // const setNoSupersize = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, supersize: option });
+  // const setSupersizeUpgrade = (option: Option) =>
+  //   setSingleMeal({ ...singleMeal, supersize: option });
+  // const setExtras = (extras: Option[]) =>
+  //   setSingleMeal({ ...singleMeal, extras });
+  // const setSides = (sides: Option[]) => setSingleMeal({ ...singleMeal, sides });
+  // const setDrinks = (drinks: Option[]) =>
+  //   setSingleMeal({ ...singleMeal, drinks });
 
   const placeMealInOrders = (meal: SingleMealType) => {
-    console.log("====================================");
-    console.log(meal);
-    console.log("====================================");
     const startingPrice = meal.product!.Price;
 
-    if (meal.menuUpgrade) {
-      const menuUpgradePrice = meal.menuUpgrade!.Price;
-      const supersizePrice = meal.supersize!.Price;
-      const extrasPrice = meal.extras!.reduce((a, b) => a + b.Price, 0);
-      const sidesPrice = meal.sides!.reduce((a, b) => a + b.Price, 0);
-      const drinksPrice = meal.drinks!.reduce((a, b) => a + b.Price, 0);
+
+    console.log(`meal.upsale ${meal.upsale}`)
+
+    if (meal.upsale !== undefined) {
+
+      const upsale0Price = meal.upsale![0].options.reduce(
+        (a, b) => a + b.Price,
+        0
+      );
+      const upsale1Price = meal.upsale![1].options.reduce(
+        (a, b) => a + b.Price,
+        0
+      );
+      const upsale2Price = meal.upsale![2].options.reduce(
+        (a, b) => a + b.Price,
+        0
+      );
+      const upsale3Price = meal.upsale![3].options.reduce(
+        (a, b) => a + b.Price,
+        0
+      );
+      const upsale4Price = meal.upsale![4].options.reduce(
+        (a, b) => a + b.Price,
+        0
+      );
 
       const finalPrice =
         startingPrice! +
-        menuUpgradePrice +
-        supersizePrice +
-        extrasPrice +
-        sidesPrice! +
-        drinksPrice;
+        upsale0Price +
+        upsale1Price +
+        upsale2Price +
+        upsale3Price +
+        upsale4Price;
 
       const finnishedMeal: SingleMealType = {
         id: meal.product!.ProductId,
         product: meal.product,
         image: meal.product!.SmallPictureUrl,
-        isTakeaway: meal.isTakeaway,
-        menuUpgrade: meal.menuUpgrade,
-        supersize: meal.supersize,
-        extras: meal.extras,
-        sides: meal.sides,
-        drinks: meal.drinks,
+        upsale: meal.upsale,
         originalTotal: finalPrice,
         totalPrice: finalPrice,
         quantity: meal.quantity,
@@ -88,12 +95,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
         id: meal.product!.ProductId,
         product: meal.product,
         image: meal.product!.SmallPictureUrl,
-        isTakeaway: meal.isTakeaway,
-        menuUpgrade: meal.menuUpgrade,
-        supersize: meal.supersize,
-        extras: meal.extras,
-        sides: meal.sides,
-        drinks: meal.drinks,
+        upsale: meal.upsale,
         originalTotal: startingPrice,
         totalPrice: startingPrice,
         quantity: meal.quantity,
@@ -104,7 +106,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
       setSingleMeal(startingMealFormula);
     }
 
-    console.log(orders);
+    console.log(`Orders: ${orders}`);
   };
 
   const removeMealFromOrders = (productId: number) => {
@@ -158,18 +160,15 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   const getOrderTotal = () =>
     +orders.reduce((a, b) => a + b.totalPrice, 0).toFixed(2);
 
+  const setUpsale = (upsale: UpsaleData) => {
+    setSingleMeal({ ...singleMeal, upsale });
+  };
+
   const contextValue: OrderContextValue = {
     orders,
     singleMeal,
-    setTakeaway,
     setMeal,
-    setMenuUpgrade,
-    setNoMenu,
-    setNoSupersize,
-    setSupersizeUpgrade,
-    setExtras,
-    setSides,
-    setDrinks,
+    setUpsale,
     placeMealInOrders,
     removeMealFromOrders,
     setSingleMealQuantity,

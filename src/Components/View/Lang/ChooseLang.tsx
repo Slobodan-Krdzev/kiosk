@@ -1,17 +1,15 @@
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
-import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import Logo from "../../Reusables/Logo";
-import styles from "./ChooseLangStyles.module.css";
-import Takeaway from "../../Reusables/SVG/Takeaway";
 import DineIn from "../../Reusables/SVG/DineIn";
+import Takeaway from "../../Reusables/SVG/Takeaway";
+import styles from "./ChooseLangStyles.module.css";
 
 const ChooseLang = () => {
   const { handleStepChange, handleSetTakeway } = useContext(StepContext);
-  const { setTakeaway } = useContext(OrderContext);
   const { data, theme } = useContext(DataContext);
   const [option, setOption] = useState<"Take Away" | "Dine In" | undefined>(
     undefined
@@ -98,7 +96,6 @@ const ChooseLang = () => {
           }}
           onClick={() => {
             setOption("Dine In");
-            setTakeaway();
           }}
         >
           <DineIn color={theme.activeTextColor} />

@@ -39,6 +39,7 @@ const Order = () => {
     setMealsToDisplay(filteredProducts);
   };
 
+  console.log(orders)
 
   return (
     <motion.section

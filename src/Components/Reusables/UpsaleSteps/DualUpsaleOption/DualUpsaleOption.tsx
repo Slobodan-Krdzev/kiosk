@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { UpsaleStep } from "../../../../Types/Types";
-import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
-import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
-import { useContext } from "react";
-import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
-import styles from "./DualUpsaleOptionStyles.module.css";
-import { StepContext } from "../../../../Contexts/StepContext/StepContext";
-import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 import { motion } from "framer-motion";
+import { useContext, useState } from "react";
+import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
+import { StepContext } from "../../../../Contexts/StepContext/StepContext";
+import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
+import { UpsaleStep } from "../../../../Types/Types";
+import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
+import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
+import styles from "./DualUpsaleOptionStyles.module.css";
+import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 
 type DualUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -22,9 +22,13 @@ const DualUpsaleOption = ({
   upsaleStep,
   stepsLength,
 }: DualUpsaleOptionPropsType) => {
-  const { setMenuUpgrade, setSupersizeUpgrade, placeMealInOrders, singleMeal } = useContext(OrderContext);
+
   const { handleStepChange } = useContext(StepContext);
   const { theme } = useContext(DataContext);
+  const { upsaleData, resetUpsale } = useContext(UpsaleContext);
+  const { singleMeal, placeMealInOrders } = useContext(OrderContext);
+
+  const [isFinished, setIsFinished] =useState(false)
 
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
     undefined
@@ -36,7 +40,12 @@ const DualUpsaleOption = ({
     setSelectedOption(option);
   };
 
-  const selectedOptionObject = options.find((o) => o.Name === selectedOption);
+  const isNextButtonDisabled = !upsaleData[upsaleStep].options.length;
+
+  const handleFinish = () => {
+
+    setIsFinished(true)
+  }
 
   return (
     <motion.section
@@ -75,6 +84,7 @@ const DualUpsaleOption = ({
               options={options}
               currentSelectedOption={selectedOption}
               handleOptionSelect={handleOptionSelect}
+              handleFinish={handleFinish}
             />
           ))}
         </div>
@@ -82,35 +92,25 @@ const DualUpsaleOption = ({
       {/* ribbon */}
 
       <UpgradeBottomRibbon
-        disableNextBtn={selectedOption === undefined}
+        disableNextBtn={isNextButtonDisabled}
         nextAction={() => {
+
+          if(isFinished){
+
+            placeMealInOrders(singleMeal)
+            resetUpsale()
+            handleStepChange("order");
+          }
+
           handleUpsaleStepChange("increase");
 
-          // OVDE UPGRADE NA upgradeMEAL
-          if (selectedOptionObject && upsaleStepData.DisplayOrder === 0) {
-            if (selectedOptionObject.Finish) {
-
-              // place in orders
-              placeMealInOrders(singleMeal)
-              handleStepChange("order");
-              
-            } else {
-              setMenuUpgrade(selectedOptionObject);
-            }
-            // setSelectedOption(undefined);
-
-          }
-
-          if (selectedOptionObject && upsaleStepData.DisplayOrder === 1) {
-            // OVDE SUPERSIZE
-            setSupersizeUpgrade(selectedOptionObject);
-            // setSelectedOption(undefined);
-          }
         }}
         backAction={() => {
           handleUpsaleStepChange("decrease");
-          
-          // handleStepChange("order");
+
+          if (upsaleStep === 0) {
+            handleStepChange("order");
+          }
         }}
       />
     </motion.section>

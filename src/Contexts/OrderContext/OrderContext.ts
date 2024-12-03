@@ -1,19 +1,13 @@
 import { createContext } from "react";
-import {  Option, Product, SingleMealType } from "../../Types/Types";
+import { Product, SingleMealType } from "../../Types/Types";
+import { UpsaleData } from "../UpsaleContext/UpsaleContext";
 
 export type OrderContextValue = {
 
     orders: SingleMealType[],
     singleMeal: SingleMealType,
-    setTakeaway: () => void,
     setMeal: (meal:Product) => void,
-    setMenuUpgrade: (option:Option) => void,
-    setNoMenu: (option:Option) => void,
-    setNoSupersize: (option:Option) => void,
-    setSupersizeUpgrade: (option:Option) => void
-    setExtras: (extras: Option[]) => void
-    setSides: (sides: Option[]) => void,
-    setDrinks: (drinks: Option[]) => void,
+    setUpsale: (upsale: UpsaleData) => void,
     placeMealInOrders: (meal: SingleMealType) => void,
     removeMealFromOrders: (productId: number) => void,
     setSingleMealQuantity: (meal: SingleMealType, countType: 'minus' | 'plus') => void,

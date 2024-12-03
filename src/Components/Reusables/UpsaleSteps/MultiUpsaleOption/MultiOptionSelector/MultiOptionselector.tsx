@@ -1,50 +1,36 @@
-import { useContext } from "react";
-import { Option } from "../../../../../Types/Types";
-import { OrderContext } from "../../../../../Contexts/OrderContext/OrderContext";
-import styles from "./MultiOptionSelectorStyles.module.css";
+import { useContext, useState } from "react";
 import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
-import Plus from "../../../SVG/Plus";
+import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
+import { Option } from "../../../../../Types/Types";
 import CheckMark from "../../../SVG/CheckMark";
+import Plus from "../../../SVG/Plus";
+import styles from "./MultiOptionSelectorStyles.module.css";
 
 type MultiOptionSelectorPropsType = {
   option: Option;
-  currentSelectedOptions: Option[];
-  handleOptionSelect: (option: Option) => void;
-  handleRemoveOption: (option: Option) => void;
-  handleSelectSide: (side: Option) => void;
-  handleSelectDrink: (drink: Option) => void;
-
-  disableBtns: boolean;
+  maxSelection: number;
   upsaleStep: number;
 };
 
 const MultiOptionselector = ({
   option,
-  currentSelectedOptions,
-  handleOptionSelect,
-  handleRemoveOption,
-  disableBtns,
+  maxSelection,
+  upsaleStep,
 }: MultiOptionSelectorPropsType) => {
-  const { singleMeal } = useContext(OrderContext);
-  const { theme } = useContext(DataContext);
+  // const { singleMeal } = useContext(OrderContext);
 
-  const isOptionSelected = currentSelectedOptions.find(
-    (o) => o.Id === option.Id
+  const [isSelected, setIsSelected] = useState(false)
+  const { theme } = useContext(DataContext);
+  const { upsaleData, addOption, removeOption } = useContext(UpsaleContext);
+  const isOptionAlreadySelected = Boolean(
+    upsaleData[upsaleStep].options.find((o) => o.Id === option.Id)
   );
 
   const dynamicStyles = {
     boxShadow: `20px 20px 60px 0px ${theme.activeTextColor}14`,
   };
 
-  const isExtraOptionAdded = Boolean(
-    singleMeal.extras?.find((o) => o.Id === option.Id)
-  );
-  const isSideOptionAdded = Boolean(
-    singleMeal.sides?.find((o) => o.Id === option.Id)
-  );
-  const isDrinkOptionAdded = Boolean(
-    singleMeal.drinks?.find((o) => o.Id === option.Id)
-  );
+  const selectedOptionsLength = upsaleData[upsaleStep].options.length
 
   return (
     <div
@@ -52,29 +38,25 @@ const MultiOptionselector = ({
       className={styles.optionSelector}
       style={{
         ...dynamicStyles,
-        border:
-          isExtraOptionAdded || isSideOptionAdded || isDrinkOptionAdded
-            ? `1px solid ${theme.activeTextColor}`
-            : "",
-        backgroundColor:
-          currentSelectedOptions.length === 0
-            ? "white"
-            : isOptionSelected ||
-              isExtraOptionAdded ||
-              isSideOptionAdded ||
-              isDrinkOptionAdded
-            ? `${theme.activeTextColor}40`
-            : "#F1F1F1",
-        pointerEvents: disableBtns ? "none" : "auto",
+        border: isOptionAlreadySelected
+          ? `1px solid ${theme.activeTextColor}`
+          : "",
+        backgroundColor: isOptionAlreadySelected
+          ? `${theme.activeTextColor}40`
+          : selectedOptionsLength === 0 ? 'white' : "#F1F1F1",
+
+          // OVDEKA ZA TESTIRANJE MAXSELECTION PROMENI GO SO ZAKUCAN BROJ  
+        pointerEvents: selectedOptionsLength >= maxSelection && !isOptionAlreadySelected ? "none" : "auto",
       }}
       onClick={() => {
-        if (isOptionSelected) {
-          handleRemoveOption(option);
-        } else {
-          handleOptionSelect(option);
-        }
-        console.log("Single Meal", singleMeal);
-        console.log("curentSelectedOptions", currentSelectedOptions);
+        // if (isOptionSelected) {
+        //   handleRemoveOption(option);
+        // } else {
+        //   handleOptionSelect(option);
+        // }
+        isSelected ? removeOption(upsaleStep, option) : addOption(upsaleStep, option, 2);
+        
+        setIsSelected(!isSelected)
       }}
     >
       <img
@@ -82,12 +64,7 @@ const MultiOptionselector = ({
         alt={option.Name}
         className={styles.image}
         style={{
-          opacity:
-            currentSelectedOptions.length === 0
-              ? 1
-              : !isOptionSelected
-              ? 0.55
-              : 1,
+          opacity: isOptionAlreadySelected ? 1 : selectedOptionsLength === 0 ? 1 : 0.55,
         }}
       />
 
@@ -108,7 +85,7 @@ const MultiOptionselector = ({
         className={styles.optionBtn}
         style={{ backgroundColor: theme.activeTextColor }}
       >
-        {isOptionSelected ? <CheckMark /> : <Plus />}
+        {isOptionAlreadySelected ? <CheckMark /> : <Plus />}
       </button>
     </div>
   );

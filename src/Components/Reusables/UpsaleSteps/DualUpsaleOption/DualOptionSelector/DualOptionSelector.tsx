@@ -1,37 +1,53 @@
+import { motion } from "framer-motion";
 import { useContext } from "react";
+import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
+import { OrderContext } from "../../../../../Contexts/OrderContext/OrderContext";
+import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
 import { Option } from "../../../../../Types/Types";
 import styles from "./DualOptionSelectorStyles.module.css";
-import { OrderContext } from "../../../../../Contexts/OrderContext/OrderContext";
-import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
-import { motion } from "framer-motion";
 
 type DualOptionSelectorPropsType = {
   option: Option;
   handleOptionSelect: (option: string) => void;
   currentSelectedOption: string | undefined;
-  options: Option[],
-  upsaleStep: number
+  options: Option[];
+  upsaleStep: number;
+  handleFinish: () => void;
 };
 
 const DualOptionSelector = ({
   option,
-  handleOptionSelect,
   currentSelectedOption,
   options,
-  upsaleStep
+  upsaleStep,
+  handleFinish,
 }: DualOptionSelectorPropsType) => {
-  const { singleMeal } = useContext(OrderContext);
+  const { singleMeal} = useContext(OrderContext);
   const { theme } = useContext(DataContext);
+  const { upsaleData, addOption } = useContext(UpsaleContext);
+  // const { handleStepChange } = useContext(StepContext);
 
-  console.log(singleMeal.product?.Price);
+  // const upsaleDataPerStep = upsaleData[upsaleStep]
+  const upsaleDataSelectedOptions = upsaleData[upsaleStep].options;
+  const isOptionSelected = Boolean(
+    upsaleDataSelectedOptions.find((o) => o.Id === option.Id)
+  );
 
-  const indexOfSelector = options.indexOf(option)
+  const indexOfSelector = options.indexOf(option);
 
   return (
     <motion.div
       animate={{
-        scaleY: currentSelectedOption === option.Name ? 1.1 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.1: 1,
-        scaleX: currentSelectedOption === option.Name ? 1.05 : (indexOfSelector === 1 && upsaleStep === 0) ? 1.05: 1,
+        scaleY: isOptionSelected
+          ? 1.1
+          : indexOfSelector === 1 && upsaleStep === 0
+          ? 1.1
+          : 1,
+        scaleX: isOptionSelected
+          ? 1.05
+          : indexOfSelector === 1 && upsaleStep === 0
+          ? 1.05
+          : 1,
       }}
       transition={{
         type: "tween",
@@ -41,26 +57,31 @@ const DualOptionSelector = ({
       className={styles.option}
       role="button"
       style={{
-        backgroundColor:
-          currentSelectedOption === undefined ? 'white' : 
-          currentSelectedOption !== option.Name
-            ? "#F1F1F1"
-            : `${theme.activeTextColor}40`,
-        border:
-          currentSelectedOption === option.Name
-            ? `1px solid ${theme.activeTextColor}`
-            : "none",
+        backgroundColor: isOptionSelected
+          ? `${theme.activeTextColor}40`
+          : upsaleDataSelectedOptions.length === 0 ? 'white': "#F1F1F1",
+        border: isOptionSelected
+          ? `1px solid ${theme.activeTextColor}`
+          : "none",
       }}
       onClick={() => {
-        handleOptionSelect(option.Name);
+
+        addOption(upsaleStep, option, 1);
+
+
+        if (option.Finish) {
+
+          handleFinish();
+        }
+        
       }}
     >
-      {option.OptionOrder === 0 && currentSelectedOption === option.Name  && (
+      {option.OptionOrder === 0 && isOptionSelected && (
         <div
           style={{ backgroundColor: theme.activeTextColor }}
           className={`fontNoteworthy ${styles.topRightNote}`}
         >
-          {currentSelectedOption === option.Name ? (
+          {isOptionSelected ? (
             <svg
               viewBox="0 0 34 26"
               fill="none"
@@ -81,12 +102,12 @@ const DualOptionSelector = ({
         </div>
       )}
 
-      {option.OptionOrder === 1  && (
+      {option.OptionOrder === 1 && (
         <div
           style={{ backgroundColor: theme.activeTextColor }}
           className={`fontNoteworthy ${styles.topRightNote}`}
         >
-          {currentSelectedOption === option.Name ? (
+          {isOptionSelected ? (
             <svg
               viewBox="0 0 34 26"
               fill="none"
@@ -120,7 +141,12 @@ const DualOptionSelector = ({
       </p>
       <img
         style={{
-          opacity: currentSelectedOption === undefined ? 1 :  currentSelectedOption !== option.Name ? 0.55 : 1,
+          opacity:
+            currentSelectedOption === undefined
+              ? 1
+              : currentSelectedOption !== option.Name
+              ? 0.55
+              : 1,
         }}
         src={option.PictureUrl}
         alt={option.Name}

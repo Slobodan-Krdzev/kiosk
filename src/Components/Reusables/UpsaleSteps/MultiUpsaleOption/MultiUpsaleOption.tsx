@@ -1,12 +1,13 @@
-import { useContext, useState } from "react";
+import { motion } from "framer-motion";
+import { useContext } from "react";
+import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
-import { Option, UpsaleStep } from "../../../../Types/Types";
+import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
+import { UpsaleStep } from "../../../../Types/Types";
 import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
 import MultiOptionselector from "./MultiOptionSelector/MultiOptionselector";
 import styles from "./MultiUpsaleOptionStyles.module.css";
-import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
-import { motion } from "framer-motion";
 
 type MultiUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -23,34 +24,13 @@ const MultiUpsaleOption = ({
 }: MultiUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
   const { theme } = useContext(DataContext);
+  const {  placeMealInOrders, singleMeal, setUpsale,  } = useContext(OrderContext);
 
-  const { setExtras, setSides, setDrinks, placeMealInOrders, singleMeal } =
-    useContext(OrderContext);
-
-  const [selectedOption, setSelectedOption] = useState<Option[]>([]);
-  const [selectedSides, setSelectedSides] = useState<Option[]>([]);
-  const [selectedDrinks, setSelectedDrinks] = useState<Option[]>([]);
+  const { upsaleData, resetUpsale } = useContext(UpsaleContext);
 
   const options = upsaleStepData.Options;
   const maxSelection = upsaleStepData.MaxSelection;
-
-  const handleOptionSelect = (option: Option) => {
-    setSelectedOption([...selectedOption, option]);
-  };
-
-  const handleRemoveOption = (option: Option) => {
-    setSelectedOption(selectedOption.filter((o) => o.Id !== option.Id));
-  };
-
-  const handleSelectSide = (side: Option) => {
-    setSelectedOption([...selectedOption, side]);
-  };
-
-  const handleSelectDrink = (drink: Option) => {
-    setSelectedOption([...selectedOption, drink]);
-  };
-
-  console.log("Single Meal", Boolean(singleMeal));
+  const isNextButtonDisabled = !upsaleData[upsaleStep].options.length;
 
   return (
     <motion.section
@@ -96,13 +76,8 @@ const MultiUpsaleOption = ({
             <MultiOptionselector
               key={o.Id}
               option={o}
-              currentSelectedOptions={selectedOption}
-              handleOptionSelect={handleOptionSelect}
-              handleSelectSide={handleSelectSide}
-              handleSelectDrink={handleSelectDrink}
-              handleRemoveOption={handleRemoveOption}
-              disableBtns={maxSelection === selectedOption.length}
               upsaleStep={upsaleStep}
+              maxSelection={maxSelection}
             />
           ))}
         </div>
@@ -110,33 +85,22 @@ const MultiUpsaleOption = ({
       {/* ribbon */}
 
       <UpgradeBottomRibbon
-        disableNextBtn={!selectedOption.length}
+        disableNextBtn={isNextButtonDisabled}
         nextAction={() => {
-          if (selectedOption.length && upsaleStepData.DisplayOrder === 2) {
-            setExtras(selectedOption);
-            setSelectedOption([]);
-          } else if (
-            selectedSides.length &&
-            upsaleStepData.DisplayOrder === 3
-          ) {
-            setSides(selectedOption);
-            setSelectedSides([]);
-          } else if (
-            selectedDrinks.length &&
-            upsaleStepData.DisplayOrder === 4
-          ) {
-            setDrinks(selectedOption);
-            placeMealInOrders({ ...singleMeal, drinks: selectedOption });
-            setSelectedDrinks([]);
 
+          if(upsaleStepData.DisplayOrder === stepsLength - 1){
+
+            // OVDE UPDATE NA SIGNLE MEAL
+            setUpsale(upsaleData) 
             handleStepChange("order");
+            placeMealInOrders({ ...singleMeal, upsale: upsaleData });
+            resetUpsale()
           }
 
           handleUpsaleStepChange("increase");
         }}
         backAction={() => {
           handleUpsaleStepChange("decrease");
-          // handleStepChange("order");
         }}
       />
     </motion.section>
