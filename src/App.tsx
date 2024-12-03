@@ -16,12 +16,7 @@ import Upsale from "./Components/View/Upsale/Upsale";
 function App() {
   const { step, mealForInfo } = useContext(StepContext);
   const { data, theme } = useContext(DataContext);
-  // const upsaleColections = data.TMKData[0].UpsaleColletions;
-
-  // if (isLoading) return <h1 style={{ color: "black" }}>Is Loading</h1>;
-
-  // if (isError) return <h1 style={{ color: "black" }}>IS Error</h1>;
-
+  
   console.log(data);
 
   return (
@@ -32,10 +27,6 @@ function App() {
         {step === "order" && <Order />}
         {step === "mealInfo" && <MealInfo meal={mealForInfo} theme={theme} />}
         {step === "menuUpgrade" && <Upsale />}
-        {/*{step === "supersize" && upsaleColections && <SupersizeUpgrade />}
-        {step === "extras" && upsaleColections && <Extras />}
-        {step === "sides" && upsaleColections && <Sides />}
-        {step === "drinks" && upsaleColections && <Drinks />} */}
         {step === "checkout" && <Checkout />}
         {step === "preview" && <Preview />}
         {step === "payment" && <Payment />}

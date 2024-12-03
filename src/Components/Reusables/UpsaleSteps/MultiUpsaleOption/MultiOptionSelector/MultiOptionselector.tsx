@@ -17,7 +17,6 @@ const MultiOptionselector = ({
   maxSelection,
   upsaleStep,
 }: MultiOptionSelectorPropsType) => {
-  // const { singleMeal } = useContext(OrderContext);
 
   const [isSelected, setIsSelected] = useState(false)
   const { theme } = useContext(DataContext);
@@ -49,11 +48,6 @@ const MultiOptionselector = ({
         pointerEvents: selectedOptionsLength >= maxSelection && !isOptionAlreadySelected ? "none" : "auto",
       }}
       onClick={() => {
-        // if (isOptionSelected) {
-        //   handleRemoveOption(option);
-        // } else {
-        //   handleOptionSelect(option);
-        // }
         isSelected ? removeOption(upsaleStep, option) : addOption(upsaleStep, option, 2);
         
         setIsSelected(!isSelected)

@@ -14,14 +14,14 @@ const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
           <span>{`x ${order.quantity}`}</span>
         </p>
 
-        {order.sides && (
+        {/* {order.sides && (
           <p
             style={{ color: '#898989' }}
             className={`${styles.sidesText} fontSF`}
           >
             {order.sides[0].Name} {`(${order.sides[0].Price} )`}
           </p>
-        )}
+        )} */}
 
         {order.note !== '' && (
           <p

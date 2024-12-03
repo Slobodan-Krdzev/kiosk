@@ -143,7 +143,7 @@ const CheckoutCard = ({
               ? `${order.product!.Name.substring(0, 35)}...`
               : order.product!.Name}
           </p>
-          <div className={styles.mealInfoWrapper}>
+          {/* <div className={styles.mealInfoWrapper}>
             {order.sides && (
               <p
                 className={`${styles.checkoutCardExtrasText} fontSF`}
@@ -172,7 +172,7 @@ const CheckoutCard = ({
                 ))}
               </p>
             )}
-          </div>
+          </div> */}
 
           {order.note !== "" && (
             <p
