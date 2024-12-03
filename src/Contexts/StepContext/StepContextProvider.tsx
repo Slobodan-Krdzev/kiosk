@@ -9,7 +9,7 @@ type StepContextProviderPropsType = {
 const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
   const [step, setStep] = useState<StepType>("start");
   const [orderNumber, setOrderNumber] = useState<number>()
-  const [isTakeway, setIsTakeway] = useState<boolean>(false)
+  const [isTakeway, setIsTakeway] = useState<'Dine In' | "Takeaway" >('Takeaway')
 
   const [orderDetails, setOrderDetails] = useState<SingleMealType[]>([])
   const [orderNote, setOrderNote] = useState<string>('')
@@ -40,16 +40,16 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
     setOrderNote(note)
   }
 
-  const handleSetTakeway = () => {
+  const handleSetTakeawayOption = (option: 'Dine In' | 'Takeaway') => {
 
-    setIsTakeway(true)
+    setIsTakeway(option)
   }
   
   const finalInfo:FinalInfoType = {
     orderNum: orderNumber,
     orderDet: orderDetails,
     orderNote: orderNote,
-    orderType: isTakeway ? 'Takeway' : 'Dine In'
+    orderType: isTakeway 
   }
 
 
@@ -61,9 +61,9 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
     handleSetMealForInfo: (meal: Product) => void
     mealForInfo: Product,
     handleOrderNote: (note: string) => void,
-    handleSetTakeway: () => void
+    handleSetTakeawayOption: (option: 'Dine In' | 'Takeaway') => void
     
-  } = { step, handleSetTakeway, handleOrderNote, handleStepChange, setFinalOrderDetails, finalInfo,handleSetMealForInfo,
+  } = { step, handleSetTakeawayOption, handleOrderNote, handleStepChange, setFinalOrderDetails, finalInfo,handleSetMealForInfo,
     mealForInfo };
 
   return (

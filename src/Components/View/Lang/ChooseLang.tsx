@@ -9,7 +9,7 @@ import Takeaway from "../../Reusables/SVG/Takeaway";
 import styles from "./ChooseLangStyles.module.css";
 
 const ChooseLang = () => {
-  const { handleStepChange, handleSetTakeway } = useContext(StepContext);
+  const { handleStepChange, handleSetTakeawayOption } = useContext(StepContext);
   const { data, theme } = useContext(DataContext);
   const [option, setOption] = useState<"Take Away" | "Dine In" | undefined>(
     undefined
@@ -45,7 +45,6 @@ const ChooseLang = () => {
             damping: 10,
           }}
           className={`fontSF ${styles.langMenuBtn}`}
-          disabled={option === "Dine In"}
           style={{
             backgroundColor:
               option === "Take Away"
@@ -59,7 +58,8 @@ const ChooseLang = () => {
                 : "",
           }}
           onClick={() => {
-            handleSetTakeway();
+            handleSetTakeawayOption("Takeaway")
+
             if (option === "Take Away") {
               handleStepChange("order");
             } else {
@@ -83,7 +83,6 @@ const ChooseLang = () => {
             damping: 10,
           }}
           className={`fontSF ${styles.langMenuBtn}`}
-          disabled={option === "Take Away"}
           style={{
             backgroundColor:
               option === "Dine In"
@@ -96,6 +95,7 @@ const ChooseLang = () => {
           }}
           onClick={() => {
             setOption("Dine In");
+            handleSetTakeawayOption("Dine In")
           }}
         >
           <DineIn color={theme.activeTextColor} />

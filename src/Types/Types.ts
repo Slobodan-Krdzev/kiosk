@@ -42,7 +42,7 @@ export type FinalInfoType = {
   orderNum: number | undefined;
   orderDet: SingleMealType[];
   orderNote: string,
-  orderType: 'Takeway' | 'Dine In'
+  orderType: string
 };
 
 // FETCH DATA TYPE
