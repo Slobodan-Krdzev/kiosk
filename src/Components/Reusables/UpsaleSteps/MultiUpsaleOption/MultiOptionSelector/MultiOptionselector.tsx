@@ -104,9 +104,11 @@ const MultiOptionselector = ({
               setIsSelected(!isSelected);
             }}
           >
-            {isSelected ? <CheckMark/> : <Plus />}
+             <Plus />
           </button>
         )}
+
+        {(isSelected && option.MaxSelection === 1) && <CheckMark />}
 
         {(isSelected && option.MaxSelection > 1) && 
           <>
