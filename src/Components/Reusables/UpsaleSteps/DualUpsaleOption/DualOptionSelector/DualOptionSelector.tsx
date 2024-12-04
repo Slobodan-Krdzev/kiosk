@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../../../Contexts/OrderContext/OrderContext";
 import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
-import { Option } from "../../../../../Types/Types";
+import { Option, OptionUpsale } from "../../../../../Types/Types";
 import styles from "./DualOptionSelectorStyles.module.css";
 
 type DualOptionSelectorPropsType = {
@@ -27,16 +27,14 @@ const DualOptionSelector = ({
   const { upsaleData, addOption } = useContext(UpsaleContext);
   // const { handleStepChange } = useContext(StepContext);
 
-  const upsaleDataPerStep = upsaleData[upsaleStep]
+  // const upsaleDataPerStep = upsaleData[upsaleStep]
+  const upsaleDataSelectedOptions = upsaleData[upsaleStep].options;
 
-  console.log(`Upsale Data `, upsaleData[upsaleStep].stepData[0].option.find(o => o.Id === option.Id))
-  const upsaleDataSelectedOptions = upsaleData[upsaleStep].stepData;
+  console.log(upsaleDataSelectedOptions)
 
-  // const isOptionSelected = Boolean(
-  //   upsaleDataSelectedOptions.find((o) => o.option. === option.Id)
-  // );
-
-  const isOptionSelected = upsaleData[upsaleStep].stepData[0].option.find(o => o.Id === option.Id)
+  const isOptionSelected = Boolean(
+    upsaleDataSelectedOptions.option!.find((o) => o.option.Id === option.Id)
+  );
 
   // const isOptionSelected = Boolean(
   //   upsaleDataSelectedOptions.option?.Id === option.Id );
@@ -74,7 +72,9 @@ const DualOptionSelector = ({
       }}
       onClick={() => {  
 
-        addOption(upsaleStep, option, 1, 1);
+        const formulateOption: OptionUpsale = {quantity: 1, stepData: {}}
+
+        addOption(upsaleStep, formulateOption, 1);
 
 
         if (option.Finish) {
