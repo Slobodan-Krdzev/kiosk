@@ -523,6 +523,10 @@ export interface Option {
   MaxSelection: number;
 }
 
+export interface StepDataType {
+  option: Option[], quantity: number
+}
+
 export interface Settings {
   BatterySettings: BatterySettings;
   WifiSettings: WifiSettings;

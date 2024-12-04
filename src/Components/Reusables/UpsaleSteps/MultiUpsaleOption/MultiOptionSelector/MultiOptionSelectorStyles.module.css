@@ -38,13 +38,19 @@
     width: 30%;
     height: 20%;
     border: 0;
-    padding: 2%;
     display: flex;
     align-items: center;
-    justify-content: center;
     font-size: 2.8vw;
     border-radius: 24px 0px 12px 0px;
+}
 
+.addBtn{
+    border: none;
+}
+
+.counterBtns {
+    background-color: inherit;
+    border: none;
 }
 
 @media(max-width: 801px){

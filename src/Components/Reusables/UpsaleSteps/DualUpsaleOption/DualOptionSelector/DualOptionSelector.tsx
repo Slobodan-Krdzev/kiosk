@@ -27,11 +27,19 @@ const DualOptionSelector = ({
   const { upsaleData, addOption } = useContext(UpsaleContext);
   // const { handleStepChange } = useContext(StepContext);
 
-  // const upsaleDataPerStep = upsaleData[upsaleStep]
-  const upsaleDataSelectedOptions = upsaleData[upsaleStep].options;
-  const isOptionSelected = Boolean(
-    upsaleDataSelectedOptions.find((o) => o.Id === option.Id)
-  );
+  const upsaleDataPerStep = upsaleData[upsaleStep]
+
+  console.log(`Upsale Data `, upsaleData[upsaleStep].stepData[0].option.find(o => o.Id === option.Id))
+  const upsaleDataSelectedOptions = upsaleData[upsaleStep].stepData;
+
+  // const isOptionSelected = Boolean(
+  //   upsaleDataSelectedOptions.find((o) => o.option. === option.Id)
+  // );
+
+  const isOptionSelected = upsaleData[upsaleStep].stepData[0].option.find(o => o.Id === option.Id)
+
+  // const isOptionSelected = Boolean(
+  //   upsaleDataSelectedOptions.option?.Id === option.Id );
 
   const indexOfSelector = options.indexOf(option);
 
@@ -59,14 +67,14 @@ const DualOptionSelector = ({
       style={{
         backgroundColor: isOptionSelected
           ? `${theme.activeTextColor}40`
-          : upsaleDataSelectedOptions.length === 0 ? 'white': "#F1F1F1",
+          : upsaleDataSelectedOptions ? 'white': "#F1F1F1",
         border: isOptionSelected
           ? `1px solid ${theme.activeTextColor}`
           : "none",
       }}
-      onClick={() => {
+      onClick={() => {  
 
-        addOption(upsaleStep, option, 1);
+        addOption(upsaleStep, option, 1, 1);
 
 
         if (option.Finish) {

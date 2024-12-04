@@ -3,6 +3,7 @@ import {
   UpsaleContext,
   UpsaleContextValueType,
   UpsaleData,
+  UpsaleStepData,
 } from "./UpsaleContext";
 import { Option } from "../../Types/Types";
 
@@ -14,21 +15,26 @@ const UpsaleContentProvider = ({
   children,
 }: UpsaleContentProviderPropsType) => {
   const [upsaleData, setUpsaleData] = useState<UpsaleData>([
-    { step: 0, options: [] },
-    { step: 1, options: [] },
-    { step: 2, options: [] },
-    { step: 3, options: [] },
-    { step: 4, options: [] },
+    { step: 0, stepData: [] },
+    { step: 1, stepData: [] },
+    { step: 2, stepData: [] },
+    { step: 3, stepData: [] },
+    { step: 4, stepData: [] },
   ]);
 
-  const addOption = (step: number, option: Option, maxSelection: number) => {
-    const formatedSteps = upsaleData.map((s) => {
+  const addOption = (step: number, o: Option, quantity: number, maxSelection: number) => {
+
+    const formatedSteps:UpsaleStepData[] = upsaleData.map((s) => {
+
       if (s.step === step) {
-        if (maxSelection === 1) {
-          return { step: s.step, options: [option] };
-        } else {
-          return { step: s.step, options: [...s.options, option] };
-        }
+        return { step: s.step, stepData: [{option: [o], quantity}] };
+
+        // if (maxSelection === 1) {
+        //   return { step: s.step, stepData: [{option: o, quantity}] };
+        // }
+        // } else {
+        //   return { step: s.step, options: [...s.options.option] };
+        // }
       } else {
         return s;
       }
@@ -53,11 +59,11 @@ const UpsaleContentProvider = ({
 
   const resetUpsale = () => {
     setUpsaleData([
-      { step: 0, options: [] },
-      { step: 1, options: [] },
-      { step: 2, options: [] },
-      { step: 3, options: [] },
-      { step: 4, options: [] },
+      { step: 0, stepData: [] },
+      { step: 1, stepData: [] },
+      { step: 2, stepData: [] },
+      { step: 3, stepData: [] },
+      { step: 4, stepData: [] },
     ]);
   };
 
@@ -67,7 +73,7 @@ const UpsaleContentProvider = ({
     upsaleData,
     addOption,
     removeOption,
-    resetUpsale
+    resetUpsale,
   };
 
   return (
