@@ -1,15 +1,16 @@
 import { createContext } from "react";
 import { Option } from "../../Types/Types";
 
-export type UpsaleStepData = {step: number, options: Option[]}
+
+export type UpsaleStepData = {step: number, stepData: {option: Option, quantity: number}[]}
 
 export type UpsaleData = UpsaleStepData[]
 
 export type UpsaleContextValueType = {
     upsaleData: UpsaleData,
-    addOption: (step: number, option: Option, maxSelection: number) => void;
-    removeOption: (step: number, option: Option) => void;
     resetUpsale: () => void,
+    addNewOption: (step: number, option: Option, maxSelection: number, quantity: number) => void;
+    removeAnOption: (step:number, option: Option) => void
 }
 
 export const UpsaleContext = createContext({} as UpsaleContextValueType)

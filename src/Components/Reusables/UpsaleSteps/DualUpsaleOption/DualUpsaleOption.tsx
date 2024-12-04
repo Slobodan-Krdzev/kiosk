@@ -40,7 +40,9 @@ const DualUpsaleOption = ({
     setSelectedOption(option);
   };
 
-  const isNextButtonDisabled = !upsaleData[upsaleStep].options.length;
+  console.log('Upsale Data', Boolean(upsaleData[upsaleStep].stepData.length))
+
+  const isNextButtonDisabled = !upsaleData[upsaleStep].stepData.length
 
   const handleFinish = () => {
 

@@ -40,6 +40,20 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   // const setDrinks = (drinks: Option[]) =>
   //   setSingleMeal({ ...singleMeal, drinks });
 
+  const getUpsaleTotal = (upsaleData: UpsaleData) => {
+
+    let total = 0
+
+    for(let i = 0; i < upsaleData.length; i++){
+
+      const stepTotal = upsaleData[i].stepData.reduce((a,b) => a + (b.option.Price * b.quantity), 0)
+
+      total = total + stepTotal
+    }
+
+    return total
+  }
+
   const placeMealInOrders = (meal: SingleMealType) => {
     const startingPrice = meal.product!.Price;
 
@@ -48,34 +62,10 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
 
     if (meal.upsale !== undefined) {
 
-      const upsale0Price = meal.upsale![0].options.reduce(
-        (a, b) => a + b.Price,
-        0
-      );
-      const upsale1Price = meal.upsale![1].options.reduce(
-        (a, b) => a + b.Price,
-        0
-      );
-      const upsale2Price = meal.upsale![2].options.reduce(
-        (a, b) => a + b.Price,
-        0
-      );
-      const upsale3Price = meal.upsale![3].options.reduce(
-        (a, b) => a + b.Price,
-        0
-      );
-      const upsale4Price = meal.upsale![4].options.reduce(
-        (a, b) => a + b.Price,
-        0
-      );
+      // const upsale = meal.upsale[0].stepData[0].option.Price * meal.upsale[0].stepData[0].quantity
 
-      const finalPrice =
-        startingPrice! +
-        upsale0Price +
-        upsale1Price +
-        upsale2Price +
-        upsale3Price +
-        upsale4Price;
+      const finalPrice = startingPrice! + getUpsaleTotal(meal.upsale) 
+        
 
       const finnishedMeal: SingleMealType = {
         id: meal.product!.ProductId,

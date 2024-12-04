@@ -24,14 +24,16 @@ const DualOptionSelector = ({
 }: DualOptionSelectorPropsType) => {
   const { singleMeal} = useContext(OrderContext);
   const { theme } = useContext(DataContext);
-  const { upsaleData, addOption } = useContext(UpsaleContext);
+  const { upsaleData, addNewOption } = useContext(UpsaleContext);
   // const { handleStepChange } = useContext(StepContext);
 
   // const upsaleDataPerStep = upsaleData[upsaleStep]
-  const upsaleDataSelectedOptions = upsaleData[upsaleStep].options;
+  const upsaleDataSelectedOptions = upsaleData[upsaleStep].stepData;
   const isOptionSelected = Boolean(
-    upsaleDataSelectedOptions.find((o) => o.Id === option.Id)
+    upsaleDataSelectedOptions.find(o => o.option.Id === option.Id)
   );
+
+  // console.log('Upsale Step stepData',upsaleDataSelectedOptions)
 
   const indexOfSelector = options.indexOf(option);
 
@@ -66,8 +68,8 @@ const DualOptionSelector = ({
       }}
       onClick={() => {
 
-        addOption(upsaleStep, option, 1);
-
+        // addOption(upsaleStep, option, 1);
+        addNewOption(upsaleStep, option, 1 , 1)
 
         if (option.Finish) {
 

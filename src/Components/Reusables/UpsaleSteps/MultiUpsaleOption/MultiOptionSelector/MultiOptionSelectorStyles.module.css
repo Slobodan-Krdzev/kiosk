@@ -47,6 +47,12 @@
 
 }
 
+.addBtn, .quantityBtns{
+    background-color: inherit;
+    border: none;
+}
+
+
 @media(max-width: 801px){
     .optionSelector{
         min-height: 180px;

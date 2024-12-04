@@ -37,9 +37,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
       id="productCard"
       animate={{
         scale: isMealPlacedInOrders ? 1.03 : 1,
-        backgroundColor: isMealPlacedInOrders
-          ? `${theme.activeTextColor}60`
-          : "white",
+        
       }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={styles.card}
@@ -47,6 +45,9 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         border: isMealPlacedInOrders
           ? `1px solid ${theme.activeTextColor}`
           : "",
+          backgroundColor: isMealPlacedInOrders
+          ? `${theme.activeTextColor}60`
+          : "white",
       }}
     >
       <div className={styles.imgWrapper}>
@@ -66,24 +67,10 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
             handleStepChange("mealInfo");
           }}
         >
-          {/* &#8505; */}
           <b>i</b>
         </button>
       </div>
 
-      {/* <motion.p
-        animate={{
-          x: isSelected ? ["100%", "-100%"] : 0,
-        }}
-        transition={{
-          duration: isSelected ? 5 : 0,
-          ease: "linear",
-          repeat: isSelected ? Infinity : 0,
-        }}
-        className={`fontSF ${styles.productNameHeading}`}
-      >
-        {isSelected ? product.Name : `${product.Name.substring(0, 12)}...`}
-      </motion.p> */}
       <p className={`fontSF ${styles.productNameHeading}`}>
         {product.Name.length > 35
           ? product.Name.substring(0, 30)
@@ -97,7 +84,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
-          width: isMealPlacedInOrders ? "100%" : "50px",
+          width: isMealPlacedInOrders ? "100%" : "23%",
           borderTopLeftRadius: isMealPlacedInOrders ? "0" : "16px",
           padding: isMealPlacedInOrders ? "0 3vw" : 0,
 
@@ -108,8 +95,8 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           backgroundColor: theme.activeTextColor,
           color: theme.textColor,
           justifyContent: isMealPlacedInOrders ? "space-between" : "center",
-          padding: isMealPlacedInOrders ? "0 3vw" : "",
-          width: isMealPlacedInOrders ? "100%" : "50px",
+          padding: isMealPlacedInOrders ? "0 3vw" : 0,
+          width: isMealPlacedInOrders ? "100%" : "23%",
         }}
         className={styles.productBtnsWrapper}
       >
@@ -126,9 +113,6 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                 handleStepChange("mealInfo");
               }else if (product.HasUpsaleCollection && !isMealPlacedInOrders) {
 
-                console.log('====================================');
-                console.log('HAS UPSALE');
-                console.log('====================================');
                 setMeal(product)
                 handleStepChange('menuUpgrade')
       

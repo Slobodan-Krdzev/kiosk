@@ -14,50 +14,81 @@ const UpsaleContentProvider = ({
   children,
 }: UpsaleContentProviderPropsType) => {
   const [upsaleData, setUpsaleData] = useState<UpsaleData>([
-    { step: 0, options: [] },
-    { step: 1, options: [] },
-    { step: 2, options: [] },
-    { step: 3, options: [] },
-    { step: 4, options: [] },
+    { step: 0, stepData: [] },
+    { step: 1, stepData: [] },
+    { step: 2, stepData: [] },
+    { step: 3, stepData: [] },
+    { step: 4, stepData: [] },
   ]);
 
-  const addOption = (step: number, option: Option, maxSelection: number) => {
-    const formatedSteps = upsaleData.map((s) => {
+
+  const addNewOption = (step: number, option: Option, maxSelection: number, quantity: number) => {
+    const formatedSteps: UpsaleData = upsaleData.map(s => {
       if (s.step === step) {
-        if (maxSelection === 1) {
-          return { step: s.step, options: [option] };
+        if (maxSelection > 1) {
+          // proverka dali vekje postoi opcijata vo stepData
+          const existingOption = s.stepData.find(item => item.option === option);
+  
+          if (existingOption) {
+            // ako postoi go vrakjame option menuvame quantity ako ne postoi dodadi
+            return {
+              step: s.step,
+              stepData: s.stepData.map(item =>
+                item.option === option
+                  ? { ...item, quantity }
+                  : item
+              )
+            };
+          } else {
+
+            return {
+              step: s.step,
+              stepData: [...s.stepData, { option, quantity }]
+            };
+          }
         } else {
-          return { step: s.step, options: [...s.options, option] };
+
+          return {
+            step: s.step,
+            stepData: [{ option, quantity }]
+          };
         }
       } else {
+        
         return s;
       }
     });
-
+  
+    // Update the state with the new formatted steps
     setUpsaleData(formatedSteps);
   };
 
-  const removeOption = (step: number, option: Option) => {
-    const filteredData = upsaleData.map((s) => {
-      if (s.step === step) {
-        const filteredOptions = s.options.filter((o) => o.Id !== option.Id);
+  const removeAnOption = (step:number, option: Option) => {
 
-        return { step: s.step, options: filteredOptions };
-      } else {
-        return s;
+    const filteredData = upsaleData.map(s => {
+
+      if(s.step === step){
+
+        const filteredOptions = s.stepData.filter(o => o.option.Id !== option.Id)
+
+
+        return {step: s.step, stepData: filteredOptions}
+      }else{
+        return s
       }
-    });
+    })
 
-    setUpsaleData(filteredData);
-  };
+    setUpsaleData(filteredData)
+
+  }
 
   const resetUpsale = () => {
     setUpsaleData([
-      { step: 0, options: [] },
-      { step: 1, options: [] },
-      { step: 2, options: [] },
-      { step: 3, options: [] },
-      { step: 4, options: [] },
+      { step: 0, stepData: [] },
+      { step: 1, stepData: [] },
+      { step: 2, stepData: [] },
+      { step: 3, stepData: [] },
+      { step: 4, stepData: [] },
     ]);
   };
 
@@ -65,9 +96,9 @@ const UpsaleContentProvider = ({
 
   const contextValue: UpsaleContextValueType = {
     upsaleData,
-    addOption,
-    removeOption,
-    resetUpsale
+    resetUpsale,
+    addNewOption,
+    removeAnOption
   };
 
   return (

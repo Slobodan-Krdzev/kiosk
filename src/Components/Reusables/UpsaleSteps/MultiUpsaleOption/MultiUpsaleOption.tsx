@@ -30,7 +30,10 @@ const MultiUpsaleOption = ({
 
   const options = upsaleStepData.Options;
   const maxSelection = upsaleStepData.MaxSelection;
-  const isNextButtonDisabled = !upsaleData[upsaleStep].options.length;
+  const isNextButtonDisabled = !upsaleData[upsaleStep].stepData.length;
+
+
+  console.log(upsaleStepData.DisplayOrder, stepsLength - 1)
 
   return (
     <motion.section
@@ -89,11 +92,13 @@ const MultiUpsaleOption = ({
         nextAction={() => {
 
           if(upsaleStepData.DisplayOrder === stepsLength - 1){
+            console.log('ova e finalna upsale data', upsaleData)
 
             // OVDE UPDATE NA SIGNLE MEAL
             setUpsale(upsaleData) 
-            handleStepChange("order");
             placeMealInOrders({ ...singleMeal, upsale: upsaleData });
+
+            handleStepChange("order");
             resetUpsale()
           }
 
