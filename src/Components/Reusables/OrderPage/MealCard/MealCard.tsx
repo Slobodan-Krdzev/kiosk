@@ -4,6 +4,8 @@ import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { Product, SingleMealType, ThemeType } from "../../../../Types/Types";
 import styles from "./MealCardStyles.module.css";
+import Trashcan from "../../SVG/Trashcan";
+import Plus from "../../SVG/Plus";
 
 type MealCardPropsType = {
   product: Product;
@@ -20,7 +22,6 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
     setSingleMealQuantity,
   } = useContext(OrderContext);
 
-  const [isSelected, setIsSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
   const isMealPlacedInOrders = Boolean(
@@ -46,35 +47,6 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         border: isMealPlacedInOrders
           ? `1px solid ${theme.activeTextColor}`
           : "",
-      }}
-      onClick={() => {
-        if (product.HasUpsaleCollection && !isMealPlacedInOrders) {
-
-          console.log('====================================');
-          console.log('HAS UPSALE');
-          console.log('====================================');
-          setMeal(product)
-          handleStepChange('menuUpgrade')
-
-        } else {
-          if (isMealPlacedInOrders) {
-            removeMealFromOrders(product.ProductId);
-          } else {
-            setQuantity(1);
-            placeMealInOrders({
-              id: product.ProductId,
-              product: product,
-              image: product.SmallPictureUrl,
-              upsale: undefined,
-              originalTotal: product.Price,
-              totalPrice: product.Price,
-              quantity: quantity,
-              note: "",
-            });
-          }
-        }
-
-        setIsSelected(!isSelected);
       }}
     >
       <div className={styles.imgWrapper}>
@@ -119,19 +91,25 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
       </p>
 
       <p className={`fontSF ${styles.productPriceHeading}`}>
-        {product.Price} {product.PriceValue}
+        {product.Price} 
       </p>
 
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
-          width: isMealPlacedInOrders ? "74px" : "50px",
+          width: isMealPlacedInOrders ? "100%" : "50px",
+          borderTopLeftRadius: isMealPlacedInOrders ? "0" : "16px",
+          padding: isMealPlacedInOrders ? "0 3vw" : 0,
+
+
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{
           backgroundColor: theme.activeTextColor,
           color: theme.textColor,
-          justifyContent: isMealPlacedInOrders ? "center" : "center",
+          justifyContent: isMealPlacedInOrders ? "space-between" : "center",
+          padding: isMealPlacedInOrders ? "0 3vw" : "",
+          width: isMealPlacedInOrders ? "100%" : "50px",
         }}
         className={styles.productBtnsWrapper}
       >
@@ -139,24 +117,43 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           <button
             className={styles.productBtn}
             onClick={() => {
-              setIsSelected(true);
+
               setQuantity((q) => q + 1);
 
-              if (!isMealPlacedInOrders) {
-                placeMealInOrders({
-                  id: product.ProductId,
-                  product: product,
-                  image: product.SmallPictureUrl,
-                  upsale: undefined,
-                  originalTotal: product.Price,
-                  totalPrice: product.Price,
-                  quantity: 1,
-                  note: "",
-                });
+              if(product.NoInteraction) {
+
+                handleSetMealForInfo(product)
+                handleStepChange("mealInfo");
+              }else if (product.HasUpsaleCollection && !isMealPlacedInOrders) {
+
+                console.log('====================================');
+                console.log('HAS UPSALE');
+                console.log('====================================');
+                setMeal(product)
+                handleStepChange('menuUpgrade')
+      
+              } else {
+                if (isMealPlacedInOrders) {
+                  removeMealFromOrders(product.ProductId);
+                } else {
+                  setQuantity(1);
+                  placeMealInOrders({
+                    id: product.ProductId,
+                    product: product,
+                    image: product.SmallPictureUrl,
+                    upsale: undefined,
+                    originalTotal: product.Price,
+                    totalPrice: product.Price,
+                    quantity: quantity,
+                    note: "",
+                  });
+                }
               }
             }}
           >
-            &#43;
+
+            {product.NoInteraction ? <b style={{color: 'white'}}>i</b> : <Plus />}
+           
           </button>
         )}
 
@@ -169,6 +166,9 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
 
                 if (quantity <= 1) {
                   setQuantity(0);
+
+                  // remove from orders
+                  removeMealFromOrders(product.ProductId)
                 } else {
                   setQuantity((q) => q - 1);
 
@@ -176,7 +176,8 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                 }
               }}
             >
-              &#8722;
+              {quantity === 1 ? <Trashcan /> : <>&#8722;</>}
+              
             </button>
             <span className={`fontSF ${styles.productQuantity}`}>{meal.quantity}</span>
             <button

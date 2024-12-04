@@ -3,18 +3,18 @@ import { SingleMealType, ThemeType } from "../../../Types/Types";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import styles from "./CheckoutCardStyles.module.css";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import Plus from "../SVG/Plus";
+import Trashcan from "../SVG/Trashcan";
 
 type CheckoutCardPropsType = {
   order: SingleMealType;
   theme: ThemeType;
-  ordersLength: number;
   hideShowRibbon: (value: boolean) => void;
 };
 
 const CheckoutCard = ({
   order,
   theme,
-  ordersLength,
   hideShowRibbon,
 }: CheckoutCardPropsType) => {
   const [quantity, setQuantity] = useState(
@@ -23,58 +23,27 @@ const CheckoutCard = ({
   const [isProductNoteInputVisible, setIsProductNoteInputVisible] =
     useState(false);
 
-  const [inputValue, setInputValue] = useState(order.note ?? "" as string)
+  const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
 
-  const { setSingleMealQuantity, setSingleMealNote, removeMealFromOrders } =
-    useContext(OrderContext);
+  const {
+    orders,
+    setSingleMealQuantity,
+    setSingleMealNote,
+    removeMealFromOrders,
+  } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
 
   return (
     <div className={styles.checkoutCardNoteInputWrapper}>
       <div className={styles.checkoutCard}>
-        <div className={styles.checkoutCardActionBtnsWrapper}>
+        {/* <div className={styles.checkoutCardActionBtnsWrapper}>
           <button
             onClick={() => {
               setIsProductNoteInputVisible(!isProductNoteInputVisible);
               hideShowRibbon(false);
             }}
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 8.25V18C20 21 18.21 22 16 22H8C5.79 22 4 21 4 18V8.25C4 5 5.79 4.25 8 4.25C8 4.87 8.24997 5.43 8.65997 5.84C9.06997 6.25 9.63 6.5 10.25 6.5H13.75C14.99 6.5 16 5.49 16 4.25C18.21 4.25 20 5 20 8.25Z"
-                stroke={"black"}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M16 4.25C16 5.49 14.99 6.5 13.75 6.5H10.25C9.63 6.5 9.06997 6.25 8.65997 5.84C8.24997 5.43 8 4.87 8 4.25C8 3.01 9.01 2 10.25 2H13.75C14.37 2 14.93 2.25 15.34 2.66C15.75 3.07 16 3.63 16 4.25Z"
-                stroke={"black"}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8 13H12"
-                stroke={"black"}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8 17H16"
-                stroke={"black"}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            
           </button>
           <button
             onClick={() => {
@@ -129,7 +98,13 @@ const CheckoutCard = ({
               />
             </svg>
           </button>
-        </div>
+        </div> */}
+
+        {/* TOTAL PRICE */}
+        <p className={`${styles.checkoutCardPrice} fontSF`}>
+          {order.totalPrice.toFixed(2)}
+          {/* {order.product!.PriceValue} */}
+        </p>
 
         <img
           src={`${order.product!.SmallPictureUrl}`}
@@ -175,104 +150,115 @@ const CheckoutCard = ({
           </div> */}
 
           {order.note !== "" && (
-            <p
-              className={`${styles.checkoutCardExtrasText} fontSF`}
-            >
+            <p className={`${styles.checkoutCardExtrasText} fontSF`}>
               Note: {order.note}
             </p>
           )}
-
-          {/* TOTAL PRICE */}
-          <p className={`${styles.checkoutCardPrice} fontSF`}>
-            {order.totalPrice.toFixed(2)} {order.product!.PriceValue}
-          </p>
         </div>
-        {/* BUTTONS */}
-        <div
-          className={`${styles.checkoutCardQuantityWrapper} fontSF`}
-          style={{ backgroundColor: theme.activeTextColor }}
-        >
-          <button
-            onClick={() => {
-              if (quantity === 1) {
-                setQuantity(1);
-              } else {
-                setQuantity((quantity) => quantity - 1);
-                setSingleMealQuantity(order, "minus");
-              }
-            }}
-          >
-            &#8722;
-          </button>
-          <p className={styles.quantityCounter}>{quantity}</p>
-          <button
-            onClick={() => {
-              setQuantity((quantity) => quantity + 1);
-              setSingleMealQuantity(order, "plus");
-            }}
-          >
-            &#43;
-          </button>
-        </div>
-      </div>
 
-      {isProductNoteInputVisible && (
-        <form
-          className="formStyles"
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            setSingleMealNote(inputValue ?? "", order);
-            setIsProductNoteInputVisible(false);
-            hideShowRibbon(true);
-            e.currentTarget.reset();
-          }}
-        >
-          <label htmlFor="note" className={`fontSF noteLabel`}>
-            Product Note
-          </label>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+        {!isProductNoteInputVisible && (
+          <button
+            className={`fontSF ${styles.addNoteBtn}`}
+            onClick={() => {
+              setIsProductNoteInputVisible(true);
             }}
           >
-            <input
-              id="note"
-              type="text"
+            <Plus /> {order.note === "" ? `Add Note` : `Edit Note`}
+          </button>
+        )}
+
+        {isProductNoteInputVisible && (
+          <form
+            className={`formStyles ${styles.productNoteForm}`}
+            onSubmit={(e) => {
+              e.preventDefault();
+
+              setSingleMealNote(inputValue ?? "", order);
+              setIsProductNoteInputVisible(false);
+              hideShowRibbon(true);
+              e.currentTarget.reset();
+            }}
+          >
+            <div
               style={{
-                borderColor: theme.activeTextColor,
-                width: inputValue.length > 4 ? "83%" : '100%',
-                borderTopRightRadius: inputValue.length > 4 ? 0 : 8,
-                borderBottomRightRadius: inputValue.length > 4 ? 0 : 8,
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
-              className={`noteInput`}
-              required
-              value={inputValue}
-              onChange={e => {
-                setInputValue(e.currentTarget.value)
-              }}
-            />
+            >
+              <input
+                id="note"
+                type="text"
+                style={{
+                  borderColor: theme.activeTextColor,
+                  width: inputValue.length > 4 ? "83%" : "100%",
+                  borderTopRightRadius: 0,
+                  borderBottomRightRadius: 0,
+                }}
+                className={`${styles.productNoteInput} noteInput`}
+                required
+                value={inputValue}
+                onChange={(e) => {
+                  setInputValue(e.currentTarget.value);
+                }}
+              />
 
-            {inputValue.length > 4 && (
-                <button
-                  type="submit"
-                  className={`submitBtn fontSF`}
-                  style={{
-                    backgroundColor: theme.activeTextColor,
-                    borderColor: theme.activeTextColor,
-                    width: "17%",
-                    borderTopLeftRadius: 0,
-                    borderBottomLeftRadius: 0,
-                  }}
-                >
-                 {order.note ? "Edit" : "Add"} 
-                </button>
-              )}
+              <button
+                type="submit"
+                className={`submitBtn fontSF`}
+                style={{
+                  backgroundColor: theme.activeTextColor,
+                  borderColor: theme.activeTextColor,
+                  width: "22%",
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                }}
+              >
+                {order.note ? "Edit" : "Done"}
+              </button>
+            </div>
+          </form>
+        )}
+
+        {/* BUTTONS */}
+
+        {!isProductNoteInputVisible && (
+          <div
+            className={`${styles.checkoutCardQuantityWrapper} fontSF`}
+            style={{ backgroundColor: theme.activeTextColor }}
+          >
+            <button
+              onClick={() => {
+                if (quantity === 1) {
+
+                  if (orders.length === 1) {
+                    handleStepChange("order");
+                  }
+
+                  setQuantity(1);
+                  removeMealFromOrders(order.id);
+
+                  
+                } else {
+                  setQuantity((quantity) => quantity - 1);
+                  setSingleMealQuantity(order, "minus");
+                }
+              }}
+            >
+              {quantity === 1 ? <Trashcan /> : <>&#8722;</>}
+            </button>
+            <p className={styles.quantityCounter}>{quantity}</p>
+            <button
+              onClick={() => {
+                setQuantity((quantity) => quantity + 1);
+                setSingleMealQuantity(order, "plus");
+              }}
+            >
+              &#43;
+            </button>
           </div>
-        </form>
-      )}
+        )}
+      </div>
     </div>
   );
 };

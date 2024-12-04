@@ -1,9 +1,10 @@
+import styles from "./SVGStyles.module.css"
+
 
 const CheckMark = () => {
   return (
     <svg
-      width="18"
-      height="14"
+      className={styles.checkmark}
       viewBox="0 0 18 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

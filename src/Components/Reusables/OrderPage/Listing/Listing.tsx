@@ -34,7 +34,7 @@ const Listing = ({
         ref={containerRef}
         style={{
           // height: isRibbonVisible ?  `calc(100% - 24.3vh - 157px)` : ``
-            height: isRibbonVisible ?  `calc(100% - 24.3vh )` : ``
+            height: isRibbonVisible ?  `calc(100% - 22.3vh )` : ``
 
         }}
       >

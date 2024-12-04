@@ -46,13 +46,7 @@ const MultiOptionselector = ({
 
           // OVDEKA ZA TESTIRANJE MAXSELECTION PROMENI GO SO ZAKUCAN BROJ  
         pointerEvents: selectedOptionsLength >= maxSelection && !isOptionAlreadySelected ? "none" : "auto",
-      }}
-      onClick={() => {
-        isSelected ? removeOption(upsaleStep, option) : addOption(upsaleStep, option, 2);
-        
-        setIsSelected(!isSelected)
-      }}
-    >
+      }}>
       <img
         src={option.PictureUrl}
         alt={option.Name}
@@ -78,6 +72,11 @@ const MultiOptionselector = ({
       <button
         className={styles.optionBtn}
         style={{ backgroundColor: theme.activeTextColor }}
+        onClick={() => {
+          isSelected ? removeOption(upsaleStep, option) : addOption(upsaleStep, option, 2);
+        
+        setIsSelected(!isSelected)
+        }}
       >
         {isOptionAlreadySelected ? <CheckMark /> : <Plus />}
       </button>

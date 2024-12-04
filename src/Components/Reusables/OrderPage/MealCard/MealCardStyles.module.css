@@ -11,8 +11,8 @@
   position: absolute;
   top: 2px;
   right: 2px;
-  width: 17.5px;
-  height: 17.5px;
+  width: 23.5px;
+  height: 23.5px;
   border-radius: calc(90px / 1.33);
   background-color: #0db5d6;
   color: white;
@@ -25,11 +25,11 @@
 .imgWrapper {
   width: 100%;
   min-height: 60%;
+  height: 60%;
   margin: 0rem auto;
   display: flex;
   justify-content: center;
   align-items: start;
-  margin-bottom: 0.4rem;
   position: relative;
 }
 
@@ -42,9 +42,10 @@
 
 .productBtn {
   background-color: inherit;
-  font-size: 2.6vw;
+  font-size: 3.2vw;
   border: none;
   color: black;
+  display: flex;
 }
 
 .productBtnsWrapper {
@@ -57,11 +58,13 @@
   display: flex;
   align-items: center;
   border-radius: 16px 0px;
+
 }
 
 .productQuantity {
   margin: 0 5%;
   color: black;
+  font-size: 2.5vw;
 }
 
 .productNameHeading {
@@ -94,12 +97,11 @@
   .productNameHeading {
     font-size: 2vw;
     line-height: 100%;
-
   }
 
   .productPriceHeading {
 
-    font-size: 1.9vw;
+    font-size: 2.5vw;
 
   }
 
@@ -129,7 +131,7 @@
   .productNameHeading {
     font-size: 2.4vw;
     line-height: 100%;
-    margin-top: -0.5vh;
+    margin-top: 0.4vh;
 
   }
 }

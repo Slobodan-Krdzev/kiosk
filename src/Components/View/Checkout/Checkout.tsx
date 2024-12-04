@@ -38,12 +38,11 @@ const Checkout = () => {
             key={product.product!.ProductId}
             order={product}
             theme={theme}
-            ordersLength={orders.length}
             hideShowRibbon={hideShowRibbon}
           />
         ))}
 
-        <form
+         <form
           className="formStyles"
           onSubmit={(e) => {
             e.preventDefault();
@@ -73,6 +72,7 @@ const Checkout = () => {
             }}
           />
         </form>
+        
       </div>
 
       {isRibbonShown && (

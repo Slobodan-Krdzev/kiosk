@@ -46,3 +46,20 @@
 .stepCounter{
     text-align: center;
 }
+
+@media(max-width: 425px){
+
+    .topContent {
+        height: 20vh;
+    }
+
+    .subtitle{
+        margin: 6vh;
+    }
+
+    .stepCounter{
+        position: absolute;
+        bottom: 110px;
+        font-size: 4vw;
+    }
+}

@@ -1,0 +1,25 @@
+.plus{
+    width: 20px;
+    height: 20px;
+
+}
+
+.checkmark{
+    width: 80vw;
+    height: 1.5vh;
+}
+
+
+@media(max-width: 800px){
+
+    .plus{
+        width: 14px;
+        height: 14px;
+    }
+    
+    .checkmark{
+        width: 14px;
+        height: 18px;
+    }
+
+}

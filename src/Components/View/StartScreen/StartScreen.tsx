@@ -45,20 +45,9 @@ const StartScreen = () => {
         </div>
         <BottomGreenRibbon bgColor={theme.activeTextColor}>
           <button
-            className="fontSF"
+            className="fontSF bottomRibbonButton"
             style={{
-              lineHeight: "calc(34px / 1.33 )",
-              fontSize: "calc( 28px / 1.33 )",
-              fontWeight: 400,
-              textTransform: "capitalize",
-              backgroundColor: theme.activeTextColor,
-              color: "#202020",
-              minWidth: "100%",
-              minHeight: "80%",
-              cursor: "pointer",
-              outline: "none",
-              border: "none",
-              borderRadius: "calc(70px / 1.33)",
+              backgroundColor: theme.activeTextColor
             }}
             onClick={() => {
               handleStepChange("lang");

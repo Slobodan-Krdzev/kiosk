@@ -153,7 +153,7 @@ const DualOptionSelector = ({
         className={styles.optionImage}
       />
       <div className={styles.nameAndPriceWrapper}>
-        <p className={styles.price}>
+        <p className={`fontSF ${styles.price}`}>
           {option.Price === 0 ? singleMeal.product!.Price : `+${option.Price}`}
         </p>
         <p className={`fontSF ${styles.optionName}`}>{option.Name}</p>

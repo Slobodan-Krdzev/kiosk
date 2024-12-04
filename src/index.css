@@ -670,4 +670,9 @@ img {
     padding: 6px 14px;
     font-family: "Plus Jakarta Sans", sans-serif;
   }
+
+  .bottomRibbonButton {
+  line-height: 34px;
+  font-size: 5vw;
+  }
 }
