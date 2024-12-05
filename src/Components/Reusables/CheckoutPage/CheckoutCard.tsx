@@ -180,6 +180,7 @@ const CheckoutCard = ({
             style={{ backgroundColor: theme.activeTextColor }}
           >
             <button
+            className={styles.quantityWrapperBtns}
               onClick={() => {
                 if (quantity === 1) {
                   if (orders.length === 1) {
@@ -198,6 +199,7 @@ const CheckoutCard = ({
             </button>
             <p className={styles.quantityCounter}>{quantity}</p>
             <button
+            className={styles.quantityWrapperBtns}
               onClick={() => {
                 setQuantity((quantity) => quantity + 1);
                 setSingleMealQuantity(order, "plus");

@@ -32,9 +32,6 @@ const MultiUpsaleOption = ({
   const maxSelection = upsaleStepData.MaxSelection;
   const isNextButtonDisabled = !upsaleData[upsaleStep].stepData.length;
 
-
-  console.log(upsaleStepData.DisplayOrder, stepsLength - 1)
-
   return (
     <motion.section
       key={"multi"}

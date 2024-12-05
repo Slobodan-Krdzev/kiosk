@@ -92,8 +92,6 @@ const UpsaleContentProvider = ({
     ]);
   };
 
-  console.log(upsaleData);
-
   const contextValue: UpsaleContextValueType = {
     upsaleData,
     resetUpsale,
