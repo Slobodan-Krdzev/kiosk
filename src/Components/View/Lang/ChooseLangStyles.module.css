@@ -46,7 +46,7 @@
     align-items: center;
     gap: 1px;
     width: 40%;
-    height: 25vh;
+    height: 28vh;
 
 }
 
@@ -60,7 +60,7 @@
 
 .langSelectWrapper{
     width: 70%; 
-    margin: 12vh auto;
+    margin: 8vh auto;
     text-align: center
 }
 

@@ -36,74 +36,9 @@ const CheckoutCard = ({
   return (
     <div className={styles.checkoutCardNoteInputWrapper}>
       <div className={styles.checkoutCard}>
-        {/* <div className={styles.checkoutCardActionBtnsWrapper}>
-          <button
-            onClick={() => {
-              setIsProductNoteInputVisible(!isProductNoteInputVisible);
-              hideShowRibbon(false);
-            }}
-          >
-            
-          </button>
-          <button
-            onClick={() => {
-              removeMealFromOrders(order.product!.ProductId);
-
-              if (ordersLength === 1) {
-                handleStepChange("order");
-              }
-            }}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 5.98047C17.67 5.65047 14.32 5.48047 10.98 5.48047C9 5.48047 7.02 5.58047 5.04 5.78047L3 5.98047"
-                stroke="#FF453A"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97"
-                stroke="#FF453A"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M18.8504 9.13965L18.2004 19.2096C18.0904 20.7796 18.0004 21.9996 15.2104 21.9996H8.79039C6.00039 21.9996 5.91039 20.7796 5.80039 19.2096L5.15039 9.13965"
-                stroke="#FF453A"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M10.3301 16.5H13.6601"
-                stroke="#FF453A"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M9.5 12.5H14.5"
-                stroke="#FF453A"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div> */}
-
         {/* TOTAL PRICE */}
         <p className={`${styles.checkoutCardPrice} fontSF`}>
           {order.totalPrice.toFixed(2)}
-          {/* {order.product!.PriceValue} */}
         </p>
 
         <img
@@ -118,36 +53,53 @@ const CheckoutCard = ({
               ? `${order.product!.Name.substring(0, 35)}...`
               : order.product!.Name}
           </p>
-          {/* <div className={styles.mealInfoWrapper}>
-            {order.sides && (
-              <p
-                className={`${styles.checkoutCardExtrasText} fontSF`}
-                style={{ color: theme.textColor }}
-              >
-                {order.sides.map((s) => (
-                  <span key={s.Id}>{s.Name} <span style={{textTransform: 'lowercase'}}>x1</span></span>
-                ))}
-              </p>
-            )}
 
-            {order.drinks && (
+          <div className={styles.mealInfoWrapper}>
+            {(order.upsale && order.upsale![2].stepData) && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
-                {order.drinks.map((drink) => (
-                  <span key={drink.Id}>
-                    {drink.Name} <span style={{textTransform: 'lowercase'}}>x1</span>
+                {order.upsale![2].stepData.map((i,idx) => (
+                  <span key={i.option.Id}>
+                    {i.option.Name}{" "}
+                    <span style={{ textTransform: "lowercase" }}>
+                      {" "}
+                      x{i.quantity}
+                    </span>{" "}
+                    {idx === order!.upsale![2].stepData.length - 1 ? "" : "|"}{" "}
                   </span>
                 ))}
               </p>
             )}
 
-            {order.extras && (
+            {(order.upsale && order.upsale![3].stepData) && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
-                {order.extras.map((e) => (
-                  <span key={e.Id}>{e.Name} <span style={{textTransform: 'lowercase'}}>x1</span> | </span>
+                {order.upsale![3].stepData.map((i,idx) => (
+                  <span key={i.option.Id}>
+                    {i.option.Name}{" "}
+                    <span style={{ textTransform: "lowercase" }}>
+                      {" "}
+                      x{i.quantity}
+                    </span>{" "}
+                    {idx === order!.upsale![3].stepData.length - 1 ? "" : "|"}{" "}
+                  </span>
                 ))}
               </p>
             )}
-          </div> */}
+
+            {(order.upsale && order.upsale![4].stepData) && (
+              <p className={`${styles.checkoutCardExtrasText} fontSF`}>
+                {order.upsale![4].stepData.map((i, idx) => (
+                  <span key={i.option.Id}>
+                    {i.option.Name}{" "}
+                    <span style={{ textTransform: "lowercase" }}>
+                      {" "}
+                      x{i.quantity}
+                    </span>{" "}
+                    {idx === order!.upsale![4].stepData.length - 1 ? "" : "|"}{" "}
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
 
           {order.note !== "" && (
             <p className={`${styles.checkoutCardExtrasText} fontSF`}>
@@ -230,15 +182,12 @@ const CheckoutCard = ({
             <button
               onClick={() => {
                 if (quantity === 1) {
-
                   if (orders.length === 1) {
                     handleStepChange("order");
                   }
 
                   setQuantity(1);
                   removeMealFromOrders(order.id);
-
-                  
                 } else {
                   setQuantity((quantity) => quantity - 1);
                   setSingleMealQuantity(order, "minus");

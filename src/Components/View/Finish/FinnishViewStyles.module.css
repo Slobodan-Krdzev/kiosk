@@ -40,19 +40,10 @@
   margin: 1rem auto 20vh;
 }
 
-.orderNoTitle {
-  font-size: 30.74px;
-  font-weight: 600;
-  text-align: center;
-}
-
 .orderNO {
-  font-size: calc(100px / 1.33);
+  font-size: 12vw;
   font-weight: 400;
-  line-height: calc(43.2px / 1.33);
   text-align: center;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
 }
 
 .countOverlay {
@@ -66,4 +57,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form{
+  margin: 400px 0;
+}
+
+@media(max-width: 800px){
+  .orderNoWrapper {
+    margin: 1rem auto 13vh;
+  }
 }

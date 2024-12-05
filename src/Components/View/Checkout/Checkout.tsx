@@ -43,7 +43,7 @@ const Checkout = () => {
         ))}
 
          <form
-          className="formStyles"
+          className={`formStyles ${styles.inputField}`}
           onSubmit={(e) => {
             e.preventDefault();
             hideShowRibbon(true);
@@ -76,7 +76,7 @@ const Checkout = () => {
       </div>
 
       {isRibbonShown && (
-        <div className={`${styles.bottomRibbon}`}>
+        <div className={`bottomRibbon`}>
           <UpgradeBottomRibbon
             nextText="Place Order"
             backText="Back to Menu"

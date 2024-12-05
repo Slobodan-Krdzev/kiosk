@@ -39,7 +39,7 @@ const Order = () => {
     setMealsToDisplay(filteredProducts);
   };
 
-  console.log(orders)
+  console.log('Current Orders', orders)
 
   return (
     <motion.section

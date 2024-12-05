@@ -189,7 +189,7 @@
     }
 
     .checkoutCardMealName {
-        font-size: 4vw;
+        font-size: 5vw;
         width: 90%;
     }
 
@@ -200,6 +200,10 @@
 
     .quantityCounter{
         font-size: 5vw;
+    }
+
+    .checkoutCardExtrasText{
+        font-size: 3vw;
     }
   }
 

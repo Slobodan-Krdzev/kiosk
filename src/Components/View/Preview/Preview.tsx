@@ -10,7 +10,7 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 const Preview = () => {
 
     const {orders, getOrderTotal} = useContext(OrderContext)
-    const {theme, data} = useContext(DataContext)
+    const {theme} = useContext(DataContext)
     const {handleStepChange} = useContext(StepContext)
 
 
@@ -44,28 +44,16 @@ const Preview = () => {
           <p
             className={`fontSF`}
           >
-            {getOrderTotal()} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
+            {getOrderTotal()}
           </p>
         </div>
       </div>
 
       <BottomGreenRibbon bgColor={theme.activeTextColor}>
         <button
-          className="fontSF"
+          className="fontSF bottomRibbonButton"
           style={{
-            lineHeight: "calc(34px / 1.33)",
-            fontSize: 'calc(28px / 1.33)',
-            fontWeight: 400,
-            textTransform: "capitalize",
-            backgroundColor: theme.activeTextColor,
-            color: "#202020",
-            minWidth: "100%",
-            minHeight: "100%",
-            cursor: "pointer",
-            padding: "4%",
-            outline: "none",
-            border: "none",
-            borderRadius: "70px",
+            backgroundColor: theme.activeTextColor
           }}
           onClick={() => {
             handleStepChange("payment");

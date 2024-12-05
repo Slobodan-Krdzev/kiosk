@@ -10,18 +10,9 @@ const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
     <div className={styles.paymentSingleCard}>
       <div>
         <p className={`fontSF ${styles.productName}`}>
-          {order.product!.Name.substring(0, 15)}...{" "}
+          {order.product!.Name.substring(0, 30)}...{" "}
           <span>{`x ${order.quantity}`}</span>
         </p>
-
-        {/* {order.sides && (
-          <p
-            style={{ color: '#898989' }}
-            className={`${styles.sidesText} fontSF`}
-          >
-            {order.sides[0].Name} {`(${order.sides[0].Price} )`}
-          </p>
-        )} */}
 
         {order.note !== '' && (
           <p
@@ -34,7 +25,7 @@ const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
       </div>
 
       <p className={`${styles.totalPrice} fontSF`}>
-        {order.totalPrice.toFixed(2)} {order.product?.PriceValue ?? ""}
+        {order.totalPrice.toFixed(2)} 
       </p>
     </div>
   );

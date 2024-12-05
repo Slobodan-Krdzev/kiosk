@@ -66,7 +66,7 @@ const Finish = () => {
       </div>
 
       <form
-        className="formStyles"
+        className={`formStyles ${styles.form}`}
         style={{ width: "90%", margin: "0 auto" }}
         onSubmit={(e) => {
           e.preventDefault;
@@ -81,28 +81,15 @@ const Finish = () => {
           type="email"
           required
           placeholder="example@examplemail.com"
-          onFocus={() => {}}
-          onBlur={() => {}}
         />
       </form>
 
-      <div style={{ position: "fixed", bottom: 25, left: 0, right: 0 }}>
+      <div style={{ position: "fixed", bottom: '3%', left: 0, right: 0 }}>
         <BottomGreenRibbon bgColor={theme.activeTextColor}>
           <button
-            className="fontSF"
+            className="fontSF bottomRibbonButton"
             style={{
-              fontSize: "3.5vw",
-              fontWeight: 400,
-              textTransform: "capitalize",
-              backgroundColor: theme.activeTextColor,
-              color: "#202020",
-              minWidth: "100%",
-              minHeight: "100%",
-              cursor: "pointer",
-              padding: "4%",
-              outline: "none",
-              border: "none",
-              borderRadius: "70px",
+              backgroundColor: theme.activeTextColor
             }}
             onClick={() => {
 

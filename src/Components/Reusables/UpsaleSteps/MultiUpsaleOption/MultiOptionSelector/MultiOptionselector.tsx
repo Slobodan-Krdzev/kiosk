@@ -83,11 +83,13 @@ const MultiOptionselector = ({
       </p>
 
       <div
-        className={styles.optionBtn}
+        className={`fontSF ${styles.optionBtn}`}
         style={{
           backgroundColor: theme.activeTextColor,
           width: (isSelected  && option.MaxSelection > 1) ? '100%' : "" ,
           borderTopLeftRadius: (isSelected  && option.MaxSelection > 1) ? 0 : "",
+          borderBottomLeftRadius: (isSelected  && option.MaxSelection > 1) ? 8 : "",
+
           justifyContent: (isSelected  && option.MaxSelection > 1) ? 'space-between' : 'center',
           padding: (isSelected  && option.MaxSelection > 1) ? '0 4vw' : ""
         }}

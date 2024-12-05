@@ -17,8 +17,10 @@ type MealInfoPropsType = {
 };
 
 const MealInfo = ({ meal, theme }: MealInfoPropsType) => {
-  const { placeMealInOrders } = useContext(OrderContext);
+  const { placeMealInOrders, setMeal, orders } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
+
+  const isMealAllreadyInOrders = Boolean(orders.find(m => m.product?.ProductId === meal.ProductId))
 
   return (
     <motion.section
@@ -88,13 +90,14 @@ const MealInfo = ({ meal, theme }: MealInfoPropsType) => {
       </div>
 
       <UpgradeBottomRibbon
-        nextText="Add to Basket"
+        nextText={isMealAllreadyInOrders ? 'Already In Basket' : "Add to Basket"}
         backStep={"order"}
         nextStep={meal.HasUpsaleCollection ? "menuUpgrade" : "order"}
-        disableNextBtn={false}
+        disableNextBtn={isMealAllreadyInOrders ? true : false}
         nextAction={() => {
           if (meal.HasUpsaleCollection) {
-            console.log("HAS UPSALE");
+            
+            setMeal(meal)
           } else {
             placeMealInOrders({
               id: meal.ProductId,
