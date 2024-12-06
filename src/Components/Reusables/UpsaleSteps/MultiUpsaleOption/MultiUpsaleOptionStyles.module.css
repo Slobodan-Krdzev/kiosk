@@ -73,4 +73,13 @@
     .topContent{
         height: 20vh;
     }
+
+    .optionsWrapper {
+        width: 85%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        overflow-y: scroll;
+    }
 }

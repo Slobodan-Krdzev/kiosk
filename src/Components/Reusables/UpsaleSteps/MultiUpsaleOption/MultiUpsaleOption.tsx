@@ -68,10 +68,10 @@ const MultiUpsaleOption = ({
           Choose your {upsaleStepData.Name}
         </h2>
 
-        <p className={`${styles.maxSelectionInfo} fontSF hideScrollBar`}>
+        <p className={`${styles.maxSelectionInfo} fontSF `}>
           *You can choose only one
         </p>
-        <div className={styles.optionsWrapper}>
+        <div className={`hideScrollBar ${styles.optionsWrapper}`}>
           {options.map((o) => (
             <MultiOptionselector
               key={o.Id}

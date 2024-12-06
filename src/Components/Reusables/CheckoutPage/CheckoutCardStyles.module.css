@@ -50,7 +50,7 @@
     flex-direction: column;
     align-items: start;
     justify-content: start;
-    padding: 0.5rem 0;
+    padding: 0.5vh 0;
     position: relative;
 }
 
@@ -58,10 +58,11 @@
     font-size: 3vw;
     font-weight: 400;
     line-height: 99%;
+    margin-bottom: 0.4vh;
 }
 
 .checkoutCardExtrasText {
-    font-size: 2vw;
+    font-size: 2.1vw;
     font-weight: 300;
     line-height: 99%;
     letter-spacing: -0.25999999046325684px;
@@ -85,7 +86,7 @@
 
 .checkoutCardPrice {
     position: absolute;
-    top: 5%;
+    top: 1vh;
     right: 2%;
 
     font-size: 2.7vw;
@@ -156,12 +157,14 @@
     justify-content: center;
     align-items: center;
     gap: 0.8vw;
-    padding: 0.6vh;
+    padding: 0.4vh 0.6vw;
     border: 1px solid #D3D3D3;
     background-color: inherit;
     width: 15vw;
     border-radius: 3rem;
     font-size: 2vw;
+    box-shadow: 0px 4px 10px 0px #00000014;
+
 }
 
 .productNoteForm{

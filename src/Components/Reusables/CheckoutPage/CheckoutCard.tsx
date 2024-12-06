@@ -5,6 +5,7 @@ import styles from "./CheckoutCardStyles.module.css";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import Plus from "../SVG/Plus";
 import Trashcan from "../SVG/Trashcan";
+import { motion } from "framer-motion";
 
 type CheckoutCardPropsType = {
   order: SingleMealType;
@@ -55,9 +56,9 @@ const CheckoutCard = ({
           </p>
 
           <div className={styles.mealInfoWrapper}>
-            {(order.upsale && order.upsale![2].stepData) && (
+            {order.upsale && order.upsale![2].stepData && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
-                {order.upsale![2].stepData.map((i,idx) => (
+                {order.upsale![2].stepData.map((i, idx) => (
                   <span key={i.option.Id}>
                     {i.option.Name}{" "}
                     <span style={{ textTransform: "lowercase" }}>
@@ -70,9 +71,9 @@ const CheckoutCard = ({
               </p>
             )}
 
-            {(order.upsale && order.upsale![3].stepData) && (
+            {order.upsale && order.upsale![3].stepData && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
-                {order.upsale![3].stepData.map((i,idx) => (
+                {order.upsale![3].stepData.map((i, idx) => (
                   <span key={i.option.Id}>
                     {i.option.Name}{" "}
                     <span style={{ textTransform: "lowercase" }}>
@@ -85,7 +86,7 @@ const CheckoutCard = ({
               </p>
             )}
 
-            {(order.upsale && order.upsale![4].stepData) && (
+            {order.upsale && order.upsale![4].stepData && (
               <p className={`${styles.checkoutCardExtrasText} fontSF`}>
                 {order.upsale![4].stepData.map((i, idx) => (
                   <span key={i.option.Id}>
@@ -109,18 +110,26 @@ const CheckoutCard = ({
         </div>
 
         {!isProductNoteInputVisible && (
-          <button
+          <motion.button
+            initial={{ y: "60%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100vh" }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className={`fontSF ${styles.addNoteBtn}`}
             onClick={() => {
               setIsProductNoteInputVisible(true);
             }}
           >
             <Plus /> {order.note === "" ? `Add Note` : `Edit Note`}
-          </button>
+          </motion.button>
         )}
 
         {isProductNoteInputVisible && (
-          <form
+          <motion.form
+            initial={{ y: "60px" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100vw" }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className={`formStyles ${styles.productNoteForm}`}
             onSubmit={(e) => {
               e.preventDefault();
@@ -169,18 +178,22 @@ const CheckoutCard = ({
                 {order.note ? "Edit" : "Done"}
               </button>
             </div>
-          </form>
+          </motion.form>
         )}
 
         {/* BUTTONS */}
 
         {!isProductNoteInputVisible && (
-          <div
+          <motion.div
+            initial={{ x: "30%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100vh" }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className={`${styles.checkoutCardQuantityWrapper} fontSF`}
             style={{ backgroundColor: theme.activeTextColor }}
           >
             <button
-            className={styles.quantityWrapperBtns}
+              className={styles.quantityWrapperBtns}
               onClick={() => {
                 if (quantity === 1) {
                   if (orders.length === 1) {
@@ -199,7 +212,7 @@ const CheckoutCard = ({
             </button>
             <p className={styles.quantityCounter}>{quantity}</p>
             <button
-            className={styles.quantityWrapperBtns}
+              className={styles.quantityWrapperBtns}
               onClick={() => {
                 setQuantity((quantity) => quantity + 1);
                 setSingleMealQuantity(order, "plus");
@@ -207,7 +220,7 @@ const CheckoutCard = ({
             >
               &#43;
             </button>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

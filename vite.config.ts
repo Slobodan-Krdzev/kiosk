@@ -36,6 +36,12 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""), // Remove '/api' from the request URL
       },
+      "/availabilityAPI": {
+        target: "http://pos.dev.revelapps.com", 
+        changeOrigin: true, 
+        secure: false,
+        rewrite: (path) => path.replace(/^\/availabilityAPI/, ""),
+      },
     },
   },
 });

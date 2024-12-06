@@ -6,6 +6,7 @@ import Plus from "../../../SVG/Plus";
 import Trashcan from "../../../SVG/Trashcan";
 import styles from "./MultiOptionSelectorStyles.module.css";
 import CheckMark from "../../../SVG/CheckMark";
+import Minus from "../../../SVG/Minus";
 
 type MultiOptionSelectorPropsType = {
   option: Option;
@@ -20,9 +21,10 @@ const MultiOptionselector = ({
 }: MultiOptionSelectorPropsType) => {
   const [isSelected, setIsSelected] = useState(false);
   const { theme } = useContext(DataContext);
-  const { upsaleData, addNewOption, removeAnOption } = useContext(UpsaleContext);
+  const { upsaleData, addNewOption, removeAnOption } =
+    useContext(UpsaleContext);
 
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
 
   const isOptionAlreadySelected = Boolean(
     upsaleData[upsaleStep].stepData.find((o) => o.option.Id === option.Id)
@@ -86,67 +88,89 @@ const MultiOptionselector = ({
         className={`fontSF ${styles.optionBtn}`}
         style={{
           backgroundColor: theme.activeTextColor,
-          width: (isSelected  && option.MaxSelection > 1) ? '100%' : "" ,
-          borderTopLeftRadius: (isSelected  && option.MaxSelection > 1) ? 0 : "",
-          borderBottomLeftRadius: (isSelected  && option.MaxSelection > 1) ? 8 : "",
+          width: isSelected && option.MaxSelection > 1 ? "100%" : "",
+          borderTopLeftRadius: isSelected && option.MaxSelection > 1 ? 0 : "",
+          borderBottomLeftRadius:
+            isSelected && option.MaxSelection > 1 ? 8 : "",
 
-          justifyContent: (isSelected  && option.MaxSelection > 1) ? 'space-between' : 'center',
-          padding: (isSelected  && option.MaxSelection > 1) ? '0 4vw' : ""
+          justifyContent:
+            isSelected && option.MaxSelection > 1 ? "space-between" : "center",
+          padding: isSelected && option.MaxSelection > 1 ? "0 4vw" : "",
         }}
       >
-        {!isSelected && (
+        {!isOptionAlreadySelected && (
           <button
             className={styles.addBtn}
             style={{ backgroundColor: theme.activeTextColor }}
             onClick={() => {
-
-              
-              addNewOption(upsaleStep, option, maxSelection, 1)
+              addNewOption(upsaleStep, option, maxSelection, 1);
 
               setIsSelected(!isSelected);
             }}
           >
-             <Plus />
+            <Plus />
           </button>
         )}
 
-        {(isSelected && option.MaxSelection === 1) && <CheckMark />}
-
-        {(isSelected && option.MaxSelection > 1) && 
-          <>
-            <button className={styles.quantityBtns} 
+        {isOptionAlreadySelected && option.MaxSelection === 1 && (
+          <button
+            className={styles.addBtn}
+            style={{ backgroundColor: theme.activeTextColor }}
             onClick={() => {
+              removeAnOption(upsaleStep, option);
 
-              setQuantity(q => q - 1)
+              setIsSelected(!isSelected);
+            }}
+          >
+            <CheckMark />
+          </button>
+        )}
 
+        {isSelected && option.MaxSelection > 1 && (
+          <>
+            <button
+              className={styles.quantityBtns}
+              onClick={() => {
+                setQuantity((q) => q - 1);
 
-              if(quantity === 1) {
-
-                removeAnOption(upsaleStep, option)
-                setIsSelected(false)
-              }else {
-
-                addNewOption(upsaleStep, option, maxSelection, quantity - 1)
-              }
-
-            }}>
-
-              {quantity === 1 ? <Trashcan /> : '-'}
+                if (quantity === 1) {
+                  removeAnOption(upsaleStep, option);
+                  setIsSelected(false);
+                } else {
+                  addNewOption(upsaleStep, option, maxSelection, quantity - 1);
+                }
+              }}
+            >
+              {quantity === 1 ? <Trashcan /> : <Minus />}
             </button>
             <p>{quantity}</p>
-            <button className={styles.quantityBtns} 
-            onClick={() => {
-              setQuantity(q => q + 1)
 
-              if(isSelected) {
-                addNewOption(upsaleStep, option, maxSelection, quantity + 1)
+              <button
+                className={styles.quantityBtns}
+                onClick={() => {
 
-              }
+                  if(quantity === option.MaxSelection){
 
-            }}> <Plus /> </button>
+                    return 
+                  }
 
+                  setQuantity((q) => q + 1);
+
+                  if (isSelected) {
+                    addNewOption(
+                      upsaleStep,
+                      option,
+                      maxSelection,
+                      quantity + 1
+                    );
+                  }
+                }}
+              >
+                {quantity === option.MaxSelection ? "MAX" : <Plus />}
+                
+              </button>
           </>
-        }
+        )}
       </div>
     </div>
   );

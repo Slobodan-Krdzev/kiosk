@@ -9,8 +9,8 @@ type StepContextItitialValue = {
     handleStepChange: (step: StepType) => void,
     setFinalOrderDetails: (orders: SingleMealType[]) => void,
     finalInfo: FinalInfoType,
-    handleSetMealForInfo: (meal: Product) => void,
-    mealForInfo: Product,
+    handleSetMealForInfo: (meal: Product, availability: boolean) => void,
+    mealForInfo: {product: Product, availability: boolean},
     handleOrderNote: (note: string) => void,
     handleSetTakeawayOption: (option: "Dine In" | "Takeaway") => void
 }

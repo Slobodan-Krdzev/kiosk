@@ -25,7 +25,7 @@ function App() {
         {step === "start" && <StartScreen />}
         {step === "lang" && <ChooseLang />}
         {step === "order" && <Order />}
-        {step === "mealInfo" && <MealInfo meal={mealForInfo} theme={theme} />}
+        {step === "mealInfo" && <MealInfo meal={mealForInfo.product} availability={mealForInfo.availability} theme={theme} />}
         {step === "menuUpgrade" && <Upsale />}
         {step === "checkout" && <Checkout />}
         {step === "preview" && <Preview />}

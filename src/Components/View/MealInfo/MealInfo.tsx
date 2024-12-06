@@ -1,26 +1,31 @@
 import { motion } from "framer-motion";
-import { Product, ThemeType } from "../../../Types/Types";
-import AlergenItem from "../../Reusables/AlergenItem/AlergenItem";
-import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
-import styles from "./MealInfoStyles.module.css";
 import { useContext } from "react";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import { Product, ThemeType } from "../../../Types/Types";
+import AlergenItem from "../../Reusables/AlergenItem/AlergenItem";
 import Pregnancy from "../../Reusables/SVG/Pregnancy";
-import Vegan from "../../Reusables/SVG/Vegan";
 import Spicy from "../../Reusables/SVG/Spicy";
+import Vegan from "../../Reusables/SVG/Vegan";
 import Vegeterian from "../../Reusables/SVG/Vegeterian";
+import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
+import styles from "./MealInfoStyles.module.css";
 
 type MealInfoPropsType = {
   meal: Product;
   theme: ThemeType;
+  availability: boolean
 };
 
-const MealInfo = ({ meal, theme }: MealInfoPropsType) => {
+const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
+  
+
   const { placeMealInOrders, setMeal, orders } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
 
   const isMealAllreadyInOrders = Boolean(orders.find(m => m.product?.ProductId === meal.ProductId))
+
+  console.log(availability)
 
   return (
     <motion.section
@@ -90,10 +95,10 @@ const MealInfo = ({ meal, theme }: MealInfoPropsType) => {
       </div>
 
       <UpgradeBottomRibbon
-        nextText={isMealAllreadyInOrders ? 'Already In Basket' : "Add to Basket"}
+        nextText={availability ? isMealAllreadyInOrders ? 'Already In Basket' : "Add to Basket" : "Out of Stock"}
         backStep={"order"}
         nextStep={meal.HasUpsaleCollection ? "menuUpgrade" : "order"}
-        disableNextBtn={isMealAllreadyInOrders ? true : false}
+        disableNextBtn={availability ? isMealAllreadyInOrders ? true : false : true}
         nextAction={() => {
           if (meal.HasUpsaleCollection) {
             

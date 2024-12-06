@@ -83,7 +83,7 @@ const Order = () => {
       {orders.length > 0 && isBottomRibbonVisible && (
         <BottomGreenRibbon animate>
           <div
-            className={styles.bottomRibbonContent}
+            className={`bottomRibbonButton ${styles.bottomRibbonContent}`}
             style={{
               justifyContent: total > 0 ? "space-between" : "center",
               backgroundColor: theme.activeTextColor,
@@ -95,16 +95,16 @@ const Order = () => {
             <div className={styles.ribbonContentWrapper}>
               <Backet />
 
-              <span className={`fontSF ${styles.ribbonTextStyles}`}>
+              <span className={`fontSF `}>
                 {orders.length} 
               </span>
             </div>
 
-            <p className={`fontSF ${styles.ribbonTextStyles}`}>
+            <p className={`fontSF `}>
               View Order &rsaquo;
             </p>
 
-            <p className={`fontSF ${styles.ribbonTextStyles}`}>{total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}</p>
+            <p className={`fontSF `}>{total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}</p>
           </div>
         </BottomGreenRibbon>
       )}

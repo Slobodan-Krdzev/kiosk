@@ -58,12 +58,8 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     const startingPrice = meal.product!.Price;
 
 
-    console.log(`meal.upsale ${meal.upsale}`)
-
     if (meal.upsale !== undefined) {
-
-      // const upsale = meal.upsale[0].stepData[0].option.Price * meal.upsale[0].stepData[0].quantity
-
+      
       const finalPrice = startingPrice! + getUpsaleTotal(meal.upsale) 
         
 

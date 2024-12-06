@@ -11,8 +11,8 @@
   position: absolute;
   top: 2px;
   right: 2px;
-  width: 23.5px;
-  height: 23.5px;
+  width: 3vw;
+  height: 3vw;
   border-radius: calc(90px / 1.33);
   background-color: #0db5d6;
   color: white;
@@ -20,6 +20,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.outOfStock{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 9999;
+  padding: 1vh;
+  border-bottom-right-radius: 2vw;
+  font-size: 2vw;
 }
 
 .imgWrapper {

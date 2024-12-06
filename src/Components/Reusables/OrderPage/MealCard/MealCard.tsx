@@ -1,11 +1,13 @@
+import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
+import CheckAvailability from "../../../../Query/CheckAvailability";
 import { Product, SingleMealType, ThemeType } from "../../../../Types/Types";
-import styles from "./MealCardStyles.module.css";
-import Trashcan from "../../SVG/Trashcan";
 import Plus from "../../SVG/Plus";
+import Trashcan from "../../SVG/Trashcan";
+import styles from "./MealCardStyles.module.css";
 
 type MealCardPropsType = {
   product: Product;
@@ -13,6 +15,12 @@ type MealCardPropsType = {
 };
 
 const MealCard = ({ product, theme }: MealCardPropsType) => {
+  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+
+  const { mutateAsync } = useMutation({
+    mutationFn: CheckAvailability,
+  });
+
   const { handleStepChange, handleSetMealForInfo } = useContext(StepContext);
   const {
     placeMealInOrders,
@@ -32,116 +40,180 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
     (o) => o.product?.ProductId === product.ProductId
   ) as SingleMealType;
 
+  const handleCheckAvailability = async () => {
+    try {
+      const availability = await mutateAsync(product.ProductId);
+
+      setIsAvailable(availability);
+      return availability;
+    } catch (error) {
+      console.error("Error checking availability:", error);
+      return null;
+    }
+  };
+
   return (
     <motion.div
       id="productCard"
       animate={{
-        scale: isMealPlacedInOrders ? 1.03 : 1,
-        
+        scale: isMealPlacedInOrders && isAvailable ? 1.03 : 1,
       }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={styles.card}
       style={{
-        border: isMealPlacedInOrders
-          ? `1px solid ${theme.activeTextColor}`
-          : "",
-          backgroundColor: isMealPlacedInOrders
-          ? `${theme.activeTextColor}60`
-          : "white",
+        border:
+          isMealPlacedInOrders && isAvailable
+            ? `1px solid ${theme.activeTextColor}`
+            : "",
+        backgroundColor:
+          isAvailable === false && isAvailable !== undefined
+            ? "#d7d7d7"
+            : isMealPlacedInOrders
+            ? `${theme.activeTextColor}60`
+            : "white",
       }}
     >
+      {isAvailable === false && isAvailable !== undefined && (
+        <motion.p
+          initial={{ x: "-100px" }}
+          animate={{ x: 0 }}
+          exit={{ x: "100vw" }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          className={`fontSF ${styles.outOfStock}`}
+        >
+          Out of Stock
+        </motion.p>
+      )}
+
       <div className={styles.imgWrapper}>
         <img
           className={styles.productImage}
           src={`${product.SmallPictureUrl}`}
           alt={product.Name.substring(0, 5)}
           loading="lazy"
+          style={{
+            filter:
+              isAvailable === false && isAvailable !== undefined
+                ? `blur(2px)`
+                : "",
+          }}
         />
 
         {/* MEAL INFO TRIGER */}
         <button
           className={styles.infoBtn}
-          onClick={(e) => {
+          onClick={async (e) => {
+            const availability = await handleCheckAvailability();
+
+
             e.stopPropagation();
-            handleSetMealForInfo(product);
+            handleSetMealForInfo(product, availability);
             handleStepChange("mealInfo");
           }}
         >
-          <b>i</b>
+          <b style={{fontSize: '2vw'}}>i</b>
         </button>
       </div>
 
-      <p className={`fontSF ${styles.productNameHeading}`}>
+      <p
+        className={`fontSF ${styles.productNameHeading}`}
+        style={{
+          filter:
+            isAvailable === false && isAvailable !== undefined
+              ? `blur(2px)`
+              : "",
+        }}
+      >
         {product.Name.length > 35
           ? product.Name.substring(0, 30)
           : product.Name}
       </p>
 
-      <p className={`fontSF ${styles.productPriceHeading}`}>
-        {product.Price} 
+      <p
+        className={`fontSF ${styles.productPriceHeading}`}
+        style={{
+          filter:
+            isAvailable === false && isAvailable !== undefined
+              ? `blur(2px)`
+              : "",
+        }}
+      >
+        {product.Price}
       </p>
 
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
-          width: isMealPlacedInOrders ? "100%" : "23%",
-          borderTopLeftRadius: isMealPlacedInOrders ? "0" : "16px",
-          padding: isMealPlacedInOrders ? "0 3vw" : 0,
-
-
+          width: isMealPlacedInOrders && isAvailable ? "100%" : "23%",
+          borderTopLeftRadius:
+            isMealPlacedInOrders && isAvailable ? "0" : "16px",
+          padding: isMealPlacedInOrders && isAvailable ? "0 3vw" : 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{
-          backgroundColor: theme.activeTextColor,
+          backgroundColor: isAvailable ? theme.activeTextColor : 'inherit',
           color: theme.textColor,
-          justifyContent: isMealPlacedInOrders ? "space-between" : "center",
-          padding: isMealPlacedInOrders ? "0 3vw" : 0,
-          width: isMealPlacedInOrders ? "100%" : "23%",
+          justifyContent:
+            isMealPlacedInOrders && isAvailable ? "space-between" : "center",
+          padding: isMealPlacedInOrders && isAvailable ? "0 3vw" : 0,
+          width: isMealPlacedInOrders && isAvailable ? "100%" : "23%",
         }}
         className={styles.productBtnsWrapper}
       >
-        {!isMealPlacedInOrders && (
+
+        {!isMealPlacedInOrders && isAvailable && (
           <button
             className={styles.productBtn}
-            onClick={() => {
-
+            onClick={async () => {
               setQuantity((q) => q + 1);
 
-              if(product.NoInteraction) {
+              const availability = await handleCheckAvailability();
 
-                handleSetMealForInfo(product)
+              if (product.NoInteraction) {
+                handleSetMealForInfo(product, availability);
                 handleStepChange("mealInfo");
-              }else if (product.HasUpsaleCollection && !isMealPlacedInOrders) {
-
-                setMeal(product)
-                handleStepChange('menuUpgrade')
-      
               } else {
-                if (isMealPlacedInOrders) {
-                  removeMealFromOrders(product.ProductId);
+                // tuka proverka za availability
+
+                console.log(availability);
+                if (!availability) {
+                  return;
+                }
+
+                if (product.HasUpsaleCollection && !isMealPlacedInOrders) {
+                  // ako ima upsale postavuva signleMeal i step change vo upsale
+
+                  setMeal(product);
+                  handleStepChange("menuUpgrade");
                 } else {
-                  setQuantity(1);
-                  placeMealInOrders({
-                    id: product.ProductId,
-                    product: product,
-                    image: product.SmallPictureUrl,
-                    upsale: undefined,
-                    originalTotal: product.Price,
-                    totalPrice: product.Price,
-                    quantity: quantity,
-                    note: "",
-                  });
+                  if (isMealPlacedInOrders) {
+                    removeMealFromOrders(product.ProductId);
+                  } else {
+                    setQuantity(1);
+                    placeMealInOrders({
+                      id: product.ProductId,
+                      product: product,
+                      image: product.SmallPictureUrl,
+                      upsale: undefined,
+                      originalTotal: product.Price,
+                      totalPrice: product.Price,
+                      quantity: quantity,
+                      note: "",
+                    });
+                  }
                 }
               }
             }}
           >
-
-            {product.NoInteraction ? <b style={{color: 'white'}}>i</b> : <Plus />}
-           
+            {product.NoInteraction ? (
+              <b style={{ color: "white" }}>i</b>
+            ) : (
+              <Plus />
+            )}
           </button>
         )}
 
-        {isMealPlacedInOrders && (
+        {isMealPlacedInOrders && isAvailable && (
           <>
             <button
               className={styles.productBtn}
@@ -149,10 +221,10 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                 e.stopPropagation();
 
                 if (quantity <= 1) {
-                  setQuantity(0);
+                  setQuantity(1);
 
                   // remove from orders
-                  removeMealFromOrders(product.ProductId)
+                  removeMealFromOrders(product.ProductId);
                 } else {
                   setQuantity((q) => q - 1);
 
@@ -161,9 +233,10 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
               }}
             >
               {quantity === 1 ? <Trashcan /> : <>&#8722;</>}
-              
             </button>
-            <span className={`fontSF ${styles.productQuantity}`}>{meal.quantity}</span>
+            <span className={`fontSF ${styles.productQuantity}`}>
+              {meal.quantity}
+            </span>
             <button
               className={styles.productBtn}
               onClick={(e) => {
