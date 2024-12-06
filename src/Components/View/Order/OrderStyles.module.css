@@ -7,7 +7,6 @@
 }
 
 .orderViewLogoWrapperTop {
-  /* height: calc(200px / 1.33); */
   height: 15vh;
   background: radial-gradient(
     90.37% 586.33% at 9.63% 73.7%,
@@ -65,22 +64,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  min-height: calc(100px / 1.33);
   width: 100%;
   margin: 0 auto;
   padding: 0 40px;
   border-radius: calc(50px / 1.33);
 }
 
-.orderViewBottomRibbon {
-  position: fixed;
-  bottom: 2vh;
-  left: 0;
-  right: 0;
-  width: 95%;
-  margin: 0 auto;
-  border-radius: 70px;
-}
 
 .ribbonContentWrapper svg {
   width: 50px;
@@ -92,12 +81,6 @@
   align-items: center;
   gap: 0.2rem;
   cursor: pointer;
-}
-
-.ribbonTextStyles {
-  font-weight: 400;
-  font-size: calc(34px / 1.33);
-  line-height: calc(41px / 1.33);
 }
 
 @media (max-width: 800px) {

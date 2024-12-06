@@ -46,18 +46,7 @@
   text-align: center;
 }
 
-.countOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #32323299;
-  backdrop-filter: blur(20px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .form{
   margin: 400px 0;

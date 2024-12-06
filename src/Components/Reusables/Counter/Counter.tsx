@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import styles from "./CounterStyles.module.css"
+import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
+import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
 
 type CounterPropsType = {
   start: number;
+  onTimerFinnish?: () => void
 };
 
-const Counter = ({ start }: CounterPropsType) => {
+const Counter = ({ start, onTimerFinnish }: CounterPropsType) => {
   const { handleStepChange } = useContext(StepContext);
+  const {cancelOrder} = useContext(OrderContext)
+  const {resetUpsale} = useContext(UpsaleContext)
   const [count, setCount] = useState(start);
 
   useEffect(() => {
@@ -18,6 +23,11 @@ const Counter = ({ start }: CounterPropsType) => {
 
     if(count < 1){
         handleStepChange('start')
+
+        if(onTimerFinnish)
+        onTimerFinnish()
+        cancelOrder()
+        resetUpsale()
     }
 
     return () => clearInterval(interval);

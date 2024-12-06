@@ -36,11 +36,20 @@ button {
   color: black;
 }
 
-/* .appWrapper {
-  width: 800px;
-  margin: 0 auto;
-  border: 1px solid gray
-} */
+.countOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #32323299;
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
 
 .fullScreenTablet {
   height: 100vh;
@@ -80,7 +89,7 @@ h1 {
   bottom: 3%;
   left: 0;
   right: 0;
-  width: 90%;
+  width: 95%;
   height: 85px;
   margin: 0 auto;
 }

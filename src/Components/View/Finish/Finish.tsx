@@ -4,15 +4,14 @@ import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
-import Counter from "../../Reusables/Counter/Counter";
 import styles from "./FinnishViewStyles.module.css";
+import Counter from "../../Reusables/Counter/Counter";
 
 const Finish = () => {
   const { finalInfo } = useContext(StepContext);
   const { cancelOrder } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
-
-  const [isCounterVisible, setIsCounterVisible] = useState(false);
+  const [isCounterVisible, setIsCounterVisible] = useState(false)
 
   console.log("====================================");
   console.log("FINNISHED ORDER" );
@@ -92,9 +91,8 @@ const Finish = () => {
               backgroundColor: theme.activeTextColor
             }}
             onClick={() => {
-
-              cancelOrder();
               setIsCounterVisible(true)
+              cancelOrder();
             }}
           >
             Send Receipt and Finnish
@@ -102,8 +100,8 @@ const Finish = () => {
         </BottomGreenRibbon>
       </div>
 
-      {isCounterVisible && (
-        <div className={styles.countOverlay}>
+      {isCounterVisible  && (
+        <div className={`countOverlay`} >
           
             <Counter start={5} />
           
