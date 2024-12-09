@@ -1,0 +1,26 @@
+.promotionWrapper {
+    width: 100%;
+    padding: 1% 3% 0% 1%;
+    height: 265px;
+    margin-bottom: 0.7vh;
+}
+.swiper {
+    height: 100%;
+}
+
+
+@media(max-width: 800px){
+
+    .promotionWrapper {
+        height: 209px;
+        margin-bottom: 0.7vh;
+    }
+}
+
+@media(max-width: 768px){
+
+    .promotionWrapper {
+        height: 173px;
+        margin-bottom: 0.7vh;
+    }
+}

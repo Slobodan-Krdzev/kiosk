@@ -1,0 +1,44 @@
+.swiperSlide {
+    position: relative;
+    min-height: 100%;
+    padding: 2.5vw;
+    border-radius: 1.9vw;
+    color: rgb(255, 255, 255);
+}
+
+.slideTitle{
+    font-size: 5.5vw;
+}
+
+.productName{
+    font-size: 2.6vw;
+
+}
+
+.productPrice{
+    position: absolute;
+    bottom: 5%;
+    left: 4%;
+    font-size: 2.6vw;
+
+}
+
+.image {
+    position: absolute;
+    top: 15%;
+    right: 14%;
+    width: 30%;
+    border-radius: 1vw;
+    box-shadow: 0px 0px 5px 10px #7575750f;
+    
+}
+
+.Btn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12%;
+    height: 14%;
+    border-radius: 15px 0 16px;
+    border: 0;
+}

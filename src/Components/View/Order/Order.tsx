@@ -11,6 +11,7 @@ import styles from "./OrderStyles.module.css";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import Backet from "../../Reusables/SVG/Backet";
 import { useTranslation } from "react-i18next";
+import Promotion from "../../Reusables/OrderPage/Promotion/Promotion";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
@@ -29,6 +30,9 @@ const Order = () => {
   const [mealsToDisplay, setMealsToDisplay] = useState<Product[]>(
     allProducts.filter((p) => p.SubCategoryId === selectedCategory)
   );
+
+  // OVA KE GO KORISTIME za monthly specials
+  // const [monthlySpecials, setMounthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
 
   const handleCategoryChange = (catID: number) => {
     setselectedCategory(catID);
@@ -72,6 +76,8 @@ const Order = () => {
 
         <div className={styles.orderViewRightSide} ref={scrollingDiv}>
           {/* <div className={styles.promoBanner} > promo goes here </div> */}
+
+          {true && <Promotion products={mealsToDisplay}/>}
           <Listing
             products={mealsToDisplay}
             selectedCategory={selectedCategory}
