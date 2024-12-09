@@ -67,11 +67,11 @@ const MultiUpsaleOption = ({
 
       <div>
         <h2 className={`fontSF ${styles.subtitle}`}>
-          Choose your {upsaleStepData.Name}
+          {t("choose_your")} {upsaleStepData.Name}
         </h2>
 
         <p className={`${styles.maxSelectionInfo} fontSF `}>
-          *You can choose only one
+          {maxSelection > 1 ? `${t("multiple_choice")}` : `${t("only_one")}`}
         </p>
         <div className={`hideScrollBar ${styles.optionsWrapper}`}>
           {options.map((o) => (

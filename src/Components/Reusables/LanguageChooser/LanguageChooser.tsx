@@ -16,7 +16,7 @@ const LanguageChooser = ({ locale }: LanguageChooserPropsType) => {
 
   return (
     <button className={styles.localeBtn} onClick={handleLocaleChange} style={{
-        filter: currentLanguage !== langCode ? "blur(3px)" : ""
+        filter: currentLanguage !== langCode ? "blur(1px)" : ""
     }}>
       <img
         className={styles.localeBtnImage}
