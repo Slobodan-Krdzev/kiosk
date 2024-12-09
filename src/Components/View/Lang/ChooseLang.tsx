@@ -7,6 +7,35 @@ import Logo from "../../Reusables/Logo";
 import DineIn from "../../Reusables/SVG/DineIn";
 import Takeaway from "../../Reusables/SVG/Takeaway";
 import styles from "./ChooseLangStyles.module.css";
+import { useTranslation } from "react-i18next";
+import LanguageChooser from "../../Reusables/LanguageChooser/LanguageChooser";
+import { LanguagesList } from "../../../Types/Types";
+
+const languages: LanguagesList[] = [
+  {
+    HouseRules: {
+      Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
+      Name: "HouseRulez"
+    },
+    Locale: 'nl',
+    Name: 'Netherlands'
+  },
+  {
+    HouseRules: {
+      Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
+      Name: "HouseRulez"
+    },
+    Locale: 'de',
+    Name: 'German'
+  },{
+    HouseRules: {
+      Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
+      Name: "HouseRulez"
+    },
+    Locale: 'gb',
+    Name: 'English'
+  },
+];
 
 const ChooseLang = () => {
   const { handleStepChange, handleSetTakeawayOption } = useContext(StepContext);
@@ -14,6 +43,10 @@ const ChooseLang = () => {
   const [option, setOption] = useState<"Take Away" | "Dine In" | undefined>(
     undefined
   );
+
+  const { t } = useTranslation();
+
+  const languagesList = data.ThemeResponse.LanguagesList;
 
   return (
     <motion.section
@@ -30,7 +63,7 @@ const ChooseLang = () => {
       </div>
       <div style={{ width: "95%", margin: "0.6rem auto" }}>
         <p className={`${styles.restName} fontSF`}>
-          Welkome to <br /> {data.ThemeResponse.RestaurantName}!
+          {t('welcome_to')} <br /> {data.ThemeResponse.RestaurantName}!
         </p>
       </div>
 
@@ -58,7 +91,7 @@ const ChooseLang = () => {
                 : "",
           }}
           onClick={() => {
-            handleSetTakeawayOption("Takeaway")
+            handleSetTakeawayOption("Takeaway");
 
             if (option === "Take Away") {
               handleStepChange("order");
@@ -95,7 +128,7 @@ const ChooseLang = () => {
           }}
           onClick={() => {
             setOption("Dine In");
-            handleSetTakeawayOption("Dine In")
+            handleSetTakeawayOption("Dine In");
           }}
         >
           <DineIn color={theme.activeTextColor} />
@@ -105,15 +138,9 @@ const ChooseLang = () => {
       </div>
 
       <div className={styles.langSelectWrapper}>
-        <img src="/netherlands.png" alt="Dutch" width={43.6} height={43.6} />
-        <img
-          src="/English.png"
-          alt="Dutch"
-          width={43.6}
-          height={43.6}
-          style={{ margin: "0 10px" }}
-        />
-        <img src="/German.png" alt="Dutch" width={43.6} height={43.6} />
+        {languages.map((lang) => (
+          <LanguageChooser key={lang.Name} locale={lang} />
+        ))}
       </div>
 
       <BottomGreenRibbon>
@@ -131,7 +158,7 @@ const ChooseLang = () => {
             handleStepChange("order");
           }}
         >
-          Place Order
+          {t("continue")}
         </button>
       </BottomGreenRibbon>
     </motion.section>

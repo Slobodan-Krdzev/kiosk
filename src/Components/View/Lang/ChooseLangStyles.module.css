@@ -61,7 +61,10 @@
 .langSelectWrapper{
     width: 70%; 
     margin: 8vh auto;
-    text-align: center
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px ;
 }
 
 

@@ -10,11 +10,13 @@ import Listing from "../../Reusables/OrderPage/Listing/Listing";
 import styles from "./OrderStyles.module.css";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import Backet from "../../Reusables/SVG/Backet";
+import { useTranslation } from "react-i18next";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
   const { getOrderTotal, orders } = useContext(OrderContext);
+  const { t } = useTranslation();
 
   const [isBottomRibbonVisible] = useState(true);
   const scrollingDiv = useRef<HTMLDivElement>(null);
@@ -101,7 +103,7 @@ const Order = () => {
             </div>
 
             <p className={`fontSF `}>
-              View Order &rsaquo;
+              {t("view_order")} &rsaquo;
             </p>
 
             <p className={`fontSF `}>{total} </p>

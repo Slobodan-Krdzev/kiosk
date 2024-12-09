@@ -6,11 +6,13 @@ import Elipse from "../../Reusables/Elipse/Elipse";
 import styles from "./PaymentStyles.module.css";
 import { motion } from "framer-motion";
 import QR from "../../Reusables/SVG/QR";
+import { useTranslation } from "react-i18next";
 
 const Payment = () => {
   const { orders, getOrderTotal } = useContext(OrderContext);
   const { handleStepChange, setFinalOrderDetails } = useContext(StepContext);
   const { theme } = useContext(DataContext);
+  const {t} = useTranslation()
 
   console.log("ORDERS FROM PAYMENT", orders);
 
@@ -23,10 +25,10 @@ const Payment = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={`fullScreenTablet`}
     >
-      <p className="biggerPageTitles fontSF">PAYMENT</p>
+      <p className="biggerPageTitles fontSF">{t('payment')}</p>
 
       <div className={styles.midSection}>
-        <p className={`${styles.subTitle} fontSF`}>Please scan your QR code</p>
+        <p className={`${styles.subTitle} fontSF`}>{t('qr_title')}</p>
 
         <button
           className={`fontSF ${styles.qrCode}`}

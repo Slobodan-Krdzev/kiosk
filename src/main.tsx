@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import DataContextProvider from "./Contexts/DataContext/DataContextProvider.tsx";
@@ -8,6 +8,8 @@ import StepContextProvider from "./Contexts/StepContext/StepContextProvider.tsx"
 import "./index.css";
 import { AnimatePresence } from "framer-motion";
 import UpsaleContentProvider from "./Contexts/UpsaleContext/UpsaleContentProvider.tsx";
+import "../src/i18n.js";
+import Loading from "./Components/Loading.tsx";
 // import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
@@ -36,7 +38,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <AnimatePresence mode="wait">
             <DataContextProvider>
               <UpsaleContentProvider>
-                <App />
+                <Suspense fallback={<Loading />}>
+                  <App />
+                </Suspense>
               </UpsaleContentProvider>
             </DataContextProvider>
           </AnimatePresence>

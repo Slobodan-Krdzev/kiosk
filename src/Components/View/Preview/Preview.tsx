@@ -6,12 +6,14 @@ import styles from './PreviewStyles.module.css'
 import OrderInfoCard from "../../Reusables/PaymentPage/OrderInfoCard";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import { useTranslation } from "react-i18next";
 
 const Preview = () => {
 
     const {orders, getOrderTotal} = useContext(OrderContext)
     const {theme} = useContext(DataContext)
     const {handleStepChange} = useContext(StepContext)
+    const {t} = useTranslation()
 
 
   return (
@@ -23,7 +25,7 @@ const Preview = () => {
       exit={{ x: "100vw" }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <p className={`fontSF biggerPageTitles`}>ORDER PREVIEW</p>
+      <p className={`fontSF biggerPageTitles`}>{t('order_overview')}</p>
 
       <div
         className={styles.previewInfoWrapper}
@@ -39,7 +41,7 @@ const Preview = () => {
           <p
             className={`fontSF`}
           >
-            Total:
+            {t('total')}
           </p>
           <p
             className={`fontSF`}

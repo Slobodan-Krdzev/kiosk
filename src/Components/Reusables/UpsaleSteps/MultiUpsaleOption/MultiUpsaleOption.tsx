@@ -8,6 +8,7 @@ import { UpsaleStep } from "../../../../Types/Types";
 import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
 import MultiOptionselector from "./MultiOptionSelector/MultiOptionselector";
 import styles from "./MultiUpsaleOptionStyles.module.css";
+import { useTranslation } from "react-i18next";
 
 type MultiUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -25,6 +26,7 @@ const MultiUpsaleOption = ({
   const { handleStepChange } = useContext(StepContext);
   const { theme } = useContext(DataContext);
   const {  placeMealInOrders, singleMeal, setUpsale,  } = useContext(OrderContext);
+  const { t } = useTranslation();
 
   const { upsaleData, resetUpsale } = useContext(UpsaleContext);
 
@@ -86,6 +88,8 @@ const MultiUpsaleOption = ({
 
       <UpgradeBottomRibbon
         disableNextBtn={isNextButtonDisabled}
+        nextText={t("next_Btn")}
+        backText={t('back_Btn')}
         nextAction={() => {
 
           if(upsaleStepData.DisplayOrder === stepsLength - 1){

@@ -8,6 +8,7 @@ import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
 import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
 import styles from "./DualUpsaleOptionStyles.module.css";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
+import { useTranslation } from "react-i18next";
 
 type DualUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -27,6 +28,7 @@ const DualUpsaleOption = ({
   const { theme } = useContext(DataContext);
   const { upsaleData, resetUpsale } = useContext(UpsaleContext);
   const { singleMeal, placeMealInOrders } = useContext(OrderContext);
+  const { t } = useTranslation();
 
   const [isFinished, setIsFinished] =useState(false)
 
@@ -92,6 +94,8 @@ const DualUpsaleOption = ({
 
       <UpgradeBottomRibbon
         disableNextBtn={isNextButtonDisabled}
+        nextText={t("next_Btn")}
+        backText={t('back_Btn')}
         nextAction={() => {
 
           if(isFinished){

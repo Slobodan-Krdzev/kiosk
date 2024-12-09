@@ -6,12 +6,14 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import styles from "./FinnishViewStyles.module.css";
 import Counter from "../../Reusables/Counter/Counter";
+import { useTranslation } from "react-i18next";
 
 const Finish = () => {
   const { finalInfo } = useContext(StepContext);
   const { cancelOrder } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
   const [isCounterVisible, setIsCounterVisible] = useState(false)
+  const {t} = useTranslation()
 
   console.log("====================================");
   console.log("FINNISHED ORDER" );
@@ -31,7 +33,7 @@ const Finish = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={`fullScreenTablet ${styles.finnishView}`}
     >
-      <p className={`biggerPageTitles fontSF`}>Order Succesfull!</p>
+      <p className={`biggerPageTitles fontSF`}>{t('order_successfull')}</p>
 
       <div className={styles.checkMarkWrapper}>
         <div
@@ -54,7 +56,7 @@ const Finish = () => {
       </div>
 
       <p className={`${styles.subTitle} fontSF`}>
-        You can pick up your order at the counter.
+        {t('pick_order')}
       </p>
 
       <div
@@ -72,7 +74,7 @@ const Finish = () => {
         }}
       >
         <label className="noteLabel" htmlFor="emailInput">
-          Enter your email to receive your receipt?
+          {t("enter_Email")}
         </label>
         <input
           style={{ border: theme.activeTextColor }}
@@ -95,7 +97,7 @@ const Finish = () => {
               cancelOrder();
             }}
           >
-            Send Receipt and Finnish
+            {t("send_Receipt")}
           </button>
         </BottomGreenRibbon>
       </div>

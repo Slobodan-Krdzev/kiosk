@@ -55,7 +55,7 @@ const StartScreen = () => {
               document.documentElement.requestFullscreen();
             }}
           >
-            Place Order
+            Start
           </button>
         </BottomGreenRibbon>
       </div>

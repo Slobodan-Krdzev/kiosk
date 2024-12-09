@@ -19,7 +19,7 @@ function App() {
   const { data, theme } = useContext(DataContext);
   const [isCounterVisible, setIsCounterVisible] = useState(false)
   const inactivityTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inactivityPeriod = 10000; // ovde setirame inactivity timer
+  const inactivityPeriod = 100000; // ovde setirame inactivity timer
 
   console.log(data);
 

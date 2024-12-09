@@ -6,6 +6,7 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import Plus from "../SVG/Plus";
 import Trashcan from "../SVG/Trashcan";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 type CheckoutCardPropsType = {
   order: SingleMealType;
@@ -25,6 +26,8 @@ const CheckoutCard = ({
     useState(false);
 
   const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
+  const {t} = useTranslation()
+
 
   const {
     orders,
@@ -104,7 +107,7 @@ const CheckoutCard = ({
 
           {order.note !== "" && (
             <p className={`${styles.checkoutCardExtrasText} fontSF`}>
-              Note: {order.note}
+             {t("note")}: {order.note}
             </p>
           )}
         </div>
@@ -120,7 +123,9 @@ const CheckoutCard = ({
               setIsProductNoteInputVisible(true);
             }}
           >
-            <Plus /> {order.note === "" ? `Add Note` : `Edit Note`}
+            {/* <Plus /> {order.note === "" ? `${t("add_note")}` : `${t("edit_note")}`} */}
+            <Plus /> {order.note === "" ? `Add Note` : `Edit Nore`}
+
           </motion.button>
         )}
 

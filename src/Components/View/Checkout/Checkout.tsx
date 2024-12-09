@@ -6,11 +6,13 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import CheckoutCard from "../../Reusables/CheckoutPage/CheckoutCard";
 import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
 import styles from "./CheckoutStyles.module.css";
+import { useTranslation } from "react-i18next";
 
 const Checkout = () => {
   const { handleStepChange, handleOrderNote } = useContext(StepContext);
   const { orders } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
+  const {t} = useTranslation()
 
   const orderNoteInput = useRef<HTMLInputElement | null>(null);
 
@@ -30,7 +32,7 @@ const Checkout = () => {
       exit={{ x: "100vw" }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <p className={`fontSF biggerPageTitles`}>MY ORDER</p>
+      <p className={`fontSF biggerPageTitles`}>{t('my_order')}</p>
 
       <div className={`hideScrollBar ${styles.checkoutCardWrapper}`}>
         {orders.map((product) => (
@@ -54,7 +56,7 @@ const Checkout = () => {
           }}
         >
           <label htmlFor="orderNoteInput" className="noteLabel fontSF">
-            Do you want to leave a note for your order?
+            {t('order_note')}
           </label>
 
           <input
@@ -78,8 +80,8 @@ const Checkout = () => {
       {isRibbonShown && (
         <div className={`bottomRibbon`}>
           <UpgradeBottomRibbon
-            nextText="Place Order"
-            backText="Back to Menu"
+            nextText={t('place_order')}
+            backText={t('back_to_menu')}
             backStep={"order"}
             nextStep={"preview"}
             disableNextBtn={false}

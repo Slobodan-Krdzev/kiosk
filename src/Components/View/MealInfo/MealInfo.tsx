@@ -10,6 +10,7 @@ import Vegan from "../../Reusables/SVG/Vegan";
 import Vegeterian from "../../Reusables/SVG/Vegeterian";
 import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
 import styles from "./MealInfoStyles.module.css";
+import { useTranslation } from "react-i18next";
 
 type MealInfoPropsType = {
   meal: Product;
@@ -22,6 +23,7 @@ const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
 
   const { placeMealInOrders, setMeal, orders } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
+  const { t } = useTranslation();
 
   const isMealAllreadyInOrders = Boolean(orders.find(m => m.product?.ProductId === meal.ProductId))
 
@@ -95,8 +97,9 @@ const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
       </div>
 
       <UpgradeBottomRibbon
-        nextText={availability ? isMealAllreadyInOrders ? 'Already In Basket' : "Add to Basket" : "Out of Stock"}
+        nextText={availability ? isMealAllreadyInOrders ? `${t("already_in_basket")}` : `${t("add_to_basket")}` : `${t("out_of_stock")}`}
         backStep={"order"}
+        backText={t('back_Btn')}
         nextStep={meal.HasUpsaleCollection ? "menuUpgrade" : "order"}
         disableNextBtn={availability ? isMealAllreadyInOrders ? true : false : true}
         nextAction={() => {
