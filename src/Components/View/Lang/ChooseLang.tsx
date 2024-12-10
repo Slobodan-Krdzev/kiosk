@@ -46,7 +46,8 @@ const ChooseLang = () => {
 
   const { t } = useTranslation();
 
-  const languagesList = data.ThemeResponse.LanguagesList;
+  // od languages list ke listame jazici
+  // const languagesList = data.ThemeResponse.LanguagesList;
 
   return (
     <motion.section
@@ -102,7 +103,7 @@ const ChooseLang = () => {
         >
           <Takeaway color={theme.activeTextColor} />
 
-          <p className={`fontSF ${styles.menuOptionsText}`}>Take Away</p>
+          <p className={`fontSF ${styles.menuOptionsText}`}>{t("takeaway")}</p>
         </motion.button>
 
         {/* DINE IN OPCIJA   */}
@@ -133,11 +134,12 @@ const ChooseLang = () => {
         >
           <DineIn color={theme.activeTextColor} />
 
-          <p className={`fontSF ${styles.menuOptionsText}`}>Dine In</p>
+          <p className={`fontSF ${styles.menuOptionsText}`}>{t('dine_in')}</p>
         </motion.button>
       </div>
 
       <div className={styles.langSelectWrapper}>
+        {/* languages list map trebva da ni e originalot */}
         {languages.map((lang) => (
           <LanguageChooser key={lang.Name} locale={lang} />
         ))}

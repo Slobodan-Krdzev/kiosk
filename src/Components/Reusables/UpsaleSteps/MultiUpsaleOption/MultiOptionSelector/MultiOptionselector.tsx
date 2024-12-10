@@ -24,7 +24,7 @@ const MultiOptionselector = ({
   const { upsaleData, addNewOption, removeAnOption } =
     useContext(UpsaleContext);
 
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(upsaleData[upsaleStep].stepData.find((o) => o.option.Id === option.Id)?.quantity ?? 1);
 
   const isOptionAlreadySelected = Boolean(
     upsaleData[upsaleStep].stepData.find((o) => o.option.Id === option.Id)
@@ -36,6 +36,7 @@ const MultiOptionselector = ({
 
   const selectedOptionsLength = upsaleData[upsaleStep].stepData.length;
 
+  
   return (
     <div
       role="button"
@@ -88,14 +89,14 @@ const MultiOptionselector = ({
         className={`fontSF ${styles.optionBtn}`}
         style={{
           backgroundColor: theme.activeTextColor,
-          width: isSelected && option.MaxSelection > 1 ? "100%" : "",
-          borderTopLeftRadius: isSelected && option.MaxSelection > 1 ? 0 : "",
+          width: isOptionAlreadySelected && option.MaxSelection > 1 ? "100%" : "",
+          borderTopLeftRadius: isOptionAlreadySelected && option.MaxSelection > 1 ? 0 : "",
           borderBottomLeftRadius:
-            isSelected && option.MaxSelection > 1 ? 8 : "",
+            isOptionAlreadySelected && option.MaxSelection > 1 ? 8 : "",
 
           justifyContent:
-            isSelected && option.MaxSelection > 1 ? "space-between" : "center",
-          padding: isSelected && option.MaxSelection > 1 ? "0 4vw" : "",
+            isOptionAlreadySelected && option.MaxSelection > 1 ? "space-between" : "center",
+          padding: isOptionAlreadySelected && option.MaxSelection > 1 ? "0 4vw" : "",
         }}
       >
         {!isOptionAlreadySelected && (
@@ -126,7 +127,7 @@ const MultiOptionselector = ({
           </button>
         )}
 
-        {isSelected && option.MaxSelection > 1 && (
+        {isOptionAlreadySelected && option.MaxSelection > 1 && (
           <>
             <button
               className={styles.quantityBtns}

@@ -71,11 +71,6 @@
 }
 
 
-.ribbonContentWrapper svg {
-  width: 50px;
-  height: 50px;
-}
-
 .ribbonContentWrapper {
   display: flex;
   align-items: center;

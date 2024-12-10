@@ -50,7 +50,7 @@ const DualUpsaleOption = ({
 
   return (
     <motion.section
-      key={"dual"}
+      key={`dual${upsaleStep}`}
       initial={{ x: "-100vw" }}
       animate={{ x: 0 }}
       exit={{ x: "100vw" }}

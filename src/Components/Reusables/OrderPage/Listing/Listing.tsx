@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Product, ThemeType } from "../../../../Types/Types";
 import MealCard from "../MealCard/MealCard";
 import styles from "./ListingStyles.module.css";
@@ -16,7 +16,26 @@ const Listing = ({
   theme,
   isRibbonVisible
 }: ListingPropsType) => {
+
   const containerRef = useRef<null | HTMLDivElement>(null);
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    // Add the event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  console.log(screenWidth)
 
   useEffect(() => {
     if (containerRef.current) {
@@ -27,6 +46,24 @@ const Listing = ({
     }
   }, [selectedCategory]);
 
+  const getDynamicScrollOffset = () => {
+
+    let offset;
+    
+    if(screenWidth < 770){
+      offset = `45.3vh`
+
+    }else if(screenWidth < 805){
+      offset = `42.3vh`
+      
+    }else {
+      offset = `36.3vh`
+
+    }
+
+    return offset
+  }
+
   if (products.length) {
     return (
       <div
@@ -34,7 +71,7 @@ const Listing = ({
         ref={containerRef}
         style={{
           // height: isRibbonVisible ?  `calc(100% - 24.3vh - 157px)` : ``
-            height: isRibbonVisible ?  `calc(100% - 22.3vh )` : ``
+            height: isRibbonVisible ?  `calc(100% - ${getDynamicScrollOffset()} )` : ``
 
         }}
       >

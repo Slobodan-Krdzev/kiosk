@@ -36,7 +36,7 @@ const MultiUpsaleOption = ({
 
   return (
     <motion.section
-      key={"multi"}
+      key={`multi${upsaleStep}`}
       initial={{ x: "-100vw" }}
       animate={{ x: 0 }}
       exit={{ x: "100vw" }}
