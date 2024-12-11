@@ -9,22 +9,28 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,json,woff,woff2}"],
       },
       manifest: {
         short_name: "KIOSK",
         name: "KIOSK",
         icons: [
           {
-            src: "/tabletmenukaart_logo.jpg",
-            sizes: "103x101",
-            type: "image/jpg",
+            src: "/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
           },
+          {
+            src: "/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
         ],
         start_url: "/",
         theme_color: "#000000",
         background_color: "#ffffff",
         display: "fullscreen",
+        orientation: 'portrait'
       },
     }),
   ],
