@@ -32,7 +32,16 @@ const MultiUpsaleOption = ({
 
   const options = upsaleStepData.Options;
   const maxSelection = upsaleStepData.MaxSelection;
-  const isNextButtonDisabled = !upsaleData[upsaleStep].stepData.length;
+  const isNextButtonDisabled = () => {
+
+    if(upsaleStepData.MinSelection === 0 || upsaleData[upsaleStep].stepData.length > 0){
+
+      return false
+    }else {
+      return true
+    }
+
+  }
 
   return (
     <motion.section
@@ -87,7 +96,7 @@ const MultiUpsaleOption = ({
       {/* ribbon */}
 
       <UpgradeBottomRibbon
-        disableNextBtn={isNextButtonDisabled}
+        disableNextBtn={isNextButtonDisabled()}
         nextText={t("next_Btn")}
         backText={t('back_Btn')}
         nextAction={() => {

@@ -4,9 +4,6 @@ const CheckAvailability = async (productId: number) => {
     const response = await fetch(
       `/availabilityAPI/service/checkProductAvailable?idProduct=${productId}`
     );
-
-
-  
     if (!response.ok) {
       throw new Error('Network response not ok');
     }

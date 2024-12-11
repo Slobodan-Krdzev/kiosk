@@ -41,12 +41,22 @@ const DualUpsaleOption = ({
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
   };
-  const isNextButtonDisabled = !upsaleData[upsaleStep].stepData.length
+  const isNextButtonDisabled = () => {
+
+    if(upsaleStepData.MinSelection === 0 || upsaleData[upsaleStep].stepData.length > 0){
+
+      return false
+    }else {
+      return true
+    }
+
+  }
 
   const handleFinish = () => {
 
     setIsFinished(true)
   }
+
 
   return (
     <motion.section
@@ -93,7 +103,7 @@ const DualUpsaleOption = ({
       {/* ribbon */}
 
       <UpgradeBottomRibbon
-        disableNextBtn={isNextButtonDisabled}
+        disableNextBtn={isNextButtonDisabled()}
         nextText={t("next_Btn")}
         backText={t('back_Btn')}
         nextAction={() => {

@@ -172,6 +172,8 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
 
               const availability = await handleCheckAvailability();
 
+              console.log(availability)
+
               if (product.NoInteraction) {
                 handleSetMealForInfo(product, availability);
                 handleStepChange("mealInfo");
