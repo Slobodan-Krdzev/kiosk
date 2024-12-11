@@ -1,6 +1,6 @@
 const Get = async () => {
   const response = await fetch(
-    "/api/service/getresources?deviceid=2&menuid=0011002408"
+    "https://kioskapi.dev.revelapps.com/api/getfullresources"
   );
 
   if (!response.ok) {
