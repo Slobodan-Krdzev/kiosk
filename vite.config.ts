@@ -7,24 +7,27 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "autoUpdate",
-      workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-      },
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        short_name: "KIOSK",
-        name: "KIOSK",
+        name: 'KIOSK',
+        short_name: 'Kiosk',
+        description: 'A Progressive Web App built for KIOSK',
+        orientation: 'portrait',
+        display: 'fullscreen',
+        theme_color: '#ffffff',
         icons: [
           {
-            src: "/tabletmenukaart_logo.jpg",
-            sizes: "103x101",
-            type: "image/jpg",
+            src: 'android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'android-chrome-192x192.png',
+            sizes: '512x512',
+            type: 'image/png',
           },
         ],
-        start_url: "/",
-        theme_color: "#000000",
-        background_color: "#ffffff",
-        display: "fullscreen",
       },
     }),
   ],

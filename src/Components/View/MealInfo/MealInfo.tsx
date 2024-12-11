@@ -27,8 +27,6 @@ const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
 
   const isMealAllreadyInOrders = Boolean(orders.find(m => m.product?.ProductId === meal.ProductId))
 
-  console.log(availability)
-
   return (
     <motion.section
       className="fullScreenTablet"
@@ -58,22 +56,22 @@ const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
 
         <div style={{ margin: "1rem 0 0" }}>
           {true && (
-            <AlergenItem bgColor="#BB6BD9" text="Not suitable for pregnancy">
+            <AlergenItem bgColor="#BB6BD9" text={t("pregnancy")}>
               <Pregnancy />
             </AlergenItem>
           )}
           {true && (
-            <AlergenItem bgColor="#219653" text="Vegan">
+            <AlergenItem bgColor="#219653" text={t('vegan')}>
               <Vegan />
             </AlergenItem>
           )}
           {true && (
-            <AlergenItem bgColor="#FF9500" text="Spicy">
+            <AlergenItem bgColor="#FF9500" text={t('spicy')}>
               <Spicy />
             </AlergenItem>
           )}
           {true && (
-            <AlergenItem bgColor="#235F0A" text="Vegeterian">
+            <AlergenItem bgColor="#235F0A" text={t('vegeterian')}>
               <Vegeterian />
             </AlergenItem>
           )}
@@ -90,7 +88,7 @@ const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
 
         {Boolean(meal.ProductsTags.length) && (
           <div style={{ margin: "2rem 0 0" }}>
-            <p>Allergens</p>
+            <p className="fontSF">{t("alergens")}</p>
             <div></div>
           </div>
         )}
