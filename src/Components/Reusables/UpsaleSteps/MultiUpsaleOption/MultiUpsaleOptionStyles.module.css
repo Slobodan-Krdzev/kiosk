@@ -12,7 +12,7 @@
     width: 10%;
     font-size: 3.5vw;
     font-weight: 600;
-    letter-spacing: -0.2vw;
+    letter-spacing: -0.2vw; 
 }
 
 .topContent {
@@ -61,6 +61,7 @@
     gap: 20px;
     /* space between grid items */
     overflow-y: scroll;
+
 }
 
 .stepCounter {
@@ -81,5 +82,8 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
         overflow-y: scroll;
+        height: 40vh;
     }
+
+    
 }

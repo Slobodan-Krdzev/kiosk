@@ -192,13 +192,17 @@
     }
 
     .checkoutCardMealName {
-        font-size: 5vw;
+        font-size: 4vw;
         width: 90%;
     }
 
+    .checkoutCardPrice{
+        font-size: 3.5vw;
+    }
+
     .checkoutCardQuantityWrapper{
-        width: 25vw;
-        height: 38%;
+        width: 35%;
+        height: 30%;
     }
 
     .quantityCounter{
@@ -207,6 +211,20 @@
 
     .checkoutCardExtrasText{
         font-size: 3vw;
+    }
+
+    .addNoteBtn{
+        bottom: 5%;
+        left: 38%;
+        width: 25%;
+        font-size: 3vw;
+    }
+
+    .productNoteForm{
+        position: absolute;
+        bottom: 6%;
+        left: 38%;
+        width: 60.5%;
     }
   }
 

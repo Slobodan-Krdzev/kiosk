@@ -109,3 +109,24 @@
         bottom: 18%;
     }
 }
+
+@media(max-width: 425px){
+    
+    .optionSelector{
+        min-height: 160px;
+    }
+
+    .optionName {
+        font-size: 3.8vw;
+        margin-bottom: 0.8vh;
+        bottom: 18%;
+    }
+
+    .optionPrice {
+        font-size: 3.5vw;
+    }
+
+    .quantity{
+        font-size: 4vw;
+    }
+}

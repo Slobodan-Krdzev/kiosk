@@ -61,6 +61,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={styles.card}
       style={{
+        color: theme.textColor,
         border:
           isMealPlacedInOrders && isAvailable
             ? `1px solid ${theme.activeTextColor}`
@@ -105,13 +106,12 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           onClick={async (e) => {
             const availability = await handleCheckAvailability();
 
-
             e.stopPropagation();
             handleSetMealForInfo(product, availability);
             handleStepChange("mealInfo");
           }}
         >
-          <b style={{fontSize: '2vw'}}>i</b>
+          <b style={{ fontSize: "2vw" }}>i</b>
         </button>
       </div>
 
@@ -151,7 +151,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{
-          backgroundColor: isAvailable ? theme.activeTextColor : 'inherit',
+          backgroundColor: isAvailable ? theme.activeTextColor : "inherit",
           color: theme.textColor,
           justifyContent:
             isMealPlacedInOrders && isAvailable ? "space-between" : "center",
@@ -160,10 +160,13 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         }}
         className={styles.productBtnsWrapper}
       >
-
         {!isMealPlacedInOrders && isAvailable && (
           <button
             className={styles.productBtn}
+            style={{
+              borderTopLeftRadius:
+                isMealPlacedInOrders && isAvailable ? "0" : "16px",
+            }}
             onClick={async () => {
               setQuantity((q) => q + 1);
 
@@ -173,21 +176,21 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                 handleSetMealForInfo(product, availability);
                 handleStepChange("mealInfo");
               } else {
-                // tuka proverka za availability
 
-                console.log(availability);
                 if (!availability) {
                   return;
                 }
 
                 if (product.HasUpsaleCollection && !isMealPlacedInOrders) {
-                  // ako ima upsale postavuva signleMeal i step change vo upsale
 
                   setMeal(product);
                   handleStepChange("menuUpgrade");
+
                 } else {
                   if (isMealPlacedInOrders) {
+
                     removeMealFromOrders(product.ProductId);
+
                   } else {
                     setQuantity(1);
                     placeMealInOrders({

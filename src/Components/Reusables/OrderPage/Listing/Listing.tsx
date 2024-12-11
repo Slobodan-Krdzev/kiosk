@@ -26,17 +26,12 @@ const Listing = ({
       setScreenWidth(window.innerWidth);
     };
 
-    // Add the event listener
     window.addEventListener("resize", handleResize);
 
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  console.log(screenWidth)
-
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
@@ -50,7 +45,10 @@ const Listing = ({
 
     let offset;
     
-    if(screenWidth < 770){
+    if(screenWidth < 480){
+      offset = '60vh'
+    }
+    else if(screenWidth < 770){
       offset = `45.3vh`
 
     }else if(screenWidth < 805){

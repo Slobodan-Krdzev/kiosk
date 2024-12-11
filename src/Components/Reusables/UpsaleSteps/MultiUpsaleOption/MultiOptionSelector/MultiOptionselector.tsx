@@ -144,7 +144,7 @@ const MultiOptionselector = ({
             >
               {quantity === 1 ? <Trashcan /> : <Minus />}
             </button>
-            <p>{quantity}</p>
+            <p className={styles.quantity}>{quantity}</p>
 
               <button
                 className={styles.quantityBtns}

@@ -65,7 +65,7 @@ const MultiUpsaleOption = ({
 
       {/* option choose */}
 
-      <div>
+      <div className={styles.midSection}>
         <h2 className={`fontSF ${styles.subtitle}`}>
           {t("choose_your")} {upsaleStepData.Name}
         </h2>

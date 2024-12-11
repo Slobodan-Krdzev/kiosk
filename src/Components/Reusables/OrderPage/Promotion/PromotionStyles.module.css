@@ -20,7 +20,15 @@
 @media(max-width: 768px){
 
     .promotionWrapper {
-        height: 173px;
+        height: 164px;
+        margin-bottom: 0.7vh;
+    }
+}
+
+@media(max-width: 425px){
+
+    .promotionWrapper {
+        height: 154px;
         margin-bottom: 0.7vh;
     }
 }

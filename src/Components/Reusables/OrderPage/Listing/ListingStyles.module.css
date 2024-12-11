@@ -37,7 +37,7 @@
     .mealsListing {
         grid-template-columns: repeat(1, 1fr);
         grid-auto-rows: 227px;
-        height: calc(100vh - 25vh);
+        height: calc(100vh - 47vh);
         gap: 10px;
     }
 }

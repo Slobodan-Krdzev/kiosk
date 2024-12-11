@@ -38,7 +38,40 @@
     bottom: 0;
     right: 0;
     width: 12%;
-    height: 14%;
+    height: 19%;
     border-radius: 15px 0 16px;
     border: 0;
+}
+
+
+@media(max-width: 425px){
+
+    .slideTitle{
+        font-size: 5.5vw;
+    }
+    
+    .productName{
+        font-size: 4vw;
+    
+    }
+    
+    .productPrice{
+        font-size: 3.6vw;
+    
+    }
+    
+    .image {
+        position: absolute;
+        top: 5%;
+        right: 4%;
+        width: 35%;
+        border-radius: 1vw;
+        box-shadow: 0px 0px 5px 10px #7575750f;
+        
+    }
+
+    .Btn{
+        width: 23%;
+        height: 25%;
+    }
 }
