@@ -9,7 +9,7 @@ import Counter from "../../Reusables/Counter/Counter";
 import { useTranslation } from "react-i18next";
 
 const Finish = () => {
-  const { finalInfo } = useContext(StepContext);
+  const { finalInfo, handleRemoveNote } = useContext(StepContext);
   const { cancelOrder } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
   const [isCounterVisible, setIsCounterVisible] = useState(false)
@@ -55,7 +55,7 @@ const Finish = () => {
         </div>
       </div>
 
-      <p className={`${styles.subTitle} fontSF`}>
+      <p className={`${styles.subTitle} paymentPagesSubtitle fontSF`}>
         {t('pick_order')}
       </p>
 
@@ -73,7 +73,7 @@ const Finish = () => {
           e.preventDefault;
         }}
       >
-        <label className="noteLabel" htmlFor="emailInput">
+        <label className={`noteLabel ${styles.formLabel}`} htmlFor="emailInput">
           {t("enter_Email")}
         </label>
         <input
@@ -95,6 +95,7 @@ const Finish = () => {
             onClick={() => {
               setIsCounterVisible(true)
               cancelOrder();
+              handleRemoveNote()
             }}
           >
             {t("send_Receipt")}

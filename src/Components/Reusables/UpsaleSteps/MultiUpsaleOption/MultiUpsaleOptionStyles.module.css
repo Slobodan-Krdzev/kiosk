@@ -21,8 +21,9 @@
     flex-direction: column;
     justify-content: end;
     align-items: center;
-    padding: 1vh;
+    padding: 0.5vh;
     /* gap: 2vh; */
+    overflow: hidden;
 }
 
 .topContent img {
@@ -30,7 +31,10 @@
     max-height: 70%;
     margin-bottom: 1vh;
     flex-basis: 85%;
-
+    width: 48%;
+    object-fit: cover;
+    object-position: center ;
+    border-radius: 20px;
 }
 
 .topText {

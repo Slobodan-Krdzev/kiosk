@@ -23,7 +23,7 @@ const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
               {order.upsale[2].stepData.map((option) => (
                 <span key={option.option.Id}>
                   {option.option.Name}{" "}
-                  {`(+ ${(option.option.Price * option.quantity).toFixed(2)})`}
+                  {`(+ ${(option.option.Price * option.quantity).toFixed(2)})  `}
                 </span>
               ))}
             </p>
@@ -35,7 +35,7 @@ const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
               {order.upsale[3].stepData.map((option) => (
                 <span key={option.option.Id}>
                   {option.option.Name}{" "}
-                  {`(+ ${(option.option.Price * option.quantity).toFixed(2)})`}
+                  {`(+ ${(option.option.Price * option.quantity).toFixed(2)})  `}
                 </span>
               ))}
             </p>
@@ -47,7 +47,7 @@ const OrderInfoCard = ({ order }: OrderInfoCardPropsType) => {
               {order.upsale[4].stepData.map((option) => (
                 <span key={option.option.Id}>
                   {option.option.Name}{" "}
-                  {`(+ ${(option.option.Price * option.quantity).toFixed(2)})`}
+                  {`(+ ${(option.option.Price * option.quantity).toFixed(2)})  `}
                 </span>
               ))}
             </p>

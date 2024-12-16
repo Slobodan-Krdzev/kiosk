@@ -1,11 +1,7 @@
 .subTitle {
     font-size: 3vw;
     font-weight: 400;
-    line-height: calc(47.73px / 1.33);
     letter-spacing: 0.01em;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
 
 }
 
@@ -16,7 +12,8 @@
 
 .qrCode {
     
-    width: 50%;
+    width: 300px;
+    height: 300px;
     margin: 5vh auto;
     background-color: inherit;
 
@@ -24,7 +21,7 @@
     /* the size on the corner */
     --t: 10px;
     /* the thickness of the border */
-    --g: 10%;
+    --g: 5%;
     /* the gap between the border and image */
 
     padding: calc(var(--g) + var(--t));

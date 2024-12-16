@@ -127,7 +127,7 @@
     right: 0;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     gap: 10px;
     padding: 0 4vw;
@@ -151,7 +151,7 @@
 
 .addNoteBtn{
     position: absolute;
-    bottom: 5%;
+    bottom: 3%;
     left: 29%;
     display: flex;
     justify-content: center;
@@ -163,7 +163,6 @@
     width: 15vw;
     border-radius: 3rem;
     font-size: 2vw;
-    box-shadow: 0px 4px 10px 0px #00000014;
 
 }
 

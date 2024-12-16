@@ -1,18 +1,20 @@
 .mealPictureWrapper {
   padding: 2vh 0;
   display: flex;
-  height: 35%;
+  height: 40%;
   justify-content: center;
   align-items: center;
   border-bottom: 0.7px solid #9d989f;
 }
 
 .mealPicture {
-  height: 90%;
-  width: 55vw;
-  max-width: 500px;
+  height: 100%;
+  /* min-height: 720px; */
+  width: 93%;
   border-radius: 0.5rem;
   box-shadow: 0px 3.77px 18.85px 0px #0000001a;
+  object-fit: cover;
+  object-position: center;
 }
 
 .mealName {

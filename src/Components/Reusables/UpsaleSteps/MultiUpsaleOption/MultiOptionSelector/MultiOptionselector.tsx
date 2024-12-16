@@ -24,7 +24,10 @@ const MultiOptionselector = ({
   const { upsaleData, addNewOption, removeAnOption } =
     useContext(UpsaleContext);
 
-  const [quantity, setQuantity] = useState(upsaleData[upsaleStep].stepData.find((o) => o.option.Id === option.Id)?.quantity ?? 1);
+  const [quantity, setQuantity] = useState(
+    upsaleData[upsaleStep].stepData.find((o) => o.option.Id === option.Id)
+      ?.quantity ?? 1
+  );
 
   const isOptionAlreadySelected = Boolean(
     upsaleData[upsaleStep].stepData.find((o) => o.option.Id === option.Id)
@@ -36,7 +39,6 @@ const MultiOptionselector = ({
 
   const selectedOptionsLength = upsaleData[upsaleStep].stepData.length;
 
-  
   return (
     <div
       role="button"
@@ -48,9 +50,9 @@ const MultiOptionselector = ({
           : "",
         backgroundColor: isOptionAlreadySelected
           ? `${theme.activeTextColor}40`
-          : selectedOptionsLength === 0
-          ? "white"
-          : "#F1F1F1",
+          : selectedOptionsLength === maxSelection
+          ? "#F1F1F1"
+          : "white",
 
         // OVDEKA ZA TESTIRANJE MAXSELECTION PROMENI GO SO ZAKUCAN BROJ
         pointerEvents:
@@ -66,9 +68,9 @@ const MultiOptionselector = ({
         style={{
           opacity: isOptionAlreadySelected
             ? 1
-            : selectedOptionsLength === 0
-            ? 1
-            : 0.55,
+            : selectedOptionsLength === maxSelection
+            ? 0.55
+            : 1,
         }}
       />
 
@@ -88,21 +90,35 @@ const MultiOptionselector = ({
       <div
         className={`fontSF ${styles.optionBtn}`}
         style={{
-          backgroundColor: theme.activeTextColor,
-          width: isOptionAlreadySelected && option.MaxSelection > 1 ? "100%" : "",
-          borderTopLeftRadius: isOptionAlreadySelected && option.MaxSelection > 1 ? 0 : "",
+          backgroundColor:
+            selectedOptionsLength === maxSelection && !isOptionAlreadySelected
+              ? `${theme.activeTextColor}70`
+              : theme.activeTextColor,
+          width:
+            isOptionAlreadySelected && option.MaxSelection > 1 ? "100%" : "",
+          borderTopLeftRadius:
+            isOptionAlreadySelected && option.MaxSelection > 1 ? 0 : "",
           borderBottomLeftRadius:
             isOptionAlreadySelected && option.MaxSelection > 1 ? 8 : "",
 
           justifyContent:
-            isOptionAlreadySelected && option.MaxSelection > 1 ? "space-between" : "center",
-          padding: isOptionAlreadySelected && option.MaxSelection > 1 ? "0 4vw" : "",
+            isOptionAlreadySelected && option.MaxSelection > 1
+              ? "space-between"
+              : "center",
+          padding:
+            isOptionAlreadySelected && option.MaxSelection > 1 ? "0 4vw" : "",
         }}
       >
         {!isOptionAlreadySelected && (
           <button
             className={styles.addBtn}
-            style={{ backgroundColor: theme.activeTextColor }}
+            style={{
+              backgroundColor:
+                selectedOptionsLength === maxSelection &&
+                !isOptionAlreadySelected
+                  ? `transparent`
+                  : theme.activeTextColor,
+            }}
             onClick={() => {
               addNewOption(upsaleStep, option, maxSelection, 1);
 
@@ -146,30 +162,22 @@ const MultiOptionselector = ({
             </button>
             <p className={styles.quantity}>{quantity}</p>
 
-              <button
-                className={styles.quantityBtns}
-                onClick={() => {
+            <button
+              className={styles.quantityBtns}
+              onClick={() => {
+                if (quantity === option.MaxSelection) {
+                  return;
+                }
 
-                  if(quantity === option.MaxSelection){
+                setQuantity((q) => q + 1);
 
-                    return 
-                  }
-
-                  setQuantity((q) => q + 1);
-
-                  if (isSelected) {
-                    addNewOption(
-                      upsaleStep,
-                      option,
-                      maxSelection,
-                      quantity + 1
-                    );
-                  }
-                }}
-              >
-                {quantity === option.MaxSelection ? "MAX" : <Plus />}
-                
-              </button>
+                if (isSelected) {
+                  addNewOption(upsaleStep, option, maxSelection, quantity + 1);
+                }
+              }}
+            >
+              {quantity === option.MaxSelection ? "MAX" : <Plus />}
+            </button>
           </>
         )}
       </div>

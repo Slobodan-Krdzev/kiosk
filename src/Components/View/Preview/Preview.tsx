@@ -31,7 +31,7 @@ const Preview = () => {
         className={styles.previewInfoWrapper}
         style={{ borderColor: theme.activeTextColor }}
       >
-        <div className={`hideScrollBar ${styles.previewOrdersWrapper}`}>
+        <div className={` ${styles.previewOrdersWrapper}`}>
           {orders.map((order) => (
             <OrderInfoCard key={order.id} order={order} />
           ))}

@@ -31,7 +31,7 @@ const MultiUpsaleOption = ({
   const { upsaleData, resetUpsale } = useContext(UpsaleContext);
 
   const options = upsaleStepData.Options;
-  const maxSelection = upsaleStepData.MaxSelection;
+  const maxSelection = 2;
   const isNextButtonDisabled = () => {
 
     if(upsaleStepData.MinSelection === 0 || upsaleData[upsaleStep].stepData.length > 0){

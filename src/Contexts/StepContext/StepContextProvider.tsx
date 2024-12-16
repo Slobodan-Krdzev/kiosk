@@ -8,63 +8,75 @@ type StepContextProviderPropsType = {
 
 const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
   const [step, setStep] = useState<StepType>("start");
-  const [orderNumber, setOrderNumber] = useState<number>()
-  const [isTakeway, setIsTakeway] = useState<'Dine In' | "Takeaway" >('Takeaway')
+  const [orderNumber, setOrderNumber] = useState<number>();
+  const [isTakeway, setIsTakeway] = useState<"Dine In" | "Takeaway">(
+    "Takeaway"
+  );
 
-  const [orderDetails, setOrderDetails] = useState<SingleMealType[]>([])
-  const [orderNote, setOrderNote] = useState<string>('')
+  const [orderDetails, setOrderDetails] = useState<SingleMealType[]>([]);
+  const [orderNote, setOrderNote] = useState<string>("");
 
-  const [mealForInfo, setMealForInfo] = useState<{product: Product, availability: boolean}>({} as {product: Product, availability: boolean})
+  const [mealForInfo, setMealForInfo] = useState<{
+    product: Product;
+    availability: boolean;
+  }>({} as { product: Product; availability: boolean });
 
   const handleStepChange = (step: StepType) => {
     setStep(step);
   };
 
   const setFinalOrderDetails = (orders: SingleMealType[]) => {
-    
-   const orderNo =  +new Date().valueOf().toString().slice(-2)
-   setOrderNumber(orderNo)
-   setOrderDetails(orders)
+    const orderNo = +new Date().valueOf().toString().slice(-2);
+    setOrderNumber(orderNo);
+    setOrderDetails(orders);
 
-    
-   return orderNo
-  }
+    return orderNo;
+  };
 
-  const handleSetMealForInfo = (meal:Product, availability: boolean) => {
-
-    setMealForInfo({product: meal, availability})
-  }
+  const handleSetMealForInfo = (meal: Product, availability: boolean) => {
+    setMealForInfo({ product: meal, availability });
+  };
 
   const handleOrderNote = (note: string) => {
+    setOrderNote(note);
+  };
 
-    setOrderNote(note)
-  }
+  const handleRemoveNote = () => {
+    setOrderNote("");
+  };
 
-  const handleSetTakeawayOption = (option: 'Dine In' | 'Takeaway') => {
+  const handleSetTakeawayOption = (option: "Dine In" | "Takeaway") => {
+    setIsTakeway(option);
+  };
 
-    setIsTakeway(option)
-  }
-  
-  const finalInfo:FinalInfoType = {
+  const finalInfo: FinalInfoType = {
     orderNum: orderNumber,
     orderDet: orderDetails,
     orderNote: orderNote,
-    orderType: isTakeway 
-  }
-
+    orderType: isTakeway,
+  };
 
   const contextValue: {
     step: StepType;
     handleStepChange: (step: StepType) => void;
-    setFinalOrderDetails: (orders:SingleMealType[]) => void,
-    finalInfo: FinalInfoType,
-    handleSetMealForInfo: (meal: Product, availability: boolean) => void
-    mealForInfo: {product: Product, availability: boolean},
-    handleOrderNote: (note: string) => void,
-    handleSetTakeawayOption: (option: 'Dine In' | 'Takeaway') => void
-    
-  } = { step, handleSetTakeawayOption, handleOrderNote, handleStepChange, setFinalOrderDetails, finalInfo,handleSetMealForInfo,
-    mealForInfo };
+    setFinalOrderDetails: (orders: SingleMealType[]) => void;
+    finalInfo: FinalInfoType;
+    handleSetMealForInfo: (meal: Product, availability: boolean) => void;
+    mealForInfo: { product: Product; availability: boolean };
+    handleOrderNote: (note: string) => void;
+    handleSetTakeawayOption: (option: "Dine In" | "Takeaway") => void;
+    handleRemoveNote: () => void;
+  } = {
+    step,
+    handleRemoveNote,
+    handleSetTakeawayOption,
+    handleOrderNote,
+    handleStepChange,
+    setFinalOrderDetails,
+    finalInfo,
+    handleSetMealForInfo,
+    mealForInfo,
+  };
 
   return (
     <StepContext.Provider value={contextValue}>{children}</StepContext.Provider>

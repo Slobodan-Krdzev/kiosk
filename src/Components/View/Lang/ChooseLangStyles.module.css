@@ -1,6 +1,5 @@
 .logoWrapper {
     width: 100%;
-    /* height: calc(230px / 1.33); */
     height: 25vh;
     display: flex;
     justify-content: center;
@@ -10,11 +9,9 @@
 }
 
 .restName {
-    /* font-size: calc(50px / 1.33); */
     font-size: 5vw;
     font-weight: 400;
     margin-top: 4vh;
-    /* line-height: calc(59.67px / 1.33); */
     line-height: 90%;
     letter-spacing: 0.01em;
     text-align: center;
@@ -47,15 +44,25 @@
     gap: 1px;
     width: 40%;
     height: 28vh;
-
+    text-align: center;
 }
 
 .menuOptionsText {
-    /* font-size: calc(40px / 1.33); */
     font-size: 5vw;
     font-weight: 400;
-    text-align: center;
+    line-height: 3.5vh;
     margin-top: 1.3vh;
+    word-break: break-word;
+    flex-basis: 17%;
+    text-align: center;
+    line-height: 1.2;
+    margin: 0; 
+    word-break: break-word;
+    display: flex; 
+    align-items: flex-start; 
+    justify-content: center; 
+    min-height: 1.2em;
+
 }
 
 .langSelectWrapper{

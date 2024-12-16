@@ -96,7 +96,7 @@ h1 {
 
 .bottomRibbonButton {
   line-height: 34px;
-  font-size: 3vw;
+  font-size: 4.25vw;
   font-weight: 400;
   text-transform: capitalize;
   min-width: 100%;
@@ -163,8 +163,12 @@ h1 {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  padding: 2.5rem 0 1.5rem;
+  padding: 3.8rem 0 1.5rem;
   text-transform: uppercase;
+}
+
+.paymentPagesSubtitle{
+  font-size: 3.4vw;
 }
 
 .bigestTitleHeading {

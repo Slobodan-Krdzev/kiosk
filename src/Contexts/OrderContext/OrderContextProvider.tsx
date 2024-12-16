@@ -22,46 +22,29 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   const [orders, setOrders] = useState<SingleMealType[]>([]);
   const [singleMeal, setSingleMeal] =
     useState<SingleMealType>(startingMealFormula);
-
-  // const setTakeaway = () => setSingleMeal({ ...singleMeal, isTakeaway: true });
   const setMeal = (product: Product) =>
     setSingleMeal({ ...singleMeal, product, image: product.SmallPictureUrl });
-  // const setNoMenu = (option: Option) =>
-  //   setSingleMeal({ ...singleMeal, menuUpgrade: option });
-  // const setMenuUpgrade = (option: Option) =>
-  //   setSingleMeal({ ...singleMeal, menuUpgrade: option });
-  // const setNoSupersize = (option: Option) =>
-  //   setSingleMeal({ ...singleMeal, supersize: option });
-  // const setSupersizeUpgrade = (option: Option) =>
-  //   setSingleMeal({ ...singleMeal, supersize: option });
-  // const setExtras = (extras: Option[]) =>
-  //   setSingleMeal({ ...singleMeal, extras });
-  // const setSides = (sides: Option[]) => setSingleMeal({ ...singleMeal, sides });
-  // const setDrinks = (drinks: Option[]) =>
-  //   setSingleMeal({ ...singleMeal, drinks });
 
   const getUpsaleTotal = (upsaleData: UpsaleData) => {
+    let total = 0;
 
-    let total = 0
+    for (let i = 0; i < upsaleData.length; i++) {
+      const stepTotal = upsaleData[i].stepData.reduce(
+        (a, b) => a + b.option.Price * b.quantity,
+        0
+      );
 
-    for(let i = 0; i < upsaleData.length; i++){
-
-      const stepTotal = upsaleData[i].stepData.reduce((a,b) => a + (b.option.Price * b.quantity), 0)
-
-      total = total + stepTotal
+      total = total + stepTotal;
     }
 
-    return total
-  }
+    return total;
+  };
 
   const placeMealInOrders = (meal: SingleMealType) => {
     const startingPrice = meal.product!.Price;
 
-
     if (meal.upsale !== undefined) {
-      
-      const finalPrice = startingPrice! + getUpsaleTotal(meal.upsale) 
-        
+      const finalPrice = startingPrice! + getUpsaleTotal(meal.upsale);
 
       const finnishedMeal: SingleMealType = {
         id: meal.product!.ProductId,
@@ -141,6 +124,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   const cancelOrder = () => {
     setOrders([]);
     setSingleMeal(startingMealFormula);
+    setUpsale([])
   };
 
   const getOrderTotal = () =>

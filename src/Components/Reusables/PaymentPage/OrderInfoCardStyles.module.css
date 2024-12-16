@@ -13,6 +13,8 @@
     font-size: 2.5vw;
     font-weight: 400;
     line-height: 99%;
+    margin-bottom: 0.2vh;
+
 }
 
 .productName span {
@@ -21,8 +23,9 @@
 
 
 .sidesText {
-    font-size: 1.8vw;
+    font-size: 2vw;
     font-weight: 400;
+    margin-bottom: 0.2vh;
 }
 
 .totalPrice {

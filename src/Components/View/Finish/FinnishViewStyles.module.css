@@ -46,10 +46,12 @@
   text-align: center;
 }
 
-
-
 .form{
   margin: 400px 0;
+}
+
+.formLabel{
+  font-size: 3vw;
 }
 
 @media(max-width: 800px){

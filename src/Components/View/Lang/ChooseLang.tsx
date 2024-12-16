@@ -135,6 +135,7 @@ const ChooseLang = () => {
           <DineIn color={theme.activeTextColor} />
 
           <p className={`fontSF ${styles.menuOptionsText}`}>{t('dine_in')}</p>
+
         </motion.button>
       </div>
 

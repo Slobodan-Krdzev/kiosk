@@ -131,10 +131,10 @@ const CheckoutCard = ({
 
         {isProductNoteInputVisible && (
           <motion.form
-            initial={{ y: "60px" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100vw" }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`formStyles ${styles.productNoteForm}`}
             onSubmit={(e) => {
               e.preventDefault();
@@ -190,10 +190,10 @@ const CheckoutCard = ({
 
         {!isProductNoteInputVisible && (
           <motion.div
-            initial={{ x: "30%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100vh" }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`${styles.checkoutCardQuantityWrapper} fontSF`}
             style={{ backgroundColor: theme.activeTextColor }}
           >

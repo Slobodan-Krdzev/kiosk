@@ -12,7 +12,9 @@ type StepContextItitialValue = {
     handleSetMealForInfo: (meal: Product, availability: boolean) => void,
     mealForInfo: {product: Product, availability: boolean},
     handleOrderNote: (note: string) => void,
-    handleSetTakeawayOption: (option: "Dine In" | "Takeaway") => void
+    handleSetTakeawayOption: (option: "Dine In" | "Takeaway") => void,
+    handleRemoveNote: () => void
+
 }
 
 export const StepContext = createContext({} as StepContextItitialValue)

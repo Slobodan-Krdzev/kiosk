@@ -1,12 +1,12 @@
+import { motion } from "framer-motion";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import Elipse from "../../Reusables/Elipse/Elipse";
-import styles from "./PaymentStyles.module.css";
-import { motion } from "framer-motion";
+import BottomSquare from "../../Reusables/BottomSquare";
 import QR from "../../Reusables/SVG/QR";
-import { useTranslation } from "react-i18next";
+import styles from "./PaymentStyles.module.css";
 
 const Payment = () => {
   const { orders, getOrderTotal } = useContext(OrderContext);
@@ -54,7 +54,7 @@ const Payment = () => {
         </button>
       </div>
 
-      <Elipse color={theme.activeTextColor} />
+      <BottomSquare />
     </motion.section>
   );
 };
