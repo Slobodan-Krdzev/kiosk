@@ -37,7 +37,7 @@ const Checkout = () => {
       <div className={`hideScrollBar ${styles.checkoutCardWrapper}`}>
         {orders.map((product) => (
           <CheckoutCard
-            key={product.product!.ProductId}
+            key={product.id}
             order={product}
             theme={theme}
             hideShowRibbon={hideShowRibbon}
@@ -67,7 +67,7 @@ const Checkout = () => {
               hideShowRibbon(true);
 
               // OVDE SE DODAVA FULL ORDER NOTE
-              handleOrderNote(orderNoteInput.current!.value);
+              handleOrderNote(orderNoteInput.current!.value ?? "No Note");
               e.currentTarget.reset();
             }}
           >

@@ -106,7 +106,7 @@ const MultiUpsaleOption = ({
 
             // OVDE UPDATE NA SIGNLE MEAL
             setUpsale(upsaleData) 
-            placeMealInOrders({ ...singleMeal, upsale: upsaleData });
+            placeMealInOrders({ ...singleMeal,id: new Date().valueOf(), upsale: upsaleData });
 
             handleStepChange("order");
             resetUpsale()

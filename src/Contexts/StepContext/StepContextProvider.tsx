@@ -38,6 +38,7 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
   };
 
   const handleOrderNote = (note: string) => {
+
     setOrderNote(note);
   };
 

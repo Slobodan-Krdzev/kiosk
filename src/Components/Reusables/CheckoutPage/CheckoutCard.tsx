@@ -124,7 +124,7 @@ const CheckoutCard = ({
             }}
           >
             {/* <Plus /> {order.note === "" ? `${t("add_note")}` : `${t("edit_note")}`} */}
-            <Plus /> {order.note === "" ? `Add Note` : `Edit Nore`}
+            <Plus /> {order.note === "" ? `Add Note` : `Edit Note`}
 
           </motion.button>
         )}
