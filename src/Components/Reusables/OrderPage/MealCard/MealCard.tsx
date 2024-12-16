@@ -103,7 +103,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           style={{
             filter:
               isAvailable === false && isAvailable !== undefined
-                ? `blur(2px)`
+                ? `opacity(0.5)`
                 : "",
           }}
         />
@@ -127,9 +127,9 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         className={`fontSF ${styles.productNameHeading}`}
         style={{
           filter:
-            isAvailable === false && isAvailable !== undefined
-              ? `blur(2px)`
-              : "",
+              isAvailable === false && isAvailable !== undefined
+                ? `opacity(0.5)`
+                : "",
         }}
       >
         {product.Name.length > 35
@@ -141,9 +141,9 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
         className={`fontSF ${styles.productPriceHeading}`}
         style={{
           filter:
-            isAvailable === false && isAvailable !== undefined
-              ? `blur(2px)`
-              : "",
+              isAvailable === false && isAvailable !== undefined
+                ? `opacity(0.5)`
+                : "",
         }}
       >
         {product.Price}
