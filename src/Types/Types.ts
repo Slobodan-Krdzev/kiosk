@@ -561,4 +561,30 @@ export interface FinalOrderDatatype {
   orderNote: string
 }
 
+export enum AllergenType
+{
+    Undefined = 0,
+    Glutten = 1,
+    Crustaceans = 2,
+    Eggs = 3,
+    Fish = 4,
+    Peanuts = 5,
+    Soybeans = 6,
+    Milk = 7,
+    Nuts = 8,
+    Celery = 9,
+    Mustard = 10,
+    SesameSeeds = 11,
+    SulphurDioxideAndSulphites = 12,
+    Lupin = 13,
+    Molluscs = 14,
+    Onion = 15,
+    Garlic = 16,
+    Wheat = 17,
+    Alcohol = 18,
+    PregnantWoman = 19,
+    Spicy = 20,
+    Vegan = 21,
+    Vegetarian = 22
+}
 

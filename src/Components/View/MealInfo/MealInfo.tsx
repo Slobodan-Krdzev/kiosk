@@ -11,6 +11,7 @@ import Vegeterian from "../../Reusables/SVG/Vegeterian";
 import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
 import styles from "./MealInfoStyles.module.css";
 import { useTranslation } from "react-i18next";
+import AlergensListerMealInfo from "../../Reusables/AlergensListerMealInfo/AlergensListerMealInfo";
 
 type MealInfoPropsType = {
   meal: Product;
@@ -88,12 +89,7 @@ const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
           culpa qui officia deserunt mollit anim id est laborum."
         </p>
 
-        {Boolean(meal.ProductsTags.length) && (
-          <div style={{ margin: "2rem 0 0" }}>
-            <p>Allergens</p>
-            <div></div>
-          </div>
-        )}
+        <AlergensListerMealInfo product={meal}/>
       </div>
 
       <UpgradeBottomRibbon

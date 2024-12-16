@@ -1,0 +1,9 @@
+.singleAlergenItem {
+    text-align: center;
+}
+
+.alergenImage{
+
+    border-radius: 50px;
+    filter: contrast();
+}
