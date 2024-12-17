@@ -159,7 +159,7 @@ const AlergensListerMealInfo = ({
   const alergens = exampleProductWithAlergens.ProductDetails.MenuItems.find(
     (i) => i.Name === "Allergens"
   )?.AllergensScreen?.Allergens;
-  console.log(alergens);
+  console.log(product);
 
   return (
     <div className={styles.alergensWrapper}>
