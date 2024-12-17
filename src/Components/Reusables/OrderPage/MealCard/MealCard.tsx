@@ -16,7 +16,7 @@ type MealCardPropsType = {
 };
 
 const MealCard = ({ product, theme }: MealCardPropsType) => {
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [isAvailable, setIsAvailable] = useState<boolean>(!product.OutOfStock);
   const {t} = useTranslation()
 
   const { mutateAsync } = useMutation({
