@@ -152,7 +152,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
-          width: isPlacedInOrder_Available_NoUpsale ? "100%" : "23%",
+          width: isPlacedInOrder_Available_NoUpsale ? "100%" : "24%",
           borderTopLeftRadius:
           isPlacedInOrder_Available_NoUpsale ? "0" : "16px",
           padding: isMealPlacedInOrders && isAvailable ? "0 3vw" : 0,

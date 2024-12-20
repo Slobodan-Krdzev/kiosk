@@ -50,7 +50,8 @@
   margin: 0 auto;
   border-radius: 10px;
   object-fit: cover;
-  object-position: center;
+  object-position: top;
+  border: 1px solid rgba(168, 168, 168, 0.451);
 }
 
 .productBtn {
@@ -69,10 +70,10 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 20%;
+  height: 18%;
   display: flex;
   align-items: center;
-  border-radius: 16px 0px;
+  border-radius: 20px 0px;
 }
 
 .productQuantity {
@@ -82,11 +83,10 @@
 }
 
 .productNameHeading {
-  font-size: 1.9vw;
-  font-weight: 400;
-  margin-top: 0.5vh;
+  font-size: 1.95vw;
+  font-weight: 600;
+  margin-top: 1.2vh;
   line-height: 100%;
-  letter-spacing: -0.4300000071525574px;
   text-align: left;
   color: #202020;
   white-space: wrap;
@@ -94,6 +94,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 2vw;
+  margin-left: 1vw;
+  width: 80%;
 }
 
 .productPriceHeading {
@@ -104,17 +106,25 @@
 
   position: absolute;
   bottom: 4%;
-  left: 4%;
+  left: 9%;
 }
 
 @media (max-width: 801px) {
   .productNameHeading {
-    font-size: 2vw;
+    font-size: 2.4vw;
     line-height: 100%;
+      font-weight: 600;
+      margin-top: 1.5vh;
+      
+      margin-left: 0.8vw;
+      width: 80%;
+    
   }
 
   .productPriceHeading {
     font-size: 2.5vw;
+    left: 5%;
+
   }
 
   .imgWrapper {
@@ -141,7 +151,15 @@
   .productNameHeading {
     font-size: 2.4vw;
     line-height: 100%;
-    margin-top: 0.4vh;
+    margin-top: 1.4vh;
+    padding-left: 0.6vw;
+  }
+
+
+  .productPriceHeading {
+    font-size: 2.5vw;
+    left: 7%;
+
   }
 }
 

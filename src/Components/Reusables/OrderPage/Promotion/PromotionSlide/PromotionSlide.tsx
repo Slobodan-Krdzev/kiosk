@@ -36,13 +36,12 @@ const PromotionSlide = ({ product }: PromotionSlidePropsType) => {
     <>
       <div
         className={styles.swiperSlide}
-        style={{ backgroundColor: `${theme.activeTextColor}98` }}
       >
-        <p className={`${styles.slideTitle} fontNoteworthy`}>Monthly Special</p>
-        <p className={`fontSF ${styles.productName}`}>
+        <p className={`${styles.slideTitle} fontNoteworthy`} style={{color: '#202020'}}>Monthly Special</p>
+        <p className={`fontSF ${styles.productName}`} style={{color: '#202020'}}>
           {product.Name.substring(0, 20)}
         </p>
-        <p className={`fontSF ${styles.productPrice}`}> Now {product.Price}</p>
+        <p className={`fontSF ${styles.productPrice}`} style={{color: '#202020'}}> Now {product.Price}</p>
 
         <img
           src={product.SmallPictureUrl}
