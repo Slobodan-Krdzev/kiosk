@@ -69,7 +69,6 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
   return (
     <motion.div
       onClick={async (e) => {
-        console.log("TRIGER ON DIV");
         e.stopPropagation();
 
         if (isMealPlacedInOrders || !isAvailable || product.NoInteraction) {
@@ -239,7 +238,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                   : "16px",
             }}
             onClick={async (e) => {
-              console.log("TRIGER ON BTN");
+              
               e.stopPropagation();
               setQuantity((q) => q + 1);
 
