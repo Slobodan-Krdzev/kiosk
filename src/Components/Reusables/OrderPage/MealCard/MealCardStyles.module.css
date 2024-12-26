@@ -70,10 +70,10 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 18%;
+  height: 50px;
   display: flex;
   align-items: center;
-  border-radius: 20px 0px;
+  border-radius: 1px 0px;
 }
 
 .productQuantity {
@@ -160,6 +160,11 @@
     font-size: 2.5vw;
     left: 7%;
 
+  }
+
+  .productQuantity {
+    font-size: 3vw;
+    font-weight: 600;
   }
 }
 
