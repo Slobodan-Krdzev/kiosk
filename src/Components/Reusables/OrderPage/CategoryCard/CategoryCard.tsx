@@ -17,25 +17,25 @@ const CategoryCard = ({
 }: CategoryCardPropsType) => {
   return (
     <motion.div
-      animate={{
-        scale: currentCategory === SubCategoryId ? 1.05 : 1,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 10,
-      }}
+      // animate={{
+      //   scale: currentCategory === SubCategoryId ? 1.05 : 1,
+      // }}
+      // transition={{
+      //   type: "spring",
+      //   stiffness: 200,
+      //   damping: 10,
+      // }}
       className={styles.categoryCard}
-      style={{
-        backgroundColor:
-          currentCategory === SubCategoryId
-            ? `${theme.activeTextColor}90`
-            : "#FFFFFF",
-        border:
-          currentCategory === SubCategoryId
-            ? `1px solid ${theme.activeTextColor}`
-            : "",
-      }}
+      // style={{
+      //   backgroundColor:
+      //     currentCategory === SubCategoryId
+      //       ? `${theme.activeTextColor}90`
+      //       : "#FFFFFF",
+      //   border:
+      //     currentCategory === SubCategoryId
+      //       ? `1px solid ${theme.activeTextColor}`
+      //       : "",
+      // }}
       onClick={() => {
         handleCategoryChange(SubCategoryId);
       }}

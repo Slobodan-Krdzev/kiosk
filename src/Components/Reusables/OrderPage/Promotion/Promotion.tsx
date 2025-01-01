@@ -20,7 +20,8 @@ const Promotion = ({ products }: PromotionPropsType) => {
       <Swiper autoplay={{
           delay: 4000,
           disableOnInteraction: true,
-        }}  modules={[ Autoplay]} className={styles.swiper}>
+          
+        }} spaceBetween={14}  modules={[ Autoplay]} className={styles.swiper}>
         {products.filter(p => !p.OutOfStock).map((p) => (
           <SwiperSlide key={p.ProductId}>
             <PromotionSlide product={p}/>

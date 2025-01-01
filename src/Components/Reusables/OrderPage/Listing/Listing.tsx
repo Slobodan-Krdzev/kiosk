@@ -62,6 +62,8 @@ const Listing = ({
     return offset
   }
 
+  console.log(selectedCategory)
+
   if (products.length) {
     return (
       <div
