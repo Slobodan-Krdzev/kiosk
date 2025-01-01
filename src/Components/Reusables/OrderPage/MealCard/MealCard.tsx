@@ -63,80 +63,52 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
     product.HasUpsaleCollection && !isMealPlacedInOrders;
   const isPlacedInOrders_Available_hasUpsale =
     isMealPlacedInOrders && isAvailable && product.HasUpsaleCollection;
-  const isPlaceidInOrders_HasUpsale =
-    isMealPlacedInOrders && product.HasUpsaleCollection;
+  // const isPlaceidInOrders_HasUpsale =
+  //   isMealPlacedInOrders && product.HasUpsaleCollection;
 
   return (
     <motion.div
-      onClick={async (e) => {
-        e.stopPropagation();
+    className={styles.card}
+    onClick={async () => {
+      setQuantity((q) => q + 1);
 
-        if (isMealPlacedInOrders || !isAvailable || product.NoInteraction) {
-          if (isPlaceidInOrders_HasUpsale) {
-            const availability = await handleCheckAvailability();
+      const availability = await handleCheckAvailability();
 
-            if (availability) {
-              setMeal(product);
-              handleStepChange("menuUpgrade");
-            }
-          }
-
+      if (product.NoInteraction) {
+        handleSetMealForInfo(product, availability);
+        handleStepChange("mealInfo");
+      } else {
+        if (!availability) {
           return;
         }
 
-        setQuantity((q) => q + 1);
-        const availability = await handleCheckAvailability();
+        if (hasUpsale_notPlacedInOrders) {
+          setMeal(product);
+          handleStepChange("menuUpgrade");
+        } else if (isPlacedInOrders_Available_hasUpsale) {
+          //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
 
-        if (product.NoInteraction) {
-          handleSetMealForInfo(product, availability);
-          handleStepChange("mealInfo");
+          setMeal(product);
+          handleStepChange("menuUpgrade");
         } else {
-          if (hasUpsale_notPlacedInOrders) {
-            setMeal(product);
-            handleStepChange("menuUpgrade");
-          } else if (isPlacedInOrders_Available_hasUpsale) {
-            //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
-
-            setMeal(product);
-            handleStepChange("menuUpgrade");
+          if (isMealPlacedInOrders) {
+            removeMealFromOrders(product.ProductId);
           } else {
-            if (isMealPlacedInOrders) {
-              removeMealFromOrders(product.ProductId);
-            } else {
-              setQuantity(1);
-              placeMealInOrders({
-                id: product.ProductId,
-                product: product,
-                image: product.SmallPictureUrl,
-                upsale: undefined,
-                originalTotal: product.Price,
-                totalPrice: product.Price,
-                quantity: quantity,
-                note: "",
-              });
-            }
+            setQuantity(1);
+            placeMealInOrders({
+              id: product.ProductId,
+              product: product,
+              image: product.SmallPictureUrl,
+              upsale: undefined,
+              originalTotal: product.Price,
+              totalPrice: product.Price,
+              quantity: quantity,
+              note: "",
+            });
           }
         }
-      }}
-      id="productCard"
-      animate={{
-        scale: isMealPlacedInOrders && isAvailable ? 1.03 : 1,
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={styles.card}
-      style={{
-        color: theme.textColor,
-        border:
-          isMealPlacedInOrders && isAvailable
-            ? `1px solid ${theme.activeTextColor}`
-            : "",
-        backgroundColor:
-          isAvailable === false && isAvailable !== undefined
-            ? "#d7d7d7"
-            : isMealPlacedInOrders
-            ? `${theme.activeTextColor}60`
-            : "white",
-      }}
+      }
+    }}
     >
       {isAvailable === false && isAvailable !== undefined && (
         <motion.p
@@ -230,6 +202,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           <button
             className={styles.productBtn}
             style={{
+              color: theme.textColor,
               borderTopLeftRadius:
                 isMealPlacedInOrders &&
                 isAvailable &&
@@ -237,53 +210,12 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                   ? "0"
                   : "16px",
             }}
-            onClick={async (e) => {
-              
-              e.stopPropagation();
-              setQuantity((q) => q + 1);
-
-              const availability = await handleCheckAvailability();
-
-              if (product.NoInteraction) {
-                handleSetMealForInfo(product, availability);
-                handleStepChange("mealInfo");
-              } else {
-                if (!availability) {
-                  return;
-                }
-
-                if (hasUpsale_notPlacedInOrders) {
-                  setMeal(product);
-                  handleStepChange("menuUpgrade");
-                } else if (isPlacedInOrders_Available_hasUpsale) {
-                  //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
-
-                  setMeal(product);
-                  handleStepChange("menuUpgrade");
-                } else {
-                  if (isMealPlacedInOrders) {
-                    removeMealFromOrders(product.ProductId);
-                  } else {
-                    setQuantity(1);
-                    placeMealInOrders({
-                      id: product.ProductId,
-                      product: product,
-                      image: product.SmallPictureUrl,
-                      upsale: undefined,
-                      originalTotal: product.Price,
-                      totalPrice: product.Price,
-                      quantity: quantity,
-                      note: "",
-                    });
-                  }
-                }
-              }
-            }}
+            
           >
             {product.NoInteraction ? (
               <b style={{ color: "white" }}>i</b>
             ) : (
-              <Plus />
+              <Plus color={theme.textColor} />
             )}
           </button>
         )}
@@ -310,15 +242,23 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                   }
                 }}
               >
-                {quantity === 1 ? <Trashcan /> : <>&#8722;</>}
+                {quantity === 1 ? (
+                  <Trashcan />
+                ) : (
+                  <span style={{ color: theme.textColor }}>&#8722;</span>
+                )}
               </button>
 
-              <span className={`fontSF ${styles.productQuantity}`}>
+              <span
+                className={`fontSF ${styles.productQuantity}`}
+                style={{ color: theme.textColor }}
+              >
                 {meal.quantity}
               </span>
 
               <button
                 className={styles.productBtn}
+                style={{ color: theme.textColor }}
                 onClick={(e) => {
                   e.stopPropagation();
                   setQuantity((quan) => quan + 1);

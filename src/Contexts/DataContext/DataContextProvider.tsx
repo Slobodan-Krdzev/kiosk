@@ -3,6 +3,7 @@ import Get from "../../Query/Get";
 import { DataContext } from "./Datacontext";
 import { MainCategory2, Product, SubCategory2, ThemeType } from "../../Types/Types";
 import Loading from "../../Components/Loading";
+// import i18n from "i18next";
 
 type DataContextProviderPropsType = {
   children: JSX.Element;
@@ -26,11 +27,11 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     return <Loading />;
   }
 
-  
+  // od ovoj lang treba da findneme data
+  // const currentLanguage = i18n.language;
 
-  const categoryToRender:MainCategory2 = data.TMKData[0].MainCategories.find(
-    (cat: MainCategory2) => cat.MainCategoryId === 40394
-  ); // FOOD TO SHARE KATEGORIJA
+  const categoryToRender:MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
+  
   const allSubCategories = categoryToRender!.SubCategories;
 
   const getAllProducts = (subCategories: SubCategory2[]) => {

@@ -1,7 +1,10 @@
 import styles from "./SVGStyles.module.css";
 
+type CheckMarkPropsType = {
+  color: string
+}
 
-const CheckMark = () => {
+const CheckMark = ({color}: CheckMarkPropsType) => {
   return (
     <svg
   
@@ -13,7 +16,7 @@ const CheckMark = () => {
     >
       <path
         d="M2 8L6 12L16 2"
-        stroke="#202020"
+        stroke={color}
         strokeWidth="2.22868"
         strokeLinecap="round"
         strokeLinejoin="round"

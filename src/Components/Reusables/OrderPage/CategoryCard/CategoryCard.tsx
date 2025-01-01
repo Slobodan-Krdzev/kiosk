@@ -46,7 +46,7 @@ const CategoryCard = ({
         className={styles.image}
       />
 
-      <p className={`fontSF ${styles.categoryCardText}`}>
+      <p className={`fontSF ${styles.categoryCardText}`} style={{color: theme.textColor}}>
         {Name.length > 15 ? `${Name.substring(0, 5)}...` : Name}
       </p>
     </motion.div>

@@ -110,6 +110,7 @@ const Checkout = () => {
                   width: "22%",
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
+                  color: theme.textColor
                 }}
               >
                 {finalInfo.orderNote !== ""

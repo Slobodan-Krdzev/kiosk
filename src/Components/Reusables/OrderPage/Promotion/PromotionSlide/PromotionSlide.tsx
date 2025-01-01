@@ -92,7 +92,7 @@ const PromotionSlide = ({ product }: PromotionSlidePropsType) => {
               }
           }}
         >
-         {isMealPlacedInOrders ? <CheckMark /> : <Plus />} 
+         {isMealPlacedInOrders ? <CheckMark color={theme.textColor}/> : <Plus color={theme.textColor}/>} 
         </button>
       </div>
     </>

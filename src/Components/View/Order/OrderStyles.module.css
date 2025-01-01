@@ -24,20 +24,24 @@
   width: 100%;
   background-color: #e9e9e9;
   height: 100vh;
+  max-height: 100vh;
   display: flex;
   justify-content: space-between;
   gap: 2%;
+  
 }
 
 .orderViewSidebar {
   width: 25%;
+  max-height: 100%;
   padding-left: 3%;
   padding-right: 1%;
   padding-top: 4%;
-  overflow-y: scroll;
-  display: flex;
+  overflow-y: auto;
+  flex:0 0 auto;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .orderViewRightSide {
@@ -69,7 +73,6 @@
   padding: 4% 40px !important;
   border-radius: calc(50px / 1.33);
 }
-
 
 .ribbonContentWrapper {
   display: flex;

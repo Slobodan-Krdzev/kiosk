@@ -1,12 +1,12 @@
+import { motion } from "framer-motion";
 import { useContext, useState } from "react";
-import { SingleMealType, ThemeType } from "../../../Types/Types";
+import { useTranslation } from "react-i18next";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
-import styles from "./CheckoutCardStyles.module.css";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import { SingleMealType, ThemeType } from "../../../Types/Types";
 import Plus from "../SVG/Plus";
 import Trashcan from "../SVG/Trashcan";
-import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
+import styles from "./CheckoutCardStyles.module.css";
 
 type CheckoutCardPropsType = {
   order: SingleMealType;
@@ -28,7 +28,6 @@ const CheckoutCard = ({
   const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
   const {t} = useTranslation()
 
-
   const {
     orders,
     setSingleMealQuantity,
@@ -38,7 +37,7 @@ const CheckoutCard = ({
   const { handleStepChange } = useContext(StepContext);
 
   return (
-    <div className={styles.checkoutCardNoteInputWrapper}>
+    <div className={styles.checkoutCardNoteInputWrapper} >
       <div className={styles.checkoutCard}>
         {/* TOTAL PRICE */}
         <p className={`${styles.checkoutCardPrice} fontSF`}>
@@ -124,7 +123,7 @@ const CheckoutCard = ({
             }}
           >
             {/* <Plus /> {order.note === "" ? `${t("add_note")}` : `${t("edit_note")}`} */}
-            <Plus /> {order.note === "" ? `Add Note` : `Edit Note`}
+            <Plus color={'black'}/> {order.note === "" ? `Add Note` : `Edit Note`}
 
           </motion.button>
         )}
@@ -178,6 +177,7 @@ const CheckoutCard = ({
                   width: "22%",
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
+                  color: theme.textColor
                 }}
               >
                 {order.note ? "Edit" : "Done"}
@@ -195,10 +195,11 @@ const CheckoutCard = ({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`${styles.checkoutCardQuantityWrapper} fontSF`}
-            style={{ backgroundColor: theme.activeTextColor }}
+            style={{ backgroundColor: theme.textColor, color: theme.activeTextColor }}
           >
             <button
               className={styles.quantityWrapperBtns}
+              style={{height: '100%', width: '33.33%', borderTopLeftRadius: '4vw'}}
               onClick={() => {
                 if (quantity === 1) {
                   if (orders.length === 1) {
@@ -213,17 +214,19 @@ const CheckoutCard = ({
                 }
               }}
             >
-              {quantity === 1 ? <Trashcan /> : <>&#8722;</>}
+              {quantity === 1 ? <Trashcan /> : <span style={{color: theme.activeTextColor}}>&#8722;</span>}
             </button>
-            <p className={styles.quantityCounter}>{quantity}</p>
+            <p className={styles.quantityCounter} style={{width: '33.33%'}}>{quantity}</p>
             <button
               className={styles.quantityWrapperBtns}
+              style={{height: '100%',width: '33.33%', backgroundColor: theme.textColor, color: theme.activeTextColor }}
+
               onClick={() => {
                 setQuantity((quantity) => quantity + 1);
                 setSingleMealQuantity(order, "plus");
               }}
             >
-              &#43;
+             <span style={{}}>&#43;</span> 
             </button>
           </motion.div>
         )}

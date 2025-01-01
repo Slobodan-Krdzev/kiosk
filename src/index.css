@@ -47,7 +47,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999999;
+  z-index: 9999999;
 }
 
 
@@ -92,7 +92,7 @@ h1 {
   width: 95%;
   height: 85px;
   margin: 0 auto;
-  z-index: 9999999;
+  z-index: 99999;
 }
 
 .bottomRibbonButton {

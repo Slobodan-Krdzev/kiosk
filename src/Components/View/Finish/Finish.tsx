@@ -90,7 +90,8 @@ const Finish = () => {
           <button
             className="fontSF bottomRibbonButton"
             style={{
-              backgroundColor: theme.activeTextColor
+              backgroundColor: theme.activeTextColor,
+              color: theme.textColor
             }}
             onClick={() => {
               setIsCounterVisible(true)

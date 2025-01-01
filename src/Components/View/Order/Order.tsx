@@ -28,7 +28,7 @@ const Order = () => {
     allCategories[0].SubCategoryId
   );
   const [mealsToDisplay, setMealsToDisplay] = useState<Product[]>(
-    allProducts.filter((p) => p.SubCategoryId === selectedCategory)
+    allProducts.filter((p) => p.SubCategoryId === selectedCategory && p.OutOfStock !== false)
   );
 
   // OVA KE GO KORISTIME za monthly specials
@@ -62,7 +62,7 @@ const Order = () => {
         <Logo source={data.ThemeResponse.LogoImage.Url} width={60} />
       </div>
       <div className={styles.orderViewMidSection}>
-        <div className={` ${styles.orderViewSidebar}`}>
+        <div className={`hideScroll ${styles.orderViewSidebar}`}>
           {allCategories.map((category) => (
             <CategoryCard
               key={category.SubCategoryId}
@@ -75,7 +75,6 @@ const Order = () => {
         </div>
 
         <div className={styles.orderViewRightSide} ref={scrollingDiv}>
-          {/* <div className={styles.promoBanner} > promo goes here </div> */}
 
           {true && <Promotion products={mealsToDisplay}/>}
           <Listing
@@ -95,13 +94,14 @@ const Order = () => {
             style={{
               justifyContent: total > 0 ? "space-between" : "center",
               backgroundColor: theme.activeTextColor,
+              color: theme.textColor
             }}
             onClick={() => {
               handleStepChange("checkout");
             }}
           >
             <div className={styles.ribbonContentWrapper}>
-              <Backet />
+              <Backet color={theme.textColor}/>
 
               <span className={`fontSF `}>
                 {orders.length} 

@@ -34,8 +34,8 @@ const Payment = () => {
           className={`fontSF ${styles.qrCode}`}
           style={{
             color: theme.textColor,
-            borderColor: theme.activeTextColor,
-            outline: `10px solid ${theme.activeTextColor}`,
+            borderColor: theme.textColor,
+            outline: `10px solid ${theme.textColor}`,
             borderRadius: "20px",
           }}
           onClick={() => {
@@ -54,7 +54,7 @@ const Payment = () => {
         </button>
       </div>
 
-      <BottomSquare />
+      <BottomSquare/>
     </motion.section>
   );
 };

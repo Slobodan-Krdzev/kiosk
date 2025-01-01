@@ -62,7 +62,7 @@ const UpgradeBottomRibbon = ({
           backgroundColor: disableNextBtn
             ? `${theme.activeTextColor}40`
             : theme.activeTextColor,
-          color: disableNextBtn ? `gray` : "black",
+          color: disableNextBtn ? `gray` : theme.textColor,
         }}
         disabled={disableNextBtn}
         onClick={handleNext}

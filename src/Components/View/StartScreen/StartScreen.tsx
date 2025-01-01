@@ -47,8 +47,8 @@ const StartScreen = () => {
           <button
             className="fontSF bottomRibbonButton"
             style={{
-              backgroundColor: theme.activeTextColor,
-              color: theme.textColor
+              backgroundColor: theme.textColor,
+              color: theme.activeTextColor
             }}
             onClick={() => {
               handleStepChange("lang");

@@ -12,6 +12,8 @@ const LanguageChooser = ({ locale }: LanguageChooserPropsType) => {
   };
 
   const currentLanguage = i18n.language;
+
+  console.log("Current Lang",currentLanguage)
   const langCode = locale.Locale === "en" ? "gb" : locale.Locale;
 
   return (

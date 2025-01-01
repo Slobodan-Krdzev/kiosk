@@ -37,7 +37,7 @@ const Preview = () => {
           ))}
         </div>
 
-        <div className={styles.totalWrapper} style={{backgroundColor: theme.activeTextColor}}>
+        <div className={styles.totalWrapper} style={{backgroundColor: theme.activeTextColor, color: theme.textColor}}>
           <p
             className={`fontSF`}
           >
@@ -55,13 +55,14 @@ const Preview = () => {
         <button
           className="fontSF bottomRibbonButton"
           style={{
-            backgroundColor: theme.activeTextColor
+            backgroundColor: theme.activeTextColor,
+            color: theme.textColor
           }}
           onClick={() => {
             handleStepChange("payment");
           }}
         >
-          Place Order
+          {t('place_order')}
         </button>
         </BottomGreenRibbon>
     </motion.section>

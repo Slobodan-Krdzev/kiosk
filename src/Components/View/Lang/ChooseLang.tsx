@@ -11,31 +11,31 @@ import { useTranslation } from "react-i18next";
 import LanguageChooser from "../../Reusables/LanguageChooser/LanguageChooser";
 import { LanguagesList } from "../../../Types/Types";
 
-const languages: LanguagesList[] = [
-  {
-    HouseRules: {
-      Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
-      Name: "HouseRulez"
-    },
-    Locale: 'nl',
-    Name: 'Netherlands'
-  },
-  {
-    HouseRules: {
-      Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
-      Name: "HouseRulez"
-    },
-    Locale: 'de',
-    Name: 'German'
-  },{
-    HouseRules: {
-      Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
-      Name: "HouseRulez"
-    },
-    Locale: 'gb',
-    Name: 'English'
-  },
-];
+// const languages: LanguagesList[] = [
+//   {
+//     HouseRules: {
+//       Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
+//       Name: "HouseRulez"
+//     },
+//     Locale: 'nl',
+//     Name: 'Netherlands'
+//   },
+//   {
+//     HouseRules: {
+//       Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
+//       Name: "HouseRulez"
+//     },
+//     Locale: 'de',
+//     Name: 'German'
+//   },{
+//     HouseRules: {
+//       Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
+//       Name: "HouseRulez"
+//     },
+//     Locale: 'gb',
+//     Name: 'English'
+//   },
+// ];
 
 const ChooseLang = () => {
   const { handleStepChange, handleSetTakeawayOption } = useContext(StepContext);
@@ -47,7 +47,7 @@ const ChooseLang = () => {
   const { t } = useTranslation();
 
   // od languages list ke listame jazici
-  // const languagesList = data.ThemeResponse.LanguagesList;
+  const languagesList = data.ThemeResponse.LanguagesList;
 
   return (
     <motion.section
@@ -141,7 +141,7 @@ const ChooseLang = () => {
 
       <div className={styles.langSelectWrapper}>
         {/* languages list map trebva da ni e originalot */}
-        {languages.map((lang) => (
+        {languagesList.map((lang: LanguagesList) => (
           <LanguageChooser key={lang.Name} locale={lang} />
         ))}
       </div>
@@ -155,7 +155,7 @@ const ChooseLang = () => {
               option === undefined
                 ? `${theme.activeTextColor}40`
                 : theme.activeTextColor,
-            color: option === undefined ? `#20202085` : "#202020",
+            color: option === undefined ? `#20202085` : theme.textColor,
           }}
           onClick={() => {
             handleStepChange("order");
