@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
@@ -18,33 +18,33 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
   const { getOrderTotal, orders } = useContext(OrderContext);
   const { t } = useTranslation();
 
-
-
   const [isBottomRibbonVisible] = useState(true);
   const scrollingDiv = useRef<HTMLDivElement>(null);
 
   const total = getOrderTotal();
 
+  // OVA KE GO KORISTIME za monthly specials
+  // const [monthlySpecials, setMounthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
+
+  const [outOfStockProducts, setOutOfStockProducts] = useState<number[]>([])
+
   const [selectedCategory, setselectedCategory] = useState(
     allCategories[0].SubCategoryId
   );
 
-  console.log("selectedCategory pred meals", selectedCategory);
-
   const [mealsToDisplay, setMealsToDisplay] = useState<Product[]>(
     allProducts.filter(
-      (p) => p.SubCategoryId === selectedCategory && p.OutOfStock === false
+      (p) => p.SubCategoryId === selectedCategory && p.OutOfStock === false && !outOfStockProducts.includes(p.ProductId)
     )
   );
 
-  // OVA KE GO KORISTIME za monthly specials
-  // const [monthlySpecials, setMounthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
 
   const handleCategoryChange = (catID: number) => {
     setselectedCategory(catID);
@@ -57,7 +57,22 @@ const Order = () => {
     setMealsToDisplay(filteredProducts);
   };
 
-  console.log("Current Orders", orders);
+  useEffect(() => {
+    const filteredProducts = allProducts.filter(
+      (p) =>
+        p.SubCategoryId === selectedCategory &&
+        p.OutOfStock === false &&
+        !outOfStockProducts.includes(p.ProductId) 
+    );
+    setMealsToDisplay(filteredProducts);
+  }, [allProducts, selectedCategory, outOfStockProducts])
+
+  const removeOutOfStockProduct = (id: number) => {
+
+    setOutOfStockProducts([...outOfStockProducts, id])
+  }
+
+  console.log("Orders from orfers screen", orders);
 
   return (
     <motion.section
@@ -69,6 +84,7 @@ const Order = () => {
       className={`fullScreenTablet ${styles.orderView}`}
       style={{ backgroundImage: `url('${data.ThemeResponse.CoverImage.Url}')` }}
     >
+      
       <div className={styles.orderViewLogoWrapperTop}>
         <Logo source={data.ThemeResponse.LogoImage.Url} width={60} />
       </div>
@@ -134,6 +150,7 @@ const Order = () => {
             selectedCategory={selectedCategory}
             theme={theme}
             isRibbonVisible={orders.length > 0}
+            removeOutOfStockProduct={removeOutOfStockProduct}
           />
         </div>
       </div>

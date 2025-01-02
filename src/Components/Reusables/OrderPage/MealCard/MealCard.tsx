@@ -9,13 +9,17 @@ import Plus from "../../SVG/Plus";
 import Trashcan from "../../SVG/Trashcan";
 import styles from "./MealCardStyles.module.css";
 import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
+import 'sweetalert2/src/sweetalert2.scss'
+
 
 type MealCardPropsType = {
   product: Product;
   theme: ThemeType;
+  removeOutOfStockProduct: (id: number) => void
 };
 
-const MealCard = ({ product, theme }: MealCardPropsType) => {
+const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType) => {
   const [isAvailable, setIsAvailable] = useState<boolean>(!product.OutOfStock);
   const { t } = useTranslation();
 
@@ -79,10 +83,17 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           handleStepChange("mealInfo");
         } else {
           if (!availability) {
-            return;
-          }
+            removeOutOfStockProduct(product.ProductId)
 
-          if (hasUpsale_notPlacedInOrders) {
+            Swal.fire({
+              title: "Out Of Stock",
+              text: `Sorry, ${
+                product.Name
+              } is currently out of stock.`,
+              icon: "warning",
+              confirmButtonText: "OK",
+            });
+          }else if (availability && hasUpsale_notPlacedInOrders) {
             setMeal(product);
             handleStepChange("menuUpgrade");
           } else if (isPlacedInOrders_Available_hasUpsale) {
@@ -185,7 +196,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           borderTopLeftRadius: isPlacedInOrder_Available_NoUpsale
             ? "0"
             : "16px",
-          padding:  0,
+          padding: 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{
@@ -203,7 +214,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
             className={styles.productBtn}
             style={{
               backgroundColor: isAvailable ? theme.activeTextColor : "inherit",
-              width: '100%',
+              width: "100%",
               color: theme.textColor,
               borderTopLeftRadius:
                 isMealPlacedInOrders &&
@@ -227,7 +238,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           !product.HasUpsaleCollection && (
             <>
               <button
-              style={{backgroundColor: theme.activeTextColor}}
+                style={{ backgroundColor: theme.activeTextColor }}
                 className={styles.productBtn}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -260,7 +271,10 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
 
               <button
                 className={styles.productBtn}
-              style={{ color: theme.textColor , backgroundColor: theme.activeTextColor}}
+                style={{
+                  color: theme.textColor,
+                  backgroundColor: theme.activeTextColor,
+                }}
                 onClick={(e) => {
                   e.stopPropagation();
                   setQuantity((quan) => quan + 1);

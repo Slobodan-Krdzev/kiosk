@@ -7,14 +7,16 @@ type ListingPropsType = {
   products: Product[];
   selectedCategory: number;
   theme: ThemeType;
-  isRibbonVisible: boolean
+  isRibbonVisible: boolean;
+  removeOutOfStockProduct: (id: number) => void
 };
 
 const Listing = ({
   products,
   selectedCategory,
   theme,
-  isRibbonVisible
+  isRibbonVisible,
+  removeOutOfStockProduct
 }: ListingPropsType) => {
 
   const containerRef = useRef<null | HTMLDivElement>(null);
@@ -76,7 +78,7 @@ const Listing = ({
         }}
       >
         {products.map((p) => (
-          <MealCard key={p.ProductId} product={p} theme={theme} />
+          <MealCard key={p.ProductId} product={p} theme={theme} removeOutOfStockProduct={removeOutOfStockProduct}/>
         ))}
       </div>
     );
