@@ -19,16 +19,6 @@ const CheckoutCard = ({
   theme,
   hideShowRibbon,
 }: CheckoutCardPropsType) => {
-  const [quantity, setQuantity] = useState(
-    order.quantity >= 1 ? order.quantity : 1
-  );
-  const [isProductNoteInputVisible, setIsProductNoteInputVisible] =
-    useState(false);
-
-  const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
-  const {t} = useTranslation()
-  const formRef = useRef<HTMLFormElement>(null);
-
   const {
     orders,
     setSingleMealQuantity,
@@ -37,8 +27,18 @@ const CheckoutCard = ({
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
 
-  const handleClickToCloseForm = (e: MouseEvent) => {
+  const [quantity, setQuantity] = useState(
+    order.quantity >= 1 ? order.quantity : 1
+  );
+  const [isProductNoteInputVisible, setIsProductNoteInputVisible] =
+    useState(false);
 
+  const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const { t } = useTranslation();
+
+  const handleClickToCloseForm = (e: MouseEvent) => {
     if (formRef.current && !formRef.current.contains(e.target as Node)) {
       setIsProductNoteInputVisible(false);
     }
@@ -46,13 +46,13 @@ const CheckoutCard = ({
 
   useEffect(() => {
     if (isProductNoteInputVisible) {
-      document.addEventListener("mousedown",handleClickToCloseForm);
+      document.addEventListener("mousedown", handleClickToCloseForm);
     } else {
       document.removeEventListener("mousedown", handleClickToCloseForm);
     }
 
-    
-    return () => document.removeEventListener("mousedown", handleClickToCloseForm);
+    return () =>
+      document.removeEventListener("mousedown", handleClickToCloseForm);
   }, [isProductNoteInputVisible]);
 
   return (
@@ -125,7 +125,7 @@ const CheckoutCard = ({
 
           {order.note !== "" && (
             <p className={`${styles.checkoutCardExtrasText} fontSF`}>
-             {t("note")}: {order.note}
+              {t("note")}: {order.note}
             </p>
           )}
         </div>
@@ -142,18 +142,18 @@ const CheckoutCard = ({
             }}
           >
             {/* <Plus /> {order.note === "" ? `${t("add_note")}` : `${t("edit_note")}`} */}
-            <Plus color={'black'}/> {order.note === "" ? `Add Note` : `Edit Note`}
-
+            <Plus color={"black"} />{" "}
+            {order.note === "" ? `Add Note` : `Edit Note`}
           </motion.button>
         )}
 
         {isProductNoteInputVisible && (
           <motion.form
-          ref={formRef}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+            ref={formRef}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`formStyles ${styles.productNoteForm}`}
             onSubmit={(e) => {
               e.preventDefault();
@@ -197,7 +197,7 @@ const CheckoutCard = ({
                   width: "22%",
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
-                  color: theme.textColor
+                  color: theme.textColor,
                 }}
               >
                 {order.note ? "Edit" : "Done"}
@@ -210,16 +210,23 @@ const CheckoutCard = ({
 
         {!isProductNoteInputVisible && (
           <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`${styles.checkoutCardQuantityWrapper} fontSF`}
-            style={{ backgroundColor: theme.textColor, color: theme.activeTextColor }}
+            style={{
+              backgroundColor: theme.textColor,
+              color: theme.activeTextColor,
+            }}
           >
             <button
               className={styles.quantityWrapperBtns}
-              style={{height: '100%', width: '33.33%', borderTopLeftRadius: '4vw'}}
+              style={{
+                height: "100%",
+                width: "33.33%",
+                borderTopLeftRadius: "4vw",
+              }}
               onClick={() => {
                 if (quantity === 1) {
                   if (orders.length === 1) {
@@ -234,19 +241,29 @@ const CheckoutCard = ({
                 }
               }}
             >
-              {quantity === 1 ? <Trashcan /> : <span style={{color: theme.activeTextColor}}>&#8722;</span>}
+              {quantity === 1 ? (
+                <Trashcan />
+              ) : (
+                <span style={{ color: theme.activeTextColor }}>&#8722;</span>
+              )}
             </button>
-            <p className={styles.quantityCounter} style={{width: '33.33%'}}>{quantity}</p>
+            <p className={styles.quantityCounter} style={{ width: "33.33%" }}>
+              {quantity}
+            </p>
             <button
               className={styles.quantityWrapperBtns}
-              style={{height: '100%',width: '33.33%', backgroundColor: theme.textColor, color: theme.activeTextColor }}
-
+              style={{
+                height: "100%",
+                width: "33.33%",
+                backgroundColor: theme.textColor,
+                color: theme.activeTextColor,
+              }}
               onClick={() => {
                 setQuantity((quantity) => quantity + 1);
                 setSingleMealQuantity(order, "plus");
               }}
             >
-             <span style={{}}>&#43;</span> 
+              <span style={{}}>&#43;</span>
             </button>
           </motion.div>
         )}
