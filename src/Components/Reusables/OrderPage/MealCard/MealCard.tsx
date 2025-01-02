@@ -68,47 +68,47 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
 
   return (
     <motion.div
-    className={styles.card}
-    onClick={async () => {
-      setQuantity((q) => q + 1);
+      className={styles.card}
+      onClick={async () => {
+        setQuantity((q) => q + 1);
 
-      const availability = await handleCheckAvailability();
+        const availability = await handleCheckAvailability();
 
-      if (product.NoInteraction) {
-        handleSetMealForInfo(product, availability);
-        handleStepChange("mealInfo");
-      } else {
-        if (!availability) {
-          return;
-        }
-
-        if (hasUpsale_notPlacedInOrders) {
-          setMeal(product);
-          handleStepChange("menuUpgrade");
-        } else if (isPlacedInOrders_Available_hasUpsale) {
-          //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
-
-          setMeal(product);
-          handleStepChange("menuUpgrade");
+        if (product.NoInteraction) {
+          handleSetMealForInfo(product, availability);
+          handleStepChange("mealInfo");
         } else {
-          if (isMealPlacedInOrders) {
-            removeMealFromOrders(product.ProductId);
+          if (!availability) {
+            return;
+          }
+
+          if (hasUpsale_notPlacedInOrders) {
+            setMeal(product);
+            handleStepChange("menuUpgrade");
+          } else if (isPlacedInOrders_Available_hasUpsale) {
+            //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
+
+            setMeal(product);
+            handleStepChange("menuUpgrade");
           } else {
-            setQuantity(1);
-            placeMealInOrders({
-              id: product.ProductId,
-              product: product,
-              image: product.SmallPictureUrl,
-              upsale: undefined,
-              originalTotal: product.Price,
-              totalPrice: product.Price,
-              quantity: quantity,
-              note: "",
-            });
+            if (isMealPlacedInOrders) {
+              removeMealFromOrders(product.ProductId);
+            } else {
+              setQuantity(1);
+              placeMealInOrders({
+                id: product.ProductId,
+                product: product,
+                image: product.SmallPictureUrl,
+                upsale: undefined,
+                originalTotal: product.Price,
+                totalPrice: product.Price,
+                quantity: quantity,
+                note: "",
+              });
+            }
           }
         }
-      }
-    }}
+      }}
     >
       {isAvailable === false && isAvailable !== undefined && (
         <motion.p
@@ -180,15 +180,15 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
+          backgroundColor: "inherit",
           width: isPlacedInOrder_Available_NoUpsale ? "100%" : "58px",
           borderTopLeftRadius: isPlacedInOrder_Available_NoUpsale
             ? "0"
             : "16px",
-          padding: isMealPlacedInOrders && isAvailable ? "0 3vw" : 0,
+          padding:  0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{
-          backgroundColor: isAvailable ? theme.activeTextColor : "inherit",
           color: theme.textColor,
           justifyContent: isPlacedInOrder_Available_NoUpsale
             ? "space-between"
@@ -202,6 +202,8 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           <button
             className={styles.productBtn}
             style={{
+              backgroundColor: isAvailable ? theme.activeTextColor : "inherit",
+              width: '100%',
               color: theme.textColor,
               borderTopLeftRadius:
                 isMealPlacedInOrders &&
@@ -210,7 +212,6 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
                   ? "0"
                   : "16px",
             }}
-            
           >
             {product.NoInteraction ? (
               <b style={{ color: "white" }}>i</b>
@@ -226,6 +227,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
           !product.HasUpsaleCollection && (
             <>
               <button
+              style={{backgroundColor: theme.activeTextColor}}
                 className={styles.productBtn}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -258,7 +260,7 @@ const MealCard = ({ product, theme }: MealCardPropsType) => {
 
               <button
                 className={styles.productBtn}
-                style={{ color: theme.textColor }}
+              style={{ color: theme.textColor , backgroundColor: theme.activeTextColor}}
                 onClick={(e) => {
                   e.stopPropagation();
                   setQuantity((quan) => quan + 1);

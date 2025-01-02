@@ -24,6 +24,8 @@ const Order = () => {
   const { getOrderTotal, orders } = useContext(OrderContext);
   const { t } = useTranslation();
 
+
+
   const [isBottomRibbonVisible] = useState(true);
   const scrollingDiv = useRef<HTMLDivElement>(null);
 
@@ -55,7 +57,7 @@ const Order = () => {
     setMealsToDisplay(filteredProducts);
   };
 
-  console.log("Current Orders", selectedCategory, mealsToDisplay);
+  console.log("Current Orders", orders);
 
   return (
     <motion.section
