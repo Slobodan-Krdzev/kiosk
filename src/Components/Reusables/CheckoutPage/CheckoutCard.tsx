@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
@@ -27,6 +27,7 @@ const CheckoutCard = ({
 
   const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
   const {t} = useTranslation()
+  const formRef = useRef<HTMLFormElement>(null);
 
   const {
     orders,
@@ -36,8 +37,26 @@ const CheckoutCard = ({
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
 
+  const handleClickToCloseForm = (e: MouseEvent) => {
+
+    if (formRef.current && !formRef.current.contains(e.target as Node)) {
+      setIsProductNoteInputVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isProductNoteInputVisible) {
+      document.addEventListener("mousedown",handleClickToCloseForm);
+    } else {
+      document.removeEventListener("mousedown", handleClickToCloseForm);
+    }
+
+    
+    return () => document.removeEventListener("mousedown", handleClickToCloseForm);
+  }, [isProductNoteInputVisible]);
+
   return (
-    <div className={styles.checkoutCardNoteInputWrapper} >
+    <div className={styles.checkoutCardNoteInputWrapper}>
       <div className={styles.checkoutCard}>
         {/* TOTAL PRICE */}
         <p className={`${styles.checkoutCardPrice} fontSF`}>
@@ -130,6 +149,7 @@ const CheckoutCard = ({
 
         {isProductNoteInputVisible && (
           <motion.form
+          ref={formRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
