@@ -91,7 +91,15 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
                 product.Name
               } is currently out of stock.`,
               icon: "warning",
-              confirmButtonText: "OK",
+              confirmButtonText: "OK, I'll get something else.",
+              customClass: {
+                popup: styles.popup,
+              },
+              didOpen: () => {
+               const btn =  document.querySelector(`.swal2-confirm`) as HTMLElement
+               if(btn) btn.style.backgroundColor = theme.activeTextColor
+               btn.style.color = theme.textColor
+              }
             });
           }else if (availability && hasUpsale_notPlacedInOrders) {
             setMeal(product);
