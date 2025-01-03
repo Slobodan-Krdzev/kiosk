@@ -35,7 +35,7 @@ const Payment = () => {
           style={{
             color: theme.textColor,
             borderColor: theme.textColor,
-            outline: `10px solid ${theme.textColor}`,
+            outline: `10px solid ${theme.activeTextColor}`,
             borderRadius: "20px",
           }}
           onClick={() => {

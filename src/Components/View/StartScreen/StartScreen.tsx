@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
-// import Logo from "../Reusables/Logo";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import Logo from "../../Reusables/Logo";
 import styles from "./StartScreenStyles.module.css";
@@ -47,8 +46,8 @@ const StartScreen = () => {
           <button
             className="fontSF bottomRibbonButton"
             style={{
-              backgroundColor: theme.textColor,
-              color: theme.activeTextColor
+              backgroundColor: theme.activeTextColor,
+              color: theme.textColor
             }}
             onClick={() => {
               handleStepChange("lang");

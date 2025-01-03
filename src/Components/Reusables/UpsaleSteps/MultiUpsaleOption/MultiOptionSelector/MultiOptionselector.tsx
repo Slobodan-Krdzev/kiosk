@@ -125,7 +125,7 @@ const MultiOptionselector = ({
               setIsSelected(!isSelected);
             }}
           >
-            <Plus />
+            <Plus color="white"/>
           </button>
         )}
 
@@ -139,7 +139,7 @@ const MultiOptionselector = ({
               setIsSelected(!isSelected);
             }}
           >
-            <CheckMark />
+            <CheckMark color="white"/>
           </button>
         )}
 
@@ -176,7 +176,7 @@ const MultiOptionselector = ({
                 }
               }}
             >
-              {quantity === option.MaxSelection ? "MAX" : <Plus />}
+              {quantity === option.MaxSelection ? "MAX" : <Plus color="white"/>}
             </button>
           </>
         )}

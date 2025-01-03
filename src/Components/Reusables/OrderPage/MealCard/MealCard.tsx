@@ -74,7 +74,6 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
     <motion.div
       className={styles.card}
       onClick={async () => {
-        setQuantity((q) => q + 1);
 
         const availability = await handleCheckAvailability();
 
@@ -102,6 +101,8 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
               }
             });
           }else if (availability && hasUpsale_notPlacedInOrders) {
+            setQuantity((q) => q + 1);
+
             setMeal(product);
             handleStepChange("menuUpgrade");
           } else if (isPlacedInOrders_Available_hasUpsale) {
@@ -111,7 +112,8 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
             handleStepChange("menuUpgrade");
           } else {
             if (isMealPlacedInOrders) {
-              removeMealFromOrders(product.ProductId);
+              // removeMealFromOrders(product.ProductId);
+              return
             } else {
               setQuantity(1);
               placeMealInOrders({
@@ -272,7 +274,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
 
               <span
                 className={`fontSF ${styles.productQuantity}`}
-                style={{ color: theme.textColor }}
+                style={{ color:'black' }}
               >
                 {meal.quantity}
               </span>

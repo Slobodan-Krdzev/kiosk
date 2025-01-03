@@ -9,7 +9,7 @@ const BottomSquare = () => {
 
   return (
     <div style={{
-        backgroundColor: theme.textColor,
+        backgroundColor: theme.activeTextColor,
         height: '23vh',
         width: '100%',
         position: 'fixed',

@@ -5,7 +5,6 @@ import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import { Product } from "../../../Types/Types";
 import Logo from "../../Reusables/Logo";
-// import CategoryCard from "../../Reusables/OrderPage/CategoryCard/CategoryCard";
 import Listing from "../../Reusables/OrderPage/Listing/Listing";
 import styles from "./OrderStyles.module.css";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
@@ -13,7 +12,6 @@ import Backet from "../../Reusables/SVG/Backet";
 import { useTranslation } from "react-i18next";
 import Promotion from "../../Reusables/OrderPage/Promotion/Promotion";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/swiper-bundle.min.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -134,7 +132,7 @@ const Order = () => {
               />
               <p
                 className={`fontSF ${styles.categoryCardText}`}
-                style={{ color: theme.textColor }}
+                style={{ color: 'black' }}
               >
                 {category.Name.length > 15 ? `${category.Name.substring(0, 5)}...` : category.Name}
               </p>

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import Get from "../../Query/Get";
 import { DataContext } from "./Datacontext";
-import { MainCategory2, Product, SubCategory2, ThemeType } from "../../Types/Types";
+import { MainCategory2, Product, SubCategory2, ThemeType, Tmkdaum } from "../../Types/Types";
 import Loading from "../../Components/Loading";
-// import i18n from "i18next";
+import i18n from "i18next";
 
 type DataContextProviderPropsType = {
   children: JSX.Element;
@@ -27,11 +27,14 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     return <Loading />;
   }
 
-  // od ovoj lang treba da findneme data
-  // const currentLanguage = i18n.language;
-
-  const categoryToRender:MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
+  const currentLanguage = i18n.language;
   
+
+  // const categoryToRender:MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
+  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage).MainCategories[1]
+
+  console.log("Current Lang and Category",currentLanguage, categoryToRender)
+
   const allSubCategories = categoryToRender!.SubCategories;
 
   const getAllProducts = (subCategories: SubCategory2[]) => {
