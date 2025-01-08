@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Product, SingleMealType } from "../../Types/Types";
 import { OrderContext, OrderContextValue } from "./OrderContext";
 import { UpsaleData } from "../UpsaleContext/UpsaleContext";
+import { v4 as uuidv4 } from 'uuid';
 
 type OrderContextProviderPropsType = {
   children: JSX.Element;
@@ -17,6 +18,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     totalPrice: 0,
     quantity: 1,
     note: "",
+    itemGUI: undefined
   };
 
   const [orders, setOrders] = useState<SingleMealType[]>([]);
@@ -42,6 +44,9 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   };
 
   const placeMealInOrders = (meal: SingleMealType) => {
+
+    const uniqueGUI = uuidv4();
+
     const startingPrice = meal.product!.Price;
 
     if (meal.upsale !== undefined) {
@@ -56,6 +61,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
         totalPrice: finalPrice,
         quantity: meal.quantity,
         note: "",
+        itemGUI: uniqueGUI
       };
 
       setOrders([...orders, finnishedMeal]);
@@ -70,6 +76,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
         totalPrice: startingPrice,
         quantity: meal.quantity,
         note: meal.note,
+        itemGUI: uniqueGUI
       };
 
       setOrders([...orders, finnishedMeal]);
@@ -159,3 +166,5 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
 };
 
 export default OrderContextProvider;
+
+

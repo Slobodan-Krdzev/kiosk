@@ -125,6 +125,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
                 totalPrice: product.Price,
                 quantity: quantity,
                 note: "",
+                itemGUI: undefined
               });
             }
           }

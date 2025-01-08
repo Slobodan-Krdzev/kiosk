@@ -12,9 +12,7 @@ type PromotionPropsType = {
 const Promotion = ({ products }: PromotionPropsType) => {
 
   const promotionProducts = products.filter(p => p.OutOfStock === false)
-    
-  console.log(promotionProducts)
-
+  
   return (
     <div className={styles.promotionWrapper}>
       <Swiper autoplay={{
@@ -22,7 +20,7 @@ const Promotion = ({ products }: PromotionPropsType) => {
           disableOnInteraction: true,
           
         }} spaceBetween={14}  modules={[ Autoplay]} className={styles.swiper}>
-        {products.filter(p => !p.OutOfStock).map((p) => (
+        {promotionProducts.filter(p => !p.OutOfStock).map((p) => (
           <SwiperSlide key={p.ProductId}>
             <PromotionSlide product={p}/>
           </SwiperSlide>

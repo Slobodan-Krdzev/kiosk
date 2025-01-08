@@ -11,31 +11,6 @@ import { useTranslation } from "react-i18next";
 import LanguageChooser from "../../Reusables/LanguageChooser/LanguageChooser";
 import { LanguagesList } from "../../../Types/Types";
 
-// const languages: LanguagesList[] = [
-//   {
-//     HouseRules: {
-//       Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
-//       Name: "HouseRulez"
-//     },
-//     Locale: 'nl',
-//     Name: 'Netherlands'
-//   },
-//   {
-//     HouseRules: {
-//       Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
-//       Name: "HouseRulez"
-//     },
-//     Locale: 'de',
-//     Name: 'German'
-//   },{
-//     HouseRules: {
-//       Url: "http://my.tabletmenukaart.nl/sharedfiles/images/client//dfcf2bb7-b750-4458-b88b-d7d4e49b3979.jpg",
-//       Name: "HouseRulez"
-//     },
-//     Locale: 'gb',
-//     Name: 'English'
-//   },
-// ];
 
 const ChooseLang = () => {
   const { handleStepChange, handleSetTakeawayOption } = useContext(StepContext);
@@ -45,8 +20,6 @@ const ChooseLang = () => {
   );
 
   const { t } = useTranslation();
-
-  // od languages list ke listame jazici
   const languagesList = data.ThemeResponse.LanguagesList;
 
   return (
@@ -62,7 +35,7 @@ const ChooseLang = () => {
       <div className={styles.logoWrapper}>
         <Logo source={data.ThemeResponse.LogoImage.Url} width={80} />
       </div>
-      <div style={{ width: "95%", margin: "0.6rem auto" }}>
+      <div className={styles.restNameWrapper}>
         <p className={`${styles.restName} fontSF`}>
           {t('welcome_to')} <br /> {data.ThemeResponse.RestaurantName}!
         </p>
@@ -134,13 +107,13 @@ const ChooseLang = () => {
         >
           <DineIn color={theme.activeTextColor} />
 
-          <p className={`fontSF ${styles.menuOptionsText}`}>{t('dine_in')}</p>
+          <p className={`fontSF ${styles.menuOptionsText}`}>{t('dine_in').substring(0, 15)}</p>
 
         </motion.button>
       </div>
 
       <div className={styles.langSelectWrapper}>
-        {/* languages list map trebva da ni e originalot */}
+
         {languagesList.map((lang: LanguagesList) => (
           <LanguageChooser key={lang.Name} locale={lang} />
         ))}

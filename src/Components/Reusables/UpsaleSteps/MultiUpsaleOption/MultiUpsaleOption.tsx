@@ -102,11 +102,10 @@ const MultiUpsaleOption = ({
         nextAction={() => {
 
           if(upsaleStepData.DisplayOrder === stepsLength - 1){
-            console.log('ova e finalna upsale data', upsaleData)
 
             // OVDE UPDATE NA SIGNLE MEAL
             setUpsale(upsaleData) 
-            placeMealInOrders({ ...singleMeal,id: new Date().valueOf(), upsale: upsaleData });
+            placeMealInOrders({ ...singleMeal,id: new Date().valueOf(), upsale: upsaleData, itemGUI: undefined });
 
             handleStepChange("order");
             resetUpsale()

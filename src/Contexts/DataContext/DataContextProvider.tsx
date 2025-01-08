@@ -1,9 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import Get from "../../Query/Get";
 import { DataContext } from "./Datacontext";
-import { MainCategory2, Product, SubCategory2, ThemeType, Tmkdaum } from "../../Types/Types";
+import {
+  MainCategory2,
+  Product,
+  SubCategory2,
+  ThemeType,
+  Tmkdaum,
+} from "../../Types/Types";
 import Loading from "../../Components/Loading";
 import i18n from "i18next";
+import { useState } from "react";
 
 type DataContextProviderPropsType = {
   children: JSX.Element;
@@ -15,9 +22,24 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     queryKey: ["data"],
   });
 
-  console.log('====================================');
+  const [orderReferenceData, setOrderReferenceData] = useState({
+    reference: "",
+    qrCodeImg: "",
+  });
+
+  const handleSetOrderReferenceData = (data: {
+    reference: string;
+    qrCodeImg: string;
+  }) => {
+    setOrderReferenceData({
+      reference: data.reference,
+      qrCodeImg: data.qrCodeImg,
+    });
+  };
+
+  console.log("====================================");
   console.log(data);
-  console.log('====================================');
+  console.log("====================================");
 
   if (isError) {
     return <>Error od context</>;
@@ -28,12 +50,11 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   }
 
   const currentLanguage = i18n.language;
-  
 
-  // const categoryToRender:MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
-  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage).MainCategories[1]
+  const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[8]; // FOOD TO SHARE KATEGORIJA
+  // const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage).MainCategories[1]
 
-  console.log("Current Lang and Category",currentLanguage, categoryToRender)
+  console.log("Current Lang and Category", currentLanguage, categoryToRender);
 
   const allSubCategories = categoryToRender!.SubCategories;
 
@@ -49,10 +70,10 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
 
   const allProducts = getAllProducts(allSubCategories);
 
-  const theme:ThemeType = {
+  const theme: ThemeType = {
     bgColor: categoryToRender.BackgroundColor,
     textColor: categoryToRender.TextColor,
-    activeTextColor: categoryToRender.TextColorActive
+    activeTextColor: categoryToRender.TextColorActive,
   };
 
   const returnValue = {
@@ -61,7 +82,9 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     isLoading,
     allCategories: allSubCategories,
     allProducts,
-    theme
+    theme,
+    orderReferenceData,
+    handleSetOrderReferenceData,
   };
 
   return (

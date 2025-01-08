@@ -5,16 +5,17 @@ import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomSquare from "../../Reusables/BottomSquare";
-import QR from "../../Reusables/SVG/QR";
 import styles from "./PaymentStyles.module.css";
 
 const Payment = () => {
   const { orders, getOrderTotal } = useContext(OrderContext);
   const { handleStepChange, setFinalOrderDetails } = useContext(StepContext);
-  const { theme } = useContext(DataContext);
+  const { theme, orderReferenceData } = useContext(DataContext);
   const {t} = useTranslation()
 
   console.log("ORDERS FROM PAYMENT", orders);
+  console.log("ORDER REFERENCE", orderReferenceData.reference);
+
 
   return (
     <motion.section
@@ -50,7 +51,7 @@ const Payment = () => {
             });
           }}
         >
-          <QR />
+          <img src={orderReferenceData.qrCodeImg} alt="QRCode" />
         </button>
       </div>
 

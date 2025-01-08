@@ -29,7 +29,7 @@ const Order = () => {
   const total = getOrderTotal();
 
   // OVA KE GO KORISTIME za monthly specials
-  // const [monthlySpecials, setMounthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
+  const [monthlySpecials, setMounthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
 
   const [outOfStockProducts, setOutOfStockProducts] = useState<number[]>([])
 
@@ -87,18 +87,6 @@ const Order = () => {
         <Logo source={data.ThemeResponse.LogoImage.Url} width={60} />
       </div>
       <div className={styles.orderViewMidSection}>
-        {/* <div className={`hideScroll ${styles.orderViewSidebar}`}>
-          {allCategories.map((category) => (
-            <CategoryCard
-              key={category.SubCategoryId}
-              category={category}
-              currentCategory={selectedCategory}
-              handleCategoryChange={handleCategoryChange}
-              theme={theme}
-            />
-          ))}
-        </div> */}
-
         <Swiper
           className={`${styles.orderViewSidebar}`}
           direction="vertical" 
@@ -141,8 +129,8 @@ const Order = () => {
         </Swiper>
 
         <div className={styles.orderViewRightSide} ref={scrollingDiv}>
-          {/* OVDE NI TREBA USLOV  */}
-          {true && <Promotion products={mealsToDisplay} />}
+          {/* USLOV  */}
+          {Boolean(monthlySpecials.length) && <Promotion products={monthlySpecials} />}
           <Listing
             products={mealsToDisplay}
             selectedCategory={selectedCategory}

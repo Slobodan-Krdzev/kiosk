@@ -17,29 +17,10 @@ const StartScreen = () => {
       }}
     >
       <div className={`overlay ${styles.startScreenOverlay}`}>
-        <h1
-          className="fontNoteworthy"
-          style={{
-            fontSize: "calc(60px / 1.33)",
-            textAlign: "center",
-            fontWeight: 700,
-            lineHeight: "calc(90px / 1.33)",
-          }}
-        >
+        <h1 className={` ${styles.title} fontNoteworthy`} >
           Your Favourite Meals, <br /> Just a Tap Away
         </h1>
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: "100%",
-            transform: "translate(-50%, -50%)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className={styles.logoWrapper}>
           <Logo width={70} source={data.ThemeResponse.LogoImage.Url} />
         </div>
         <BottomGreenRibbon bgColor={theme.activeTextColor}>
