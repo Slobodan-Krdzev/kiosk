@@ -86,6 +86,7 @@ const PromotionSlide = ({ product }: PromotionSlidePropsType) => {
                       totalPrice: product.Price,
                       quantity: 1,
                       note: "",
+                      itemGUI: undefined
                     });
                   }
                 }

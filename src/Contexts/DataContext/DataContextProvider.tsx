@@ -6,7 +6,6 @@ import {
   Product,
   SubCategory2,
   ThemeType,
-  Tmkdaum,
 } from "../../Types/Types";
 import Loading from "../../Components/Loading";
 import i18n from "i18next";

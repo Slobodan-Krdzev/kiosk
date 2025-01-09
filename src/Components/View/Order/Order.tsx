@@ -29,7 +29,7 @@ const Order = () => {
   const total = getOrderTotal();
 
   // OVA KE GO KORISTIME za monthly specials
-  const [monthlySpecials, setMounthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
+  const [monthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
 
   const [outOfStockProducts, setOutOfStockProducts] = useState<number[]>([])
 

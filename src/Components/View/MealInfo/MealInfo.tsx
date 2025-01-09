@@ -112,6 +112,7 @@ const MealInfo = ({ meal, theme, availability }: MealInfoPropsType) => {
               totalPrice: meal.Price,
               quantity: 1,
               note: "",
+              itemGUI: undefined
             });
             handleStepChange("order");
           }

@@ -6,13 +6,12 @@ import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomSquare from "../../Reusables/BottomSquare";
 import styles from "./PaymentStyles.module.css";
-import usePaymentStatus from "../../../Query/CheckPayment";
 
 const Payment = () => {
   const { orders, getOrderTotal } = useContext(OrderContext);
   const { handleStepChange, setFinalOrderDetails } = useContext(StepContext);
   const { theme, orderReferenceData } = useContext(DataContext);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   console.log("ORDERS FROM PAYMENT", orders);
   console.log("ORDER REFERENCE", orderReferenceData.reference);
@@ -21,11 +20,12 @@ const Payment = () => {
 
   const checkAvailability = async () => {
     try {
-      const response = await fetch(`https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`);
+      const response = await fetch(
+        `https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`
+      );
       const data = await response.json();
 
-
-      console.log('Data od Responsot',data)
+      console.log("Data od Responsot", data);
       setIsAvailable(data.IsSuccess);
     } catch (error) {
       console.error("Error fetching product availability:", error);
@@ -36,7 +36,7 @@ const Payment = () => {
     if (!isAvailable) {
       const interval = setInterval(() => {
         checkAvailability();
-      }, 10000); 
+      }, 10000);
 
       return () => clearInterval(interval);
     }
@@ -51,11 +51,15 @@ const Payment = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={`fullScreenTablet`}
     >
-      <p className="biggerPageTitles fontSF">{t('payment')}</p>
+      <p className="biggerPageTitles fontSF">{t("payment")}</p>
 
       <div className={styles.midSection}>
-        <p className={`${styles.subTitle} fontSF`}>{t('qr_title')}</p>
-        {isAvailable && <p className={`${styles.subTitle} fontSF`}>Payment Processed Success</p>}
+        <p className={`${styles.subTitle} fontSF`}>{t("qr_title")}</p>
+        {isAvailable && (
+          <p className={`${styles.subTitle} fontSF`}>
+            Payment Processed Success
+          </p>
+        )}
 
         <button
           className={`fontSF ${styles.qrCode}`}
@@ -81,7 +85,7 @@ const Payment = () => {
         </button>
       </div>
 
-      <BottomSquare/>
+      <BottomSquare />
     </motion.section>
   );
 };
