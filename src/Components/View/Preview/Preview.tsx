@@ -25,13 +25,13 @@ const Preview = () => {
             PluCode: "",
             Image: order!.product!.SmallPictureUrl,
             Name: order!.product!.Name,
-            Price: order!.totalPrice,
+            Price: order!.product!.Price,
           },
           Variants: [],
           UpsaleCollection: order.upsale.flatMap((upsale) =>
             upsale.stepData.map((stepData) => ({
               UpsaleStepOptionModel: {
-                ProductId: stepData.option.Id,
+                ProductId: stepData.option.ProductId,
                 Name: stepData.option.Name,
                 Price: stepData.option.Price,
               },
@@ -50,7 +50,7 @@ const Preview = () => {
             PluCode: "",
             Image: order.product!.SmallPictureUrl,
             Name: order.product!.Name,
-            Price: order.totalPrice,
+            Price: order.product!.Price,
           },
           Variants: [],
           UpsaleCollection: [],

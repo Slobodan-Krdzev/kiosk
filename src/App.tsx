@@ -19,7 +19,7 @@ function App() {
   const { data, theme } = useContext(DataContext);
   const [isCounterVisible, setIsCounterVisible] = useState(false)
   const inactivityTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inactivityPeriod = 100000; 
+  const inactivityPeriod = 1000000; 
 
   console.log(data);
 

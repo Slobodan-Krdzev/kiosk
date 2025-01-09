@@ -24,7 +24,9 @@ const Payment = () => {
       const response = await fetch(`https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`);
       const data = await response.json();
 
-      setIsAvailable(data.available);
+
+      console.log('Data od Responsot',data)
+      setIsAvailable(data.IsSuccess);
     } catch (error) {
       console.error("Error fetching product availability:", error);
     }
