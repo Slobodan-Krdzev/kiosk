@@ -10,7 +10,6 @@ import { AnimatePresence } from "framer-motion";
 import UpsaleContentProvider from "./Contexts/UpsaleContext/UpsaleContentProvider.tsx";
 import "../src/i18n.js";
 import Loading from "./Components/Loading.tsx";
-// import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
@@ -32,9 +31,9 @@ if ("serviceWorker" in navigator) {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <StepContextProvider>
-      <OrderContextProvider>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <StepContextProvider>
+        <OrderContextProvider>
           <AnimatePresence mode="wait">
             <DataContextProvider>
               <UpsaleContentProvider>
@@ -44,8 +43,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               </UpsaleContentProvider>
             </DataContextProvider>
           </AnimatePresence>
-        </QueryClientProvider>
-      </OrderContextProvider>
-    </StepContextProvider>
+        </OrderContextProvider>
+      </StepContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomSquare from "../../Reusables/BottomSquare";
 import styles from "./PaymentStyles.module.css";
+import usePaymentStatus from "../../../Query/CheckPayment";
 
 const Payment = () => {
   const { orders, getOrderTotal } = useContext(OrderContext);
@@ -16,6 +17,28 @@ const Payment = () => {
   console.log("ORDERS FROM PAYMENT", orders);
   console.log("ORDER REFERENCE", orderReferenceData.reference);
 
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  const checkAvailability = async () => {
+    try {
+      const response = await fetch(`https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`);
+      const data = await response.json();
+
+      setIsAvailable(data.available);
+    } catch (error) {
+      console.error("Error fetching product availability:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!isAvailable) {
+      const interval = setInterval(() => {
+        checkAvailability();
+      }, 10000); 
+
+      return () => clearInterval(interval);
+    }
+  }, [isAvailable]);
 
   return (
     <motion.section
@@ -30,6 +53,7 @@ const Payment = () => {
 
       <div className={styles.midSection}>
         <p className={`${styles.subTitle} fontSF`}>{t('qr_title')}</p>
+        {isAvailable && <p className={`${styles.subTitle} fontSF`}>Payment Processed Success</p>}
 
         <button
           className={`fontSF ${styles.qrCode}`}

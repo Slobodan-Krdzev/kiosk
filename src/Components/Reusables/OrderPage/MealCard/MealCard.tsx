@@ -131,6 +131,9 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
           }
         }
       }}
+      style={{
+        backgroundColor: isMealPlacedInOrders ? `${theme.activeTextColor}40` : ''
+      }}
     >
       {isAvailable === false && isAvailable !== undefined && (
         <motion.p

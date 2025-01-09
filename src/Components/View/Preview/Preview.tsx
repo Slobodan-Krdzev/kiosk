@@ -1,23 +1,17 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
-import styles from "./PreviewStyles.module.css";
-import OrderInfoCard from "../../Reusables/PaymentPage/OrderInfoCard";
-import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
-import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import { useTranslation } from "react-i18next";
 import { useSendOrder } from "../../../Query/SendOrder";
-import { v4 as uuidv4 } from "uuid";
 import { Item, SendOrderType } from "../../../Types/SendOrderTypes";
+import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
+import OrderInfoCard from "../../Reusables/PaymentPage/OrderInfoCard";
+import styles from "./PreviewStyles.module.css";
 
 const Preview = () => {
   const { orders, getOrderTotal } = useContext(OrderContext);
-  const {
-    finalInfo: { orderDet, orderNote, orderType },
-  } = useContext(StepContext);
   const { theme } = useContext(DataContext);
-  const { handleStepChange } = useContext(StepContext);
   const { t } = useTranslation();
 
   const { mutate, isSuccess, error, data } = useSendOrder();
