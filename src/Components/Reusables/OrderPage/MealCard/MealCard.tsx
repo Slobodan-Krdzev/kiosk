@@ -117,7 +117,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
             } else {
               setQuantity(1);
               placeMealInOrders({
-                id: product.ProductId,
+                id: new Date().valueOf(),
                 product: product,
                 image: product.SmallPictureUrl,
                 upsale: undefined,
@@ -165,9 +165,10 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
         <button
           className={styles.infoBtn}
           onClick={async (e) => {
+            e.stopPropagation();
+
             const availability = await handleCheckAvailability();
 
-            e.stopPropagation();
             handleSetMealForInfo(product, availability);
             handleStepChange("mealInfo");
           }}
@@ -261,7 +262,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
                     setQuantity(1);
 
                     // remove from orders
-                    removeMealFromOrders(product.ProductId);
+                    removeMealFromOrders(meal.id);
                   } else {
                     setQuantity((q) => q - 1);
 

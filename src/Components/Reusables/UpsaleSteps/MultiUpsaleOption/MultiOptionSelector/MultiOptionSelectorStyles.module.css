@@ -50,6 +50,9 @@
 .addBtn, .quantityBtns{
     background-color: inherit;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

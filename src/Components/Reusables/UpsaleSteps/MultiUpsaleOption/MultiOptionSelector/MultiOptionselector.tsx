@@ -158,7 +158,7 @@ const MultiOptionselector = ({
                 }
               }}
             >
-              {quantity === 1 ? <Trashcan /> : <Minus />}
+              {quantity === 1 ? <Trashcan /> : <Minus color={theme.textColor}/>}
             </button>
             <p className={styles.quantity}>{quantity}</p>
 
@@ -176,7 +176,7 @@ const MultiOptionselector = ({
                 }
               }}
             >
-              {quantity === option.MaxSelection ? "MAX" : <Plus color="white"/>}
+              {quantity === option.MaxSelection ? "MAX" : <Plus color={theme.textColor}/>}
             </button>
           </>
         )}

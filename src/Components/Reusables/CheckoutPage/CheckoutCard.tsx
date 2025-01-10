@@ -216,8 +216,8 @@ const CheckoutCard = ({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`${styles.checkoutCardQuantityWrapper} fontSF`}
             style={{
-              backgroundColor: theme.textColor,
-              color: theme.activeTextColor,
+              backgroundColor: theme.activeTextColor,
+              color: theme.textColor,
             }}
           >
             <button
@@ -225,7 +225,7 @@ const CheckoutCard = ({
               style={{
                 height: "100%",
                 width: "33.33%",
-                borderTopLeftRadius: "4vw",
+                borderTopLeftRadius: "4vw"
               }}
               onClick={() => {
                 if (quantity === 1) {
@@ -244,7 +244,7 @@ const CheckoutCard = ({
               {quantity === 1 ? (
                 <Trashcan />
               ) : (
-                <span style={{ color: theme.activeTextColor }}>&#8722;</span>
+                <span style={{ color: theme.textColor }}>&#8722;</span>
               )}
             </button>
             <p className={styles.quantityCounter} style={{ width: "33.33%" }}>
@@ -255,8 +255,8 @@ const CheckoutCard = ({
               style={{
                 height: "100%",
                 width: "33.33%",
-                backgroundColor: theme.textColor,
-                color: theme.activeTextColor,
+                backgroundColor: theme.activeTextColor,
+                color: theme.textColor,
               }}
               onClick={() => {
                 setQuantity((quantity) => quantity + 1);

@@ -68,7 +68,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
       setSingleMeal(startingMealFormula);
     } else {
       const finnishedMeal: SingleMealType = {
-        id: meal.product!.ProductId,
+        id: new Date().valueOf(),
         product: meal.product,
         image: meal.product!.SmallPictureUrl,
         upsale: meal.upsale,
