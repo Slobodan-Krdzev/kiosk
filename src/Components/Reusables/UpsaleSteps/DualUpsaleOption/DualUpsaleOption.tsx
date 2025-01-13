@@ -123,6 +123,8 @@ const DualUpsaleOption = ({
 
           if (upsaleStep === 0) {
             handleStepChange("order");
+            resetUpsale()
+
           }
         }}
       />
