@@ -1,18 +1,17 @@
 import { motion } from "framer-motion";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import styles from "./FinnishViewStyles.module.css";
-import Counter from "../../Reusables/Counter/Counter";
-import { useTranslation } from "react-i18next";
 
 const Finish = () => {
-  const { finalInfo, handleRemoveNote } = useContext(StepContext);
+  const { finalInfo, handleRemoveNote, handleStepChange } = useContext(StepContext);
   const { cancelOrder } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
-  const [isCounterVisible, setIsCounterVisible] = useState(false)
+  // const [isCounterVisible, setIsCounterVisible] = useState(false)
   const {t} = useTranslation()
 
   console.log("====================================");
@@ -94,7 +93,7 @@ const Finish = () => {
               color: theme.textColor
             }}
             onClick={() => {
-              setIsCounterVisible(true)
+              handleStepChange('confirmation')
               cancelOrder();
               handleRemoveNote()
             }}
@@ -104,13 +103,13 @@ const Finish = () => {
         </BottomGreenRibbon>
       </div>
 
-      {isCounterVisible  && (
+      {/* {isCounterVisible  && (
         <div className={`countOverlay`} >
           
             <Counter start={5} />
           
         </div>
-      )}
+      )} */}
     </motion.section>
   );
 };

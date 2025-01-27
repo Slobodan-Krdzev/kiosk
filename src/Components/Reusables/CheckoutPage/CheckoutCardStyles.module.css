@@ -206,8 +206,8 @@
     }
 
     .checkoutCardQuantityWrapper{
-        width: 35%;
-        height: 30%;
+        width: 40%;
+        height: 25%;
     }
 
     .quantityCounter{
@@ -221,8 +221,8 @@
     .addNoteBtn{
         bottom: 5%;
         left: 38%;
-        width: 25%;
-        font-size: 3vw;
+        width: 18%;
+        font-size: 2vw;
     }
 
     .productNoteForm{
@@ -231,4 +231,6 @@
         left: 38%;
         width: 60.5%;
     }
+
+   
   }

@@ -13,9 +13,11 @@ import { DataContext } from "./Contexts/DataContext/Datacontext";
 import { StepContext } from "./Contexts/StepContext/StepContext";
 import Upsale from "./Components/View/Upsale/Upsale";
 import Counter from "./Components/Reusables/Counter/Counter";
+import PaymentError from "./Components/View/PaymentError/PaymentError";
+import Confirmation from "./Components/View/Confirmation/Confirmation";
 
 function App() {
-  const { step, mealForInfo, handleStepChange } = useContext(StepContext);
+  const { step, mealForInfo } = useContext(StepContext);
   const { data, theme } = useContext(DataContext);
   const [isCounterVisible, setIsCounterVisible] = useState(false)
   const inactivityTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -24,12 +26,10 @@ function App() {
   console.log(data);
 
   const handleInactivity = () => {
-    console.log("User inactive: Showing counter");
     setIsCounterVisible(true); 
   };
 
   const handleCounterComplete = () => {
-    handleStepChange("start"); 
     setIsCounterVisible(false); 
   };
 
@@ -90,6 +90,9 @@ function App() {
         {step === "preview" && <Preview />}
         {step === "payment" && <Payment />}
         {step === "finnish" && <Finish />}
+        {step === "paymentErr" && <PaymentError />}
+        {step === "confirmation" && <Confirmation />}
+
       </AnimatePresence>
     </section>
   );

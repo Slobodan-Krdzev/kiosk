@@ -651,6 +651,15 @@ img {
   right: 0;
 }
 
+
+/* ICONS */
+
+.trashcan{
+  width: 25px;
+  height: 25px;
+}
+
+
 @media (max-width: 801px) {
   .appWrapper,
   .startScreen {
@@ -689,4 +698,15 @@ img {
   line-height: 34px;
   font-size: 5vw;
   }
+
+  .biggerPageTitles {
+
+    padding: 2rem 0 1.5rem;
+
+  }
+
+  .trashcan{
+    width: 15px;
+    height: 15px;
+}
 }

@@ -1,8 +1,7 @@
 const Trashcan = () => {
   return (
     <svg
-      width="25"
-      height="25"
+    className="trashcan"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

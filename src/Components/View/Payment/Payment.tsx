@@ -26,6 +26,15 @@ const Payment = () => {
       const data = await response.json();
 
       console.log("Data od Responsot", data);
+
+      if(data.Message){
+
+        if(data.Message === 'An error has occurred.'){
+          handleStepChange('paymentErr')
+        }
+      }
+
+      handleStepChange('finnish')
       setIsAvailable(data.IsSuccess);
     } catch (error) {
       console.error("Error fetching product availability:", error);
@@ -55,11 +64,7 @@ const Payment = () => {
 
       <div className={styles.midSection}>
         <p className={`${styles.subTitle} fontSF`}>{t("qr_title")}</p>
-        {isAvailable && (
-          <p className={`${styles.subTitle} fontSF`}>
-            Payment Processed Success
-          </p>
-        )}
+        
 
         <button
           className={`fontSF ${styles.qrCode}`}

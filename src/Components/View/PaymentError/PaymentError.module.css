@@ -1,0 +1,19 @@
+.paymentErrorScreen{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.btn{
+    padding: 3.5vw;
+    border-radius: 50px;
+    border: none;
+    font-size: 3.5vw;
+    width: 95%;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 10px;
+}

@@ -27,19 +27,11 @@ const Preview = () => {
             Name: order!.product!.Name,
             Price: order!.product!.Price,
           },
-          Variants: order.upsale.slice(0, 2).map((upsale) => {
-            return {
-              Id: upsale.stepData[0].option.ProductId as number,
-              PluCode: "",
-              Image: upsale.stepData[0].option.PictureUrl,
-              Name: upsale.stepData[0].option.Name,
-              Price: upsale.stepData[0].option.Price,
-            };
-          }),
-          UpsaleCollection: order.upsale.slice(2).flatMap((upsale) =>
+          Variants: [],
+           UpsaleCollection: order.upsale.flatMap((upsale) =>
             upsale.stepData.map((stepData) => ({
               UpsaleStepOptionModel: {
-                ProductId: stepData.option.Id,
+                ProductId: stepData.option.ProductId as number,
                 Name: stepData.option.Name,
                 Price: stepData.option.Price,
               },
@@ -93,7 +85,9 @@ const Preview = () => {
 
   if (error) {
     console.log("Error");
+
   }
+
 
   return (
     <motion.section

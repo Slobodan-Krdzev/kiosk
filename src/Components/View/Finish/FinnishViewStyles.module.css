@@ -59,3 +59,10 @@
     margin: 1rem auto 13vh;
   }
 }
+
+@media(max-width: 480px){
+  .orderNoWrapper {
+    margin: 1rem auto 4vh;
+    height: 20vh;
+  }
+}

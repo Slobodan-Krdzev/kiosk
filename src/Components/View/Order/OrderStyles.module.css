@@ -96,6 +96,8 @@
   overflow: hidden;
 }
 
+
+
 @media (max-width: 800px) {
   .orderViewSidebar {
     padding-top: 4%;
@@ -142,8 +144,22 @@
   }
 
   .ribbonContentWrapper svg {
-    width: 30px;
+    width: 20px;
   }
 
+  .categoryCard {
+    max-height: 120px;
+    height: 7.4vh !important;
+    padding: 2rem;
+  }
+
+  .image{
+    width: 40px;
+    height: 40px;
+  }
+
+  .categoryCardText{
+    font-size: 3.4vw;
+  }
   
 }

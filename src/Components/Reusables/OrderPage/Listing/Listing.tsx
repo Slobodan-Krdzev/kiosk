@@ -47,7 +47,7 @@ const Listing = ({
     let offset;
 
     if (screenWidth < 480) {
-      offset = "60vh";
+      offset = "38vh";
     } else if (screenWidth < 770) {
       offset = `27vh`;
     } else if (screenWidth < 805) {

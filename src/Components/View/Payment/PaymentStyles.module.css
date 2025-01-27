@@ -11,7 +11,7 @@
 }
 
 .qrCode {
-    
+
     width: 300px;
     height: 300px;
     margin: 5vh auto;
@@ -32,9 +32,25 @@
     transition: .4s;
 }
 
-@media (max-width: 801px){
+@media (max-width: 801px) {
     .subTitle {
         font-size: 5vw;
-    
+
+    }
+}
+
+@media (max-width: 480px) {
+
+
+    .midSection {
+        text-align: center;
+        padding-top: 3vh;
+
+    }
+
+    .qrCode {
+        margin: 4vh auto;
+        width: 250px;
+        height: 250px;
     }
 }

@@ -14,6 +14,8 @@ export default defineConfig({
       manifest: {
         short_name: "KIOSK",
         name: "KIOSK",
+        description: "A Kiosk Food Menu Cart Application",
+        scope: '/',
         icons: [
           {
             src: "/android-chrome-192x192.png",
@@ -33,25 +35,6 @@ export default defineConfig({
         orientation: 'portrait'
       },
     }),
-  ],
-  server: {
-    proxy: {
-      "/api": {
-        target: "http://cms.dev.revelapps.com", 
-        changeOrigin: true, 
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ""), // Remove '/api' from the request URL
-      },
-      "/availabilityAPI": {
-        target: "http://pos.dev.revelapps.com", 
-        changeOrigin: true, 
-        secure: false,
-        rewrite: (path) => path.replace(/^\/availabilityAPI/, ""),
-      },
-    },
-  },
+  ]
 });
-
-// cms.dev.revelapps.com
-// http://cms.dev.revelapps.com/service/getresources?deviceid=2&menuid=0011002408
 
