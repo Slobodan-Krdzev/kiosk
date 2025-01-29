@@ -8,7 +8,7 @@ import BottomSquare from "../../Reusables/BottomSquare";
 import styles from "./PaymentStyles.module.css";
 
 const Payment = () => {
-  const { orders, getOrderTotal } = useContext(OrderContext);
+  const { orders, getOrderTotal, handleSetOrderNumber, handleSetIdOrderNumber } = useContext(OrderContext);
   const { handleStepChange, setFinalOrderDetails } = useContext(StepContext);
   const { theme, orderReferenceData } = useContext(DataContext);
   const { t } = useTranslation();
@@ -35,9 +35,12 @@ const Payment = () => {
       }
 
       handleStepChange('finnish')
+      handleSetOrderNumber(data.Data.AdditionalData)
+      handleSetIdOrderNumber(data.Data.IdOrder)
       setIsAvailable(data.IsSuccess);
     } catch (error) {
       console.error("Error fetching product availability:", error);
+
     }
   };
 

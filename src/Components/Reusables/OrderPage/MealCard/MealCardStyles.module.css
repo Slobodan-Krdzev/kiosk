@@ -32,6 +32,10 @@
   align-items: center;
 }
 
+.infoBtnText{
+  font-size: 2vw;
+}
+
 .outOfStock {
   position: absolute;
   top: 0;
@@ -209,5 +213,15 @@
 
   .productQuantity {
     font-size: 5vw;
+  }
+
+  .infoBtn {
+
+    width: 6vw;
+    height: 6vw;
+  }
+
+  .infoBtnText{
+    font-size: 3.5vw;
   }
 }

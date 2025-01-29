@@ -67,9 +67,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
     product.HasUpsaleCollection && !isMealPlacedInOrders;
   const isPlacedInOrders_Available_hasUpsale =
     isMealPlacedInOrders && isAvailable && product.HasUpsaleCollection;
-  // const isPlaceidInOrders_HasUpsale =
-  //   isMealPlacedInOrders && product.HasUpsaleCollection;
-
+ 
   return (
     <motion.div
       className={styles.card}
@@ -173,7 +171,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
             handleStepChange("mealInfo");
           }}
         >
-          <b style={{ fontSize: "2vw" }}>i</b>
+          <b className={styles.infoBtnText}>i</b>
         </button>
       </div>
 

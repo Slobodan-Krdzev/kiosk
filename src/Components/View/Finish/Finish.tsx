@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
@@ -8,20 +8,49 @@ import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import styles from "./FinnishViewStyles.module.css";
 
 const Finish = () => {
-  const { finalInfo, handleRemoveNote, handleStepChange } = useContext(StepContext);
-  const { cancelOrder } = useContext(OrderContext);
+  const { finalInfo, handleRemoveNote, handleStepChange } =
+    useContext(StepContext);
+  const { cancelOrder, orderNum, IdOrder } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
-  // const [isCounterVisible, setIsCounterVisible] = useState(false)
-  const {t} = useTranslation()
+  const { t } = useTranslation();
+
+  const formInputVal = useRef<HTMLInputElement | null>(null);
 
   console.log("====================================");
-  console.log("FINNISHED ORDER" );
-  console.log("Order Number:",  finalInfo.orderNum,);
-  console.log("Order Note:",  finalInfo.orderNote,);
-  console.log("Order Type:",  finalInfo.orderType,);
-  console.log("Order Meals:",  finalInfo.orderDet,);
+  console.log("FINNISHED ORDER", orderNum);
+  console.log("Order Number:", finalInfo.orderNum);
+  console.log("Order Note:", finalInfo.orderNote);
+  console.log("Order Type:", finalInfo.orderType);
+  console.log("Order Meals:", finalInfo.orderDet);
 
   console.log("====================================");
+
+  const sendEmailForReceipt = async () => {
+    if (formInputVal.current!.value !== "") {
+      try {
+        const res = await fetch(
+          `https://kioskapi.dev.revelapps.com/api/sendkioskbillonemail`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              IdOrder: IdOrder,
+              email: formInputVal.current!.value,
+            }),
+          }
+        );
+
+        if (!res.ok) throw new Error("Error During Response");
+
+        const result = await res.json();
+
+        console.log("Success", result);
+      } catch {
+        console.error("Error During Post request / send email");
+      }
+    }else {
+      return 
+    }
+  };
 
   return (
     <motion.section
@@ -32,7 +61,7 @@ const Finish = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={`fullScreenTablet ${styles.finnishView}`}
     >
-      <p className={`biggerPageTitles fontSF`}>{t('order_successfull')}</p>
+      <p className={`biggerPageTitles fontSF`}>{t("order_successfull")}</p>
 
       <div className={styles.checkMarkWrapper}>
         <div
@@ -55,21 +84,23 @@ const Finish = () => {
       </div>
 
       <p className={`${styles.subTitle} paymentPagesSubtitle fontSF`}>
-        {t('pick_order')}
+        {t("pick_order")}
       </p>
 
       <div
         className={styles.orderNoWrapper}
         style={{ borderColor: theme.activeTextColor }}
       >
-        <p className={`${styles.orderNO} fontSF`}>{finalInfo.orderNum}</p>
+        <p className={`${styles.orderNO} fontSF`}>{orderNum}</p>
       </div>
 
       <form
         className={`formStyles ${styles.form}`}
         style={{ width: "90%", margin: "0 auto" }}
         onSubmit={(e) => {
-          e.preventDefault;
+          e.preventDefault();
+
+          console.log("Form Input Value", formInputVal.current!.value);
         }}
       >
         <label className={`noteLabel ${styles.formLabel}`} htmlFor="emailInput">
@@ -81,21 +112,23 @@ const Finish = () => {
           type="email"
           required
           placeholder="example@examplemail.com"
+          ref={formInputVal}
         />
       </form>
 
-      <div style={{ position: "fixed", bottom: '3%', left: 0, right: 0 }}>
+      <div style={{ position: "fixed", bottom: "3%", left: 0, right: 0 }}>
         <BottomGreenRibbon bgColor={theme.activeTextColor}>
           <button
             className="fontSF bottomRibbonButton"
             style={{
               backgroundColor: theme.activeTextColor,
-              color: theme.textColor
+              color: theme.textColor,
             }}
             onClick={() => {
-              handleStepChange('confirmation')
+              sendEmailForReceipt();
+              handleStepChange("confirmation");
               cancelOrder();
-              handleRemoveNote()
+              handleRemoveNote();
             }}
           >
             {t("send_Receipt")}
@@ -103,13 +136,6 @@ const Finish = () => {
         </BottomGreenRibbon>
       </div>
 
-      {/* {isCounterVisible  && (
-        <div className={`countOverlay`} >
-          
-            <Counter start={5} />
-          
-        </div>
-      )} */}
     </motion.section>
   );
 };

@@ -13,7 +13,11 @@ export type OrderContextValue = {
     setSingleMealQuantity: (meal: SingleMealType, countType: 'minus' | 'plus') => void,
     getOrderTotal: () => number,
     cancelOrder:() => void,
-    setSingleMealNote: (note: string, meal: SingleMealType) => void
+    setSingleMealNote: (note: string, meal: SingleMealType) => void,
+    handleSetOrderNumber: (number: string) => void,
+    orderNum: string,
+    IdOrder: number,
+    handleSetIdOrderNumber: (number: number) => void
 }
 
 export const OrderContext = createContext({} as OrderContextValue)

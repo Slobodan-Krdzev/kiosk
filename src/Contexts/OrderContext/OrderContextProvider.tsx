@@ -22,6 +22,9 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
   };
 
   const [orders, setOrders] = useState<SingleMealType[]>([]);
+  const [orderNum, setOrderNumber] = useState<string>('')
+  const [IdOrder, setIdOrder] = useState<number>(0)
+
   const [singleMeal, setSingleMeal] =
     useState<SingleMealType>(startingMealFormula);
     
@@ -95,8 +98,6 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     countType: "minus" | "plus"
   ) => {
 
-    console.log('meal from setQuantity', meal)
-
     const filteredOrders = orders.map((o) => {
       if (o.id === meal.id) {
         const originalTotal = o.originalTotal;
@@ -145,6 +146,17 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     setSingleMeal({ ...singleMeal, upsale });
   };
 
+
+  const handleSetOrderNumber = (number: string) => {
+
+    setOrderNumber(number)
+  }
+
+  const handleSetIdOrderNumber = (number: number) => {
+
+    setIdOrder(number)
+  }
+
   const contextValue: OrderContextValue = {
     orders,
     singleMeal,
@@ -156,6 +168,10 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     cancelOrder,
     getOrderTotal,
     setSingleMealNote,
+    handleSetOrderNumber,
+    orderNum,
+    handleSetIdOrderNumber,
+    IdOrder
   };
 
   return (
