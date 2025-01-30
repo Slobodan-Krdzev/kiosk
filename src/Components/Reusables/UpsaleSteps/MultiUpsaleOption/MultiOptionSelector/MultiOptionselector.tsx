@@ -118,6 +118,9 @@ const MultiOptionselector = ({
                 !isOptionAlreadySelected
                   ? `transparent`
                   : theme.activeTextColor,
+              width: "100%",
+              height: "100%",
+              borderTopLeftRadius: 50
             }}
             onClick={() => {
               addNewOption(upsaleStep, option, maxSelection, 1);
@@ -125,21 +128,24 @@ const MultiOptionselector = ({
               setIsSelected(!isSelected);
             }}
           >
-            <Plus color="white"/>
+            <Plus color="white" />
           </button>
         )}
 
         {isOptionAlreadySelected && option.MaxSelection === 1 && (
           <button
             className={styles.addBtn}
-            style={{ backgroundColor: theme.activeTextColor }}
+            style={{ backgroundColor: theme.activeTextColor,
+              width: "100%",
+              height: "100%",
+              borderTopLeftRadius: 50 }}
             onClick={() => {
               removeAnOption(upsaleStep, option);
 
               setIsSelected(!isSelected);
             }}
           >
-            <CheckMark color="white"/>
+            <CheckMark color="white" />
           </button>
         )}
 
@@ -158,7 +164,11 @@ const MultiOptionselector = ({
                 }
               }}
             >
-              {quantity === 1 ? <Trashcan /> : <Minus color={theme.textColor}/>}
+              {quantity === 1 ? (
+                <Trashcan />
+              ) : (
+                <Minus color={theme.textColor} />
+              )}
             </button>
             <p className={styles.quantity}>{quantity}</p>
 
@@ -176,7 +186,11 @@ const MultiOptionselector = ({
                 }
               }}
             >
-              {quantity === option.MaxSelection ? "MAX" : <Plus color={theme.textColor}/>}
+              {quantity === option.MaxSelection ? (
+                "MAX"
+              ) : (
+                <Plus color={theme.textColor} />
+              )}
             </button>
           </>
         )}

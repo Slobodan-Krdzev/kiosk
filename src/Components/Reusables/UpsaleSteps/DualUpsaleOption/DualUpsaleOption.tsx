@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
-import { UpsaleStep } from "../../../../Types/Types";
+import { Option, UpsaleStep } from "../../../../Types/Types";
 import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
 import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
 import styles from "./DualUpsaleOptionStyles.module.css";
@@ -30,15 +30,13 @@ const DualUpsaleOption = ({
   const { singleMeal, placeMealInOrders } = useContext(OrderContext);
   const { t } = useTranslation();
 
-  const [isFinished, setIsFinished] =useState(false)
-
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(
+  const [selectedOption, setSelectedOption] = useState<Option | undefined>(
     undefined
   );
 
   const options = upsaleStepData.Options;
 
-  const handleOptionSelect = (option: string) => {
+  const handleOptionSelect = (option: Option) => {
     setSelectedOption(option);
   };
   const isNextButtonDisabled = () => {
@@ -51,12 +49,6 @@ const DualUpsaleOption = ({
     }
 
   }
-
-  const handleFinish = () => {
-
-    setIsFinished(true)
-  }
-
 
   return (
     <motion.section
@@ -95,7 +87,6 @@ const DualUpsaleOption = ({
               options={options}
               currentSelectedOption={selectedOption}
               handleOptionSelect={handleOptionSelect}
-              handleFinish={handleFinish}
             />
           ))}
         </div>
@@ -108,7 +99,7 @@ const DualUpsaleOption = ({
         backText={t('back_Btn')}
         nextAction={() => {
 
-          if(isFinished){
+          if(selectedOption?.Finish){
 
             placeMealInOrders(singleMeal)
             resetUpsale()

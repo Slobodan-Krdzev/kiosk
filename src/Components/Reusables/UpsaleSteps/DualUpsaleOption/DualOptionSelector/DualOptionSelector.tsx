@@ -8,11 +8,10 @@ import styles from "./DualOptionSelectorStyles.module.css";
 
 type DualOptionSelectorPropsType = {
   option: Option;
-  handleOptionSelect: (option: string) => void;
-  currentSelectedOption: string | undefined;
+  handleOptionSelect: (option: Option) => void;
+  currentSelectedOption: Option | undefined;
   options: Option[];
   upsaleStep: number;
-  handleFinish: () => void;
 };
 
 const DualOptionSelector = ({
@@ -20,15 +19,15 @@ const DualOptionSelector = ({
   currentSelectedOption,
   options,
   upsaleStep,
-  handleFinish,
+  handleOptionSelect,
 }: DualOptionSelectorPropsType) => {
-  const { singleMeal} = useContext(OrderContext);
+  const { singleMeal } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
   const { upsaleData, addNewOption } = useContext(UpsaleContext);
 
   const upsaleDataSelectedOptions = upsaleData[upsaleStep].stepData;
   const isOptionSelected = Boolean(
-    upsaleDataSelectedOptions.find(o => o.option.Id === option.Id)
+    upsaleDataSelectedOptions.find((o) => o.option.Id === option.Id)
   );
 
   const indexOfSelector = options.indexOf(option);
@@ -57,20 +56,22 @@ const DualOptionSelector = ({
       style={{
         backgroundColor: isOptionSelected
           ? `${theme.activeTextColor}40`
-          : upsaleDataSelectedOptions.length === 0 ? 'white': "#F1F1F1",
+          : upsaleDataSelectedOptions.length === 0
+          ? "white"
+          : "#F1F1F1",
         border: isOptionSelected
           ? `1px solid ${theme.activeTextColor}`
           : "none",
       }}
       onClick={() => {
+        handleOptionSelect(option);
 
-        addNewOption(upsaleStep, option, 1 , 1)
+        // if (option.Finish) {
 
-        if (option.Finish) {
+        //   handleFinish();
+        // }
 
-          handleFinish();
-        }
-        
+        addNewOption(upsaleStep, option, 1, 1);
       }}
     >
       {option.OptionOrder === 0 && isOptionSelected && (
@@ -141,7 +142,7 @@ const DualOptionSelector = ({
           opacity:
             currentSelectedOption === undefined
               ? 1
-              : currentSelectedOption !== option.Name
+              : currentSelectedOption.Name !== option.Name
               ? 0.55
               : 1,
         }}

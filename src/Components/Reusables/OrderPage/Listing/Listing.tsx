@@ -53,7 +53,7 @@ const Listing = ({
     } else if (screenWidth < 805) {
       offset = `24.7vh`;
     } else {
-      offset = `36.3vh`;
+      offset = `22.8vh`;
     }
 
     return offset;

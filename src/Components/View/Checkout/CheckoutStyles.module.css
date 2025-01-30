@@ -1,6 +1,6 @@
 .checkoutCardWrapper {
   width: 100%;
-  height: calc(100% - 22vh);
+  height: calc(100% - 16vh);
   margin: 0 auto;
   padding: 2% 2.5% 3%;
   overflow-y: scroll;
