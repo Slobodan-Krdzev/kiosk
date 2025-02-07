@@ -92,7 +92,6 @@ function App() {
         {step === "finnish" && <Finish />}
         {step === "paymentErr" && <PaymentError />}
         {step === "confirmation" && <Confirmation />}
-
       </AnimatePresence>
     </section>
   );

@@ -6,7 +6,7 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 
 const PaymentError = () => {
 
-  const { handleStepChange } = useContext(StepContext)
+  const { handleStepChange, step } = useContext(StepContext)
   const { theme } = useContext(DataContext)
 
   return (
@@ -24,7 +24,8 @@ const PaymentError = () => {
         style={{ fontSize: "5vw", textAlign: "center", fontWeight: 500 }}
       >
         Oops!!! <br />
-        Payment failed.{" "}
+        {" "}
+        {step === 'paymentErr' ? "Payment failed." : "Something Went Wrong!"}
       </p>
       <p className={`fontSF paymentPagesSubtitle`}>
         Please contact our staff and check your card details.
@@ -32,8 +33,8 @@ const PaymentError = () => {
       <button
         className={`fontSF ${styles.btn}`}
         style={{
-          backgroundColor: theme.activeTextColor,
-          color: theme.textColor,
+          backgroundColor: step === 'paymentErr' ? theme.activeTextColor : 'lightblue',
+          color:step === 'paymentErr' ? theme.textColor : 'white',
         }}
         onClick={() => {
           handleStepChange("start");

@@ -6,10 +6,12 @@ import {
   Product,
   SubCategory2,
   ThemeType,
+  Tmkdaum,
 } from "../../Types/Types";
 import Loading from "../../Components/Loading";
 import i18n from "i18next";
 import { useState } from "react";
+import PaymentError from "../../Components/View/PaymentError/PaymentError";
 
 type DataContextProviderPropsType = {
   children: JSX.Element;
@@ -41,7 +43,7 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   console.log("====================================");
 
   if (isError) {
-    return <>Error od context</>;
+    return <PaymentError />;
   }
 
   if (isLoading) {
@@ -50,8 +52,11 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
 
   const currentLanguage = i18n.language;
 
-  const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[8]; // FOOD TO SHARE KATEGORIJA
-  // const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage).MainCategories[1]
+  // OD BACKEND TREBA DA DOJDAT KAKO SUBCATEGORY 
+
+
+  // const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[8]; // FOOD TO SHARE KATEGORIJA
+  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage)?.MainCategories[8] ?? data.TMKData[0].MainCategories[8];
 
   console.log("Current Lang and Category", currentLanguage, categoryToRender);
 

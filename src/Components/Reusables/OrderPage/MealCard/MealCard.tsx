@@ -130,7 +130,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
         }
       }}
       style={{
-        backgroundColor: isMealPlacedInOrders ? `${theme.activeTextColor}40` : ''
+        backgroundColor: isMealPlacedInOrders ? `${theme.activeTextColor}32` : ''
       }}
     >
       {isAvailable === false && isAvailable !== undefined && (
@@ -286,7 +286,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
                 className={styles.productBtn}
                 style={{
                   color: theme.textColor,
-                  backgroundColor: theme.activeTextColor,
+                  backgroundColor: theme.activeTextColor
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
