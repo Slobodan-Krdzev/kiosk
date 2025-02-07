@@ -7,13 +7,13 @@
 
 .midSection {
     text-align: center;
-    padding-top: 13vh;
+    padding-top: 8vh;
 }
 
 .qrCode {
 
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     margin: 5vh auto;
     background-color: inherit;
 
@@ -30,6 +30,21 @@
         conic-gradient(at var(--s) var(--s), #00000000 75%, #000 0) 0 0/calc(100% - var(--s)) calc(100% - var(--s)),
         linear-gradient(#000 0 0) content-box;
     transition: .4s;
+}
+
+.cancelBtn {
+    display: block;
+    width: 40%;
+    margin: 5vh auto 0;
+    line-height: 34px;
+    font-size: 4.25vw;
+    font-weight: 400;
+    text-transform: capitalize;
+    cursor: pointer;
+    padding: 2%;
+    outline: none;
+    border: none;
+    border-radius: 70px;
 }
 
 @media (max-width: 801px) {

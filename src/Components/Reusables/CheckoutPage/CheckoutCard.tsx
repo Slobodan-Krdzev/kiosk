@@ -141,7 +141,6 @@ const CheckoutCard = ({
               setIsProductNoteInputVisible(true);
             }}
           >
-            {/* <Plus /> {order.note === "" ? `${t("add_note")}` : `${t("edit_note")}`} */}
             <Plus color={"black"} />{" "}
             {order.note === "" ? `Add Note` : `Edit Note`}
           </motion.button>

@@ -8,13 +8,10 @@ import BottomSquare from "../../Reusables/BottomSquare";
 import styles from "./PaymentStyles.module.css";
 
 const Payment = () => {
-  const { orders, getOrderTotal, handleSetOrderNumber, handleSetIdOrderNumber } = useContext(OrderContext);
+  const { orders, getOrderTotal, handleSetOrderNumber, handleSetIdOrderNumber, cancelOrder } = useContext(OrderContext);
   const { handleStepChange, setFinalOrderDetails } = useContext(StepContext);
   const { theme, orderReferenceData } = useContext(DataContext);
   const { t } = useTranslation();
-
-  console.log("ORDERS FROM PAYMENT", orders);
-  console.log("ORDER REFERENCE", orderReferenceData.reference);
 
   const [isAvailable, setIsAvailable] = useState(false);
 
@@ -54,6 +51,13 @@ const Payment = () => {
     }
   }, [isAvailable]);
 
+
+  const handleCancelOrder = () => {
+
+    cancelOrder()
+    handleStepChange("start")
+  }
+
   return (
     <motion.section
       key={"payment"}
@@ -90,6 +94,13 @@ const Payment = () => {
           }}
         >
           <img src={orderReferenceData.qrCodeImg} alt="QRCode" />
+        </button>
+
+        <button className={styles.cancelBtn} style={{
+          backgroundColor: 'inherit',
+          border: `2px solid ${theme.activeTextColor}`
+        }}onClick={handleCancelOrder}>
+         {t('cancel_order')}
         </button>
       </div>
 
