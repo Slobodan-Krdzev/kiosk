@@ -7,6 +7,22 @@
   margin-bottom: 10px;
 }
 
+.titleWrapper{
+  width: 95%;
+  margin:  0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.total{
+  border: 2px solid;
+  padding: 1vw;
+  border-radius: 5px;
+  min-width: 25vw;
+  text-align: center;
+}
+
 .checkoutCardWrapper::-webkit-scrollbar {
   display: none;
 }
@@ -20,5 +36,12 @@
 @media only screen and (max-width: 468px) {
   .checkoutCardWrapper {
     max-height: 78vh;
+  }
+
+
+  .titleWrapper{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

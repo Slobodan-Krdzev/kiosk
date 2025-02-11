@@ -7,11 +7,13 @@ import CheckoutCard from "../../Reusables/CheckoutPage/CheckoutCard";
 import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
 import styles from "./CheckoutStyles.module.css";
 import { useTranslation } from "react-i18next";
+import { Item, SendOrderType } from "../../../Types/SendOrderTypes";
+import { useSendOrder } from "../../../Query/SendOrder";
 
 const Checkout = () => {
   const { handleStepChange, handleOrderNote, finalInfo } =
     useContext(StepContext);
-  const { orders } = useContext(OrderContext);
+  const { orders, getOrderTotal } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
   const { t } = useTranslation();
 
@@ -23,6 +25,72 @@ const Checkout = () => {
     setIsRibbonShown(value);
   };
 
+
+  const { mutate } = useSendOrder();
+  
+    const formulateMealsForPostRequest = () => {
+      const formulatedOrders: Item[] = orders.map((order) => {
+        if (order.upsale) {
+          return {
+            Item: {
+              Id: order!.product!.ProductId,
+              PluCode: "",
+              Image: order!.product!.SmallPictureUrl,
+              Name: order!.product!.Name,
+              Price: order!.product!.Price,
+            },
+            Variants: [],
+             UpsaleCollection: order.upsale.flatMap((upsale) =>
+              upsale.stepData.map((stepData) => ({
+                UpsaleStepOptionModel: {
+                  ProductId: stepData.option.ProductId as number,
+                  Name: stepData.option.Name,
+                  Price: stepData.option.Price,
+                },
+                Quantity: stepData.quantity,
+              }))
+            ),
+            Quantity: order.quantity,
+            ItemGuid: "",
+            CoursePosition: 0,
+            Note: order.note,
+          };
+        } else {
+          return {
+            Item: {
+              Id: order.product!.ProductId,
+              PluCode: "",
+              Image: order.product!.SmallPictureUrl,
+              Name: order.product!.Name,
+              Price: order.product!.Price,
+            },
+            Variants: [],
+            UpsaleCollection: [],
+            Quantity: order.quantity,
+            ItemGuid: "",
+            CoursePosition: 0,
+            Note: order.note,
+          };
+        }
+      });
+  
+      return formulatedOrders;
+    };
+  
+    const handleSendOrder = () => {
+      const orderData: SendOrderType = {
+        Order: {
+          OrderGuid: "",
+          SessionGuid: "",
+          Items: formulateMealsForPostRequest(),
+        },
+        tableNumber: "308",
+        deviceSessionId: "",
+      };
+  
+      mutate(orderData);
+    };
+
   return (
     <motion.section
       className={`fullScreenTablet`}
@@ -32,7 +100,11 @@ const Checkout = () => {
       exit={{ x: "100vw" }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
+      <div className={styles.titleWrapper}>
       <p className={`fontSF biggerPageTitles`}>{t("my_order")}</p>
+      <p className={`fontSF paymentPagesSubtitle ${styles.total}`} style={{borderColor: theme.activeTextColor}}>{t("total")}: {getOrderTotal()}</p>
+      </div>
+      
 
       <div className={`hideScrollBar ${styles.checkoutCardWrapper}`}>
         {orders.map((product) => (
@@ -128,10 +200,11 @@ const Checkout = () => {
             nextText={t("place_order")}
             backText={t("back_to_menu")}
             backStep={"order"}
-            nextStep={"preview"}
+            nextStep={"payment"}
             disableNextBtn={false}
             nextAction={() => {
-              handleStepChange("preview");
+              handleSendOrder()
+              handleStepChange("payment");
             }}
           />
         </div>

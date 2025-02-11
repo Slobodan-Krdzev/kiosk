@@ -8,8 +8,7 @@
 
     max-width: 100%;
     border-radius: 14px;
-    border: 1px solid #D9D9D9;
-    border-bottom: none;
+    border: none;
     opacity: 0px;
     box-shadow: 1px 1px 10px 2px #0000005f;
 
@@ -140,6 +139,7 @@
     background-color: inherit;
     border: none;
     font-size: 4vw;
+    
 }
 
 .quantityCounter {
@@ -152,7 +152,7 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     width: 33.33%;
-    background-color: white;
+    background-color: #FAFAFA;
     height: 100%;
 
 }

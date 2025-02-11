@@ -1,62 +1,108 @@
 import { motion } from "framer-motion";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomSquare from "../../Reusables/BottomSquare";
 import styles from "./PaymentStyles.module.css";
+import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 
 const Payment = () => {
-  const { orders, getOrderTotal, handleSetOrderNumber, handleSetIdOrderNumber, cancelOrder } = useContext(OrderContext);
+  const {
+    orders,
+    getOrderTotal,
+    handleSetOrderNumber,
+    handleSetIdOrderNumber,
+    cancelOrder,
+  } = useContext(OrderContext);
   const { handleStepChange, setFinalOrderDetails } = useContext(StepContext);
   const { theme, orderReferenceData } = useContext(DataContext);
   const { t } = useTranslation();
 
   const [isAvailable, setIsAvailable] = useState(false);
 
-  const checkAvailability = async () => {
+  console.log(orderReferenceData.reference)
+
+  // const checkAvailability = async () => {
+  //   try {
+  //     if (!orderReferenceData?.reference) {
+  //       throw new Error("Missing order reference data");
+  //     }
+
+  //     const url = `https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`;
+
+  //     const response = await fetch(url);
+  //     const data = await response.json();
+
+  //     console.log("Data od Responsot", data);
+
+  //     if (data.Message) {
+  //       if (data.Message === "An error has occurred.") {
+  //         handleStepChange("paymentErr");
+  //       }
+  //     }
+
+  //     handleStepChange("finnish");
+  //     handleSetOrderNumber(data.Data.AdditionalData);
+  //     handleSetIdOrderNumber(data.Data.IdOrder);
+  //     setIsAvailable(data.IsSuccess);
+  //   } catch (error) {
+  //     console.error("Error fetching product availability:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (!isAvailable) {
+  //     const interval = setInterval(() => {
+  //       checkAvailability();
+  //     }, 10000);
+
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [isAvailable]);
+
+  const checkAvailability = useCallback(async () => {
     try {
-      const response = await fetch(
-        `https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`
-      );
+      if (!orderReferenceData?.reference) {
+        console.warn("Skipping API call: Missing order reference data");
+        return;
+      }
+
+      const url = `https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`;
+      const response = await fetch(url);
       const data = await response.json();
 
       console.log("Data od Responsot", data);
 
-      if(data.Message){
-
-        if(data.Message === 'An error has occurred.'){
-          handleStepChange('paymentErr')
-        }
+      if (data.Message === "An error has occurred.") {
+        handleStepChange("paymentErr");
+        return;
       }
 
-      handleStepChange('finnish')
-      handleSetOrderNumber(data.Data.AdditionalData)
-      handleSetIdOrderNumber(data.Data.IdOrder)
+      handleStepChange("finnish");
+      handleSetOrderNumber(data.Data.AdditionalData);
+      handleSetIdOrderNumber(data.Data.IdOrder);
       setIsAvailable(data.IsSuccess);
     } catch (error) {
       console.error("Error fetching product availability:", error);
-
     }
-  };
+  }, [orderReferenceData]); // ✅ Ensures function is stable across renders
 
   useEffect(() => {
-    if (!isAvailable) {
+    if (!isAvailable && orderReferenceData?.reference) {
       const interval = setInterval(() => {
         checkAvailability();
       }, 10000);
 
       return () => clearInterval(interval);
     }
-  }, [isAvailable]);
-
+  }, [isAvailable, orderReferenceData, checkAvailability]); 
 
   const handleCancelOrder = () => {
-
-    cancelOrder()
-    handleStepChange("start")
-  }
+    cancelOrder();
+    handleStepChange("start");
+  };
 
   return (
     <motion.section
@@ -71,7 +117,6 @@ const Payment = () => {
 
       <div className={styles.midSection}>
         <p className={`${styles.subTitle} fontSF`}>{t("qr_title")}</p>
-        
 
         <button
           className={`fontSF ${styles.qrCode}`}
@@ -96,15 +141,31 @@ const Payment = () => {
           <img src={orderReferenceData.qrCodeImg} alt="QRCode" />
         </button>
 
-        <button className={styles.cancelBtn} style={{
-          backgroundColor: 'inherit',
-          border: `2px solid ${theme.activeTextColor}`
-        }}onClick={handleCancelOrder}>
-         {t('cancel_order')}
-        </button>
+        {/* <button
+          className={styles.cancelBtn}
+          style={{
+            backgroundColor: "inherit",
+            border: `2px solid ${theme.activeTextColor}`,
+          }}
+          onClick={handleCancelOrder}
+        >
+          
+        </button> */}
       </div>
 
       <BottomSquare />
+      <BottomGreenRibbon bgColor={'white'}>
+        <button
+          className="fontSF bottomRibbonButton"
+          style={{
+            backgroundColor: 'white',
+            color: theme.textColor,
+          }}
+          onClick={handleCancelOrder}
+        >
+          {t("cancel_order")}
+        </button>
+      </BottomGreenRibbon>
     </motion.section>
   );
 };
