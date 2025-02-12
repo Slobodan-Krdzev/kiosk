@@ -159,7 +159,7 @@
 
 .addNoteBtn{
     position: absolute;
-    bottom: 3%;
+    bottom: 6%;
     left: 29%;
     display: flex;
     justify-content: center;
@@ -169,7 +169,7 @@
     border: 1px solid #D3D3D3;
     background-color: inherit;
     width: 15vw;
-    border-radius: 3rem;
+    border-radius: 1.2vw;
     font-size: 2vw;
 
 }

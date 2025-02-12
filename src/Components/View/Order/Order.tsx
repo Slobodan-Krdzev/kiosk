@@ -163,7 +163,7 @@ const Order = () => {
 
             <p className={`fontSF `}>{t("view_order")} &rsaquo;</p>
 
-            <p className={`fontSF `}>{total} </p>
+            <p className={`fontSF `}>{total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}</p>
           </div>
         </BottomGreenRibbon>
       )}

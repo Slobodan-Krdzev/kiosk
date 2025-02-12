@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import { SingleMealType, ThemeType } from "../../../Types/Types";
+import { RootData, SingleMealType, ThemeType } from "../../../Types/Types";
 import Plus from "../SVG/Plus";
 import Trashcan from "../SVG/Trashcan";
 import styles from "./CheckoutCardStyles.module.css";
@@ -11,12 +11,14 @@ import styles from "./CheckoutCardStyles.module.css";
 type CheckoutCardPropsType = {
   order: SingleMealType;
   theme: ThemeType;
+  data: RootData;
   hideShowRibbon: (value: boolean) => void;
 };
 
 const CheckoutCard = ({
   order,
   theme,
+  data,
   hideShowRibbon,
 }: CheckoutCardPropsType) => {
   const {
@@ -60,7 +62,7 @@ const CheckoutCard = ({
       <div className={styles.checkoutCard}>
         {/* TOTAL PRICE */}
         <p className={`${styles.checkoutCardPrice} fontSF`}>
-          {order.totalPrice.toFixed(2)}
+          {order.totalPrice.toFixed(2)} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
         </p>
 
         <img

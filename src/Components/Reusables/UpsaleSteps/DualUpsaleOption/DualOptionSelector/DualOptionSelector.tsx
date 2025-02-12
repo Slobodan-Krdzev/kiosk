@@ -22,7 +22,7 @@ const DualOptionSelector = ({
   handleOptionSelect,
 }: DualOptionSelectorPropsType) => {
   const { singleMeal } = useContext(OrderContext);
-  const { theme } = useContext(DataContext);
+  const { theme, data } = useContext(DataContext);
   const { upsaleData, addNewOption } = useContext(UpsaleContext);
 
   const upsaleDataSelectedOptions = upsaleData[upsaleStep].stepData;
@@ -152,7 +152,7 @@ const DualOptionSelector = ({
       />
       <div className={styles.nameAndPriceWrapper}>
         <p className={`fontSF ${styles.price}`}>
-          {option.Price === 0 ? singleMeal.product!.Price : `+${option.Price}`}
+          {option.Price === 0 ? `${singleMeal.product!.Price} ${data.ThemeResponse.CurrencySettings.CurrencySymbol}` : `+${option.Price} ${data.ThemeResponse.CurrencySettings.CurrencySymbol}`}
         </p>
         <p className={`fontSF ${styles.optionName}`}>{option.Name}</p>
       </div>

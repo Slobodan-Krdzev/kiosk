@@ -20,7 +20,7 @@ const MultiOptionselector = ({
   upsaleStep,
 }: MultiOptionSelectorPropsType) => {
   const [isSelected, setIsSelected] = useState(false);
-  const { theme } = useContext(DataContext);
+  const { theme, data } = useContext(DataContext);
   const { upsaleData, addNewOption, removeAnOption } =
     useContext(UpsaleContext);
 
@@ -84,7 +84,7 @@ const MultiOptionselector = ({
         className={`fontSF ${styles.optionPrice}`}
         style={{ textAlign: "left" }}
       >
-        {option.Price}
+        {option.Price} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
       </p>
 
       <div

@@ -27,9 +27,27 @@
   display: none;
 }
 
+
+
 .checkoutCardWrapper {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.orderNotePreviewWrapper{
+  position: relative;
+  border-top: 1px solid;
+  padding-top: 0.5vh;
+  margin-top: 1vh;
+}
+
+.orderNoteEditBtn{
+
+  position: absolute;
+  top: 0.5vh;
+  right: 0;
+  outline: 0;
+  border: 0;
 }
 
 

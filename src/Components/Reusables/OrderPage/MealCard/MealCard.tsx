@@ -11,6 +11,7 @@ import styles from "./MealCardStyles.module.css";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import 'sweetalert2/src/sweetalert2.scss'
+import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 
 
 type MealCardPropsType = {
@@ -21,6 +22,7 @@ type MealCardPropsType = {
 
 const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType) => {
   const [isAvailable, setIsAvailable] = useState<boolean>(!product.OutOfStock);
+  const {data} = useContext(DataContext)
   const { t } = useTranslation();
 
   const { mutateAsync } = useMutation({
@@ -71,6 +73,9 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
   return (
     <motion.div
       className={styles.card}
+      initial={{ scale: 1 }}
+      animate={{ scale: isMealPlacedInOrders ? 1.02 : 1 }}
+      transition={{ duration: 0.3 }}
       onClick={async () => {
 
         const availability = await handleCheckAvailability();
@@ -130,7 +135,8 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
         }
       }}
       style={{
-        backgroundColor: isMealPlacedInOrders ? `${theme.activeTextColor}32` : ''
+        backgroundColor: isMealPlacedInOrders ? `${theme.activeTextColor}27` : '',
+        border: isMealPlacedInOrders ? `0.5px solid ${theme.activeTextColor} `: "",
       }}
     >
       {isAvailable === false && isAvailable !== undefined && (
@@ -198,7 +204,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
               : "",
         }}
       >
-        {product.Price}
+        {product.Price} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
       </p>
 
       <motion.div

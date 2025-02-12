@@ -9,13 +9,15 @@ import styles from "./CheckoutStyles.module.css";
 import { useTranslation } from "react-i18next";
 import { Item, SendOrderType } from "../../../Types/SendOrderTypes";
 import { useSendOrder } from "../../../Query/SendOrder";
+import Pencil from "../../Reusables/SVG/Pencil";
 
 const Checkout = () => {
   const { handleStepChange, handleOrderNote, finalInfo } =
     useContext(StepContext);
   const { orders, getOrderTotal } = useContext(OrderContext);
-  const { theme } = useContext(DataContext);
+  const { theme, data } = useContext(DataContext);
   const { t } = useTranslation();
+  const [isOrderFormVisible, setIsOrderFormVisible] = useState(true);
 
   const orderNoteInput = useRef<HTMLInputElement | null>(null);
 
@@ -25,71 +27,70 @@ const Checkout = () => {
     setIsRibbonShown(value);
   };
 
-
   const { mutate } = useSendOrder();
-  
-    const formulateMealsForPostRequest = () => {
-      const formulatedOrders: Item[] = orders.map((order) => {
-        if (order.upsale) {
-          return {
-            Item: {
-              Id: order!.product!.ProductId,
-              PluCode: "",
-              Image: order!.product!.SmallPictureUrl,
-              Name: order!.product!.Name,
-              Price: order!.product!.Price,
-            },
-            Variants: [],
-             UpsaleCollection: order.upsale.flatMap((upsale) =>
-              upsale.stepData.map((stepData) => ({
-                UpsaleStepOptionModel: {
-                  ProductId: stepData.option.ProductId as number,
-                  Name: stepData.option.Name,
-                  Price: stepData.option.Price,
-                },
-                Quantity: stepData.quantity,
-              }))
-            ),
-            Quantity: order.quantity,
-            ItemGuid: "",
-            CoursePosition: 0,
-            Note: order.note,
-          };
-        } else {
-          return {
-            Item: {
-              Id: order.product!.ProductId,
-              PluCode: "",
-              Image: order.product!.SmallPictureUrl,
-              Name: order.product!.Name,
-              Price: order.product!.Price,
-            },
-            Variants: [],
-            UpsaleCollection: [],
-            Quantity: order.quantity,
-            ItemGuid: "",
-            CoursePosition: 0,
-            Note: order.note,
-          };
-        }
-      });
-  
-      return formulatedOrders;
+
+  const formulateMealsForPostRequest = () => {
+    const formulatedOrders: Item[] = orders.map((order) => {
+      if (order.upsale) {
+        return {
+          Item: {
+            Id: order!.product!.ProductId,
+            PluCode: "",
+            Image: order!.product!.SmallPictureUrl,
+            Name: order!.product!.Name,
+            Price: order!.product!.Price,
+          },
+          Variants: [],
+          UpsaleCollection: order.upsale.flatMap((upsale) =>
+            upsale.stepData.map((stepData) => ({
+              UpsaleStepOptionModel: {
+                ProductId: stepData.option.ProductId as number,
+                Name: stepData.option.Name,
+                Price: stepData.option.Price,
+              },
+              Quantity: stepData.quantity,
+            }))
+          ),
+          Quantity: order.quantity,
+          ItemGuid: "",
+          CoursePosition: 0,
+          Note: order.note,
+        };
+      } else {
+        return {
+          Item: {
+            Id: order.product!.ProductId,
+            PluCode: "",
+            Image: order.product!.SmallPictureUrl,
+            Name: order.product!.Name,
+            Price: order.product!.Price,
+          },
+          Variants: [],
+          UpsaleCollection: [],
+          Quantity: order.quantity,
+          ItemGuid: "",
+          CoursePosition: 0,
+          Note: order.note,
+        };
+      }
+    });
+
+    return formulatedOrders;
+  };
+
+  const handleSendOrder = () => {
+    const orderData: SendOrderType = {
+      Order: {
+        OrderGuid: "",
+        SessionGuid: "",
+        Items: formulateMealsForPostRequest(),
+      },
+      tableNumber: "308",
+      deviceSessionId: "",
     };
-  
-    const handleSendOrder = () => {
-      const orderData: SendOrderType = {
-        Order: {
-          OrderGuid: "",
-          SessionGuid: "",
-          Items: formulateMealsForPostRequest(),
-        },
-        tableNumber: "308",
-        deviceSessionId: "",
-      };
-  
-      mutate(orderData);
-    };
+
+    mutate(orderData);
+  };
 
   return (
     <motion.section
@@ -101,10 +102,15 @@ const Checkout = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div className={styles.titleWrapper}>
-      <p className={`fontSF biggerPageTitles`}>{t("my_order")}</p>
-      <p className={`fontSF paymentPagesSubtitle ${styles.total}`} style={{borderColor: theme.activeTextColor}}>{t("total")}: {getOrderTotal()}</p>
+        <p className={`fontSF biggerPageTitles`}>{t("my_order")}</p>
+        <p
+          className={`fontSF paymentPagesSubtitle ${styles.total}`}
+          style={{ borderColor: theme.activeTextColor }}
+        >
+          {t("total")}: {getOrderTotal()}{" "}
+          {data.ThemeResponse.CurrencySettings.CurrencySymbol}
+        </p>
       </div>
-      
 
       <div className={`hideScrollBar ${styles.checkoutCardWrapper}`}>
         {orders.map((product) => (
@@ -112,22 +118,30 @@ const Checkout = () => {
             key={product.id}
             order={product}
             theme={theme}
+            data={data}
             hideShowRibbon={hideShowRibbon}
           />
         ))}
 
-        {finalInfo.orderNote !== "" ? (
-          <motion.p
-            initial={{ opacity: 0 }}
+        {!isOrderFormVisible && (
+          <motion.div
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fontSF"
-            style={{ fontSize: "2.6vw" }}
+            className={styles.orderNotePreviewWrapper}
+            style={{borderColor: theme.activeTextColor}}
           >
-            {t("note")}: {finalInfo.orderNote}
-          </motion.p>
-        ) : (
+            <p className="fontSF" style={{ fontSize: "2.6vw"}}>
+              {t("note")}: {finalInfo.orderNote}
+            </p>
+
+            <button className={styles.orderNoteEditBtn} onClick={() => setIsOrderFormVisible(true)}>
+              <Pencil color={theme.activeTextColor}/>
+            </button>
+          </motion.div>
+        )}
+
+        {isOrderFormVisible && (
           <motion.form
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
@@ -138,6 +152,7 @@ const Checkout = () => {
               e.preventDefault();
               hideShowRibbon(true);
 
+              setIsOrderFormVisible(false);
               // OVDE SE DODAVA FULL ORDER NOTE
               handleOrderNote(orderNoteInput.current!.value ?? "No Note");
               e.currentTarget.reset();
@@ -182,7 +197,7 @@ const Checkout = () => {
                   width: "22%",
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
-                  color: theme.textColor
+                  color: theme.textColor,
                 }}
               >
                 {finalInfo.orderNote !== ""
@@ -203,7 +218,7 @@ const Checkout = () => {
             nextStep={"payment"}
             disableNextBtn={false}
             nextAction={() => {
-              handleSendOrder()
+              handleSendOrder();
               handleStepChange("payment");
             }}
           />

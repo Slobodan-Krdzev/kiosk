@@ -7,6 +7,8 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomSquare from "../../Reusables/BottomSquare";
 import styles from "./PaymentStyles.module.css";
 import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
+import qr from "../../../../public/qr.png";
+import Modal from "../../Reusables/Modal";
 
 const Payment = () => {
   const {
@@ -21,8 +23,7 @@ const Payment = () => {
   const { t } = useTranslation();
 
   const [isAvailable, setIsAvailable] = useState(false);
-
-  console.log(orderReferenceData.reference)
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   // const checkAvailability = async () => {
   //   try {
@@ -84,10 +85,11 @@ const Payment = () => {
       handleSetOrderNumber(data.Data.AdditionalData);
       handleSetIdOrderNumber(data.Data.IdOrder);
       setIsAvailable(data.IsSuccess);
+      setIsCancelModalOpen(false)
     } catch (error) {
       console.error("Error fetching product availability:", error);
     }
-  }, [orderReferenceData]); // ✅ Ensures function is stable across renders
+  }, [orderReferenceData]); 
 
   useEffect(() => {
     if (!isAvailable && orderReferenceData?.reference) {
@@ -97,7 +99,7 @@ const Payment = () => {
 
       return () => clearInterval(interval);
     }
-  }, [isAvailable, orderReferenceData, checkAvailability]); 
+  }, [isAvailable, orderReferenceData, checkAvailability]);
 
   const handleCancelOrder = () => {
     cancelOrder();
@@ -105,68 +107,85 @@ const Payment = () => {
   };
 
   return (
-    <motion.section
-      key={"payment"}
-      initial={{ x: "-100vw" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100vw" }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`fullScreenTablet`}
-    >
-      <p className="biggerPageTitles fontSF">{t("payment")}</p>
+    <>
+      <motion.section
+        key={"payment"}
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100vw" }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className={`fullScreenTablet`}
+      >
+        <p className="biggerPageTitles fontSF">{t("payment")}</p>
 
-      <div className={styles.midSection}>
-        <p className={`${styles.subTitle} fontSF`}>{t("qr_title")}</p>
+        <div className={styles.midSection}>
+          <p className={`${styles.subTitle} fontSF`}>{t("qr_title")}</p>
 
-        <button
-          className={`fontSF ${styles.qrCode}`}
-          style={{
-            color: theme.textColor,
-            borderColor: theme.textColor,
-            outline: `10px solid ${theme.activeTextColor}`,
-            borderRadius: "20px",
-          }}
-          onClick={() => {
-            handleStepChange("finnish");
+          <button
+            className={`fontSF ${styles.qrCode}`}
+            style={{
+              color: theme.textColor,
+              borderColor: theme.textColor,
+              outline: `10px solid ${theme.activeTextColor}`,
+              borderRadius: "20px",
+            }}
+            onClick={() => {
+              handleStepChange("finnish");
 
-            setFinalOrderDetails(orders);
+              setFinalOrderDetails(orders);
 
-            console.log({
-              orderNO: +new Date().valueOf().toFixed(2),
-              orders,
-              total: getOrderTotal(),
-            });
-          }}
-        >
-          <img src={orderReferenceData.qrCodeImg} alt="QRCode" />
-        </button>
+              console.log({
+                orderNO: +new Date().valueOf().toFixed(2),
+                orders,
+                total: getOrderTotal(),
+              });
+            }}
+          >
+            <img
+              src={
+                orderReferenceData.qrCodeImg ? orderReferenceData.qrCodeImg : qr
+              }
+              alt="QRCode"
+            />
+          </button>
+        </div>
 
-        {/* <button
-          className={styles.cancelBtn}
-          style={{
-            backgroundColor: "inherit",
-            border: `2px solid ${theme.activeTextColor}`,
-          }}
-          onClick={handleCancelOrder}
-        >
-          
-        </button> */}
-      </div>
+        <BottomSquare />
+        <BottomGreenRibbon bgColor={"white"}>
+          <button
+            className="fontSF bottomRibbonButton"
+            style={{
+              backgroundColor: "white",
+              color: theme.textColor,
+            }}
+            onClick={() => {
+              setIsCancelModalOpen(true)
+            }}
+          >
+            {t("cancel_order")}
+          </button>
+        </BottomGreenRibbon>
+      </motion.section>
 
-      <BottomSquare />
-      <BottomGreenRibbon bgColor={'white'}>
-        <button
-          className="fontSF bottomRibbonButton"
-          style={{
-            backgroundColor: 'white',
-            color: theme.textColor,
-          }}
-          onClick={handleCancelOrder}
-        >
-          {t("cancel_order")}
-        </button>
-      </BottomGreenRibbon>
-    </motion.section>
+      {isCancelModalOpen && (
+        <Modal borderColor={theme.activeTextColor}>
+          <>
+            <h2 className={`fontSF paymentPagesSubtitle`}>Are You Sure?</h2>
+            <div className={styles.modalBtnsWrapper}>
+              <button
+              onClick={() => {
+              setIsCancelModalOpen(false)
+
+              }}
+              style={{borderColor: theme.activeTextColor}}>No</button>
+              <button
+                onClick={handleCancelOrder}
+              style={{borderColor: theme.activeTextColor, backgroundColor: theme.activeTextColor, color: theme.textColor}}>Cancel Order</button>
+            </div>
+          </>
+        </Modal>
+      )}
+    </>
   );
 };
 
