@@ -36,7 +36,7 @@ const StartScreen = () => {
               document.documentElement.requestFullscreen();
             }}
           >
-            Start Updated
+            Update
           </button>
         </BottomGreenRibbon>
       </div>
