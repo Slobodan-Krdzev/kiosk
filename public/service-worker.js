@@ -52,8 +52,8 @@ self.addEventListener("fetch", (event) => {
   // );
 
   event.respondWith(
-    fetch(event.request) // Always fetch from the network
-      .then((response) => response) // Return network response
-      .catch(() => caches.match(event.request)) // Optional: Fallback to cache
+    fetch(event.request) 
+      .then((response) => response) 
+      .catch(() => caches.match(event.request)) 
   );
 });
