@@ -7,6 +7,10 @@ type StepContextProviderPropsType = {
 };
 
 const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
+  const [isTestMode] = useState(
+    new URLSearchParams(window.location.search).get("testMode") === "true"
+  );
+
   const [step, setStep] = useState<StepType>("start");
   const [orderNumber, setOrderNumber] = useState<number>();
   const [isTakeway, setIsTakeway] = useState<"Dine In" | "Takeaway">(
@@ -38,7 +42,6 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
   };
 
   const handleOrderNote = (note: string) => {
-
     setOrderNote(note);
   };
 
@@ -67,6 +70,7 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
     handleOrderNote: (note: string) => void;
     handleSetTakeawayOption: (option: "Dine In" | "Takeaway") => void;
     handleRemoveNote: () => void;
+    isTestMode: boolean;
   } = {
     step,
     handleRemoveNote,
@@ -77,6 +81,7 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
     finalInfo,
     handleSetMealForInfo,
     mealForInfo,
+    isTestMode,
   };
 
   return (

@@ -17,12 +17,13 @@ import PaymentError from "./Components/View/PaymentError/PaymentError";
 import Confirmation from "./Components/View/Confirmation/Confirmation";
 
 function App() {
-  const { step, mealForInfo } = useContext(StepContext);
+  const { step, mealForInfo, isTestMode } = useContext(StepContext);
   const { data, theme } = useContext(DataContext);
   const [isCounterVisible, setIsCounterVisible] = useState(false)
   const inactivityTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inactivityPeriod = 1000000; 
 
+  console.log('Test Mode', isTestMode)
   console.log(data);
 
   const handleInactivity = () => {

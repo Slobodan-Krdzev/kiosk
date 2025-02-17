@@ -13,8 +13,8 @@ const LanguageChooser = ({ locale }: LanguageChooserPropsType) => {
 
   const currentLanguage = i18n.language;
 
-  console.log("Current Lang",currentLanguage)
-  const langCode = locale.Locale === "en" ? "gb" : locale.Locale;
+  const langCode = locale.Locale === "gb" ? "en" : locale.Locale;
+  console.log("Current Lang",currentLanguage, langCode)
 
   return (
     <button className={styles.localeBtn} onClick={handleLocaleChange} style={{
@@ -22,8 +22,8 @@ const LanguageChooser = ({ locale }: LanguageChooserPropsType) => {
     }}>
       <img
         className={styles.localeBtnImage}
-        alt="Dutch"
-        src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${langCode.toUpperCase()}.svg`}
+        alt={langCode}
+        src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${langCode === 'en' ? "GB" : langCode.toUpperCase()}.svg`}
       />
     </button>
   );

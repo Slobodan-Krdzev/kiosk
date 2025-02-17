@@ -8,7 +8,7 @@ import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import styles from "./FinnishViewStyles.module.css";
 
 const Finish = () => {
-  const { finalInfo, handleRemoveNote, handleStepChange } =
+  const { finalInfo, handleRemoveNote, handleStepChange, isTestMode } =
     useContext(StepContext);
   const { cancelOrder, orderNum, IdOrder } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
@@ -91,7 +91,7 @@ const Finish = () => {
         className={styles.orderNoWrapper}
         style={{ borderColor: theme.activeTextColor }}
       >
-        <p className={`${styles.orderNO} fontSF`}>{orderNum}</p>
+        <p className={`${styles.orderNO} fontSF`}>{isTestMode ? 1 : orderNum}</p>
       </div>
 
       <form

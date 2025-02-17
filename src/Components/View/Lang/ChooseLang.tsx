@@ -33,11 +33,11 @@ const ChooseLang = () => {
       style={{ backgroundColor: "#fafafa" }}
     >
       <div className={styles.logoWrapper}>
-        <Logo source={data.ThemeResponse.LogoImage.Url} width={80} />
+        <Logo source={data?.ThemeResponse?.LogoImage?.Url} width={80} />
       </div>
-      <div className={styles.restNameWrapper}>
+      <div className={styles?.restNameWrapper}>
         <p className={`${styles.restName} fontSF`}>
-          {t('welcome_to')} <br /> {data.ThemeResponse.RestaurantName}!
+          {t('welcome_to')} <br /> {data?.ThemeResponse?.RestaurantName ?? "Restaurant Name"}!
         </p>
       </div>
 

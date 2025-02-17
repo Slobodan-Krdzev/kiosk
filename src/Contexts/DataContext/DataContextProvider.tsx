@@ -10,16 +10,20 @@ import {
 } from "../../Types/Types";
 import Loading from "../../Components/Loading";
 import i18n from "i18next";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PaymentError from "../../Components/View/PaymentError/PaymentError";
+import { StepContext } from "../StepContext/StepContext";
 
 type DataContextProviderPropsType = {
   children: JSX.Element;
 };
 
 const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
+
+  const {isTestMode} = useContext(StepContext)
+
   const { data, isError, isLoading } = useQuery({
-    queryFn: Get,
+    queryFn: () => Get(isTestMode),
     queryKey: ["data"],
   });
 
@@ -55,10 +59,10 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   // OD BACKEND TREBA DA DOJDAT KAKO SUBCATEGORY 
 
 
-  // const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[8]; // FOOD TO SHARE KATEGORIJA
-  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage)?.MainCategories[8] ?? data.TMKData[0].MainCategories[8];
+  // const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
+  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage)?.MainCategories[0] ?? data.TMKData[0].MainCategories[0];
 
-  console.log("Current Lang and Category", currentLanguage, categoryToRender);
+  console.log("Current Lang and Category", currentLanguage,data.TMKData[0].Language === currentLanguage);
 
   const allSubCategories = categoryToRender!.SubCategories;
 

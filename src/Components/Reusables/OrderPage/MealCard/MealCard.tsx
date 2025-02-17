@@ -22,6 +22,7 @@ type MealCardPropsType = {
 
 const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType) => {
   const [isAvailable, setIsAvailable] = useState<boolean>(!product.OutOfStock);
+  const {isTestMode} = useContext(StepContext)
   const {data} = useContext(DataContext)
   const { t } = useTranslation();
 
@@ -78,7 +79,7 @@ const MealCard = ({ product, theme, removeOutOfStockProduct }: MealCardPropsType
       transition={{ duration: 0.3 }}
       onClick={async () => {
 
-        const availability = await handleCheckAvailability();
+        const availability = isTestMode ? true : await handleCheckAvailability();
 
         if (product.NoInteraction) {
           handleSetMealForInfo(product, availability);

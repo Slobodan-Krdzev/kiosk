@@ -10,10 +10,10 @@
 .mealPicture {
   height: 100%;
   /* min-height: 720px; */
-  width: 93%;
+  width: auto;
   border-radius: 0.5rem;
   box-shadow: 0px 3.77px 18.85px 0px #0000001a;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 

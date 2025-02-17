@@ -12,7 +12,7 @@ import { useSendOrder } from "../../../Query/SendOrder";
 import Pencil from "../../Reusables/SVG/Pencil";
 
 const Checkout = () => {
-  const { handleStepChange, handleOrderNote, finalInfo } =
+  const { handleStepChange, handleOrderNote, finalInfo, isTestMode } =
     useContext(StepContext);
   const { orders, getOrderTotal } = useContext(OrderContext);
   const { theme, data } = useContext(DataContext);
@@ -129,14 +129,17 @@ const Checkout = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className={styles.orderNotePreviewWrapper}
-            style={{borderColor: theme.activeTextColor}}
+            style={{ borderColor: theme.activeTextColor }}
           >
-            <p className="fontSF" style={{ fontSize: "2.6vw"}}>
+            <p className="fontSF" style={{ fontSize: "2.6vw" }}>
               {t("note")}: {finalInfo.orderNote}
             </p>
 
-            <button className={styles.orderNoteEditBtn} onClick={() => setIsOrderFormVisible(true)}>
-              <Pencil color={theme.activeTextColor}/>
+            <button
+              className={styles.orderNoteEditBtn}
+              onClick={() => setIsOrderFormVisible(true)}
+            >
+              <Pencil color={theme.activeTextColor} />
             </button>
           </motion.div>
         )}
@@ -218,8 +221,12 @@ const Checkout = () => {
             nextStep={"payment"}
             disableNextBtn={false}
             nextAction={() => {
-              handleSendOrder();
-              handleStepChange("payment");
+              if (isTestMode) {
+                handleStepChange("payment");
+              } else {
+                handleSendOrder();
+                handleStepChange("payment");
+              }
             }}
           />
         </div>
