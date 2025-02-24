@@ -1,0 +1,14 @@
+.pricePreviewerWrapper{
+    position: absolute;
+    font-family: var(--custom-font);
+    font-weight: 800;
+}
+
+.round {
+    font-size: 4.6vw;
+}
+
+.decimal {
+    position: absolute;
+    top: 10%;
+}

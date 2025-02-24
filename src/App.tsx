@@ -68,7 +68,7 @@ function App() {
  
 
   return (
-    <section className="appWrapper">
+    <>
       {isCounterVisible && step !== 'start' && (
         <div className={`countOverlay`} onClick={() => {
           console.log('Clicked')
@@ -94,7 +94,7 @@ function App() {
         {step === "paymentErr" && <PaymentError />}
         {step === "confirmation" && <Confirmation />}
       </AnimatePresence>
-    </section>
+    </>
   );
 }
 

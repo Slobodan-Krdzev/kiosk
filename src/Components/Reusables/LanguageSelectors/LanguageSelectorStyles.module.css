@@ -1,0 +1,29 @@
+.languageSelector{
+    width: 33.333%;
+    border-radius: var(--def-radius);
+    padding: 4vw;
+    font-weight: 400;
+    font-size: 3vw;
+    letter-spacing: -0.05vw;
+
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("chevron.png"); 
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 3vw;
+    /* padding-right: 30px;  */
+
+    
+}
+
+.option{
+    width: 100% !important;
+    border-radius: var(--def-radius);
+    padding: 4vw;
+    font-weight: 400;
+    font-size: 3vw;
+    letter-spacing: -0.05vw;
+    background-color: white;
+}

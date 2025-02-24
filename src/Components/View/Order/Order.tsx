@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
@@ -15,7 +15,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
+import XButton from "../../Reusables/XButton/XButton";
+import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
+import Chevron from "../../Reusables/SVG/Chevron";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
@@ -29,9 +32,11 @@ const Order = () => {
   const total = getOrderTotal();
 
   // OVA KE GO KORISTIME za monthly specials
-  const [monthlySpecials] = useState<Product[]>(allProducts.filter(p => p.IsPromotion))
+  const [monthlySpecials] = useState<Product[]>(
+    allProducts.filter((p) => p.IsPromotion)
+  );
 
-  const [outOfStockProducts, setOutOfStockProducts] = useState<number[]>([])
+  const [outOfStockProducts, setOutOfStockProducts] = useState<number[]>([]);
 
   const [selectedCategory, setselectedCategory] = useState(
     allCategories[0].SubCategoryId
@@ -39,10 +44,12 @@ const Order = () => {
 
   const [mealsToDisplay, setMealsToDisplay] = useState<Product[]>(
     allProducts.filter(
-      (p) => p.SubCategoryId === selectedCategory && p.OutOfStock === false && !outOfStockProducts.includes(p.ProductId)
+      (p) =>
+        p.SubCategoryId === selectedCategory &&
+        p.OutOfStock === false &&
+        !outOfStockProducts.includes(p.ProductId)
     )
   );
-
 
   const handleCategoryChange = (catID: number) => {
     setselectedCategory(catID);
@@ -60,77 +67,91 @@ const Order = () => {
       (p) =>
         p.SubCategoryId === selectedCategory &&
         p.OutOfStock === false &&
-        !outOfStockProducts.includes(p.ProductId) 
+        !outOfStockProducts.includes(p.ProductId)
     );
     setMealsToDisplay(filteredProducts);
-  }, [allProducts, selectedCategory, outOfStockProducts])
+  }, [allProducts, selectedCategory, outOfStockProducts]);
 
   const removeOutOfStockProduct = (id: number) => {
+    setOutOfStockProducts([...outOfStockProducts, id]);
+  };
 
-    setOutOfStockProducts([...outOfStockProducts, id])
-  }
+  const handleXButtonClick = () => {
+    console.log("Click X");
+  };
 
   console.log("Orders from orfers screen", orders);
 
   return (
-    <motion.section
-      key={"order"}
-      initial={{ x: "-100vw" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100vw" }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`fullScreenTablet ${styles.orderView}`}
-      style={{ backgroundImage: `url('${data.ThemeResponse.CoverImage.Url}')` }}
-    >
-      
-      <div className={styles.orderViewLogoWrapperTop}>
-        <Logo source={data.ThemeResponse.LogoImage.Url} width={60} />
-      </div>
+    <ViewFullScreenAnimated framerKey={"order"}>
+      <TopFixedRibbon justifyContent={"space-between"}>
+        <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
+        <div>
+          <XButton clickHandler={handleXButtonClick} />
+        </div>
+      </TopFixedRibbon>
+
       <div className={styles.orderViewMidSection}>
         <Swiper
           className={`${styles.orderViewSidebar}`}
-          direction="vertical" 
+          direction="vertical"
           slidesPerView={10}
           spaceBetween={14}
-          style={{ height: "auto" }} 
+          style={{ height: "auto" , paddingBottom: 700}}
         >
           {allCategories.map((category) => (
             <SwiperSlide
               key={category.SubCategoryId}
               className={styles.categoryCard}
               style={{
-                backgroundColor:
+                background:
                   selectedCategory === category.SubCategoryId
-                    ? `${theme.activeTextColor}90`
-                    : "#FFFFFF",
+                    ? `${theme.textColor}60`
+                    : `radial-gradient(100% 92% at 98% 0%, ${theme.textColor}40 0%, rgba(255, 255, 255, 0) 93%) `,
+
+                position: "relative",
                 border:
                   selectedCategory === category.SubCategoryId
-                    ? `1px solid ${theme.activeTextColor}`
-                    : "",
+                    ? `1px solid ${theme.textColor}`
+                    : `0.35px solid #a8a8a86d`,
               }}
               onClick={() => {
                 handleCategoryChange(category.SubCategoryId);
               }}
             >
-              
               <img
-                src={"/category.png"}
+                src={"/alcohol.png"}
                 alt={category.Name.toLowerCase()}
                 className={styles.image}
               />
               <p
-                className={`fontSF ${styles.categoryCardText}`}
-                style={{ color: 'black' }}
+                className={styles.categoryCardText}
+                style={{ color: "#383838" }}
               >
-                {category.Name.length > 15 ? `${category.Name.substring(0, 5)}...` : category.Name}
+                {category.Name.length > 15
+                  ? `${category.Name.substring(0, 5)}...`
+                  : category.Name}
               </p>
+
+              {selectedCategory === category.SubCategoryId && (
+                <motion.div
+                initial={{opacity: 0, x: -10}}
+                animate={{opacity:1, x:0}}
+                exit={{opacity: 0, x: -10}}
+                transition={{duration: 0.3, delay: 0.15, ease: 'easeInOut'}}
+                className={styles.absoluteChevron}>
+                  <Chevron color={"#3F3F3F"} />
+                </motion.div>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
 
         <div className={styles.orderViewRightSide} ref={scrollingDiv}>
           {/* USLOV  */}
-          {Boolean(monthlySpecials.length) && <Promotion products={monthlySpecials} />}
+          {Boolean(monthlySpecials.length) && (
+            <Promotion products={monthlySpecials} />
+          )}
           <Listing
             products={mealsToDisplay}
             selectedCategory={selectedCategory}
@@ -163,11 +184,13 @@ const Order = () => {
 
             <p className={`fontSF `}>{t("view_order")} &rsaquo;</p>
 
-            <p className={`fontSF `}>{total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}</p>
+            <p className={`fontSF `}>
+              {total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
+            </p>
           </div>
         </BottomGreenRibbon>
       )}
-    </motion.section>
+    </ViewFullScreenAnimated>
   );
 };
 

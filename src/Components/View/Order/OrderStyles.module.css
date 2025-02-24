@@ -1,50 +1,33 @@
-.orderView {
-  position: relative;
-}
-
-.orderViewLogoWrapperTop {
-  height: 15vh;
-  background: radial-gradient(
-    90.37% 586.33% at 9.63% 73.7%,
-    rgba(32, 29, 34, 0.429) 9.69%,
-    rgba(0, 0, 0, 0.55) 29.4%,
-    rgba(0, 0, 0, 0.55) 56.15%,
-    rgba(32, 29, 34, 0.55) 100%
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .orderViewMidSection {
+  padding-top: 8vh !important;
   width: 100%;
-  background-color: #fafafa;
+  background-color: #EFEFEF;
   height: 100vh;
   max-height: 100vh;
   display: flex;
+  padding: 0 3vw;
   justify-content: space-between;
   /* gap: 2%; */
-  
+
 }
 
 .orderViewSidebar {
   width: 20%;
   /* height: 100%; */
   overflow-y: auto;
-  flex:0 0 auto;
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  padding-top: 4% !important;
-  padding-left: 2% !important;
+  padding-top: 20px !important;
+  /* padding-left: 2% !important; */
   padding-right: 1% !important;
-
+  /* padding-bottom: 600px; */
 }
 
 .orderViewRightSide {
   width: auto;
   min-width: 75%;
-  padding-top: 3%;
   max-height: 100%;
   display: flex;
   flex-direction: column;
@@ -79,15 +62,16 @@
   cursor: pointer;
 }
 
+
+
 .categoryCard {
-  max-height: 120px;
-  height: 7.8vh;
+  /* max-height: 120px; */
+  height: 11.3vh !important;
   max-width: 220px;
   width: 100%;
 
   background-color: #ffffff;
-  border: none;
-  box-shadow: 0px 3.77px 18.85px 0px #0000001a;
+  /* box-shadow: 0px 3.77px 18.85px 0px #0000001a; */
   border-radius: 16px;
   display: flex !important;
   gap: 10px;
@@ -95,9 +79,40 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
+
+  box-shadow: 0px 2.94px 8.23px 0px #3131311A;
+  
 }
 
+.categoryCardText {
+  position: absolute;
+  bottom: 10%;
+  left: 8%;
+  font-size: 2.4vw;
+  letter-spacing: -0.7px;
+  font-family: var(--custom-font);
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
 
+  overflow: hidden;
+  /* border: 2px solid red; */
+  max-width: 70%;
+
+}
+
+.image {
+  position: absolute;
+  top: 13%;
+  right: 10%;
+}
+
+.absoluteChevron{
+  position: absolute;
+  right: 12%;
+  bottom: 6%;
+}
 
 @media (max-width: 800px) {
   .orderViewSidebar {
@@ -109,10 +124,10 @@
     gap: 0.2%;
   }
 
-  .categoryCard {
+  /* .categoryCard {
     max-height: 120px;
     height: 7.2vh !important;
-  }
+  } */
 }
 
 @media (max-width: 768px) {
@@ -155,13 +170,13 @@
     padding: 2rem;
   }
 
-  .image{
+  .image {
     width: 40px;
     height: 40px;
   }
 
-  .categoryCardText{
+  .categoryCardText {
     font-size: 3.4vw;
   }
-  
+
 }

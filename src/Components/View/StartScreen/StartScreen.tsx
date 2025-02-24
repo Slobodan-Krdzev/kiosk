@@ -1,46 +1,43 @@
 import { useContext } from "react";
-import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
-import Logo from "../../Reusables/Logo";
-import styles from "./StartScreenStyles.module.css";
+import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import BottomOpacityContentWrapper from "../../Reusables/BottomOpacityContentWrapper/BottomOpacityContentWrapper";
+import LanguageSelector from "../../Reusables/LanguageSelectors/LanguageSelector";
+import LargeBtn from "../../Reusables/LargeBtn/LargeBtn";
+import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
 
 const StartScreen = () => {
   const { handleStepChange } = useContext(StepContext);
-  const { data, theme } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   return (
-    <section
-      className={`fullScreenTablet ${styles.startScreen}`}
+    <ViewFullScreenAnimated
+      framerKey={"startScreen"}
       style={{
         backgroundImage: `url('${data.ThemeResponse.CoverImage.Url ?? ""}')`,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "end",
       }}
     >
-      <div className={`overlay ${styles.startScreenOverlay}`}>
-        <h1 className={` ${styles.title} fontNoteworthy`} >
-          Your Favourite Meals, <br /> Just a Tap Away
-        </h1>
-        <div className={styles.logoWrapper}>
-          <Logo width={70} source={data.ThemeResponse.LogoImage.Url} />
-        </div>
-        <BottomGreenRibbon bgColor={theme.activeTextColor}>
-          <button
-            className="fontSF bottomRibbonButton"
-            style={{
-              backgroundColor: theme.activeTextColor,
-              color: theme.textColor
-            }}
-            onClick={() => {
-              handleStepChange("lang");
-
-              document.documentElement.requestFullscreen();
-            }}
-          >
-            Start
-          </button>
-        </BottomGreenRibbon>
-      </div>
-    </section>
+      <BottomOpacityContentWrapper
+        style={{
+          background: `linear-gradient(180.09deg, rgba(20, 20, 20, 0) 0.07%, rgba(0, 0, 0, 0.71) 99.93%)`,
+          height: "33.333vh",
+          gap: "3vh",
+          padding: "8vw 5vw",
+        }}
+      >
+        <LanguageSelector />
+        <LargeBtn
+          borderColor="white"
+          width={"100%"}
+          clickHandler={() => handleStepChange("lang")}
+        >
+          Start Ordering
+        </LargeBtn>
+      </BottomOpacityContentWrapper>
+    </ViewFullScreenAnimated>
   );
 };
 

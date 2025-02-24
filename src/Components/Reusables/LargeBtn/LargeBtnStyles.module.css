@@ -1,0 +1,14 @@
+.largeBtn {
+    border-radius: var(--def-radius);
+    border: 1px solid;
+    padding: 3vh 2vw;
+    font-size: 7vw;
+    font-weight: 500;
+    margin: 0 auto;
+    box-shadow: 0px 12px 39.9px 0px #4D4C4C1A;
+    box-shadow: 0px 0px 16.2px 0px #A6A6A633 inset;
+    box-shadow: 0px 42px 49.6px -48px #6A6A6A78;
+    font-family: var(--custom-font);
+    letter-spacing: -0.2vw;
+}
+
