@@ -17,7 +17,7 @@ const Listing = ({
   products,
   selectedCategory,
   theme,
-  isRibbonVisible,
+  // isRibbonVisible,
   removeOutOfStockProduct,
 }: ListingPropsType) => {
   const containerRef = useRef<null | HTMLDivElement>(null);

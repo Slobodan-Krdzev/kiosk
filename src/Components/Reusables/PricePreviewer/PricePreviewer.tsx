@@ -16,7 +16,7 @@ const PricePreviewer = ({ price, color, style }: PricePreviewerProps) => {
 
     let formated = priceDecimal
 
-    if(!priceDecimal){
+    if(!priceDecimal || priceDecimal[0] === '0'){
 
       formated = '00'
     }else if(priceDecimal.length <= 1){
@@ -25,7 +25,7 @@ const PricePreviewer = ({ price, color, style }: PricePreviewerProps) => {
     }
 
 
-    return formated
+    return formated.slice(0,2)
   }
   console.log(priceDecimal)
 

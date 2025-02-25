@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import CheckAvailability from "../../../../Query/CheckAvailability";
@@ -11,7 +11,7 @@ import styles from "./MealCardStyles.module.css";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
-import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
+// import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 import Info from "../../SVG/Info";
 import PricePreviewer from "../../PricePreviewer/PricePreviewer";
 import Minus from "../../SVG/Minus";
@@ -29,7 +29,7 @@ const MealCard = ({
 }: MealCardPropsType) => {
   const [isAvailable, setIsAvailable] = useState<boolean>(!product.OutOfStock);
   const { isTestMode } = useContext(StepContext);
-  const { data } = useContext(DataContext);
+  // const { data } = useContext(DataContext);
   const { t } = useTranslation();
 
   const { mutateAsync } = useMutation({
@@ -68,21 +68,38 @@ const MealCard = ({
     }
   };
 
-
-  const addMoreBtnHandler = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+  const addMoreBtnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // setQuantity((prevQuantity) => prevQuantity + 1);
     setIsButtonOpened(true);
+
+    e.stopPropagation();
+    setQuantity((quan) => quan + 1);
+
+    setSingleMealQuantity(meal, "plus");
   };
 
-  const takeOutBtnHandler = () => {
-    if (quantity === 0) {
-      console.log('tuka sme ')
+  const takeOutBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    if (meal.quantity <= 1) {
+      setQuantity(1);
       setIsButtonOpened(false);
-      setQuantity(0);
+
+      removeMealFromOrders(meal.id);
     } else {
-      setQuantity((prevQuantity) => prevQuantity - 1);
+      setQuantity((q) => q - 1);
+
+      setSingleMealQuantity(meal, "minus");
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isButtonOpened) setIsButtonOpened(false);
+    }, 8000);
+
+    return () => clearTimeout(timer);
+  }, [isButtonOpened, quantity]);
 
   const isPlacedInOrder_Available_NoUpsale =
     isMealPlacedInOrders && isAvailable && !product.HasUpsaleCollection;
@@ -103,73 +120,77 @@ const MealCard = ({
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, delay: 0.25 }}
       onClick={async () => {
-        const availability = isTestMode
-          ? true
-          : await handleCheckAvailability();
+        if (!meal?.quantity) {
+          const availability = isTestMode
+            ? true
+            : await handleCheckAvailability();
 
-        if (product.NoInteraction) {
-          handleSetMealForInfo(product, availability);
-          handleStepChange("mealInfo");
-        } else {
-          if (!availability) {
-            removeOutOfStockProduct(product.ProductId);
-
-            Swal.fire({
-              title: "Out Of Stock",
-              text: `Sorry, ${product.Name} is currently out of stock.`,
-              icon: "warning",
-              confirmButtonText: "OK, I'll get something else.",
-              customClass: {
-                popup: styles.popup,
-              },
-              didOpen: () => {
-                const btn = document.querySelector(
-                  `.swal2-confirm`
-                ) as HTMLElement;
-                if (btn) btn.style.backgroundColor = theme.activeTextColor;
-                btn.style.color = theme.textColor;
-              },
-            });
-          } else if (availability && hasUpsale_notPlacedInOrders) {
-            setQuantity((q) => q + 1);
-            setIsButtonOpened(true)
-            setMeal(product);
-            handleStepChange("menuUpgrade");
-          } else if (isPlacedInOrders_Available_hasUpsale) {
-            //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
-            setIsButtonOpened(true)
-
-            setMeal(product);
-            handleStepChange("menuUpgrade");
+          if (product.NoInteraction) {
+            handleSetMealForInfo(product, availability);
+            handleStepChange("mealInfo");
           } else {
-            if (isMealPlacedInOrders) {
-              // removeMealFromOrders(product.ProductId);
-              return;
-            } else {
-            setIsButtonOpened(true)
+            if (!availability) {
+              removeOutOfStockProduct(product.ProductId);
 
-              setQuantity(1);
-              placeMealInOrders({
-                id: new Date().valueOf(),
-                product: product,
-                image: product.SmallPictureUrl,
-                upsale: undefined,
-                originalTotal: product.Price,
-                totalPrice: product.Price,
-                quantity: quantity,
-                note: "",
-                itemGUI: undefined,
+              Swal.fire({
+                title: "Out Of Stock",
+                text: `Sorry, ${product.Name} is currently out of stock.`,
+                icon: "warning",
+                confirmButtonText: "OK, I'll get something else.",
+                customClass: {
+                  popup: styles.popup,
+                },
+                didOpen: () => {
+                  const btn = document.querySelector(
+                    `.swal2-confirm`
+                  ) as HTMLElement;
+                  if (btn) btn.style.backgroundColor = theme.activeTextColor;
+                  btn.style.color = theme.textColor;
+                },
               });
+            } else if (availability && hasUpsale_notPlacedInOrders) {
+              setQuantity((q) => q + 1);
+              setIsButtonOpened(true);
+              setMeal(product);
+              handleStepChange("menuUpgrade");
+            } else if (isPlacedInOrders_Available_hasUpsale) {
+              //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
+              setIsButtonOpened(true);
+
+              setMeal(product);
+              handleStepChange("menuUpgrade");
+            } else {
+              if (isMealPlacedInOrders) {
+                // removeMealFromOrders(product.ProductId);
+                return;
+              } else {
+                setIsButtonOpened(true);
+
+                setQuantity(1);
+                placeMealInOrders({
+                  id: new Date().valueOf(),
+                  product: product,
+                  image: product.SmallPictureUrl,
+                  upsale: undefined,
+                  originalTotal: product.Price,
+                  totalPrice: product.Price,
+                  quantity: quantity,
+                  note: "",
+                  itemGUI: undefined,
+                });
+              }
             }
           }
+        } else {
+          setIsButtonOpened(true);
         }
       }}
       style={{
         backgroundColor: isMealPlacedInOrders
-          ? `${theme.activeTextColor}27`
+          ? `${theme.activeTextColor}40`
           : "",
         border: isMealPlacedInOrders
-          ? `0.5px solid ${theme.activeTextColor} `
+          ? `0.5px solid ${theme.textColor} `
           : "0.3px solid #bababa9d",
       }}
     >
@@ -185,20 +206,10 @@ const MealCard = ({
         </motion.p>
       )}
 
-      <div className={styles.imgWrapper}>
-        <img
-          className={styles.productImage}
-          src={`${product.SmallPictureUrl}`}
-          alt={product.Name}
-          loading="lazy"
-          style={{
-            filter:
-              isAvailable === false && isAvailable !== undefined
-                ? `opacity(0.5)`
-                : "",
-          }}
-        />
-
+      <div
+        className={styles.imgWrapper}
+        style={{ backgroundImage: `url(${product.SmallPictureUrl})` }}
+      >
         {/* MEAL INFO TRIGER */}
         <button
           className={styles.infoBtn}
@@ -240,49 +251,69 @@ const MealCard = ({
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
-          backgroundColor: isPlacedInOrder_Available_NoUpsale && isButtonOpened
-            ? "#000000"
-            : "#F9F9F9",
-          width: isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "96%" : "3.6vh",
+          backgroundColor:
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened
+              ? "#000000"
+              : "#F9F9F9",
+          width:
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened
+              ? "96%"
+              : "40px",
+          minWidth: "40px",
+          height: "40px",
+          maxWidth: "100%",
+          maxHeight: "40px",
+          lineHeight: "40px",
           padding: 0,
         }}
         transition={{ type: "spring", duration: 1 }}
         className={styles.cardButtonWrapper}
         style={{
-          color: theme.textColor,
-          justifyContent: isPlacedInOrder_Available_NoUpsale
-            ? "space-between"
-            : "center",
+          color: theme.activeTextColor,
+          justifyContent:
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened
+              ? "space-between"
+              : "center",
           alignItems: "center",
-          borderColor: isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "black" : "",
-          padding: isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "0 3vw" : 0,
-          width: isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "100%" : "3.6vh",
+          borderColor:
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "black" : "",
+          padding:
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "0 3vw" : 0,
+          width:
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened
+              ? "100%"
+              : "3.6vh",
           display: "flex",
-          cursor: 'pointer'
+          cursor: "pointer",
         }}
         onClick={() => {
-          if(isButtonOpened){
-
-            return 
+          if (isButtonOpened) {
+            return;
           }
 
-          setIsButtonOpened(true)
-          setQuantity(1)
-
+          setIsButtonOpened(true);
+          setQuantity(1);
         }}
       >
-        {notPlacedInOrders_Available_OR_isPlacedInOrders_But_HasUpsale && <Plus color={"gray"} /> }
+        {notPlacedInOrders_Available_OR_isPlacedInOrders_But_HasUpsale ? (
+          <Plus color={"gray"} />
+        ) : !isButtonOpened ? (
+          <p>{meal.quantity}</p>
+        ) : (
+          ""
+        )}
 
         {isMealPlacedInOrders &&
           isAvailable &&
-          !product.HasUpsaleCollection && isButtonOpened && (
+          !product.HasUpsaleCollection &&
+          isButtonOpened && (
             <>
               <button
                 className={styles.quantityBtns}
                 onClick={takeOutBtnHandler}
               >
                 {" "}
-                <Minus color="black" />{" "}
+                {meal.quantity === 1 ? <Trashcan /> : <Minus color="black" />}
               </button>
               <div
                 style={{
@@ -295,7 +326,7 @@ const MealCard = ({
                 }}
                 className={styles.quantityRender}
               >
-                {quantity}
+                {meal.quantity}
               </div>
               <button
                 className={styles.quantityBtns}

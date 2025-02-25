@@ -1,14 +1,16 @@
-import { motion } from "framer-motion";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import qr from "../../../../public/qr.png";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import BottomSquare from "../../Reusables/BottomSquare";
-import styles from "./PaymentStyles.module.css";
-import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
-import qr from "../../../../public/qr.png";
+import BottomButtonholderRibbon from "../../Reusables/BottomButtonHolderWibbon/BottomButtonholderRibbon";
+import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
+import Logo from "../../Reusables/Logo";
 import Modal from "../../Reusables/Modal";
+import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
+import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
+import styles from "./PaymentStyles.module.css";
 
 const Payment = () => {
   const {
@@ -19,7 +21,7 @@ const Payment = () => {
     cancelOrder,
   } = useContext(OrderContext);
   const { handleStepChange, setFinalOrderDetails } = useContext(StepContext);
-  const { theme, orderReferenceData } = useContext(DataContext);
+  const { theme, data, orderReferenceData } = useContext(DataContext);
   const { t } = useTranslation();
 
   const [isAvailable, setIsAvailable] = useState(false);
@@ -85,11 +87,11 @@ const Payment = () => {
       handleSetOrderNumber(data.Data.AdditionalData);
       handleSetIdOrderNumber(data.Data.IdOrder);
       setIsAvailable(data.IsSuccess);
-      setIsCancelModalOpen(false)
+      setIsCancelModalOpen(false);
     } catch (error) {
       console.error("Error fetching product availability:", error);
     }
-  }, [orderReferenceData]); 
+  }, [orderReferenceData]);
 
   useEffect(() => {
     if (!isAvailable && orderReferenceData?.reference) {
@@ -107,85 +109,104 @@ const Payment = () => {
   };
 
   return (
-    <>
-      <motion.section
-        key={"payment"}
-        initial={{ x: "-100vw" }}
-        animate={{ x: 0 }}
-        exit={{ x: "100vw" }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className={`fullScreenTablet`}
-      >
-        <p className="biggerPageTitles fontSF">{t("payment")}</p>
+    <ViewFullScreenAnimated framerKey={"qrPayment"} backgroundColor="#F0F0F0">
+      <TopFixedRibbon justifyContent={"center"}>
+        <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
+      </TopFixedRibbon>
 
-        <div className={styles.midSection}>
-          <p className={`${styles.subTitle} fontSF`}>{t("qr_title")}</p>
+      <div className={styles.midSection}>
+        <p className={styles.title}>{t("payment")}</p>
 
-          <button
-            className={`fontSF ${styles.qrCode}`}
+        <p className={`${styles.subTitle}`}>{t("qr_title")}</p>
+
+        <button
+          className={`fontSF ${styles.qrCode}`}
+          style={{
+            color: theme.textColor,
+            borderColor: theme.textColor,
+            outline: `10px solid ${theme.activeTextColor}`,
+            borderRadius: "20px",
+          }}
+          onClick={() => {
+            handleStepChange("finnish");
+
+            setFinalOrderDetails(orders);
+
+            console.log({
+              orderNO: +new Date().valueOf().toFixed(2),
+              orders,
+              total: getOrderTotal(),
+            });
+          }}
+        >
+          <img
+            src={
+              orderReferenceData.qrCodeImg ? orderReferenceData.qrCodeImg : qr
+            }
+            alt="QRCode"
+          />
+        </button>
+      </div>
+
+      <BottomButtonholderRibbon>
+        <>
+          <DefaultButton
             style={{
-              color: theme.textColor,
-              borderColor: theme.textColor,
-              outline: `10px solid ${theme.activeTextColor}`,
-              borderRadius: "20px",
+              height: "100%",
+              flexBasis: "11%",
             }}
-            onClick={() => {
-              handleStepChange("finnish");
-
-              setFinalOrderDetails(orders);
-
-              console.log({
-                orderNO: +new Date().valueOf().toFixed(2),
-                orders,
-                total: getOrderTotal(),
-              });
-            }}
+            clickHandler={() => {}}
           >
-            <img
-              src={
-                orderReferenceData.qrCodeImg ? orderReferenceData.qrCodeImg : qr
-              }
-              alt="QRCode"
-            />
-          </button>
-        </div>
-
-        <BottomSquare />
-        <BottomGreenRibbon bgColor={"white"}>
-          <button
-            className="fontSF bottomRibbonButton"
+            Close
+          </DefaultButton>
+          <DefaultButton
             style={{
-              backgroundColor: "white",
-              color: theme.textColor,
+              height: "100%",
+              flexBasis: "40%",
+              borderColor: "#FF4F4F",
+              color: "#FF4F4F",
             }}
-            onClick={() => {
-              setIsCancelModalOpen(true)
-            }}
+            clickHandler={() => setIsCancelModalOpen(true)}
           >
             {t("cancel_order")}
-          </button>
-        </BottomGreenRibbon>
-      </motion.section>
+          </DefaultButton>
+        </>
+      </BottomButtonholderRibbon>
 
       {isCancelModalOpen && (
         <Modal borderColor={theme.activeTextColor}>
           <>
-            <h2 className={`fontSF paymentPagesSubtitle`}>Are You Sure?</h2>
+            <h2
+              style={{ textAlign: "center", fontSize: "2.6vw", width: "60%" }}
+              className={`fontCustom1 paymentPagesSubtitle`}
+            >
+              Are you sure you want to cancel your order?
+            </h2>
             <div className={styles.modalBtnsWrapper}>
-              <button
-              onClick={() => {
-              setIsCancelModalOpen(false)
-
-              }}
-              style={{borderColor: theme.activeTextColor}}>No</button>
-              <button
-                onClick={handleCancelOrder}
-              style={{borderColor: theme.activeTextColor, backgroundColor: theme.activeTextColor, color: theme.textColor}}>Cancel Order</button>
+              <DefaultButton
+                clickHandler={() => setIsCancelModalOpen(false)}
+                style={{
+                  height: "100%",
+                  minHeight: "70px",
+                }}
+              >
+                No
+              </DefaultButton>
+              <DefaultButton
+                clickHandler={handleCancelOrder}
+                style={{
+                  height: "100%",
+                  backgroundColor: "#FF4F4F",
+                  color: "white",
+                }}
+              >
+                Yes
+              </DefaultButton>
             </div>
           </>
         </Modal>
       )}
-    </>
+    </ViewFullScreenAnimated>
   );
 };
 

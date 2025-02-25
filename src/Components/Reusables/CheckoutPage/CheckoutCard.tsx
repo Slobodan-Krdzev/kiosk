@@ -7,6 +7,8 @@ import { RootData, SingleMealType, ThemeType } from "../../../Types/Types";
 import Plus from "../SVG/Plus";
 import Trashcan from "../SVG/Trashcan";
 import styles from "./CheckoutCardStyles.module.css";
+import PricePreviewer from "../PricePreviewer/PricePreviewer";
+import Minus from "../SVG/Minus";
 
 type CheckoutCardPropsType = {
   order: SingleMealType;
@@ -18,7 +20,7 @@ type CheckoutCardPropsType = {
 const CheckoutCard = ({
   order,
   theme,
-  data,
+  // data,
   hideShowRibbon,
 }: CheckoutCardPropsType) => {
   const {
@@ -61,26 +63,38 @@ const CheckoutCard = ({
     <div className={styles.checkoutCardNoteInputWrapper}>
       <div className={styles.checkoutCard}>
         {/* TOTAL PRICE */}
-        <p className={`${styles.checkoutCardPrice} fontSF`}>
-          {order.totalPrice.toFixed(2)} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
-        </p>
 
-        <img
-          src={`${order.product!.SmallPictureUrl}`}
-          alt={order.product!.Name}
+        <div
           className={styles.checkoutCardPicture}
-        />
+          style={{
+            backgroundImage: `url(${order.product!.SmallPictureUrl})`,
+          }}
+        ></div>
 
         <div className={styles.checkoutCardInfoWrapper}>
-          <p className={`${styles.checkoutCardMealName} fontSF`}>
-            {order.product!.Name.length > 35
-              ? `${order.product!.Name.substring(0, 35)}...`
-              : order.product!.Name}
-          </p>
+          <div className={styles.cardTitlePriceRow}>
+            <p className={`${styles.checkoutCardMealName} fontSF`}>
+              {order.product!.Name.length > 35
+                ? `${order.product!.Name.substring(0, 35)}...`
+                : order.product!.Name}
+            </p>
+
+            {/* <p className={`${styles.checkoutCardPrice} fontSF`}>
+              {order.totalPrice.toFixed(2)}{" "}
+              {data.ThemeResponse.CurrencySettings.CurrencySymbol}
+            </p> */}
+            <div>
+              <PricePreviewer
+                style={{ position: "relative" }}
+                price={order.totalPrice}
+                color={theme.textColor}
+              />
+            </div>
+          </div>
 
           <div className={styles.mealInfoWrapper}>
             {order.upsale && order.upsale![2].stepData && (
-              <p className={`${styles.checkoutCardExtrasText} fontSF`}>
+              <p className={`${styles.checkoutCardExtrasText}`}>
                 {order.upsale![2].stepData.map((i, idx) => (
                   <span key={i.option.Id}>
                     {i.option.Name}{" "}
@@ -95,7 +109,7 @@ const CheckoutCard = ({
             )}
 
             {order.upsale && order.upsale![3].stepData && (
-              <p className={`${styles.checkoutCardExtrasText} fontSF`}>
+              <p className={`${styles.checkoutCardExtrasText}`}>
                 {order.upsale![3].stepData.map((i, idx) => (
                   <span key={i.option.Id}>
                     {i.option.Name}{" "}
@@ -110,7 +124,7 @@ const CheckoutCard = ({
             )}
 
             {order.upsale && order.upsale![4].stepData && (
-              <p className={`${styles.checkoutCardExtrasText} fontSF`}>
+              <p className={`${styles.checkoutCardExtrasText}`}>
                 {order.upsale![4].stepData.map((i, idx) => (
                   <span key={i.option.Id}>
                     {i.option.Name}{" "}
@@ -123,93 +137,187 @@ const CheckoutCard = ({
                 ))}
               </p>
             )}
+
+            {order.note !== "" && (
+              <p className={`${styles.checkoutCardExtrasText}`}>
+                {t("note")}: {order.note}
+              </p>
+            )}
           </div>
 
-          {order.note !== "" && (
-            <p className={`${styles.checkoutCardExtrasText} fontSF`}>
-              {t("note")}: {order.note}
-            </p>
-          )}
-        </div>
-
-        {!isProductNoteInputVisible && (
-          <motion.button
-            initial={{ y: "60%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100vh" }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className={`fontSF ${styles.addNoteBtn}`}
-            onClick={() => {
-              setIsProductNoteInputVisible(true);
-            }}
-          >
-            <Plus color={"black"} />{" "}
-            {order.note === "" ? `Add Note` : `Edit Note`}
-          </motion.button>
-        )}
-
-        {isProductNoteInputVisible && (
-          <motion.form
-            ref={formRef}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={`formStyles ${styles.productNoteForm}`}
-            onSubmit={(e) => {
-              e.preventDefault();
-
-              setSingleMealNote(inputValue ?? "", order);
-              setIsProductNoteInputVisible(false);
-              hideShowRibbon(true);
-              e.currentTarget.reset();
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <input
-                id="note"
-                type="text"
-                style={{
-                  borderColor: theme.activeTextColor,
-                  width: inputValue.length > 4 ? "83%" : "100%",
-                  borderTopRightRadius: 0,
-                  borderBottomRightRadius: 0,
-                }}
-                className={`${styles.productNoteInput} noteInput`}
-                required
-                value={inputValue}
-                onChange={(e) => {
-                  setInputValue(e.currentTarget.value);
-                }}
-              />
-
-              <button
-                type="submit"
-                className={`submitBtn fontSF`}
-                style={{
-                  backgroundColor: theme.activeTextColor,
-                  borderColor: theme.activeTextColor,
-                  width: "22%",
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  color: theme.textColor,
+          <div className={styles.cardNoteBtnsWrapper}>
+            {!isProductNoteInputVisible && (
+              <motion.button
+                key={"Edit Note Btn"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className={`${styles.addNoteBtn}`}
+                onClick={() => {
+                  setIsProductNoteInputVisible(true);
                 }}
               >
-                {order.note ? "Edit" : "Done"}
-              </button>
-            </div>
-          </motion.form>
-        )}
+                <Plus color={"#555555a0"} /> Edit
+              </motion.button>
+            )}
+
+            {!isProductNoteInputVisible && (
+              <motion.button
+                key={"Add Note Btn"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className={`${styles.addNoteBtn}`}
+                onClick={() => {
+                  setIsProductNoteInputVisible(true);
+                }}
+              >
+                <Plus color={"#555555a0"} /> Add
+              </motion.button>
+            )}
+
+            {isProductNoteInputVisible && (
+              <motion.form
+                key={"noteForm"}
+                ref={formRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className={`formStyles ${styles.productNoteForm}`}
+                onSubmit={(e) => {
+                  e.preventDefault();
+
+                  setSingleMealNote(inputValue ?? "", order);
+                  setIsProductNoteInputVisible(false);
+                  hideShowRibbon(true);
+                  e.currentTarget.reset();
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <input
+                    id="note"
+                    type="text"
+                    style={{
+                      borderColor: theme.activeTextColor,
+                      width: inputValue.length > 4 ? "83%" : "100%",
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                    }}
+                    className="defInput"
+                    required
+                    value={inputValue}
+                    onChange={(e) => {
+                      setInputValue(e.currentTarget.value);
+                    }}
+                  />
+
+                  <button
+                    type="submit"
+                    className={`defSubmitFormBtn`}
+                    style={{
+                      backgroundColor: theme.textColor,
+                      borderColor: theme.textColor,
+                      width: "22%",
+                      borderTopLeftRadius: 0,
+                      borderBottomLeftRadius: 0,
+                      color: "white",
+                    }}
+                  >
+                    {order.note ? "Edit" : "Done"}
+                  </button>
+                </div>
+              </motion.form>
+            )}
+
+            {/* BUTTONS */}
+            {!isProductNoteInputVisible && (
+              <motion.div
+                key={"buttons"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  backgroundColor: "#000000",
+                  height: "40px",
+                  flexBasis: "55%",
+                  borderRadius: "50px",
+                  border: "1px solid #525252",
+                }}
+              >
+                <button
+                  style={{
+                    flexBasis: "33.3333%",
+                    height: "100%",
+                    borderRadius: "inherit",
+                    border: "none",
+                    backgroundColor: "white",
+                  }}
+                  onClick={() => {
+                    if (quantity === 1) {
+                      if (orders.length === 1) {
+                        handleStepChange("order");
+                      }
+
+                      setQuantity(1);
+                      removeMealFromOrders(order.id);
+                    } else {
+                      setQuantity((quantity) => quantity - 1);
+                      setSingleMealQuantity(order, "minus");
+                    }
+                  }}
+                >
+                  {quantity === 1 ? <Trashcan /> : <Minus color="black" />}
+                </button>
+                <p
+                  style={{
+                    flexBasis: "33.333%",
+                    color: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {order.quantity}
+                </p>
+                <button
+                  style={{
+                    flexBasis: "33.333%",
+                    height: "100%",
+                    borderRadius: "inherit",
+                    border: "none",
+                    backgroundColor: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onClick={() => {
+                    setQuantity((quantity) => quantity + 1);
+                    setSingleMealQuantity(order, "plus");
+                  }}
+                >
+                  <Plus color="black" />
+                </button>
+              </motion.div>
+            )}
+          </div>
+        </div>
 
         {/* BUTTONS */}
 
-        {!isProductNoteInputVisible && (
+        {/* {!isProductNoteInputVisible && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -226,7 +334,7 @@ const CheckoutCard = ({
               style={{
                 height: "100%",
                 width: "33.33%",
-                borderTopLeftRadius: "4vw"
+                borderTopLeftRadius: "4vw",
               }}
               onClick={() => {
                 if (quantity === 1) {
@@ -267,7 +375,7 @@ const CheckoutCard = ({
               <span style={{}}>&#43;</span>
             </button>
           </motion.div>
-        )}
+        )} */}
       </div>
     </div>
   );

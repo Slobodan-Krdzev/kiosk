@@ -1,8 +1,11 @@
 .checkMarkWrapper {
-  padding: 1rem;
+  padding-top: 12vh !important;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+
 }
 
 .checkMark {
@@ -32,18 +35,33 @@
   width: 90%;
   height: 25vh;
   border-radius: 15.25px;
-  border: 1.27px solid;
+  border: 1.27px solid #00000065;
   box-shadow: 0px 25.41px 63.53px 0px #00000014;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 1rem auto 20vh;
+
+  background-color: white;
+
+}
+
+.orderNOTitle{
+  font-size: 2.4vw;
+  font-weight: 500;
+  text-align: center;
+  font-family: var(--custom-font);
+  letter-spacing: -1px;
+  text-transform: uppercase;
 }
 
 .orderNO {
   font-size: 12vw;
-  font-weight: 400;
+  font-weight: 600;
   text-align: center;
+  font-family: var(--custom-font);
+  letter-spacing: -1px;
 }
 
 .form{

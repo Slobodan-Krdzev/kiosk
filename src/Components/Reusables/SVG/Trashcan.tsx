@@ -1,6 +1,13 @@
+import { motion } from "framer-motion";
+
 const Trashcan = () => {
   return (
-    <svg
+    <motion.svg
+    key={'trashKan key'}
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    transition={{delay: 0.1, duration: 0.3, ease: 'easeInOut'}}
+    exit={{opacity: 0}}
     className="trashcan"
       viewBox="0 0 24 24"
       fill="none"
@@ -41,7 +48,7 @@ const Trashcan = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
+    </motion.svg>
   );
 };
 

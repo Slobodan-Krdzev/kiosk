@@ -4,14 +4,18 @@ import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
+import BottomButtonholderRibbon from "../../Reusables/BottomButtonHolderWibbon/BottomButtonholderRibbon";
+import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
+import Logo from "../../Reusables/Logo";
+import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
+import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
 import styles from "./FinnishViewStyles.module.css";
 
 const Finish = () => {
   const { finalInfo, handleRemoveNote, handleStepChange, isTestMode } =
     useContext(StepContext);
   const { cancelOrder, orderNum, IdOrder } = useContext(OrderContext);
-  const { theme } = useContext(DataContext);
+  const {  data } = useContext(DataContext);
   const { t } = useTranslation();
 
   const formInputVal = useRef<HTMLInputElement | null>(null);
@@ -47,51 +51,45 @@ const Finish = () => {
       } catch {
         console.error("Error During Post request / send email");
       }
-    }else {
-      return 
+    } else {
+      return;
     }
   };
 
   return (
-    <motion.section
-      key={"finnish"}
-      initial={{ x: "-100vw" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100vw" }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`fullScreenTablet ${styles.finnishView}`}
+    <ViewFullScreenAnimated
+    backgroundColor="#F0F0F0"
+      framerKey={"orderNumber"}
+      // className={`fullScreenTablet ${styles.finnishView}`}
     >
-      <p className={`biggerPageTitles fontSF`}>{t("order_successfull")}</p>
+      <TopFixedRibbon justifyContent={"center"}>
+        <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
+      </TopFixedRibbon>
 
       <div className={styles.checkMarkWrapper}>
-        <div
-          style={{ backgroundColor: theme.activeTextColor }}
-          className={styles.checkMark}
-        >
-          <svg
-            width="53"
-            height="35"
-            viewBox="0 0 73 55"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M71.5853 1.35019C70.167 -0.098379 67.8676 -0.098379 66.4491 1.35019L22.9374 45.7877L6.21222 28.7068C4.79396 27.2583 2.49455 27.2584 1.07601 28.7068C-0.342394 30.1553 -0.342394 32.5036 1.07601 33.9521L20.3693 53.6555C21.7871 55.1039 24.0882 55.1029 25.5055 53.6555L71.5853 6.59564C73.0037 5.14722 73.0036 2.79876 71.5853 1.35019Z"
-              fill="white"
-            />
-          </svg>
-        </div>
+        <motion.img
+          // animate={{ x: [0, -10, 10, -10, 10, 0] }}
+          // transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop", repeatDelay: 4.4 }}
+          src="check.png"
+          alt="Check Mark"
+          width={70}
+          height={70}
+        />
+
+        {/* </div> */}
+
+        <p className={`biggerPageTitles fontCustom1`}>
+          {t("order_successfull")}
+        </p>
       </div>
 
       <p className={`${styles.subTitle} paymentPagesSubtitle fontSF`}>
         {t("pick_order")}
       </p>
 
-      <div
-        className={styles.orderNoWrapper}
-        style={{ borderColor: theme.activeTextColor }}
-      >
-        <p className={`${styles.orderNO} fontSF`}>{isTestMode ? 1 : orderNum}</p>
+      <div className={styles.orderNoWrapper}>
+        <p className={styles.orderNOTitle}>Order Number</p>
+        <p className={styles.orderNO}>{isTestMode ? 1 : orderNum}</p>
       </div>
 
       <form
@@ -104,11 +102,11 @@ const Finish = () => {
         }}
       >
         <label className={`noteLabel ${styles.formLabel}`} htmlFor="emailInput">
-          {t("enter_Email")}
+          {t("enter_Email")}.
         </label>
         <input
-          style={{ border: theme.activeTextColor }}
-          className="noteInput fontSF"
+          style={{ borderRadius: 8 }}
+          className="defInput"
           type="email"
           required
           placeholder="example@examplemail.com"
@@ -116,7 +114,20 @@ const Finish = () => {
         />
       </form>
 
-      <div style={{ position: "fixed", bottom: "3%", left: 0, right: 0 }}>
+      <BottomButtonholderRibbon>
+        <DefaultButton
+        style={{width: '100%', height: '100%', backgroundColor: 'black', color: 'white', textTransform: 'uppercase'}}
+          clickHandler={() => {
+            sendEmailForReceipt();
+            handleStepChange("confirmation");
+            cancelOrder();
+            handleRemoveNote();
+          }}
+        >
+          finnish
+        </DefaultButton>
+      </BottomButtonholderRibbon>
+      {/* <div style={{ position: "fixed", bottom: "3%", left: 0, right: 0 }}>
         <BottomGreenRibbon bgColor={theme.activeTextColor}>
           <button
             className="fontSF bottomRibbonButton"
@@ -130,13 +141,10 @@ const Finish = () => {
               cancelOrder();
               handleRemoveNote();
             }}
-          >
-            {t("send_Receipt")}
-          </button>
+          ></button>
         </BottomGreenRibbon>
-      </div>
-
-    </motion.section>
+      </div> */}
+    </ViewFullScreenAnimated>
   );
 };
 

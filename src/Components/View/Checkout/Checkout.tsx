@@ -1,15 +1,23 @@
 import { motion } from "framer-motion";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import CheckoutCard from "../../Reusables/CheckoutPage/CheckoutCard";
-import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
+// import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
 import styles from "./CheckoutStyles.module.css";
 import { useTranslation } from "react-i18next";
 import { Item, SendOrderType } from "../../../Types/SendOrderTypes";
 import { useSendOrder } from "../../../Query/SendOrder";
 import Pencil from "../../Reusables/SVG/Pencil";
+import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
+import Logo from "../../Reusables/Logo";
+import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
+// import XButton from "../../Reusables/XButton/XButton";
+// import BottomButtonholderRibbon from "../../Reusables/BottomButtonHolderWibbon/BottomButtonholderRibbon";
+import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
+import BottomFixedShadowLayer from "../../Reusables/BottomFixedShadowLayer/BottomFixedShadowLayer";
+import BottomOrderInfo from "../../Reusables/BottomOrderInfo/BottomOrderInfo";
 
 const Checkout = () => {
   const { handleStepChange, handleOrderNote, finalInfo, isTestMode } =
@@ -22,6 +30,8 @@ const Checkout = () => {
   const orderNoteInput = useRef<HTMLInputElement | null>(null);
 
   const [isRibbonShown, setIsRibbonShown] = useState(true);
+  const [paddingTop, setPaddingTop] = useState(50);
+  const scrollContRef = useRef<null | HTMLDivElement>(null);
 
   const hideShowRibbon = (value: boolean) => {
     setIsRibbonShown(value);
@@ -92,27 +102,49 @@ const Checkout = () => {
     mutate(orderData);
   };
 
-  return (
-    <motion.section
-      className={`fullScreenTablet`}
-      key={"checkout"}
-      initial={{ x: "-100vw" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100vw" }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-    >
-      <div className={styles.titleWrapper}>
-        <p className={`fontSF biggerPageTitles`}>{t("my_order")}</p>
-        <p
-          className={`fontSF paymentPagesSubtitle ${styles.total}`}
-          style={{ borderColor: theme.activeTextColor }}
-        >
-          {t("total")}: {getOrderTotal()}{" "}
-          {data.ThemeResponse.CurrencySettings.CurrencySymbol}
-        </p>
-      </div>
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = scrollContRef.current;
+      if (!container) return;
 
-      <div className={`hideScrollBar ${styles.checkoutCardWrapper}`}>
+      const { scrollTop } = container;
+
+      // Reduce paddingTop smoothly as the user scrolls
+      setPaddingTop(Math.max(20 - scrollTop, 0));
+    };
+
+    const container = scrollContRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    return () => container?.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNextAction = () => {
+    if (isTestMode) {
+      handleStepChange("payment");
+    } else {
+      handleSendOrder();
+      handleStepChange("payment");
+    }
+  };
+
+  return (
+    <ViewFullScreenAnimated framerKey={"Checkout"} backgroundColor="#F1F1F1">
+      <TopFixedRibbon justifyContent={"space-between"}>
+        <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
+
+        <p>{t("my_order")}</p>
+      </TopFixedRibbon>
+
+      <div
+        ref={scrollContRef}
+        className={`hideScrollBar ${styles.checkoutCardWrapper}`}
+        style={{
+          paddingTop,
+        }}
+      >
         {orders.map((product) => (
           <CheckoutCard
             key={product.id}
@@ -125,6 +157,7 @@ const Checkout = () => {
 
         {!isOrderFormVisible && (
           <motion.div
+            key={"orderNote"}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -177,7 +210,7 @@ const Checkout = () => {
                 type="text"
                 id="orderNoteInput"
                 required
-                className="noteInput"
+                className="defInput"
                 placeholder={
                   finalInfo.orderNote !== ""
                     ? finalInfo.orderNote
@@ -193,14 +226,14 @@ const Checkout = () => {
 
               <button
                 type="submit"
-                className={`submitBtn fontSF`}
+                className={`defSubmitFormBtn`}
                 style={{
-                  backgroundColor: theme.activeTextColor,
-                  borderColor: theme.activeTextColor,
+                  backgroundColor: theme.textColor,
+                  borderColor: theme.textColor,
                   width: "22%",
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
-                  color: theme.textColor,
+                  color: "white",
                 }}
               >
                 {finalInfo.orderNote !== ""
@@ -213,25 +246,46 @@ const Checkout = () => {
       </div>
 
       {isRibbonShown && (
-        <div className={`bottomRibbon`}>
-          <UpgradeBottomRibbon
-            nextText={t("place_order")}
-            backText={t("back_to_menu")}
-            backStep={"order"}
-            nextStep={"payment"}
-            disableNextBtn={false}
-            nextAction={() => {
-              if (isTestMode) {
-                handleStepChange("payment");
-              } else {
-                handleSendOrder();
-                handleStepChange("payment");
-              }
-            }}
-          />
-        </div>
+        <BottomFixedShadowLayer>
+          <>
+            <DefaultButton
+              style={{
+                flexBasis: "20%",
+                height: "80%",
+                textTransform: "uppercase",
+              }}
+              clickHandler={() => handleStepChange("order")}
+            >
+              Cancel
+            </DefaultButton>
+            <BottomOrderInfo
+              width={"80%"}
+              clickHandler={handleNextAction}
+              total={getOrderTotal()}
+              numberOfProductsInCart={orders.length}
+              nextText={"Payment"}
+            />
+          </>
+        </BottomFixedShadowLayer>
+        // <div className={`bottomRibbon`}>
+        //   <UpgradeBottomRibbon
+        //     nextText={t("place_order")}
+        //     backText={t("back_to_menu")}
+        //     backStep={"order"}
+        //     nextStep={"payment"}
+        //     disableNextBtn={false}
+        //     nextAction={() => {
+        //       if (isTestMode) {
+        //         handleStepChange("payment");
+        //       } else {
+        //         handleSendOrder();
+        //         handleStepChange("payment");
+        //       }
+        //     }}
+        //   />
+        // </div>
       )}
-    </motion.section>
+    </ViewFullScreenAnimated>
   );
 };
 

@@ -1,4 +1,4 @@
-import { delay, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
@@ -19,6 +19,8 @@ import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewF
 import XButton from "../../Reusables/XButton/XButton";
 import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
 import Chevron from "../../Reusables/SVG/Chevron";
+import BottomFixedShadowLayer from "../../Reusables/BottomFixedShadowLayer/BottomFixedShadowLayer";
+import BottomOrderInfo from "../../Reusables/BottomOrderInfo/BottomOrderInfo";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
@@ -97,7 +99,7 @@ const Order = () => {
           direction="vertical"
           slidesPerView={10}
           spaceBetween={14}
-          style={{ height: "auto" , paddingBottom: 700}}
+          style={{ height: "auto", paddingBottom: 700 }}
         >
           {allCategories.map((category) => (
             <SwiperSlide
@@ -106,13 +108,13 @@ const Order = () => {
               style={{
                 background:
                   selectedCategory === category.SubCategoryId
-                    ? `${theme.textColor}60`
-                    : `radial-gradient(100% 92% at 98% 0%, ${theme.textColor}40 0%, rgba(255, 255, 255, 0) 93%) `,
+                    ? `${theme.activeTextColor}60`
+                    : `radial-gradient(100% 92% at 98% 0%, ${theme.activeTextColor}40 0%, rgba(255, 255, 255, 0) 93%) `,
 
                 position: "relative",
                 border:
                   selectedCategory === category.SubCategoryId
-                    ? `1px solid ${theme.textColor}`
+                    ? `1px solid ${theme.activeTextColor}`
                     : `0.35px solid #a8a8a86d`,
               }}
               onClick={() => {
@@ -135,11 +137,16 @@ const Order = () => {
 
               {selectedCategory === category.SubCategoryId && (
                 <motion.div
-                initial={{opacity: 0, x: -10}}
-                animate={{opacity:1, x:0}}
-                exit={{opacity: 0, x: -10}}
-                transition={{duration: 0.3, delay: 0.15, ease: 'easeInOut'}}
-                className={styles.absoluteChevron}>
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: 0.15,
+                    ease: "easeInOut",
+                  }}
+                  className={styles.absoluteChevron}
+                >
                   <Chevron color={"#3F3F3F"} />
                 </motion.div>
               )}
@@ -163,33 +170,46 @@ const Order = () => {
       </div>
 
       {/* RIBBON */}
-      {orders.length > 0 && isBottomRibbonVisible && (
-        <BottomGreenRibbon animate>
-          <div
-            className={`bottomRibbonButton ${styles.bottomRibbonContent}`}
-            style={{
-              justifyContent: total > 0 ? "space-between" : "center",
-              backgroundColor: theme.activeTextColor,
-              color: theme.textColor,
-            }}
-            onClick={() => {
-              handleStepChange("checkout");
-            }}
-          >
-            <div className={styles.ribbonContentWrapper}>
-              <Backet color={theme.textColor} />
+      <AnimatePresence mode="wait">
+        {orders.length > 0 && isBottomRibbonVisible && (
+          // <BottomGreenRibbon animate>
+          //   <div
+          //     className={`bottomRibbonButton ${styles.bottomRibbonContent}`}
+          //     style={{
+          //       justifyContent: total > 0 ? "space-between" : "center",
+          //       backgroundColor: theme.activeTextColor,
+          //       color: theme.textColor,
+          //     }}
+          //     onClick={() => {
+          //       handleStepChange("checkout");
+          //     }}
+          //   >
+          //     <div className={styles.ribbonContentWrapper}>
+          //       <Backet color={theme.textColor} />
 
-              <span className={`fontSF `}>{orders.length}</span>
-            </div>
+          //       <span className={`fontSF `}>{orders.length}</span>
+          //     </div>
 
-            <p className={`fontSF `}>{t("view_order")} &rsaquo;</p>
+          //     <p className={`fontSF `}>{t("view_order")} &rsaquo;</p>
 
-            <p className={`fontSF `}>
-              {total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
-            </p>
-          </div>
-        </BottomGreenRibbon>
-      )}
+          //     <p className={`fontSF `}>
+          //       {total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
+          //     </p>
+          //   </div>
+          // </BottomGreenRibbon>
+          <BottomFixedShadowLayer>
+            <>
+              <BottomOrderInfo
+                clickHandler={() => handleStepChange("checkout")}
+                total={total}
+                numberOfProductsInCart={orders.length}
+                nextText={"Bestellen"}
+                width={"100%"}
+              />
+            </>
+          </BottomFixedShadowLayer>
+        )}
+      </AnimatePresence>
     </ViewFullScreenAnimated>
   );
 };
