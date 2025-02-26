@@ -20,7 +20,7 @@ const BottomOrderInfo = ({clickHandler, width, total,  numberOfProductsInCart, n
     style={{backgroundColor: '#232421', flexBasis: width}}
     onClick={clickHandler}>
         <div className={styles.ordersLengthWrapper}
-        style={{backgroundColor: theme.textColor}}>
+        style={{backgroundColor: theme.activeTextColor}}>
             <p>{numberOfProductsInCart}</p>
         </div>
         <div className={styles.orderTotal}> 

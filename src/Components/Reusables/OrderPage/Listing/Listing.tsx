@@ -45,18 +45,6 @@ const Listing = ({
     return () => container?.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setScreenWidth(window.innerWidth);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
@@ -66,21 +54,7 @@ const Listing = ({
     }
   }, [selectedCategory]);
 
-  // const getDynamicScrollOffset = () => {
-  //   let offset;
 
-  //   if (screenWidth < 480) {
-  //     offset = "26.5vh";
-  //   } else if (screenWidth < 770) {
-  //     offset = `27vh`;
-  //   } else if (screenWidth < 805) {
-  //     offset = `24.7vh`;
-  //   } else {
-  //     offset = `22.8vh`;
-  //   }
-
-  //   return offset;
-  // };
 
   if (products.length) {
     return (

@@ -60,7 +60,7 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
 
 
   // const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
-  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage)?.MainCategories[0] ?? data.TMKData[0].MainCategories[0];
+  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage)?.MainCategories[9] ?? data.TMKData[0].MainCategories[0];
 
   console.log("Current Lang and Category", currentLanguage,data.TMKData[0].Language === currentLanguage);
 

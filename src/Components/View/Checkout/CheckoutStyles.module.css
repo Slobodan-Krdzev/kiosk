@@ -7,6 +7,12 @@
   padding-bottom: 200px;
 }
 
+.topText{
+  font-family: var(--custom-font);
+  font-weight: 700;
+  font-size: 3.5vw;
+}
+
 /* .titleWrapper{
   width: 95%;
   margin:  0 auto;
@@ -15,13 +21,6 @@
   align-items: baseline;
 } */
 
-.total{
-  border: 2px solid;
-  padding: 1vw;
-  border-radius: 5px;
-  min-width: 25vw;
-  text-align: center;
-}
 
 .checkoutCardWrapper::-webkit-scrollbar {
   display: none;

@@ -120,7 +120,7 @@ const MealCard = ({
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, delay: 0.25 }}
       onClick={async () => {
-        if (!meal?.quantity) {
+        
           const availability = isTestMode
             ? true
             : await handleCheckAvailability();
@@ -160,6 +160,8 @@ const MealCard = ({
               setMeal(product);
               handleStepChange("menuUpgrade");
             } else {
+              setIsButtonOpened(true);
+
               if (isMealPlacedInOrders) {
                 // removeMealFromOrders(product.ProductId);
                 return;
@@ -181,16 +183,14 @@ const MealCard = ({
               }
             }
           }
-        } else {
-          setIsButtonOpened(true);
-        }
+        
       }}
       style={{
         backgroundColor: isMealPlacedInOrders
           ? `${theme.activeTextColor}40`
           : "",
         border: isMealPlacedInOrders
-          ? `0.5px solid ${theme.textColor} `
+          ? `0.5px solid ${theme.activeTextColor} `
           : "0.3px solid #bababa9d",
       }}
     >

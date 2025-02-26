@@ -31,13 +31,14 @@
     width: 400px;
     height: 400px;
     margin: 8vh auto;
-    background-color: inherit;
+    background-color: white !important;
+    font-family: var(--custom-font);
 
     --s: 100px;
     /* the size on the corner */
     --t: 10px;
     /* the thickness of the border */
-    --g: 5%;
+    --g: 0%;
     /* the gap between the border and image */
 
     padding: calc(var(--g) + var(--t));

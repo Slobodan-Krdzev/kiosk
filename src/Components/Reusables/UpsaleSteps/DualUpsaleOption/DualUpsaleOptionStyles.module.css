@@ -5,41 +5,50 @@
 
 .stepCounter{
     position: absolute;
-    bottom: 0px;
+    bottom: 3.5vh;
     left: 50%;
     right: 50%;
     transform: translate(-50%, -50%);
     width: 10%;
     font-size: 3.5vw;
-    font-weight: 600;
-    letter-spacing: -0.2vw;
+    font-weight: 800;
+    letter-spacing: -3.2px;
+    font-family: var(--custom-font);
 }
 
-.topContent {
-    height: 25vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.topText{
-    font-size: 6vw;
-    rotate: 352deg !important;
-    text-transform: uppercase;
+.stepCounterOnRibbon{
+    
+    font-size: 3.5vw;
+    font-weight: 800;
+    letter-spacing: -3.2px;
+    font-family: var(--custom-font);
 }
 
 .subtitle{
     text-align: center;
     font-size: 5vw;
-    font-weight: 400;
-    margin: 6vh 0 5vh;
+    font-weight: 600;
+    margin: 6vh 0 0.5vh;
+
+    font-family: var(--custom-font);
+    letter-spacing: -2.3px;
+}
+
+.mealName{
+    text-align: center;
+    font-size: 2.8vw;
+    font-weight: 300;
+
+    font-family: var(--custom-font);
+    letter-spacing: -1.3px;
+    color: #898989;
 }
 
 .optionsWrapper{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2vh;
+    gap: 1.4vh;
     margin: 5vh 0;
 }
 

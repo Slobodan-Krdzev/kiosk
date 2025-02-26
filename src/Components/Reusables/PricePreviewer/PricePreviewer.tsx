@@ -3,10 +3,13 @@ import styles from "./PricePreviewerStyles.module.css";
 interface PricePreviewerProps {
   price: number;
   color: string;
-  style?: object
+  style?: object;
+  fontSizeRound?: number | string;
+  fontSizeDecimal?: number | string;
+
 }
 
-const PricePreviewer = ({ price, color, style }: PricePreviewerProps) => {
+const PricePreviewer = ({ price, color, style, fontSizeDecimal = '2.5vw', fontSizeRound = '4.6vw' }: PricePreviewerProps) => {
   const [priceRound, priceDecimal] = [
     price.toString().split(".")[0],
     price.toString().split(".")[1],
@@ -31,8 +34,8 @@ const PricePreviewer = ({ price, color, style }: PricePreviewerProps) => {
 
   return (
     <div className={styles.pricePreviewerWrapper} style={{color, ...style}}>
-      <span className={styles.round}>{priceRound}.</span>
-      <span className={styles.decimal}>
+      <span style={{fontSize: fontSizeRound}} className={styles.round}>{priceRound}.</span>
+      <span style={{fontSize: fontSizeDecimal}} className={styles.decimal}>
         {formatedDecimal()}
       </span>
     </div>

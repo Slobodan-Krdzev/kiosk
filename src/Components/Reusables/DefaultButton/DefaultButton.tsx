@@ -4,15 +4,22 @@ interface DefaultButtonProps {
   children: React.ReactNode | JSX.Element;
   clickHandler: () => void;
   style?: object;
+  dissabled?: boolean;
 }
 
 const DefaultButton = ({
   children,
   clickHandler,
   style,
+  dissabled,
 }: DefaultButtonProps) => {
   return (
-    <button className={styles.btn} onClick={clickHandler} style={style}>
+    <button
+      disabled={dissabled}
+      className={styles.btn}
+      onClick={clickHandler}
+      style={style}
+    >
       {children}
     </button>
   );

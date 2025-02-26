@@ -1,14 +1,16 @@
-import { motion } from "framer-motion";
 import { useContext } from "react";
-import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
+import { useTranslation } from "react-i18next";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
 import { UpsaleStep } from "../../../../Types/Types";
-import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
+import BottomButtonholderRibbon from "../../BottomButtonHolderWibbon/BottomButtonholderRibbon";
+import DefaultButton from "../../DefaultButton/DefaultButton";
+import Chevron from "../../SVG/Chevron";
+import UpsaleTopFixed from "../../UpsaleTopFixed/UpsaleTopFixed";
+import ViewFullScreenAnimated from "../../ViewFullScreenAnimated/ViewFullScreenAnimated";
 import MultiOptionselector from "./MultiOptionSelector/MultiOptionselector";
 import styles from "./MultiUpsaleOptionStyles.module.css";
-import { useTranslation } from "react-i18next";
 
 type MultiUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -24,8 +26,7 @@ const MultiUpsaleOption = ({
   stepsLength,
 }: MultiUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
-  const { theme } = useContext(DataContext);
-  const {  placeMealInOrders, singleMeal, setUpsale,  } = useContext(OrderContext);
+  const { placeMealInOrders, singleMeal, setUpsale } = useContext(OrderContext);
   const { t } = useTranslation();
 
   const { upsaleData, resetUpsale } = useContext(UpsaleContext);
@@ -33,33 +34,49 @@ const MultiUpsaleOption = ({
   const options = upsaleStepData.Options;
   const maxSelection = 2;
   const isNextButtonDisabled = () => {
+    if (
+      upsaleStepData.MinSelection === 0 ||
+      upsaleData[upsaleStep].stepData.length > 0
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
-    if(upsaleStepData.MinSelection === 0 || upsaleData[upsaleStep].stepData.length > 0){
+  const onNextBtnClick = () => {
+    if (upsaleStepData.DisplayOrder === stepsLength - 1) {
+      // OVDE UPDATE NA SIGNLE MEAL
+      setUpsale(upsaleData);
+      placeMealInOrders({
+        ...singleMeal,
+        id: new Date().valueOf(),
+        upsale: upsaleData,
+        itemGUI: undefined,
+      });
 
-      return false
-    }else {
-      return true
+      handleStepChange("order");
+      resetUpsale();
     }
 
-  }
+    handleUpsaleStepChange("increase");
+  };
 
   return (
-    <motion.section
-      key={`multi${upsaleStep}`}
-      initial={{ x: "-100vw" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100vw" }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={styles.multiView}
+    <ViewFullScreenAnimated
+      backgroundColor="#ECECEC"
+      framerKey={`multi${upsaleStep}`}
     >
       {/* top content */}
 
-      <p className={`${styles.stepCounter} fontSF`}>
-        {upsaleStep + 1} / {stepsLength}
-      </p>
+      <UpsaleTopFixed
+        version={1}
+        image={singleMeal.product!.SmallPictureUrl!}
+        productName={singleMeal.product!.Name ?? ""}
+      />
       {/* top content */}
 
-      <div
+      {/* <div
         className={styles.topContent}
         style={{ backgroundColor: theme.activeTextColor }}
       >
@@ -70,16 +87,16 @@ const MultiUpsaleOption = ({
         <h1 className={` ${styles.topText} fontNoteworthy`}>
           {singleMeal.product?.Name}
         </h1>
-      </div>
+      </div> */}
 
       {/* option choose */}
 
       <div className={styles.midSection}>
-        <h2 className={`fontSF ${styles.subtitle}`}>
+        <h2 className={styles.subtitle}>
           {t("choose_your")} {upsaleStepData.Name}
         </h2>
 
-        <p className={`${styles.maxSelectionInfo} fontSF `}>
+        <p className={styles.maxSelectionInfo}>
           {maxSelection > 1 ? `${t("multiple_choice")}` : `${t("only_one")}`}
         </p>
         <div className={`hideScrollBar ${styles.optionsWrapper}`}>
@@ -95,20 +112,23 @@ const MultiUpsaleOption = ({
       </div>
       {/* ribbon */}
 
-      <UpgradeBottomRibbon
+      {/* <UpgradeBottomRibbon
         disableNextBtn={isNextButtonDisabled()}
         nextText={t("next_Btn")}
-        backText={t('back_Btn')}
+        backText={t("back_Btn")}
         nextAction={() => {
-
-          if(upsaleStepData.DisplayOrder === stepsLength - 1){
-
+          if (upsaleStepData.DisplayOrder === stepsLength - 1) {
             // OVDE UPDATE NA SIGNLE MEAL
-            setUpsale(upsaleData) 
-            placeMealInOrders({ ...singleMeal,id: new Date().valueOf(), upsale: upsaleData, itemGUI: undefined });
+            setUpsale(upsaleData);
+            placeMealInOrders({
+              ...singleMeal,
+              id: new Date().valueOf(),
+              upsale: upsaleData,
+              itemGUI: undefined,
+            });
 
             handleStepChange("order");
-            resetUpsale()
+            resetUpsale();
           }
 
           handleUpsaleStepChange("increase");
@@ -116,8 +136,64 @@ const MultiUpsaleOption = ({
         backAction={() => {
           handleUpsaleStepChange("decrease");
         }}
-      />
-    </motion.section>
+      /> */}
+      <BottomButtonholderRibbon>
+        <DefaultButton
+          clickHandler={() => handleUpsaleStepChange("decrease")}
+          style={{
+            backgroundColor: "inherit",
+            height: "100%",
+            width: "30%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0.5vh",
+            textTransform: "uppercase",
+          }}
+        >
+          <Chevron color="black" orientation="toLeft" />
+          Bestellen
+        </DefaultButton>
+
+        {upsaleStep > 0 && (
+          <div
+            style={{
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
+            <p className={styles.stepCounterOnRibbon}>
+              {upsaleStep + 1} / {stepsLength}
+            </p>
+          </div>
+        )}
+
+        <DefaultButton
+          dissabled={isNextButtonDisabled()}
+          clickHandler={onNextBtnClick}
+          style={{
+            backgroundColor: isNextButtonDisabled() ? "#2d2d2d33" : "black",
+            border: `1px solid ${isNextButtonDisabled() ? "#8a8a8a" : "black"}`,
+            height: "100%",
+            width: "30%",
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0.5vh",
+            textTransform: "uppercase",
+          }}
+        >
+          {isNextButtonDisabled() === false ? "Choose" : "Bestellen"}
+          {isNextButtonDisabled() &&  <Chevron color="white" />}
+            
+          
+        </DefaultButton>
+      </BottomButtonholderRibbon>
+    </ViewFullScreenAnimated>
   );
 };
 

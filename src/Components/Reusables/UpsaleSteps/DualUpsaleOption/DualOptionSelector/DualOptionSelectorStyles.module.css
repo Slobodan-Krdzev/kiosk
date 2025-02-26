@@ -1,22 +1,32 @@
 .option {
-  width: 40%;
+  width: 35%;
   max-width: 450px;
   /* min-height: 300px; */
   height: 27vh;
   /* max-height: 480px; */
-  padding: 4vw;
+  /* padding: 4vw; */
   border-radius: 12px;
 
   /* border: 1px solid; */
   background-color: #FFFF;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 
   box-shadow: 5px 5px 20px 0px #00000005;
 
   position: relative;
+}
+
+.image{
+  height: 60%;
+  min-height: 60%;
+  width: 100%;
+  border-radius: 14px;
+
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .topRightNote {
@@ -40,24 +50,46 @@
     height: 26px;
 }
 
+.optionBotomTextWrapper{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 0.7vh;
+  height: 40%;
+}
+
 .optionTopText {
-  font-size: 2.1vw;
+  font-size: 3.3vw;
   text-align: center;
-  font-weight: 400;
-  flex-basis: 25%;
-  padding-top: 1vh;
+  font-weight: 600;
+  font-family: var(--custom-font);
+
+}
+
+.optionBottomText {
+  font-size: 2vw;
+  text-align: center;
+  font-weight: 600;
+  font-family: var(--custom-font);
+
 }
 
 .boldedText {
-  font-size: 4vw;
+  font-size: 2vw;
   text-align: center;
   font-weight: 500;
+  font-family: var(--custom-font);
+
 }
 
 .optionName {
   font-size: 3.5vw;
   text-align: center;
   font-weight: 500;
+  font-family: var(--custom-font);
+
 }
 
 .price{
@@ -73,6 +105,28 @@
     justify-content: end;
     align-items: center;
     padding-bottom: 1vh;
+    font-family: var(--custom-font);
+
+}
+
+.checkMark {
+
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+
+  background-color: white;
+
+  border: 0.5px solid #BBBBBB;
+  border-radius: 19%;
+
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -94,7 +148,7 @@
   .option{ 
     width: 45%;
   }
-
+  
   .optionName {
     font-size: 4vw;
   }

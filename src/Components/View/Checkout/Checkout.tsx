@@ -5,19 +5,19 @@ import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import CheckoutCard from "../../Reusables/CheckoutPage/CheckoutCard";
 // import UpgradeBottomRibbon from "../../Reusables/UpgradeBottomRibbon/UpgradeBottomRibbon";
-import styles from "./CheckoutStyles.module.css";
 import { useTranslation } from "react-i18next";
-import { Item, SendOrderType } from "../../../Types/SendOrderTypes";
 import { useSendOrder } from "../../../Query/SendOrder";
-import Pencil from "../../Reusables/SVG/Pencil";
-import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
+import { Item, SendOrderType } from "../../../Types/SendOrderTypes";
 import Logo from "../../Reusables/Logo";
+import Pencil from "../../Reusables/SVG/Pencil";
 import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
+import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
+import styles from "./CheckoutStyles.module.css";
 // import XButton from "../../Reusables/XButton/XButton";
 // import BottomButtonholderRibbon from "../../Reusables/BottomButtonHolderWibbon/BottomButtonholderRibbon";
-import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
 import BottomFixedShadowLayer from "../../Reusables/BottomFixedShadowLayer/BottomFixedShadowLayer";
 import BottomOrderInfo from "../../Reusables/BottomOrderInfo/BottomOrderInfo";
+import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
 
 const Checkout = () => {
   const { handleStepChange, handleOrderNote, finalInfo, isTestMode } =
@@ -135,7 +135,7 @@ const Checkout = () => {
       <TopFixedRibbon justifyContent={"space-between"}>
         <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
 
-        <p>{t("my_order")}</p>
+        <p className={styles.topText}>{t("my_order")}</p>
       </TopFixedRibbon>
 
       <div
@@ -228,8 +228,8 @@ const Checkout = () => {
                 type="submit"
                 className={`defSubmitFormBtn`}
                 style={{
-                  backgroundColor: theme.textColor,
-                  borderColor: theme.textColor,
+                  backgroundColor: theme.activeTextColor,
+                  borderColor: theme.activeTextColor,
                   width: "22%",
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
@@ -263,27 +263,11 @@ const Checkout = () => {
               clickHandler={handleNextAction}
               total={getOrderTotal()}
               numberOfProductsInCart={orders.length}
-              nextText={"Payment"}
+              nextText={t("payment")}
             />
           </>
         </BottomFixedShadowLayer>
-        // <div className={`bottomRibbon`}>
-        //   <UpgradeBottomRibbon
-        //     nextText={t("place_order")}
-        //     backText={t("back_to_menu")}
-        //     backStep={"order"}
-        //     nextStep={"payment"}
-        //     disableNextBtn={false}
-        //     nextAction={() => {
-        //       if (isTestMode) {
-        //         handleStepChange("payment");
-        //       } else {
-        //         handleSendOrder();
-        //         handleStepChange("payment");
-        //       }
-        //     }}
-        //   />
-        // </div>
+       
       )}
     </ViewFullScreenAnimated>
   );

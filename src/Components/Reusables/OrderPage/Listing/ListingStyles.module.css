@@ -4,7 +4,7 @@
     /* grid-auto-rows: clamp(180px, 13vh, 300px); */
     grid-auto-rows: 296px;
     /* od ovde setirame height na karticka */
-    gap: 1.5vh;
+    gap: 1.1vh;
     overflow-y: scroll;
     height: 100%;
     padding-bottom: 30vh;

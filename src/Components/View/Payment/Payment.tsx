@@ -120,7 +120,7 @@ const Payment = () => {
         <p className={`${styles.subTitle}`}>{t("qr_title")}</p>
 
         <button
-          className={`fontSF ${styles.qrCode}`}
+          className={styles.qrCode}
           style={{
             color: theme.textColor,
             borderColor: theme.textColor,

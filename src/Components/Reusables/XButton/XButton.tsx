@@ -6,6 +6,7 @@ interface XButtonProps {
   color?: string;
   borderColor?: string;
   bgColor?: string;
+  style?: object
 }
 
 const XButton = ({
@@ -13,6 +14,7 @@ const XButton = ({
   color = "#878787",
   borderColor = "#D6D6D6",
   bgColor = "#FFFFFF",
+  style
 }: XButtonProps) => {
   return (
     <button
@@ -24,7 +26,8 @@ const XButton = ({
         border: `0.6px solid ${borderColor}`,
         fontSize: "2vw",
         fontWeight: 700,
-        display: 'flex'
+        display: 'flex',
+        ...style
       }}
     >
       <X color={color}/>

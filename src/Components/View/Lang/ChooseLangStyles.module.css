@@ -5,4 +5,12 @@
     width: 95%;
     margin: 5vh auto ;
     gap: 3vw;
+
+    
+}
+
+.menuOptionsText{
+    font-family: var(--custom-font);
+    font-weight: 600;
+    letter-spacing: -3%;
 }

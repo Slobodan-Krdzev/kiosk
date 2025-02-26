@@ -1,12 +1,13 @@
-import { useContext, useState } from "react";
+import { motion } from "framer-motion";
+import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
 import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
 import { Option } from "../../../../../Types/Types";
+import PricePreviewer from "../../../PricePreviewer/PricePreviewer";
+import Minus from "../../../SVG/Minus";
 import Plus from "../../../SVG/Plus";
 import Trashcan from "../../../SVG/Trashcan";
 import styles from "./MultiOptionSelectorStyles.module.css";
-import CheckMark from "../../../SVG/CheckMark";
-import Minus from "../../../SVG/Minus";
 
 type MultiOptionSelectorPropsType = {
   option: Option;
@@ -19,8 +20,9 @@ const MultiOptionselector = ({
   maxSelection,
   upsaleStep,
 }: MultiOptionSelectorPropsType) => {
+  const [isButtonOpened, setIsButtonOpened] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
-  const { theme, data } = useContext(DataContext);
+  const { theme } = useContext(DataContext);
   const { upsaleData, addNewOption, removeAnOption } =
     useContext(UpsaleContext);
 
@@ -39,6 +41,54 @@ const MultiOptionselector = ({
 
   const selectedOptionsLength = upsaleData[upsaleStep].stepData.length;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isButtonOpened) setIsButtonOpened(false);
+    }, 8000);
+
+    return () => clearTimeout(timer);
+  }, [isButtonOpened, quantity]);
+
+  const takeOutBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    setQuantity((q) => q - 1);
+
+    if (quantity === 1) {
+      removeAnOption(upsaleStep, option);
+      setIsSelected(false);
+      setIsButtonOpened(false);
+    } else {
+      addNewOption(upsaleStep, option, maxSelection, quantity - 1);
+    }
+
+    // if (quantity <= 1) {
+    //   setQuantity(1);
+    //   setIsButtonOpened(false);
+
+    //   removeMealFromOrders(meal.id);
+    // } else {
+    //   setQuantity((q) => q - 1);
+
+    //   setSingleMealQuantity(meal, "minus");
+    // }
+  };
+
+  const addBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    if (quantity === option.MaxSelection) {
+      setIsButtonOpened(false);
+      return;
+    }
+
+    setQuantity((q) => q + 1);
+
+    if (isSelected) {
+      addNewOption(upsaleStep, option, maxSelection, quantity + 1);
+    }
+  };
+
   return (
     <div
       role="button"
@@ -49,7 +99,7 @@ const MultiOptionselector = ({
           ? `1px solid ${theme.activeTextColor}`
           : "",
         backgroundColor: isOptionAlreadySelected
-          ? `${theme.activeTextColor}40`
+          ? `${theme.activeTextColor}30`
           : selectedOptionsLength === maxSelection
           ? "#F1F1F1"
           : "white",
@@ -60,34 +110,114 @@ const MultiOptionselector = ({
             ? "none"
             : "auto",
       }}
+      onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+
+        if (isOptionAlreadySelected) {
+          if (option.MaxSelection > 1) setIsButtonOpened(true);
+          return;
+        }
+        setIsSelected(true);
+        addNewOption(upsaleStep, option, maxSelection, 1);
+        setIsButtonOpened(true);
+        setQuantity(1);
+      }}
     >
-      <img
-        src={option.PictureUrl}
-        alt={option.Name}
-        className={styles.image}
-        style={{
-          opacity: isOptionAlreadySelected
-            ? 1
-            : selectedOptionsLength === maxSelection
-            ? 0.55
-            : 1,
-        }}
-      />
-
-      <p
-        className={`fontSF ${styles.optionName}`}
-        style={{ textAlign: "left" }}
-      >
-        {option.Name}
-      </p>
-      <p
-        className={`fontSF ${styles.optionPrice}`}
-        style={{ textAlign: "left" }}
-      >
-        {option.Price} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
-      </p>
-
       <div
+        style={{ backgroundImage: `url(${option.PictureUrl})` }}
+        className={styles.optionImg}
+      ></div>
+      <div className={styles.optionInfoWrapper}>
+        <p className={styles.optionName} style={{ textAlign: "left" }}>
+          {option.Name}
+        </p>
+        <PricePreviewer
+          price={option.Price}
+          color={theme.activeTextColor}
+          style={{
+            bottom: "3%",
+          }}
+        />
+      </div>
+
+      <motion.div
+        id="productCardBtnsWrapper"
+        animate={{
+          backgroundColor:
+            option.MaxSelection > 1 && isButtonOpened ? "#000000" : "#F9F9F9",
+          width: isButtonOpened && option.MaxSelection > 1 ? "96%" : "40px",
+          minWidth: "40px",
+          height: "40px",
+          maxWidth: "100%",
+          maxHeight: "40px",
+          lineHeight: "40px",
+          padding: 0,
+        }}
+        transition={{ type: "spring", duration: 1 }}
+        className={styles.cardButtonWrapper}
+        style={{
+          color: theme.activeTextColor,
+          justifyContent:
+            option.MaxSelection > 1 && isButtonOpened
+              ? "space-between"
+              : "center",
+          alignItems: "center",
+          borderColor: option.MaxSelection > 1 && isButtonOpened ? "black" : "",
+          padding: option.MaxSelection > 1 && isButtonOpened ? "0 3vw" : 0,
+          width:
+            option.MaxSelection > 1 && option.MaxSelection > 1 && isButtonOpened
+              ? "100%"
+              : "3.6vh",
+          display: "flex",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          if (isOptionAlreadySelected) {
+            if (option.MaxSelection > 1) setIsButtonOpened(true);
+            return;
+          }
+          setIsSelected(true);
+          addNewOption(upsaleStep, option, maxSelection, 1);
+          setIsButtonOpened(true);
+          setQuantity(1);
+        }}
+      >
+        {!isOptionAlreadySelected && <Plus color={"gray"} />}
+
+        { isSelected && option.MaxSelection <= 1  && <>{quantity} </>}
+
+        {isOptionAlreadySelected &&
+          option.MaxSelection > 1 &&
+          isButtonOpened && (
+            <>
+              <button
+                className={styles.quantityBtns}
+                onClick={takeOutBtnHandler}
+              >
+                {" "}
+                {quantity === 1 ? <Trashcan /> : <Minus color="black" />}
+              </button>
+              <div
+                style={{
+                  flexBasis: "33.333%",
+                  color: "white",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                className={styles.quantityRender}
+              >
+                {quantity}
+              </div>
+              <button className={styles.quantityBtns} onClick={addBtnHandler}>
+                {" "}
+                <Plus color="black" />{" "}
+              </button>
+            </>
+          )}
+      </motion.div>
+      {/* <div
         className={`fontSF ${styles.optionBtn}`}
         style={{
           backgroundColor:
@@ -120,7 +250,7 @@ const MultiOptionselector = ({
                   : theme.activeTextColor,
               width: "100%",
               height: "100%",
-              borderTopLeftRadius: 50
+              borderTopLeftRadius: 50,
             }}
             onClick={() => {
               addNewOption(upsaleStep, option, maxSelection, 1);
@@ -135,10 +265,12 @@ const MultiOptionselector = ({
         {isOptionAlreadySelected && option.MaxSelection === 1 && (
           <button
             className={styles.addBtn}
-            style={{ backgroundColor: theme.activeTextColor,
+            style={{
+              backgroundColor: theme.activeTextColor,
               width: "100%",
               height: "100%",
-              borderTopLeftRadius: 50 }}
+              borderTopLeftRadius: 50,
+            }}
             onClick={() => {
               removeAnOption(upsaleStep, option);
 
@@ -194,7 +326,7 @@ const MultiOptionselector = ({
             </button>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

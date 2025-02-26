@@ -32,7 +32,10 @@ const StartScreen = () => {
         <LargeBtn
           borderColor="white"
           width={"100%"}
-          clickHandler={() => handleStepChange("lang")}
+          clickHandler={() => {
+            handleStepChange("lang")
+            document.documentElement.requestFullscreen();
+          }}
         >
           Start Ordering
         </LargeBtn>

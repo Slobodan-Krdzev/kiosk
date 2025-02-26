@@ -71,9 +71,17 @@ const CheckoutCard = ({
           }}
         ></div>
 
+        <PricePreviewer
+          style={{ top: '10px', right: '35px'}}
+          price={order.totalPrice}
+          color={theme.activeTextColor}
+          fontSizeRound={"3.5vw"}
+          fontSizeDecimal={"1.6vw"}
+        />
+
         <div className={styles.checkoutCardInfoWrapper}>
           <div className={styles.cardTitlePriceRow}>
-            <p className={`${styles.checkoutCardMealName} fontSF`}>
+            <p className={styles.checkoutCardMealName}>
               {order.product!.Name.length > 35
                 ? `${order.product!.Name.substring(0, 35)}...`
                 : order.product!.Name}
@@ -83,13 +91,6 @@ const CheckoutCard = ({
               {order.totalPrice.toFixed(2)}{" "}
               {data.ThemeResponse.CurrencySettings.CurrencySymbol}
             </p> */}
-            <div>
-              <PricePreviewer
-                style={{ position: "relative" }}
-                price={order.totalPrice}
-                color={theme.textColor}
-              />
-            </div>
           </div>
 
           <div className={styles.mealInfoWrapper}>
@@ -224,8 +225,8 @@ const CheckoutCard = ({
                     type="submit"
                     className={`defSubmitFormBtn`}
                     style={{
-                      backgroundColor: theme.textColor,
-                      borderColor: theme.textColor,
+                      backgroundColor: theme.activeTextColor,
+                      borderColor: theme.activeTextColor,
                       width: "22%",
                       borderTopLeftRadius: 0,
                       borderBottomLeftRadius: 0,

@@ -55,7 +55,7 @@ const ChooseLang = () => {
           <>
             <Takeaway color={theme.activeTextColor} />
 
-            <p className={`fontSF ${styles.menuOptionsText}`}>
+            <p className={styles.menuOptionsText}>
               {t("takeaway")}
             </p>
           </>
@@ -70,7 +70,7 @@ const ChooseLang = () => {
           <>
             <DineIn color={theme.activeTextColor} />
 
-            <p className={`fontSF ${styles.menuOptionsText}`}>
+            <p className={styles.menuOptionsText}>
               {t("dine_in").substring(0, 15)}
             </p>
           </>

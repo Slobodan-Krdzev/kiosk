@@ -1,7 +1,8 @@
 
-const Chevron = ({color}: {color: string}) => {
+const Chevron = ({color, orientation = 'toRight'}: {color: string, orientation?: 'toLeft' | "toRight"}) => {
   return (
     <svg
+    style={{transform: orientation === 'toLeft' ? "rotate(180deg)" : ''}}
       width="17px"
       height="20px"
       viewBox="0 0 24 24"

@@ -22,6 +22,7 @@
     gap: 2vw;
 
     overflow: hidden;
+    font-family: var(--custom-font);
 }
 
 .checkoutCardPicture {
@@ -85,7 +86,7 @@
 }
 
 .checkoutCardExtrasText {
-    font-size: 2.1vw;
+    font-size: 1.8vw;
     font-weight: 300;
     line-height: 99%;
     letter-spacing: -0.25999999046325684px;
@@ -95,16 +96,15 @@
 }
 
 .mealInfoWrapper{
-    flex-basis: 33.333%;
+    flex-basis: 45.333%;
     min-height: 33.333%;
     height: 33.333%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    overflow: hidden;
 }
 
-.mealInfoWrapper p {
-    text-transform: capitalize;
-    margin: 0.5vh 0;
-
-}
 
 .cardNoteBtnsWrapper{
 

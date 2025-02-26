@@ -1,33 +1,35 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import { Product } from "../../../Types/Types";
-import Logo from "../../Reusables/Logo";
-import Listing from "../../Reusables/OrderPage/Listing/Listing";
-import styles from "./OrderStyles.module.css";
-import BottomGreenRibbon from "../../Reusables/BottomGreenRibbon";
-import Backet from "../../Reusables/SVG/Backet";
-import { useTranslation } from "react-i18next";
-import Promotion from "../../Reusables/OrderPage/Promotion/Promotion";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
-import XButton from "../../Reusables/XButton/XButton";
-import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
-import Chevron from "../../Reusables/SVG/Chevron";
 import BottomFixedShadowLayer from "../../Reusables/BottomFixedShadowLayer/BottomFixedShadowLayer";
 import BottomOrderInfo from "../../Reusables/BottomOrderInfo/BottomOrderInfo";
+import Logo from "../../Reusables/Logo";
+import Listing from "../../Reusables/OrderPage/Listing/Listing";
+import Promotion from "../../Reusables/OrderPage/Promotion/Promotion";
+import Chevron from "../../Reusables/SVG/Chevron";
+import TopFixedRibbon from "../../Reusables/TopFixedRibbon/TopFixedRibbon";
+import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
+import XButton from "../../Reusables/XButton/XButton";
+import styles from "./OrderStyles.module.css";
+import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
+import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
+import Modal from "../../Reusables/Modal";
+import { t } from "i18next";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
-  const { getOrderTotal, orders } = useContext(OrderContext);
-  const { t } = useTranslation();
+  const { getOrderTotal, orders, cancelOrder } = useContext(OrderContext);
+const {resetUpsale} = useContext(UpsaleContext)
 
+const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false)
   const [isBottomRibbonVisible] = useState(true);
   const scrollingDiv = useRef<HTMLDivElement>(null);
 
@@ -78,8 +80,17 @@ const Order = () => {
     setOutOfStockProducts([...outOfStockProducts, id]);
   };
 
-  const handleXButtonClick = () => {
-    console.log("Click X");
+  const handleXBtnClick = () => {
+
+    setIsCancelModalOpen(true)
+
+  }
+
+  const cancelOrderClick = () => {
+
+    handleStepChange('start')
+    resetUpsale()
+    cancelOrder()
   };
 
   console.log("Orders from orfers screen", orders);
@@ -89,7 +100,7 @@ const Order = () => {
       <TopFixedRibbon justifyContent={"space-between"}>
         <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
         <div>
-          <XButton clickHandler={handleXButtonClick} />
+          <XButton clickHandler={handleXBtnClick} />
         </div>
       </TopFixedRibbon>
 
@@ -203,13 +214,49 @@ const Order = () => {
                 clickHandler={() => handleStepChange("checkout")}
                 total={total}
                 numberOfProductsInCart={orders.length}
-                nextText={"Bestellen"}
+                nextText={t('view_order')}
                 width={"100%"}
               />
             </>
           </BottomFixedShadowLayer>
         )}
       </AnimatePresence>
+
+      {isCancelmodalOpen && (
+        <Modal borderColor={theme.activeTextColor}>
+          <>
+            <h2
+              style={{ textAlign: "center", fontSize: "2.6vw", width: "60%" }}
+              className={`fontCustom1 paymentPagesSubtitle`}
+            >
+              Are you sure you want to cancel your order?
+            </h2>
+            <div className={`modalBtnsWrapper`}>
+              <DefaultButton
+                clickHandler={() => setIsCancelModalOpen(false)}
+                style={{
+                  height: "100%",
+                  minHeight: "70px",
+                  width: '100%'
+                }}
+              >
+                No
+              </DefaultButton>
+              <DefaultButton
+                clickHandler={cancelOrderClick}
+                style={{
+                  height: "100%",
+                  backgroundColor: "#FF4F4F",
+                  color: "white",
+                  width: '100%'
+                }}
+              >
+                Yes
+              </DefaultButton>
+            </div>
+          </>
+        </Modal>
+      )}
     </ViewFullScreenAnimated>
   );
 };
