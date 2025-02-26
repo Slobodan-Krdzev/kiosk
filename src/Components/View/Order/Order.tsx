@@ -23,10 +23,12 @@ import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
 import Modal from "../../Reusables/Modal";
 import { t } from "i18next";
 import SmallOrderTypeSelector from "../../Reusables/SmallOrderTypeSelector/SmallOrderTypeSelector";
+import SlideUpModal from "../../Reusables/SlideUpModal/SlideUpModal";
+import MealInfo from "../../Reusables/MealInfo/MealInfo";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
-  const { handleStepChange } = useContext(StepContext);
+  const { handleStepChange, mealForInfo } = useContext(StepContext);
   const { getOrderTotal, orders, cancelOrder } = useContext(OrderContext);
   const { resetUpsale } = useContext(UpsaleContext);
 
@@ -92,6 +94,8 @@ const Order = () => {
   };
 
   console.log("Orders from orfers screen", orders);
+  console.log("Meal For Info", mealForInfo);
+
 
   return (
     <ViewFullScreenAnimated framerKey={"order"}>
@@ -240,6 +244,12 @@ const Order = () => {
           </>
         </Modal>
       )}
+
+      {("product" in mealForInfo && Object.keys(mealForInfo.product).length !== 0) && <SlideUpModal >
+        <>
+        <MealInfo meal={mealForInfo.product!} availability={mealForInfo.availability}/>
+        </>
+        </SlideUpModal>}
     </ViewFullScreenAnimated>
   );
 };

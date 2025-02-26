@@ -154,12 +154,11 @@ const MealCard = ({
             // TUKA PRAVIME PROVERKA I DOKOLKU POSTOI UPSALE NA TMK
 
             if (!data.TMKData[0].UpsaleColletions.length) {
-
-              console.log('vleguvame vo false')
+              console.log("vleguvame vo false");
 
               setUpsaleMessage(true);
             } else {
-              console.log('vleguvame vo true')
+              console.log("vleguvame vo true");
 
               setQuantity((q) => q + 1);
               setIsButtonOpened(true);
@@ -230,8 +229,7 @@ const MealCard = ({
 
             const availability = await handleCheckAvailability();
 
-            handleSetMealForInfo(product, availability);
-            handleStepChange("mealInfo");
+            handleSetMealForInfo(product, isTestMode ? true : availability);
           }}
         >
           <Info />
@@ -449,10 +447,16 @@ const MealCard = ({
       </motion.div> */}
       {upsaleMessage && (
         <Modal borderColor={"black"}>
-          <>itemot ima upsale ama na cms ne e setirano UpsaleSteps
-            <button onClick={() => {
-              setUpsaleMessage(false)
-              handleStepChange('lang')}}>Close</button>
+          <>
+            itemot ima upsale ama na cms ne e setirano UpsaleSteps
+            <button
+              onClick={() => {
+                setUpsaleMessage(false);
+                handleStepChange("lang");
+              }}
+            >
+              Close
+            </button>
           </>
         </Modal>
       )}

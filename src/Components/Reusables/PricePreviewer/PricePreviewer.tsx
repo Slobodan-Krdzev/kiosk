@@ -30,8 +30,7 @@ const PricePreviewer = ({ price, color, style, fontSizeDecimal = '2.5vw', fontSi
 
     return formated.slice(0,2)
   }
-  console.log(priceDecimal)
-
+  
   return (
     <div className={styles.pricePreviewerWrapper} style={{color, ...style}}>
       <span style={{fontSize: fontSizeRound}} className={styles.round}>{priceRound}.</span>

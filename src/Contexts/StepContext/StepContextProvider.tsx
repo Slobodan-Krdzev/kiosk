@@ -40,6 +40,7 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
   const handleSetMealForInfo = (meal: Product, availability: boolean) => {
     setMealForInfo({ product: meal, availability });
   };
+  
 
   const handleOrderNote = (note: string) => {
     setOrderNote(note);
