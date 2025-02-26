@@ -15,6 +15,8 @@ import "sweetalert2/src/sweetalert2.scss";
 import Info from "../../SVG/Info";
 import PricePreviewer from "../../PricePreviewer/PricePreviewer";
 import Minus from "../../SVG/Minus";
+import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
+import Modal from "../../Modal";
 
 type MealCardPropsType = {
   product: Product;
@@ -28,15 +30,14 @@ const MealCard = ({
   removeOutOfStockProduct,
 }: MealCardPropsType) => {
   const [isAvailable, setIsAvailable] = useState<boolean>(!product.OutOfStock);
-  const { isTestMode } = useContext(StepContext);
-  // const { data } = useContext(DataContext);
   const { t } = useTranslation();
 
   const { mutateAsync } = useMutation({
     mutationFn: CheckAvailability,
   });
 
-  const { handleStepChange, handleSetMealForInfo } = useContext(StepContext);
+  const { handleStepChange, handleSetMealForInfo, isTestMode } =
+    useContext(StepContext);
   const {
     placeMealInOrders,
     setMeal,
@@ -44,9 +45,11 @@ const MealCard = ({
     orders,
     setSingleMealQuantity,
   } = useContext(OrderContext);
+  const { data } = useContext(DataContext);
 
   const [quantity, setQuantity] = useState(1);
   const [isButtonOpened, setIsButtonOpened] = useState(false);
+  const [upsaleMessage, setUpsaleMessage] = useState(false);
 
   const isMealPlacedInOrders = Boolean(
     orders.find((meal) => meal.product?.ProductId === product.ProductId)
@@ -120,70 +123,79 @@ const MealCard = ({
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, delay: 0.25 }}
       onClick={async () => {
-        
-          const availability = isTestMode
-            ? true
-            : await handleCheckAvailability();
+        const availability = isTestMode
+          ? true
+          : await handleCheckAvailability();
 
-          if (product.NoInteraction) {
-            handleSetMealForInfo(product, availability);
-            handleStepChange("mealInfo");
+        if (product.NoInteraction) {
+          handleSetMealForInfo(product, availability);
+          handleStepChange("mealInfo");
+        } else {
+          if (!availability) {
+            removeOutOfStockProduct(product.ProductId);
+
+            Swal.fire({
+              title: "Out Of Stock",
+              text: `Sorry, ${product.Name} is currently out of stock.`,
+              icon: "warning",
+              confirmButtonText: "OK, I'll get something else.",
+              customClass: {
+                popup: styles.popup,
+              },
+              didOpen: () => {
+                const btn = document.querySelector(
+                  `.swal2-confirm`
+                ) as HTMLElement;
+                if (btn) btn.style.backgroundColor = theme.activeTextColor;
+                btn.style.color = theme.textColor;
+              },
+            });
+          } else if (availability && hasUpsale_notPlacedInOrders) {
+            // TUKA PRAVIME PROVERKA I DOKOLKU POSTOI UPSALE NA TMK
+
+            if (!data.TMKData[0].UpsaleColletions.length) {
+
+              console.log('vleguvame vo false')
+
+              setUpsaleMessage(true);
+            } else {
+              console.log('vleguvame vo true')
+
+              // setQuantity((q) => q + 1);
+              // setIsButtonOpened(true);
+              // setMeal(product);
+              // handleStepChange("menuUpgrade");
+            }
+          } else if (isPlacedInOrders_Available_hasUpsale) {
+            //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
+            setIsButtonOpened(true);
+
+            setMeal(product);
+            handleStepChange("menuUpgrade");
           } else {
-            if (!availability) {
-              removeOutOfStockProduct(product.ProductId);
+            setIsButtonOpened(true);
 
-              Swal.fire({
-                title: "Out Of Stock",
-                text: `Sorry, ${product.Name} is currently out of stock.`,
-                icon: "warning",
-                confirmButtonText: "OK, I'll get something else.",
-                customClass: {
-                  popup: styles.popup,
-                },
-                didOpen: () => {
-                  const btn = document.querySelector(
-                    `.swal2-confirm`
-                  ) as HTMLElement;
-                  if (btn) btn.style.backgroundColor = theme.activeTextColor;
-                  btn.style.color = theme.textColor;
-                },
-              });
-            } else if (availability && hasUpsale_notPlacedInOrders) {
-              setQuantity((q) => q + 1);
-              setIsButtonOpened(true);
-              setMeal(product);
-              handleStepChange("menuUpgrade");
-            } else if (isPlacedInOrders_Available_hasUpsale) {
-              //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
-              setIsButtonOpened(true);
-
-              setMeal(product);
-              handleStepChange("menuUpgrade");
+            if (isMealPlacedInOrders) {
+              // removeMealFromOrders(product.ProductId);
+              return;
             } else {
               setIsButtonOpened(true);
 
-              if (isMealPlacedInOrders) {
-                // removeMealFromOrders(product.ProductId);
-                return;
-              } else {
-                setIsButtonOpened(true);
-
-                setQuantity(1);
-                placeMealInOrders({
-                  id: new Date().valueOf(),
-                  product: product,
-                  image: product.SmallPictureUrl,
-                  upsale: undefined,
-                  originalTotal: product.Price,
-                  totalPrice: product.Price,
-                  quantity: quantity,
-                  note: "",
-                  itemGUI: undefined,
-                });
-              }
+              setQuantity(1);
+              placeMealInOrders({
+                id: new Date().valueOf(),
+                product: product,
+                image: product.SmallPictureUrl,
+                upsale: undefined,
+                originalTotal: product.Price,
+                totalPrice: product.Price,
+                quantity: quantity,
+                note: "",
+                itemGUI: undefined,
+              });
             }
           }
-        
+        }
       }}
       style={{
         backgroundColor: isMealPlacedInOrders
@@ -236,18 +248,17 @@ const MealCard = ({
                 : "",
           }}
         >
-          {product.Name.length > 35
+          {product.Name.length > 25
             ? product.Name.substring(0, 30)
             : product.Name}
         </p>
-
-        <PricePreviewer
-          style={{ position: "absolute", bottom: "5px" }}
-          price={product.Price}
-          color={theme.activeTextColor}
-        />
       </div>
-
+      <PricePreviewer
+        style={{ position: "absolute", bottom: "5px", left: "15px" }}
+        price={product.Price}
+        color={theme.activeTextColor}
+        fontSizeDecimal={"1.8vw"}
+      />
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
@@ -436,6 +447,15 @@ const MealCard = ({
             </>
           )}
       </motion.div> */}
+      {upsaleMessage && (
+        <Modal borderColor={"black"}>
+          <>itemot ima upsale ama na cms ne e setirano UpsaleSteps
+            <button onClick={() => {
+              setUpsaleMessage(false)
+              handleStepChange('lang')}}>Close</button>
+          </>
+        </Modal>
+      )}
     </motion.div>
   );
 };

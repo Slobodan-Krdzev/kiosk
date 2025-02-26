@@ -1,8 +1,40 @@
+const Chevron = ({
+  color,
+  orientation = "toRight",
+}: {
+  color: string;
+  orientation?: "toLeft" | "toRight" | "toTop" | 'toBottom';
+}) => {
 
-const Chevron = ({color, orientation = 'toRight'}: {color: string, orientation?: 'toLeft' | "toRight"}) => {
+  const rotate = () => {
+
+    let rotation = 0
+
+
+    switch (orientation) {
+      case 'toLeft':
+          rotation = 180
+        break;
+        case 'toTop':
+        rotation = -90
+      break;
+      case 'toBottom':
+      rotation = 90
+    break;
+      default:
+        rotation = 0
+        break;
+    }
+
+    return rotation
+  }
+
   return (
     <svg
-    style={{transform: orientation === 'toLeft' ? "rotate(180deg)" : ''}}
+      style={{
+        transform:`rotate(${rotate()}deg)`
+          
+      }}
       width="17px"
       height="20px"
       viewBox="0 0 24 24"

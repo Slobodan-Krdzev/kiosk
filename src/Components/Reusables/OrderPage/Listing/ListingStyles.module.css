@@ -1,8 +1,8 @@
 .mealsListing {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, minmax(200px, calc((11vh * 2) + 14px)));
     /* grid-auto-rows: clamp(180px, 13vh, 300px); */
-    grid-auto-rows: 296px;
+    grid-auto-rows: calc((11vh * 2) + 14px);
     /* od ovde setirame height na karticka */
     gap: 1.1vh;
     overflow-y: scroll;

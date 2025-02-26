@@ -138,7 +138,7 @@
 
   .categoryCard {
     max-height: 120px;
-    height: 7.4vh !important;
+    /* height: 11.8vh !important; */
   }
 
 }

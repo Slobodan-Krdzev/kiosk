@@ -153,7 +153,7 @@ const Payment = () => {
           <DefaultButton
             style={{
               height: "100%",
-              flexBasis: "11%",
+              flexBasis: "23%",
             }}
             clickHandler={() => {}}
           >

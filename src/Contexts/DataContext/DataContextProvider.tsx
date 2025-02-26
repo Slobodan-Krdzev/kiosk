@@ -21,6 +21,10 @@ type DataContextProviderPropsType = {
 const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
 
   const {isTestMode} = useContext(StepContext)
+  const menuID = new URLSearchParams(window.location.search).get("menuId")
+
+  const isDadawan = menuID && +menuID! === 2490 
+  console.log(menuID)
 
   const { data, isError, isLoading } = useQuery({
     queryFn: () => Get(isTestMode),
@@ -79,9 +83,9 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   const allProducts = getAllProducts(allSubCategories);
 
   const theme: ThemeType = {
-    bgColor: categoryToRender.BackgroundColor,
-    textColor: categoryToRender.TextColor,
-    activeTextColor: categoryToRender.TextColorActive,
+    bgColor:  categoryToRender.BackgroundColor,
+    textColor: isDadawan ? categoryToRender.TextColorActive :  categoryToRender.TextColor,
+    activeTextColor: isDadawan ? categoryToRender.TextColor : categoryToRender.TextColorActive,
   };
 
   const returnValue = {

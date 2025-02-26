@@ -75,8 +75,8 @@ const CheckoutCard = ({
           style={{ top: '10px', right: '35px'}}
           price={order.totalPrice}
           color={theme.activeTextColor}
-          fontSizeRound={"3.5vw"}
-          fontSizeDecimal={"1.6vw"}
+          fontSizeRound={"4.5vw"}
+          fontSizeDecimal={"1.8vw"}
         />
 
         <div className={styles.checkoutCardInfoWrapper}>

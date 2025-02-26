@@ -17,6 +17,7 @@
   box-shadow: 5px 5px 20px 0px #00000005;
 
   position: relative;
+  overflow: hidden;
 }
 
 .image{

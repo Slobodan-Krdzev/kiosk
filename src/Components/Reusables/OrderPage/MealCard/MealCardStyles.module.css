@@ -46,8 +46,8 @@
 
 .imgWrapper {
   width: 100%;
-  min-height: 65%;
-  flex-basis: 80%;
+  min-height: 50%;
+  flex-basis: 60% !important;
   height: 65%;
   margin: 0rem auto;
   display: flex;

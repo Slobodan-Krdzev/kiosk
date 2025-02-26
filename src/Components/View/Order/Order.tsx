@@ -22,14 +22,15 @@ import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
 import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
 import Modal from "../../Reusables/Modal";
 import { t } from "i18next";
+import SmallOrderTypeSelector from "../../Reusables/SmallOrderTypeSelector/SmallOrderTypeSelector";
 
 const Order = () => {
   const { data, allProducts, allCategories, theme } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
   const { getOrderTotal, orders, cancelOrder } = useContext(OrderContext);
-const {resetUpsale} = useContext(UpsaleContext)
+  const { resetUpsale } = useContext(UpsaleContext);
 
-const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false)
+  const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false);
   const [isBottomRibbonVisible] = useState(true);
   const scrollingDiv = useRef<HTMLDivElement>(null);
 
@@ -81,16 +82,13 @@ const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false)
   };
 
   const handleXBtnClick = () => {
-
-    setIsCancelModalOpen(true)
-
-  }
+    setIsCancelModalOpen(true);
+  };
 
   const cancelOrderClick = () => {
-
-    handleStepChange('start')
-    resetUpsale()
-    cancelOrder()
+    handleStepChange("start");
+    resetUpsale();
+    cancelOrder();
   };
 
   console.log("Orders from orfers screen", orders);
@@ -98,8 +96,17 @@ const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false)
   return (
     <ViewFullScreenAnimated framerKey={"order"}>
       <TopFixedRibbon justifyContent={"space-between"}>
-        <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
-        <div>
+        <Logo source={data.ThemeResponse.LogoImage.Url} width={40} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+            gap: "3vw",
+            flexBasis: '50%',
+          }}
+        >
+          <SmallOrderTypeSelector />
           <XButton clickHandler={handleXBtnClick} />
         </div>
       </TopFixedRibbon>
@@ -214,7 +221,7 @@ const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false)
                 clickHandler={() => handleStepChange("checkout")}
                 total={total}
                 numberOfProductsInCart={orders.length}
-                nextText={t('view_order')}
+                nextText={t("view_order")}
                 width={"100%"}
               />
             </>
@@ -237,7 +244,7 @@ const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false)
                 style={{
                   height: "100%",
                   minHeight: "70px",
-                  width: '100%'
+                  width: "100%",
                 }}
               >
                 No
@@ -248,7 +255,7 @@ const [isCancelmodalOpen, setIsCancelModalOpen] = useState(false)
                   height: "100%",
                   backgroundColor: "#FF4F4F",
                   color: "white",
-                  width: '100%'
+                  width: "100%",
                 }}
               >
                 Yes

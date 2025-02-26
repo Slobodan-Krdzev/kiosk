@@ -12,6 +12,7 @@
     background-color: white;
     box-shadow: 0px 2.94px 8.23px 0px #3131311A !important;
 
+    overflow: hidden;
 }
 
 .optionInfoWrapper{
