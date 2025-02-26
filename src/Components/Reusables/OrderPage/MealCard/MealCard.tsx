@@ -161,10 +161,10 @@ const MealCard = ({
             } else {
               console.log('vleguvame vo true')
 
-              // setQuantity((q) => q + 1);
-              // setIsButtonOpened(true);
-              // setMeal(product);
-              // handleStepChange("menuUpgrade");
+              setQuantity((q) => q + 1);
+              setIsButtonOpened(true);
+              setMeal(product);
+              handleStepChange("menuUpgrade");
             }
           } else if (isPlacedInOrders_Available_hasUpsale) {
             //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
