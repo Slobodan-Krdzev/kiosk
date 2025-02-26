@@ -176,7 +176,7 @@ const MealCard = ({
             setIsButtonOpened(true);
 
             if (isMealPlacedInOrders) {
-              // removeMealFromOrders(product.ProductId);
+              // removeMealFromOrders(product.ProductId) sadasdasd;
               return;
             } else {
               setIsButtonOpened(true);
