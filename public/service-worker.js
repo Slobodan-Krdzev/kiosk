@@ -40,20 +40,20 @@ self.addEventListener("activate", (event) => {
 
 // Fetch event: respond with cache or network fallback
 self.addEventListener("fetch", (event) => {
-  // event.respondWith(
-  //   caches.match(event.request).then((cachedResponse) => {
-  //     if (cachedResponse) {
-  //       return cachedResponse;
-  //     }
-  //     return fetch(event.request).catch(() =>
-  //       caches.match("/offline.html") // Optional fallback for offline
-  //     );
-  //   })
-  // );
-
   event.respondWith(
-    fetch(event.request) 
-      .then((response) => response) 
-      .catch(() => caches.match(event.request)) 
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request).catch(() =>
+        caches.match("/offline.html") // Optional fallback for offline
+      );
+    })
   );
+
+  // event.respondWith(
+  //   fetch(event.request) 
+  //     .then((response) => response) 
+  //     .catch(() => caches.match(event.request)) 
+  // );
 });

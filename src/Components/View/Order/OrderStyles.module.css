@@ -95,7 +95,7 @@
   font-weight: 600;
   text-transform: capitalize;
   display: inline-block;
-
+  overflow-wrap: break-word;
   overflow: hidden;
   /* border: 2px solid red; */
   max-width: 70%;
@@ -104,8 +104,8 @@
 
 .image {
   position: absolute;
-  top: 13%;
-  right: 10%;
+  top: 10%;
+  right: 8%;
 }
 
 .absoluteChevron{

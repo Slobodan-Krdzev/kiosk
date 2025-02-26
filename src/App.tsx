@@ -6,19 +6,17 @@ import StartScreen from "./Components/View/StartScreen/StartScreen";
 
 import { AnimatePresence } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
+import Counter from "./Components/Reusables/Counter/Counter";
+import Confirmation from "./Components/View/Confirmation/Confirmation";
 import ChooseLang from "./Components/View/Lang/ChooseLang";
-import MealInfo from "./Components/View/MealInfo/MealInfo";
-import Preview from "./Components/View/Preview/Preview";
+import PaymentError from "./Components/View/PaymentError/PaymentError";
+import Upsale from "./Components/View/Upsale/Upsale";
 import { DataContext } from "./Contexts/DataContext/Datacontext";
 import { StepContext } from "./Contexts/StepContext/StepContext";
-import Upsale from "./Components/View/Upsale/Upsale";
-import Counter from "./Components/Reusables/Counter/Counter";
-import PaymentError from "./Components/View/PaymentError/PaymentError";
-import Confirmation from "./Components/View/Confirmation/Confirmation";
 
 function App() {
-  const { step, mealForInfo, isTestMode } = useContext(StepContext);
-  const { data, theme } = useContext(DataContext);
+  const { step,  isTestMode } = useContext(StepContext);
+  const { data,  } = useContext(DataContext);
   const [isCounterVisible, setIsCounterVisible] = useState(false)
   const inactivityTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inactivityPeriod = 1000000; 
@@ -84,11 +82,9 @@ function App() {
       <AnimatePresence mode="wait">
         {step === "start" && <StartScreen />}
         {step === "lang" && <ChooseLang />}
-        {step === "order" && <Order />}
-        {step === "mealInfo" && <MealInfo meal={mealForInfo.product} availability={mealForInfo.availability} theme={theme} />}
+        {step === "order" && <Order />} 
         {step === "menuUpgrade" && <Upsale />}
         {step === "checkout" && <Checkout />}
-        {step === "preview" && <Preview />}
         {step === "payment" && <Payment />}
         {step === "finnish" && <Finish />}
         {step === "paymentErr" && <PaymentError />}

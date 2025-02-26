@@ -190,31 +190,7 @@ const Order = () => {
       {/* RIBBON */}
       <AnimatePresence mode="wait">
         {orders.length > 0 && isBottomRibbonVisible && (
-          // <BottomGreenRibbon animate>
-          //   <div
-          //     className={`bottomRibbonButton ${styles.bottomRibbonContent}`}
-          //     style={{
-          //       justifyContent: total > 0 ? "space-between" : "center",
-          //       backgroundColor: theme.activeTextColor,
-          //       color: theme.textColor,
-          //     }}
-          //     onClick={() => {
-          //       handleStepChange("checkout");
-          //     }}
-          //   >
-          //     <div className={styles.ribbonContentWrapper}>
-          //       <Backet color={theme.textColor} />
-
-          //       <span className={`fontSF `}>{orders.length}</span>
-          //     </div>
-
-          //     <p className={`fontSF `}>{t("view_order")} &rsaquo;</p>
-
-          //     <p className={`fontSF `}>
-          //       {total} {data.ThemeResponse.CurrencySettings.CurrencySymbol}
-          //     </p>
-          //   </div>
-          // </BottomGreenRibbon>
+       
           <BottomFixedShadowLayer>
             <>
               <BottomOrderInfo

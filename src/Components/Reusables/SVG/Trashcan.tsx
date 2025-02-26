@@ -9,7 +9,7 @@ const Trashcan = () => {
     transition={{delay: 0.1, duration: 0.3, ease: 'easeInOut'}}
     exit={{opacity: 0}}
     className="trashcan"
-      viewBox="0 0 24 24"
+      viewBox="-24 0 74 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

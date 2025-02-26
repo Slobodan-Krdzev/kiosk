@@ -40,6 +40,7 @@ button {
   color: black;
 }
 
+/* Se koristi kaj count overlay */
 .countOverlay {
   position: fixed;
   top: 0;
@@ -92,30 +93,6 @@ h1 {
   padding: 2rem 3rem;
 }
 
-.bottomRibbon {
-  position: fixed;
-  bottom: 3%;
-  left: 0;
-  right: 0;
-  width: 97%;
-  height: 85px;
-  margin: 0 auto;
-  z-index: 999;
-}
-
-.bottomRibbonButton {
-  line-height: 34px;
-  font-size: 4.25vw;
-  font-weight: 400;
-  text-transform: capitalize;
-  min-width: 100%;
-  min-height: 80%;
-  cursor: pointer;
-  padding: 4%;
-  outline: none;
-  border: none;
-  border-radius: 1.6vw;
-}
 
 .hideScrollBar {
   scrollbar-width: none;
@@ -225,13 +202,7 @@ h1 {
   font-weight: 600;
 }
 
-.bottomRibbonHeadingBig {
-  font-size: 46px;
-  font-weight: 700;
-  line-height: 20px;
-  text-align: center;
-  letter-spacing: -2px;
-}
+
 
 .mediumSizeDimmedHeading {
   font-size: 36px;
@@ -283,67 +254,12 @@ img {
   }
 }
 
-.bottomRibbonBtnWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  height: 100%;
-}
-
-.bottomRibbonDefaultBtn {
-  min-width: 145px;
-  height: 74px;
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 39px;
-  border-radius: 8px;
-  border: 1px solid white;
-  padding: 12px 28px 12px 28px;
-  background-color: inherit;
-  font-family: "Plus Jakarta Sans", sans-serif;
-}
-
-.bottomRibbonBtn {
-  padding: 12px 28px 12px 28px;
-  border-radius: 8px;
-  border: 1px solid white;
-  opacity: 0px;
-  font-size: 26px;
-  font-weight: 600;
-  background-color: inherit;
-}
-
 .fullScreen {
   height: 100vh;
   width: 100%;
   position: relative;
 }
 
-/* .startScreen {
-  background-image: url('../public/startBG.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  border: 0.5px solid #00000014
-} */
-
-.startScreen .startBtn {
-  font-size: 48px;
-  min-height: 10vh;
-}
-
-/* LANG VIEW  */
-
-/* ORDER VIEW */
-
-.orderViewBottomRibon {
-  height: 10vh;
-}
 
 .overlay {
   /* background: linear-gradient(180deg, rgba(37, 36, 36, 0.47) 0%, rgba(39, 37, 37, 0.47) 6.29%, rgba(39, 38, 38, 0.47) 12.58%, rgba(49, 49, 49, 0) 89.84%); */
@@ -357,14 +273,6 @@ img {
   /* height: 100%; */
 }
 
-/* .greenRibbon {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #f1f1f0;
-} */
-
 .categoryBtn:not(:last-child) {
   margin-bottom: 20px;
 }
@@ -375,6 +283,7 @@ img {
   flex-direction: column;
 }
 
+/* se koristi kaj special offer */
 .specialOfferDiv {
   background-color: #fff5f5;
   border: 2px solid green;
@@ -396,217 +305,8 @@ img {
   border: none;
 }
 
-.mealCard p {
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-}
 
-.mealCard button {
-  position: relative;
-  bottom: 0;
-  right: 0;
-  width: 50.25px;
-  height: 38.99px;
-  gap: 0px;
-  border-radius: 25.99px 0px 13.86px 0px;
-  opacity: 0px;
-  border: 0.3px solid #d3d3d3;
-}
-
-.redTopTexture {
-  background-image: url("../public/redTopTexture.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 392px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.redTopTexture .message {
-  transform: rotate(-7.6deg);
-  width: 55%;
-  text-align: left;
-  font-size: 64px;
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 90px;
-  color: white;
-}
-
-.redTopTexture .extrasWrapper .smallMessage {
-  width: 90%;
-  text-align: left;
-  font-size: 39px;
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 69px;
-  color: white;
-  text-align: center;
-}
-
-.redTopTexture .extrasWrapper {
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.upgradeBtnsWrapper {
-  width: 100%;
-  margin-top: 4rem;
-  padding: 0 1rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.upgradeBtnsWrapper button div {
-  border: 1px solid #ced1d9;
-  margin-bottom: 1rem;
-}
-
-.upgradeBtnsWrapper .topPicImage {
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 42px;
-  margin-bottom: 0.8rem;
-}
-
-.upgradeBtnsWrapper .price {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 32px;
-}
-
-.upgradeBottomRibbon div p {
-  font-weight: 500;
-  font-size: 26px;
-  line-height: 39px;
-}
-
-.upgradeBottomRibbon div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.extrasWrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.extraBtn {
-  position: relative;
-  width: 222px;
-  height: 250px;
-  padding: 8px 12px 0px 12px;
-  border-radius: 16px;
-  opacity: 0px;
-  border: 1px solid #d9d9d9;
-  /* box-shadow: 0px 3.42px 9.13px -1.14px #3232470D; */
-
-  box-shadow: 0px 0px 1.14px 0px #0c1a4b3d;
-}
-
-.extraBtn .extraBtnButton {
-  width: 46px;
-  height: 40px;
-  border: 1px solid;
-  position: absolute;
-  bottom: 4%;
-  right: 10px;
-  border-radius: 5px;
-  font-size: 24px;
-}
-
-.drinksBtnButton {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-
-  width: 66px;
-  height: 50px;
-  padding: 10px 18px 10px 18px;
-  gap: 0px;
-  border-radius: 34px 0px 16px 0px;
-  opacity: 0px;
-  border: none;
-  background-color: #cedb00;
-}
-
-.drinksCardQuantityWrapper {
-  width: 106px;
-  height: 50px;
-  padding: 8px 0px 0px 0px;
-  gap: 9px;
-  border-radius: 34px 0px 16px 0px;
-  opacity: 0px;
-
-  position: absolute;
-  bottom: 0;
-  right: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  background-color: #cedb00;
-}
-
-.drinksCardQuantityWrapper button {
-  background-color: inherit;
-  border: none;
-}
-
-.drinksCardQuantityWrapper .minusIcon {
-  width: 17.95px;
-  height: 3.79px;
-}
-
-.checkoutCardBtn img {
-  width: 20.95px;
-  height: 20.79px;
-  top: 8.85px;
-  left: 8.91px;
-  gap: 0px;
-  opacity: 0px;
-}
-
-.checkoutCardQuantityWrapper button {
-  background-color: inherit;
-
-  width: 40px;
-  height: 40px;
-  gap: 0px;
-  opacity: 0px;
-
-  border: none;
-}
-
-.checkoutCardQuantityWrapper .icon {
-  width: 24.95px;
-  height: 24.79px;
-  gap: 0px;
-  opacity: 0px;
-}
-
-.checkoutCardQuantityWrapper .minusIcon {
-  width: 24.95px;
-  height: 5.79px;
-  gap: 0px;
-  opacity: 0px;
-}
-
+/* SE KORISTI ZA MODAL */
 .modal {
   position: fixed;
   background-color: #32323299;
@@ -683,47 +383,14 @@ img {
   outline: none;
 }
 
-
-
 .modalBtnWrapper button:first-child {
   background-color: #cedb00;
 }
 
-.paymentInfoWrapper {
-  width: 740px;
-  height: 237px;
-  top: 176px;
-  left: 30px;
-  gap: 7.57px;
-  border-radius: 8px;
-  border: 1.51px solid #cedb00;
-  opacity: 0px;
-  margin: 0 auto;
-  box-shadow: 1px 1px 15px 2px #cedc0026;
-
-  padding: 1.5rem;
-}
-
-.paymentOrdersWrapper {
-  min-height: 85%;
-  overflow-y: scroll;
-}
-
-.elipse {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-
-/* ICONS */
-
-.trashcan{
-  width: 25px;
-  height: 25px;
-}
-
+/* .trashcan{
+  width: 45px;
+  height: 45px;
+} */
 
 @media (max-width: 801px) {
   .appWrapper,

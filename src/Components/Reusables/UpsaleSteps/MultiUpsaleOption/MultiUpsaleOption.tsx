@@ -74,20 +74,7 @@ const MultiUpsaleOption = ({
         image={singleMeal.product!.SmallPictureUrl!}
         productName={singleMeal.product!.Name ?? ""}
       />
-      {/* top content */}
-
-      {/* <div
-        className={styles.topContent}
-        style={{ backgroundColor: theme.activeTextColor }}
-      >
-        <img
-          src={singleMeal.product?.SmallPictureUrl}
-          alt={singleMeal.product?.Name}
-        />
-        <h1 className={` ${styles.topText} fontNoteworthy`}>
-          {singleMeal.product?.Name}
-        </h1>
-      </div> */}
+      
 
       {/* option choose */}
 
@@ -112,31 +99,7 @@ const MultiUpsaleOption = ({
       </div>
       {/* ribbon */}
 
-      {/* <UpgradeBottomRibbon
-        disableNextBtn={isNextButtonDisabled()}
-        nextText={t("next_Btn")}
-        backText={t("back_Btn")}
-        nextAction={() => {
-          if (upsaleStepData.DisplayOrder === stepsLength - 1) {
-            // OVDE UPDATE NA SIGNLE MEAL
-            setUpsale(upsaleData);
-            placeMealInOrders({
-              ...singleMeal,
-              id: new Date().valueOf(),
-              upsale: upsaleData,
-              itemGUI: undefined,
-            });
-
-            handleStepChange("order");
-            resetUpsale();
-          }
-
-          handleUpsaleStepChange("increase");
-        }}
-        backAction={() => {
-          handleUpsaleStepChange("decrease");
-        }}
-      /> */}
+   
       <BottomButtonholderRibbon>
         <DefaultButton
           clickHandler={() => handleUpsaleStepChange("decrease")}

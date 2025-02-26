@@ -68,9 +68,7 @@ const Finish = () => {
 
       <div className={styles.checkMarkWrapper}>
         <motion.img
-          // animate={{ x: [0, -10, 10, -10, 10, 0] }}
-          // transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop", repeatDelay: 4.4 }}
-          src="check.png"
+           src="check.png"
           alt="Check Mark"
           width={70}
           height={70}
@@ -127,23 +125,7 @@ const Finish = () => {
           finnish
         </DefaultButton>
       </BottomButtonholderRibbon>
-      {/* <div style={{ position: "fixed", bottom: "3%", left: 0, right: 0 }}>
-        <BottomGreenRibbon bgColor={theme.activeTextColor}>
-          <button
-            className="fontSF bottomRibbonButton"
-            style={{
-              backgroundColor: theme.activeTextColor,
-              color: theme.textColor,
-            }}
-            onClick={() => {
-              sendEmailForReceipt();
-              handleStepChange("confirmation");
-              cancelOrder();
-              handleRemoveNote();
-            }}
-          ></button>
-        </BottomGreenRibbon>
-      </div> */}
+     
     </ViewFullScreenAnimated>
   );
 };

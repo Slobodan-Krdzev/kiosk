@@ -1,13 +1,11 @@
-// import { motion } from "framer-motion";
+
 import { useContext, useState } from "react";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
 import { Option, UpsaleStep } from "../../../../Types/Types";
-// import UpgradeBottomRibbon from "../../UpgradeBottomRibbon/UpgradeBottomRibbon";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
 import styles from "./DualUpsaleOptionStyles.module.css";
-// import { useTranslation } from "react-i18next";
 import { AnimatePresence } from "framer-motion";
 import { t } from "i18next";
 import BottomButtonholderRibbon from "../../BottomButtonHolderWibbon/BottomButtonholderRibbon";
@@ -100,29 +98,6 @@ const DualUpsaleOption = ({
         </AnimatePresence>
       </div>
       {/* ribbon */}
-
-      {/* <UpgradeBottomRibbon
-        disableNextBtn={isNextButtonDisabled()}
-        nextText={t("next_Btn")}
-        backText={t("back_Btn")}
-        nextAction={() => {
-          if (selectedOption?.Finish) {
-            placeMealInOrders(singleMeal);
-            resetUpsale();
-            handleStepChange("order");
-          }
-
-          handleUpsaleStepChange("increase");
-        }}
-        backAction={() => {
-          handleUpsaleStepChange("decrease");
-
-          if (upsaleStep === 0) {
-            handleStepChange("order");
-            resetUpsale();
-          }
-        }}
-      /> */}
 
       {upsaleStep > 0 && (
         <BottomButtonholderRibbon>
