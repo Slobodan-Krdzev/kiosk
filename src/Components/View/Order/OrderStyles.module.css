@@ -12,7 +12,7 @@
 }
 
 .orderViewSidebar {
-  width: 20%;
+  flex-basis: 20%;
   /* height: 100%; */
   overflow-y: auto;
   flex: 0 0 auto;
@@ -67,7 +67,6 @@
 .categoryCard {
   /* max-height: 120px; */
   height: 11.3vh !important;
-  max-width: 220px;
   width: 100%;
 
   background-color: #ffffff;
