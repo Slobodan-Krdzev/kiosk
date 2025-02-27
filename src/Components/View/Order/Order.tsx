@@ -94,7 +94,6 @@ const Order = () => {
   };
 
   console.log("Orders from orfers screen", orders);
-  console.log("Meal For Info", mealForInfo);
 
 
   return (

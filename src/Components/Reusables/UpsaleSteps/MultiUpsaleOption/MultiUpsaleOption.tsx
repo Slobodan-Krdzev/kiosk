@@ -150,7 +150,7 @@ const MultiUpsaleOption = ({
             textTransform: "uppercase",
           }}
         >
-          {isNextButtonDisabled() === false ? "Choose" : "Bestellen"}
+          {isNextButtonDisabled() === false ? <>{t('next_Btn')}</> : "Choose"}
           {isNextButtonDisabled() &&  <Chevron color="white" />}
             
           

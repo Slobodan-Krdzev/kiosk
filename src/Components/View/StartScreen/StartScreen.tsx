@@ -26,6 +26,10 @@ const StartScreen = () => {
           height: "33.333vh",
           gap: "3vh",
           padding: "8vw 5vw",
+          position: 'fixed',
+          bottom: 0,
+          
+        left: 0,right: 0
         }}
       >
         <LanguageSelector />

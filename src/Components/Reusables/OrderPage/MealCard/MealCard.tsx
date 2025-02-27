@@ -59,7 +59,7 @@ const MealCard = ({
     (o) => o.product?.ProductId === product.ProductId
   ) as SingleMealType;
 
-  const handleCheckAvailability = async () => {
+ const handleCheckAvailability = async () => {
     try {
       const availability = await mutateAsync(product.ProductId);
 

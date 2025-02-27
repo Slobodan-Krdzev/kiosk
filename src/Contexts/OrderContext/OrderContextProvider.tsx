@@ -50,7 +50,9 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
 
     const uniqueGUI = uuidv4();
 
+
     const startingPrice = meal.product!.Price;
+    console.log('Meal od Handler', startingPrice,meal)
 
     if (meal.upsale !== undefined) {
       const finalPrice = startingPrice! + getUpsaleTotal(meal.upsale);
@@ -76,7 +78,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
         image: meal.product!.SmallPictureUrl,
         upsale: meal.upsale,
         originalTotal: startingPrice,
-        totalPrice: startingPrice,
+        totalPrice: startingPrice * meal.quantity,
         quantity: meal.quantity,
         note: meal.note,
         itemGUI: uniqueGUI
@@ -86,7 +88,6 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
       setSingleMeal(startingMealFormula);
     }
 
-    console.log(`Orders: ${orders}`);
   };
 
   const removeMealFromOrders = (productId: number) => {

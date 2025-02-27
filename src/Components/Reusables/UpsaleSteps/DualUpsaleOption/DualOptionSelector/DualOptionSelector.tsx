@@ -21,7 +21,6 @@ type DualOptionSelectorPropsType = {
 
 const DualOptionSelector = ({
   option,
-  currentSelectedOption,
   upsaleStep,
   handleOptionSelect,
   handleUpsaleStepChange,
@@ -29,6 +28,7 @@ const DualOptionSelector = ({
   const { singleMeal, placeMealInOrders } = useContext(OrderContext);
   const { theme } = useContext(DataContext);
   const { handleStepChange } = useContext(StepContext);
+  
   const { upsaleData, addNewOption, resetUpsale } = useContext(UpsaleContext);
 
   const upsaleDataSelectedOptions = upsaleData[upsaleStep].stepData;
@@ -36,15 +36,11 @@ const DualOptionSelector = ({
     upsaleDataSelectedOptions.find((o) => o.option.Id === option.Id)
   );
 
-  // const indexOfSelector = options.indexOf(option);
-
-  console.log(currentSelectedOption?.ProductId, option.ProductId);
-
   return (
     <motion.div
-      initial={{ backgroundColor: "" }}
+      initial={{ backgroundColor: "white" }}
       animate={{
-        backgroundColor: isOptionSelected ? `${theme.activeTextColor}50` : "",
+        backgroundColor: isOptionSelected ? `${theme.activeTextColor}50` : "white",
       }}
       transition={{
         duration: 2.5,
@@ -60,8 +56,8 @@ const DualOptionSelector = ({
           addNewOption(upsaleStep, option, 1, 1);
         } else {
           if (option.Finish) {
-            placeMealInOrders(singleMeal);
             resetUpsale();
+            placeMealInOrders(singleMeal);
             handleStepChange("order");
           }
 
@@ -126,15 +122,6 @@ const DualOptionSelector = ({
         />
       </div>
 
-      {/* <div className={styles.nameAndPriceWrapper}>
-        <p className={styles.price}>
-          {option.Price === 0
-            ? `${singleMeal.product!.Price} ${
-                data.ThemeResponse.CurrencySettings.CurrencySymbol
-              }`
-            : `+${option.Price} ${data.ThemeResponse.CurrencySettings.CurrencySymbol}`}
-        </p>
-      </div> */}
     </motion.div>
   );
 };

@@ -11,7 +11,7 @@
     width: 33.333%;
     padding: 2.5vw;
     font-weight: 400;
-    font-size: 3vw;
+    font-size: 2.5vw;
     letter-spacing: -0.05vw;
 
 
@@ -20,7 +20,6 @@
     border: none;
     border-top: 1px solid #4a4a4a37;
     cursor: pointer;
-    font-size: 16px;
     transition: background 0.3s ease;
     width: 100%;
     border-radius: 16px;
