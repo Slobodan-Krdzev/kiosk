@@ -74,7 +74,7 @@ const CheckoutCard = ({
         ></div>
 
         <PricePreviewer
-          style={{ top: '10px', right: '35px'}}
+          style={{ top: '10px', right: '5%'}}
           price={order.totalPrice}
           color={theme.activeTextColor}
           fontSizeRound={"4.5vw"}
@@ -156,7 +156,7 @@ const CheckoutCard = ({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={`${styles.addNoteBtn}`}
+                className={styles.addNoteBtn}
                 onClick={() => {
                   setIsProductNoteInputVisible(true);
                 }}
@@ -172,7 +172,7 @@ const CheckoutCard = ({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={`${styles.addNoteBtn}`}
+                className={styles.addNoteBtn}
                 onClick={() => {
                   setIsProductNoteInputVisible(true);
                 }}
@@ -254,7 +254,6 @@ const CheckoutCard = ({
                   justifyContent: "space-between",
                   alignItems: "center",
                   backgroundColor: "#000000",
-                  height: "40px",
                   flexBasis: "55%",
                   borderRadius: "50px",
                   border: "1px solid #525252",
@@ -285,14 +284,7 @@ const CheckoutCard = ({
                   {quantity === 1 ? <Trashcan /> : <Minus color="black" />}
                 </button>
                 <p
-                  style={{
-                    flexBasis: "33.333%",
-                    color: "white",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                className={styles.orderQuantity}>
                   {order.quantity}
                 </p>
                 <button
@@ -317,68 +309,6 @@ const CheckoutCard = ({
             )}
           </div>
         </div>
-
-        {/* BUTTONS */}
-
-        {/* {!isProductNoteInputVisible && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={`${styles.checkoutCardQuantityWrapper} fontSF`}
-            style={{
-              backgroundColor: theme.activeTextColor,
-              color: theme.textColor,
-            }}
-          >
-            <button
-              className={styles.quantityWrapperBtns}
-              style={{
-                height: "100%",
-                width: "33.33%",
-                borderTopLeftRadius: "4vw",
-              }}
-              onClick={() => {
-                if (quantity === 1) {
-                  if (orders.length === 1) {
-                    handleStepChange("order");
-                  }
-
-                  setQuantity(1);
-                  removeMealFromOrders(order.id);
-                } else {
-                  setQuantity((quantity) => quantity - 1);
-                  setSingleMealQuantity(order, "minus");
-                }
-              }}
-            >
-              {quantity === 1 ? (
-                <Trashcan />
-              ) : (
-                <span style={{ color: theme.textColor }}>&#8722;</span>
-              )}
-            </button>
-            <p className={styles.quantityCounter} style={{ width: "33.33%" }}>
-              {quantity}
-            </p>
-            <button
-              className={styles.quantityWrapperBtns}
-              style={{
-                height: "100%",
-                width: "33.33%",
-                backgroundColor: theme.activeTextColor,
-                color: theme.textColor,
-              }}
-              onClick={() => {
-                setQuantity((quantity) => quantity + 1);
-                setSingleMealQuantity(order, "plus");
-              }}
-            >
-              <span style={{}}>&#43;</span>
-            </button>
-          </motion.div>
-        )} */}
       </div>
     </div>
   );

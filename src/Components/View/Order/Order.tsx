@@ -118,9 +118,8 @@ const Order = () => {
         <Swiper
           className={`${styles.orderViewSidebar}`}
           direction="vertical"
-          slidesPerView={10}
+          slidesPerView={6}
           spaceBetween={14}
-          style={{ height: "auto", paddingBottom: 700 }}
         >
           {allCategories.map((category) => (
             <SwiperSlide

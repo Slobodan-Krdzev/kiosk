@@ -20,12 +20,13 @@
 }
 
 .ordersLengthWrapper{
-     flex-basis: 15.5%;
+     flex-basis: 20.5%;
      height: 100%;
      border-radius: 10px;
      display: flex;
      justify-content: center;
      align-items: center;
+     margin-right: 20px;
 }
 .orderTotal{
      flex-basis: 25%;
@@ -36,4 +37,7 @@
      text-align: right;
      text-transform: uppercase;
      padding-right: 4vw;
+     display: flex;
+    justify-content: end;
+    align-items: center;
 }

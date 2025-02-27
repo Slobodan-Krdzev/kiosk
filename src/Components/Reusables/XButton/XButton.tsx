@@ -24,6 +24,7 @@ const XButton = ({
         color,
         backgroundColor: bgColor,
         border: `0.6px solid ${borderColor}`,
+        
         fontSize: "2vw",
         fontWeight: 700,
         display: 'flex',

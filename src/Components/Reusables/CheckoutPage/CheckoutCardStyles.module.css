@@ -5,7 +5,7 @@
 .checkoutCard {
     max-height: 250px;
     height: 16vh;
-    max-height: 218px;
+    max-height: 420px;
     max-width: 100%;
     border-radius: 14px;
     border: none;
@@ -105,12 +105,23 @@
     overflow: hidden;
 }
 
+.orderQuantity{
+    flex-basis: 33.333%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--custom-font);
+    font-size: 2vw;
+    font-weight: 600;
+}
+
 
 .cardNoteBtnsWrapper{
 
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 1vw;
 }
 
@@ -201,7 +212,7 @@
     justify-content: center;
     align-items: center;
     gap: 0.8vw;
-    padding: 0.4vh 0.6vw;
+    padding: 3.5% 3.5%;
     border: 1px solid #555555a0;
     color: #555555cc;
     background-color: inherit;
@@ -261,12 +272,7 @@
         font-size: 3vw;
     }
 
-    .addNoteBtn{
-        bottom: 5%;
-        left: 38%;
-        width: 18%;
-        font-size: 2vw;
-    }
+    
 
     .productNoteForm{
         position: absolute;

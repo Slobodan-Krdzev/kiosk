@@ -247,16 +247,17 @@ const MealCard = ({
           }}
         >
           {product.Name.length > 25
-            ? product.Name.substring(0, 30)
+            ? `${product.Name.substring(0, 22)}...`
             : product.Name}
         </p>
       </div>
-      <PricePreviewer
+      {!isButtonOpened && <PricePreviewer
         style={{ position: "absolute", bottom: "5px", left: "15px" }}
         price={product.Price}
         color={theme.activeTextColor}
         fontSizeDecimal={"1.8vw"}
-      />
+      />}
+      
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
@@ -267,17 +268,22 @@ const MealCard = ({
           width:
             isPlacedInOrder_Available_NoUpsale && isButtonOpened
               ? "96%"
-              : "40px",
-          minWidth: "40px",
-          height: "40px",
-          maxWidth: "100%",
-          maxHeight: "40px",
-          lineHeight: "40px",
+              : "",
+          // minWidth: "24%",
+          // height: "36%",
+          minHeight: '18%',
+          maxWidth: "96%",
+          // maxHeight: "36%",
+          lineHeight: "36%",
           padding: 0,
+          aspectRatio: isButtonOpened ? "4.75 / 1" : '1 / 1',
+
+         
         }}
-        transition={{ type: "spring", duration: 1 }}
+        transition={{ type: "spring", duration: 0.7, ease: 'easeInOut' }}
         className={styles.cardButtonWrapper}
         style={{
+          aspectRatio: isButtonOpened ? "4.75 / 1" : '1 / 1',
           color: theme.activeTextColor,
           justifyContent:
             isPlacedInOrder_Available_NoUpsale && isButtonOpened
@@ -290,8 +296,8 @@ const MealCard = ({
             isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "0 3vw" : 0,
           width:
             isPlacedInOrder_Available_NoUpsale && isButtonOpened
-              ? "100%"
-              : "3.6vh",
+              ? "96%"
+              : "",
           display: "flex",
           cursor: "pointer",
         }}

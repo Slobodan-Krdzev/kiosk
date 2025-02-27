@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styles from "./PricePreviewerStyles.module.css";
 
 interface PricePreviewerProps {
@@ -32,12 +33,14 @@ const PricePreviewer = ({ price, color, style, fontSizeDecimal = '2.5vw', fontSi
   }
   
   return (
-    <div className={styles.pricePreviewerWrapper} style={{color, ...style}}>
+    <motion.div
+    
+    className={styles.pricePreviewerWrapper} style={{color, ...style}}>
       <span style={{fontSize: fontSizeRound}} className={styles.round}>{priceRound}.</span>
       <span style={{fontSize: fontSizeDecimal}} className={styles.decimal}>
         {formatedDecimal()}
       </span>
-    </div>
+    </motion.div>
   );
 };
 

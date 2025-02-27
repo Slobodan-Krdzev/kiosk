@@ -9,11 +9,11 @@
     height: 100%;
     padding-bottom: 30vh;
     padding-left: 10px;
+    padding-right: 1%;
+
     max-height: 100%;
     scroll-behavior: smooth;
 }
-
-
 
 
 @media (max-width: 1290px) {
@@ -25,7 +25,7 @@
     }
 }
 
-@media (max-width: 801px) {
+@media (max-width: 850px) {
 
     .mealsListing {
         grid-template-columns: repeat(2, 1fr);
@@ -34,13 +34,6 @@
     }
 }
 
-@media (max-width: 768px) {
-
-    .mealsListing {
-        /* grid-auto-rows: 230px; */
-
-    }
-}
 
 @media (max-width: 425px) {
     .mealsListing {
