@@ -6,7 +6,7 @@
   max-height: 100vh;
   display: flex;
   padding: 3%;
-  justify-content: center;
+  justify-content: start;
   /* gap: 2%; */
 
 }
@@ -30,7 +30,7 @@
 }
 
 .orderViewRightSide {
-  flex-shrink: 80%;
+  flex-basis: 80%;
   /* min-width: 75%; */
   max-height: 100%;
   display: flex;
