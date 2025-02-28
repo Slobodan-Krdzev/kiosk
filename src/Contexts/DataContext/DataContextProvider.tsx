@@ -25,7 +25,6 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
 
   const isDadawan = menuID && +menuID! === 2490 
   const isKunkurent = menuID && +menuID === 2408
-  console.log(menuID)
 
   const { data, isError, isLoading } = useQuery({
     queryFn: () => Get(isTestMode),
@@ -87,6 +86,7 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     bgColor:  categoryToRender.BackgroundColor,
     textColor: isDadawan ? categoryToRender.TextColorActive :  categoryToRender.TextColor,
     activeTextColor: isDadawan ? categoryToRender.TextColor : categoryToRender.TextColorActive,
+    
   };
 
   const returnValue = {

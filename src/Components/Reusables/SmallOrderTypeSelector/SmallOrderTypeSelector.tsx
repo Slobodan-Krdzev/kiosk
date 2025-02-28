@@ -3,10 +3,14 @@ import { useState, useRef, useEffect, useContext } from "react";
 import styles from "./SmallOrderTypeSelectorStyles.module.css";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import Chevron from "../SVG/Chevron";
+import Takeaway from "../SVG/Takeaway";
+import { DataContext } from "../../../Contexts/DataContext/Datacontext";
+import DineIn from "../SVG/DineIn";
 
 const SmallOrderTypeSelector = () => {
   const { finalInfo, handleSetTakeawayOption } = useContext(StepContext);
-  console.log(finalInfo.orderType);
+  const { theme } = useContext(DataContext);
+
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -45,9 +49,10 @@ const SmallOrderTypeSelector = () => {
           display: "flex",
         }}
       >
-        <div className={styles.image}>
-            
-        </div>
+
+        {finalInfo.orderType === 'Takeaway' ? <Takeaway color={theme.activeTextColor} size="small"/> : <DineIn color={theme.activeTextColor} size="small"/>}
+         
+        
         <div className={styles.spanWrapper}>
           <span className={styles.orderType}>Order Type</span>
           <span className={styles.value}>{finalInfo.orderType}</span>

@@ -18,6 +18,9 @@ const StartScreen = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "end",
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center'
       }}
     >
       <BottomOpacityContentWrapper

@@ -11,7 +11,7 @@ const StepContextProvider = ({ children }: StepContextProviderPropsType) => {
     new URLSearchParams(window.location.search).get("testMode") === "true"
   );
 
-  const [step, setStep] = useState<StepType>("start");
+  const [step, setStep] = useState<StepType>("outOfService");
   const [orderNumber, setOrderNumber] = useState<number>();
   const [isTakeway, setIsTakeway] = useState<"Dine In" | "Takeaway">(
     "Takeaway"

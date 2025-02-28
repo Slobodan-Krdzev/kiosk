@@ -64,6 +64,7 @@ const LanguageSelector = () => {
                       lineHeight: "2em",
                     }}
                     aria-label={lang?.Name}
+                    svg={true}
                   />
                   {lang.Name}
                 </li>

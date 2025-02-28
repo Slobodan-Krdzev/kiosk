@@ -13,6 +13,7 @@ import PaymentError from "./Components/View/PaymentError/PaymentError";
 import Upsale from "./Components/View/Upsale/Upsale";
 import { DataContext } from "./Contexts/DataContext/Datacontext";
 import { StepContext } from "./Contexts/StepContext/StepContext";
+import OutOfServiceScreen from "./Components/View/OutOfService/OutOfServiceScreen";
 
 function App() {
   const { step,  isTestMode } = useContext(StepContext);
@@ -89,6 +90,8 @@ function App() {
         {step === "finnish" && <Finish />}
         {step === "paymentErr" && <PaymentError />}
         {step === "confirmation" && <Confirmation />}
+        {step === "outOfService" && <OutOfServiceScreen />}
+
       </AnimatePresence>
     </>
   );

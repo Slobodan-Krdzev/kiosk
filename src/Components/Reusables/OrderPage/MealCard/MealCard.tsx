@@ -9,10 +9,10 @@ import Plus from "../../SVG/Plus";
 import Trashcan from "../../SVG/Trashcan";
 import styles from "./MealCardStyles.module.css";
 import { useTranslation } from "react-i18next";
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; 
 import "sweetalert2/src/sweetalert2.scss";
 // import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
-import Info from "../../SVG/Info";
+// import Info from "../../SVG/Info";
 import PricePreviewer from "../../PricePreviewer/PricePreviewer";
 import Minus from "../../SVG/Minus";
 import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
@@ -220,9 +220,16 @@ const MealCard = ({
       <div
         className={styles.imgWrapper}
         style={{ backgroundImage: `url(${product.SmallPictureUrl})` }}
+        onClick={async (e) => {
+          e.stopPropagation();
+
+          const availability = await handleCheckAvailability();
+
+          handleSetMealForInfo(product, isTestMode ? true : availability);
+        }}
       >
         {/* MEAL INFO TRIGER */}
-        <button
+        {/* <button
           className={styles.infoBtn}
           onClick={async (e) => {
             e.stopPropagation();
@@ -233,7 +240,7 @@ const MealCard = ({
           }}
         >
           <Info />
-        </button>
+        </button> */}
       </div>
 
       <div className={styles.cardInfoWrapper}>
@@ -252,7 +259,7 @@ const MealCard = ({
         </p>
       </div>
       {!isButtonOpened && <PricePreviewer
-        style={{ position: "absolute", bottom: "5px", left: "15px" }}
+        style={{ position: "absolute", bottom: "5px", left: "6%" }}
         price={product.Price}
         color={theme.activeTextColor}
         fontSizeDecimal={"1.8vw"}

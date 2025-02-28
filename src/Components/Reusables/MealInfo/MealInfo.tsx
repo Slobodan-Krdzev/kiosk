@@ -132,7 +132,7 @@ const MealInfo = ({ meal }: MealInfoProps) => {
     <div className={styles.mealInfoWrapper}>
       <div
         className={styles.image}
-        style={{ backgroundImage: `url(${meal.SmallPictureUrl})` }}
+        style={{ backgroundImage: `url(${meal.ProductDetails.ProductPictureUrl})` }}
       ></div>
 
       <div className={styles.titleQuantityWrapper}>

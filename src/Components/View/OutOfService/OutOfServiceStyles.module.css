@@ -1,0 +1,42 @@
+.overlay{
+    height: 100%;
+    width: 100%;
+    background-color: #2e2e2e3d;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    gap: 2vh;
+    padding-bottom: 4vh;
+}
+
+.outOfServiceBanner {
+    padding: 3vw;
+    text-transform: uppercase;
+    border-radius: 2vw;
+
+    background-color: white;
+
+
+}
+
+.outOfServiceBanner h1{
+    color: #F31C21;
+    font-size: 9vw;
+    font-family: var(--custom-font-3);
+
+    letter-spacing: -0.5px;
+}
+
+.subtitle{
+    font-family: var(--custom-font-3);
+    letter-spacing: -2px;
+    text-align: center;
+    font-size: 10vw;
+    color: white;
+    text-transform: uppercase;
+
+    width: 80%;
+    margin: 0 auto;
+}

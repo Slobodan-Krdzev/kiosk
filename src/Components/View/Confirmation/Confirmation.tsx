@@ -23,10 +23,12 @@ const Confirmation = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={`fullScreenTablet ${styles.confirmationView}`}
     >
-      <img src="/checkMarkGif.gif" alt="Check Mark" width={250} height={250} />
+      <img src="/checkMarkGif.gif" alt="Check Mark" style={{
+        width: '60vw',
+        aspectRatio: '1 / 1'
+      }} />
       <p
-        className={`fontSF`}
-        style={{ fontSize: "5vw", textAlign: "center", fontWeight: 500 }}
+        className={styles.message}
       >
         YOUR ORDER IS WAITING <br />
         FOR YOU AT THE COUNTER{" "}

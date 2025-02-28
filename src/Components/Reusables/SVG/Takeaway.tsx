@@ -1,12 +1,14 @@
 export type SvgIconPropsType = {
   color: string;
+  size?: 'small' | 'large'
+
 };
 
-const Takeaway = ({ color }: SvgIconPropsType) => {
+const Takeaway = ({ color, size }: SvgIconPropsType) => {
   return (
     <svg
-      width="117"
-      height="117"
+    width={size === 'large' ? "117" : "22" }
+      height={size === 'large' ? "117" : "22" }
       viewBox="0 0 174 177"
       fill="none"
     >

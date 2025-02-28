@@ -95,10 +95,11 @@ const Order = () => {
 
   console.log("Orders from orfers screen", orders);
 
-
   return (
     <ViewFullScreenAnimated framerKey={"order"}>
-      <TopFixedRibbon justifyContent={"space-between"}>
+      <TopFixedRibbon justifyContent={"space-between"} style={{
+        alignItems: 'stretch'
+      }}>
         <Logo source={data.ThemeResponse.LogoImage.Url} width={40} />
         <div
           style={{
@@ -106,7 +107,7 @@ const Order = () => {
             justifyContent: "end",
             alignItems: "center",
             gap: "3vw",
-            flexBasis: '50%',
+            flexBasis: "50%",
           }}
         >
           <SmallOrderTypeSelector />
@@ -186,13 +187,12 @@ const Order = () => {
             isRibbonVisible={orders.length > 0}
             removeOutOfStockProduct={removeOutOfStockProduct}
           />
-        </div>
+        </div> 
       </div>
 
       {/* RIBBON */}
       <AnimatePresence mode="wait">
         {orders.length > 0 && isBottomRibbonVisible && (
-       
           <BottomFixedShadowLayer>
             <>
               <BottomOrderInfo
@@ -234,6 +234,7 @@ const Order = () => {
                   backgroundColor: "#FF4F4F",
                   color: "white",
                   width: "100%",
+                  border: '1px solid #FF4F4F'
                 }}
               >
                 Yes
@@ -243,11 +244,17 @@ const Order = () => {
         </Modal>
       )}
 
-      {("product" in mealForInfo && Object.keys(mealForInfo.product).length !== 0) && <SlideUpModal >
-        <>
-        <MealInfo meal={mealForInfo.product!} availability={mealForInfo.availability}/>
-        </>
-        </SlideUpModal>}
+      {"product" in mealForInfo &&
+        Object.keys(mealForInfo.product).length !== 0 && (
+          <SlideUpModal>
+            <>
+              <MealInfo
+                meal={mealForInfo.product!}
+                availability={mealForInfo.availability}
+              />
+            </>
+          </SlideUpModal>
+        )}
     </ViewFullScreenAnimated>
   );
 };

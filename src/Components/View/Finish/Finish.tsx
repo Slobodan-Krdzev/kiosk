@@ -122,7 +122,7 @@ const Finish = () => {
             handleRemoveNote();
           }}
         >
-          finnish
+          finish
         </DefaultButton>
       </BottomButtonholderRibbon>
      

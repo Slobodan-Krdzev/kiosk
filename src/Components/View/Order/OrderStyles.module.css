@@ -69,6 +69,7 @@
   /* max-height: 120px; */
   height: 11.1vh !important;
   width: 100%;
+  max-height: 150px;
 
   background-color: #ffffff;
   /* box-shadow: 0px 3.77px 18.85px 0px #0000001a; */

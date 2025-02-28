@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
-import styles from "./PaymentError.module.css";
 import { useContext } from "react";
-import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import BottomOpacityContentWrapper from "../../Reusables/BottomOpacityContentWrapper/BottomOpacityContentWrapper";
+import LargeBtn from "../../Reusables/LargeBtn/LargeBtn";
+import styles from "./PaymentError.module.css";
 
 const PaymentError = () => {
-
-  const { handleStepChange, step } = useContext(StepContext)
-  const { theme } = useContext(DataContext)
+  const { handleStepChange, step } = useContext(StepContext);
 
   return (
     <motion.section
@@ -18,32 +17,47 @@ const PaymentError = () => {
       exit={{ x: "100vw" }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <img src="/errorGrafic.webp" alt="Error" width={200} height={200} />
+      <img
+        src="/errorGrafic.webp"
+        alt="Error"
+        style={{ width: "45vw", aspectRatio: "1 / 1" }}
+      />
       <p
-        className={`fontSF`}
+        className={styles.oops}
         style={{ fontSize: "5vw", textAlign: "center", fontWeight: 500 }}
       >
-        Oops!!! <br />
-        {" "}
-        {step === 'paymentErr' ? "Payment failed." : "Something Went Wrong!"}
+        Oops!!! <br />{" "}
+        {step === "paymentErr" ? "Payment failed." : "Something Went Wrong!"}
       </p>
-      <p className={`fontSF paymentPagesSubtitle`}>
+      <p className={styles.message}>
         Please contact our staff and check your card details.
       </p>
-      <button
-        className={`fontSF ${styles.btn}`}
-        style={{
-          backgroundColor: step === 'paymentErr' ? theme.activeTextColor : 'lightblue',
-          color:step === 'paymentErr' ? theme.textColor : 'white',
-        }}
-        onClick={() => {
-          handleStepChange("start");
 
-          document.documentElement.requestFullscreen();
+      <BottomOpacityContentWrapper
+        style={{
+          // background: `linear-gradient(180.09deg, rgba(20, 20, 20, 0) 0.07%, rgba(0, 0, 0, 0.71) 99.93%)`,
+          height: "33.333vh",
+          gap: "3vh",
+          padding: "8vw 5vw",
+          position: "fixed",
+          bottom: 0,
+
+          left: 0,
+          right: 0,
         }}
       >
-        Start Again
-      </button>
+        <LargeBtn
+          borderColor="white"
+          width={"100%"}
+          clickHandler={() => {
+            handleStepChange("start");
+
+            document.documentElement.requestFullscreen();
+          }}
+        >
+          Restart
+        </LargeBtn>
+      </BottomOpacityContentWrapper>
     </motion.section>
   );
 };

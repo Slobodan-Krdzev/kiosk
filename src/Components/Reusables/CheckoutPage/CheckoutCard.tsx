@@ -11,7 +11,7 @@ import PricePreviewer from "../PricePreviewer/PricePreviewer";
 import Minus from "../SVG/Minus";
 
 type CheckoutCardPropsType = {
-  order: SingleMealType;
+  order: SingleMealType; 
   theme: ThemeType;
   data: RootData;
   hideShowRibbon: (value: boolean) => void;
@@ -88,11 +88,6 @@ const CheckoutCard = ({
                 ? `${order.product!.Name.substring(0, 35)}...`
                 : order.product!.Name}
             </p>
-
-            {/* <p className={`${styles.checkoutCardPrice} fontSF`}>
-              {order.totalPrice.toFixed(2)}{" "}
-              {data.ThemeResponse.CurrencySettings.CurrencySymbol}
-            </p> */}
           </div>
 
           <div className={styles.mealInfoWrapper}>
@@ -149,7 +144,7 @@ const CheckoutCard = ({
           </div>
 
           <div className={styles.cardNoteBtnsWrapper}>
-            {!isProductNoteInputVisible && (
+            {order?.product?.HasUpsaleCollection && (
               <motion.button
                 key={"Edit Note Btn"}
                 initial={{ opacity: 0 }}

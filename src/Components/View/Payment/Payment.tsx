@@ -27,44 +27,6 @@ const Payment = () => {
   const [isAvailable, setIsAvailable] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
-  // const checkAvailability = async () => {
-  //   try {
-  //     if (!orderReferenceData?.reference) {
-  //       throw new Error("Missing order reference data");
-  //     }
-
-  //     const url = `https://kioskapi.dev.revelapps.com/api/CheckKioskPayment?reference=${orderReferenceData.reference}`;
-
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-
-  //     console.log("Data od Responsot", data);
-
-  //     if (data.Message) {
-  //       if (data.Message === "An error has occurred.") {
-  //         handleStepChange("paymentErr");
-  //       }
-  //     }
-
-  //     handleStepChange("finnish");
-  //     handleSetOrderNumber(data.Data.AdditionalData);
-  //     handleSetIdOrderNumber(data.Data.IdOrder);
-  //     setIsAvailable(data.IsSuccess);
-  //   } catch (error) {
-  //     console.error("Error fetching product availability:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (!isAvailable) {
-  //     const interval = setInterval(() => {
-  //       checkAvailability();
-  //     }, 10000);
-
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [isAvailable]);
-
   const checkAvailability = useCallback(async () => {
     try {
       if (!orderReferenceData?.reference) {
@@ -148,14 +110,17 @@ const Payment = () => {
         </button>
       </div>
 
-      <BottomButtonholderRibbon>
-        <>
+      <BottomButtonholderRibbon style={{
+        display: 'flex',
+        justifyContent: 'space-between'
+      }}>
+        
           <DefaultButton
             style={{
               height: "100%",
               flexBasis: "23%",
             }}
-            clickHandler={() => {}}
+            clickHandler={() => handleStepChange('order')}
           >
             Close
           </DefaultButton>
@@ -170,7 +135,6 @@ const Payment = () => {
           >
             {t("cancel_order")}
           </DefaultButton>
-        </>
       </BottomButtonholderRibbon>
 
       {isCancelModalOpen && (

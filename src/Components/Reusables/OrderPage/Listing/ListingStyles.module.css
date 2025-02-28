@@ -2,9 +2,12 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(200px, calc((11vh * 2) + 14px)));
     /* grid-auto-rows: clamp(180px, 13vh, 300px); */
-    grid-auto-rows: calc((11vh * 2) + 20px);
+    /* grid-auto-rows: (calc((11vh * 2) + 20px)); */
+    grid-auto-rows: minmax(calc((11vh * 2) + 20px), 320px);
+
+    
     /* od ovde setirame height na karticka */
-    gap: 1.1vh;
+    gap: 0.8vh;
     overflow-y: scroll;
     height: 100%;
     padding-bottom: 30vh;
@@ -15,21 +18,24 @@
     scroll-behavior: smooth;
 }
 
-
+/* ova e resolucijata na tabletot na zidot s */
 @media (max-width: 1290px) {
 
     .mealsListing {
-        grid-template-columns: repeat(2, 1fr);
-        /* grid-auto-rows: 346px; */
+        grid-template-columns: repeat(3, 1fr);
+
+        grid-auto-rows: 312px;
 
     }
 }
+/* ova e resolucijata na tablet 800 i 600 */
 
 @media (max-width: 850px) {
 
     .mealsListing {
         grid-template-columns: repeat(2, 1fr);
         /* grid-auto-rows: 304px; */
+        grid-auto-rows: minmax(calc((11vh * 2) + 20px), 320px);
 
     }
 }

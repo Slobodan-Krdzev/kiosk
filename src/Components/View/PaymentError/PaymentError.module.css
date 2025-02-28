@@ -11,9 +11,27 @@
     padding: 3.5vw;
     border-radius: 50px;
     border: none;
-    font-size: 3.5vw;
     width: 95%;
     margin: 0 auto;
     position: fixed;
     bottom: 10px;
+}
+
+.oops{
+    font-family: var(--custom-font-3);
+    font-size: 9vw !important;
+    letter-spacing: -0.5px;
+    line-height: 85%;
+    font-weight: 700;
+}
+
+.message{
+    font-family: var(--custom-font-3);
+    font-size: 6vw !important;
+    letter-spacing: -0.5px;
+    line-height: 85%;
+    /* font-weight: 700; */
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
 }
