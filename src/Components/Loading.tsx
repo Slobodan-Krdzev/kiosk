@@ -25,7 +25,7 @@ const Loading = () => {
             className="fontSF"
             style={{ textAlign: "center", color: "black", width: "40%" }}
           >
-            RevelApps
+            guestit.nl
           </motion.h1>
           <img
             src="/tabletmenukaart_logo.png"
