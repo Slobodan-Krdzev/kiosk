@@ -2,8 +2,7 @@
     position: relative;
   display: inline-block;
   width: 45%;
-  max-height: 4.3vh;
-  height:4.3vh;
+  align-self: stretch;
  background-color: white;
   font-family: var(--custom-font);
   box-shadow: 0px 3px 8px 0px #3131311A;
