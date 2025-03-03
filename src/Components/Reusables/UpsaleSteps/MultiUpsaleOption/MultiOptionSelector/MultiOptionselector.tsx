@@ -112,15 +112,21 @@ const MultiOptionselector = ({
       }}
       onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
+        console.log("Allready Selected");
 
         if (isOptionAlreadySelected) {
-          if (option.MaxSelection > 1) setIsButtonOpened(true);
-          return;
+          console.log("Allready Selected");
+          if (option.MaxSelection > 1) {
+            setIsButtonOpened(true);
+          } else {
+            removeAnOption(upsaleStep, option);
+          }
+        } else {
+          setIsSelected(true);
+          addNewOption(upsaleStep, option, maxSelection, 1);
+          setIsButtonOpened(true);
+          setQuantity(1);
         }
-        setIsSelected(true);
-        addNewOption(upsaleStep, option, maxSelection, 1);
-        setIsButtonOpened(true);
-        setQuantity(1);
       }}
     >
       <div
@@ -184,7 +190,7 @@ const MultiOptionselector = ({
       >
         {!isOptionAlreadySelected && <Plus color={"gray"} />}
 
-        { isSelected && option.MaxSelection <= 1  && <>{quantity} </>}
+        {isOptionAlreadySelected && !isButtonOpened && <>{quantity} </>}
 
         {isOptionAlreadySelected &&
           option.MaxSelection > 1 &&
@@ -210,9 +216,13 @@ const MultiOptionselector = ({
               >
                 {quantity}
               </div>
-              <button className={styles.quantityBtns} onClick={addBtnHandler}>
-                {" "}
-                <Plus color="black" />{" "}
+              <button
+                disabled={quantity === option.MaxSelection}
+                className={styles.quantityBtns}
+                onClick={addBtnHandler}
+                style={{backgroundColor: quantity === option.MaxSelection ? "#bfbfbf " : ''}}
+              >
+                {quantity === option.MaxSelection ? 'Max' : <Plus color={"black"} />}
               </button>
             </>
           )}

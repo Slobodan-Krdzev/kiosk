@@ -1,4 +1,3 @@
-import X from "../SVG/X";
 import styles from "./XButtonStyles.module.css";
 
 interface XButtonProps {
@@ -31,7 +30,7 @@ const XButton = ({
         ...style
       }}
     >
-      <X color={color}/>
+      <img src="/close.png" alt="Close" style={{width: '20px', aspectRatio: '1/1'}}/>
     </button>
   );
 };

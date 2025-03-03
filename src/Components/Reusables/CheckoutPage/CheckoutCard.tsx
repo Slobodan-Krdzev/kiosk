@@ -9,6 +9,7 @@ import Trashcan from "../SVG/Trashcan";
 import styles from "./CheckoutCardStyles.module.css";
 import PricePreviewer from "../PricePreviewer/PricePreviewer";
 import Minus from "../SVG/Minus";
+import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
 
 type CheckoutCardPropsType = {
   order: SingleMealType; 
@@ -28,8 +29,11 @@ const CheckoutCard = ({
     setSingleMealQuantity,
     setSingleMealNote,
     removeMealFromOrders,
+    setMeal
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
+  const {resetUpsale} = useContext(UpsaleContext)
+
 
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
@@ -144,7 +148,7 @@ const CheckoutCard = ({
           </div>
 
           <div className={styles.cardNoteBtnsWrapper}>
-            {order?.product?.HasUpsaleCollection && (
+            {order?.product?.HasUpsaleCollection && !isProductNoteInputVisible && (
               <motion.button
                 key={"Edit Note Btn"}
                 initial={{ opacity: 0 }}
@@ -153,7 +157,17 @@ const CheckoutCard = ({
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className={styles.addNoteBtn}
                 onClick={() => {
-                  setIsProductNoteInputVisible(true);
+
+                  // delete product
+                  removeMealFromOrders(order.id);
+
+                  // delete upsale
+                  resetUpsale()
+                  // setMeal
+
+                  setMeal(order.product!)
+                  // run thru upsale
+                  handleStepChange('menuUpgrade')
                 }}
               >
                 <Plus color={"#555555a0"} /> Edit
@@ -211,7 +225,6 @@ const CheckoutCard = ({
                       borderBottomRightRadius: 0,
                     }}
                     className="defInput"
-                    required
                     value={inputValue}
                     onChange={(e) => {
                       setInputValue(e.currentTarget.value);

@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import styles from "./SlideUpModalStyles.module.css";
+import { useContext } from "react";
+import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import { Product } from "../../../Types/Types";
 
 interface SlideUpModalProps {
   children: React.ReactNode | JSX.Element;
@@ -7,11 +10,11 @@ interface SlideUpModalProps {
 }
 
 const SlideUpModal = ({ children, style }: SlideUpModalProps) => {
-
+ const { handleSetMealForInfo } = useContext(StepContext);
 
   const onParentClick = (event: React.MouseEvent<HTMLDivElement>) => {
 
-    
+    handleSetMealForInfo({} as Product, false);
     console.log('Parent Click', event)
   }
 
@@ -32,6 +35,7 @@ const SlideUpModal = ({ children, style }: SlideUpModalProps) => {
         exit={{ opacity: 0, y: 1000 }}
         transition={{ duration: 0.5, delay: 0.1, ease: "easeInOut" }}
         className={styles.modalContent}
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
       >
         {children}
       </motion.div>

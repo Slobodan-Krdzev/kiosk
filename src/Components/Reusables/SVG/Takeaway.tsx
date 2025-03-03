@@ -7,8 +7,8 @@ export type SvgIconPropsType = {
 const Takeaway = ({ color, size }: SvgIconPropsType) => {
   return (
     <svg
-    width={size === 'large' ? "250px" : "20%" }
-      height={size === 'large' ? "250px" : "100%" }
+    width={size === 'large' ? "150px" : "20%" }
+      height={size === 'large' ? "150px" : "100%" }
       viewBox="0 0 174 177"
       fill="none"
     >

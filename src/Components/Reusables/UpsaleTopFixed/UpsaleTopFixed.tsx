@@ -38,6 +38,8 @@ const UpsaleTopFixed = ({
             position: "absolute",
             top: "30px",
             right: "30px",
+            width: '40px',
+            asspectRatio: '1/1'
           }}
         />
       </div>

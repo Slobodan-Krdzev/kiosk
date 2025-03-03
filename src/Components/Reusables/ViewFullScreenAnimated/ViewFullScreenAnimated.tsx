@@ -25,7 +25,7 @@ const ViewFullScreenAnimated = ({
       }}
       initial={{ x: "100vw" }}
       animate={{ x: 0 }}
-      exit={{ x: "-100vw" }}
+      exit={{ opacity: 0, x: "-100vw" }}
       transition={{
         type: "spring",
         stiffness: 300,
