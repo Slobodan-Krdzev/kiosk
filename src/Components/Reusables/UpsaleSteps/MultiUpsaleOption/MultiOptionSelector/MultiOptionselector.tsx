@@ -4,6 +4,7 @@ import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
 import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
 import { Option } from "../../../../../Types/Types";
 import PricePreviewer from "../../../PricePreviewer/PricePreviewer";
+import CheckMark from "../../../SVG/CheckMark";
 import Minus from "../../../SVG/Minus";
 import Plus from "../../../SVG/Plus";
 import Trashcan from "../../../SVG/Trashcan";
@@ -190,7 +191,8 @@ const MultiOptionselector = ({
       >
         {!isOptionAlreadySelected && <Plus color={"gray"} />}
 
-        {isOptionAlreadySelected && !isButtonOpened && <>{quantity} </>}
+        {option.MaxSelection > 1 && isOptionAlreadySelected && !isButtonOpened && <>{quantity} </>}
+        {isOptionAlreadySelected && option.MaxSelection <= 1 && <CheckMark color="green" />}
 
         {isOptionAlreadySelected &&
           option.MaxSelection > 1 &&
