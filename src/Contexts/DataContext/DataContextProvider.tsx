@@ -59,6 +59,7 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   }
 
   const currentLanguage = i18n.language;
+  i18n.changeLanguage('nl')
 
   // OD BACKEND TREBA DA DOJDAT KAKO SUBCATEGORY 
 

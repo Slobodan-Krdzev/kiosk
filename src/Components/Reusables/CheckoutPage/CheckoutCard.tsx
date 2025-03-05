@@ -10,9 +10,10 @@ import styles from "./CheckoutCardStyles.module.css";
 import PricePreviewer from "../PricePreviewer/PricePreviewer";
 import Minus from "../SVG/Minus";
 import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
+import CheckoutCardExtraPreview from "./CheckoutCardExtrasPreview/CheckoutCardExtraPreview";
 
 type CheckoutCardPropsType = {
-  order: SingleMealType; 
+  order: SingleMealType;
   theme: ThemeType;
   data: RootData;
   hideShowRibbon: (value: boolean) => void;
@@ -29,11 +30,10 @@ const CheckoutCard = ({
     setSingleMealQuantity,
     setSingleMealNote,
     removeMealFromOrders,
-    setMeal
+    setMeal,
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
-  const {resetUpsale} = useContext(UpsaleContext)
-
+  const { resetUpsale } = useContext(UpsaleContext);
 
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
@@ -63,7 +63,7 @@ const CheckoutCard = ({
       document.removeEventListener("mousedown", handleClickToCloseForm);
   }, [isProductNoteInputVisible]);
 
-  console.log(order)
+  console.log(order);
 
   return (
     <div className={styles.checkoutCardNoteInputWrapper}>
@@ -78,7 +78,7 @@ const CheckoutCard = ({
         ></div>
 
         <PricePreviewer
-          style={{ top: '10px', right: '5%'}}
+          style={{ top: "10px", right: "5%" }}
           price={order.totalPrice}
           color={theme.activeTextColor}
           fontSizeRound={"4.5vw"}
@@ -95,84 +95,73 @@ const CheckoutCard = ({
           </div>
 
           <div className={styles.mealInfoWrapper}>
-            {order.upsale && order.upsale![2].stepData && (
-              <p className={`${styles.checkoutCardExtrasText}`}>
-                {order.upsale![2].stepData.map((i, idx) => (
-                  <span key={i.option.Id}>
-                    {i.option.Name}{" "}
-                    <span style={{ textTransform: "lowercase" }}>
-                      {" "}
-                      x{i.quantity}
-                    </span>{" "}
-                    {idx === order!.upsale![2].stepData.length - 1 ? "" : "|"}{" "}
-                  </span>
-                ))}
-              </p>
-            )}
+            <div>
+              {order.upsale &&
+                (order.upsale![0].stepData || order.upsale![1].stepData) &&
+                order.upsale
+                  .slice(0, 2)
+                  .map((step) => (
+                    <CheckoutCardExtraPreview
+                      stepData={step.stepData}
+                      order={order}
+                      key={step.step}
+                    />
+                  ))}
+             
 
-            {order.upsale && order.upsale![3].stepData && (
-              <p className={`${styles.checkoutCardExtrasText}`}>
-                {order.upsale![3].stepData.map((i, idx) => (
-                  <span key={i.option.Id}>
-                    {i.option.Name}{" "}
-                    <span style={{ textTransform: "lowercase" }}>
-                      {" "}
-                      x{i.quantity}
-                    </span>{" "}
-                    {idx === order!.upsale![3].stepData.length - 1 ? "" : "|"}{" "}
-                  </span>
-                ))}
-              </p>
-            )}
+              
+              {order.note !== "" && (
+                <p className={`${styles.checkoutCardExtrasText}`}>
+                  {t("note")}:{" "}
+                  {order.note.length > 15
+                    ? `${order.note.substring(0, 10)}...`
+                    : order.note}
+                </p>
+              )}
+            </div>
 
-            {order.upsale && order.upsale![4].stepData && (
-              <p className={`${styles.checkoutCardExtrasText}`}>
-                {order.upsale![4].stepData.map((i, idx) => (
-                  <span key={i.option.Id}>
-                    {i.option.Name}{" "}
-                    <span style={{ textTransform: "lowercase" }}>
-                      {" "}
-                      x{i.quantity}
-                    </span>{" "}
-                    {idx === order!.upsale![4].stepData.length - 1 ? "" : "|"}{" "}
-                  </span>
-                ))}
-              </p>
-            )}
-
-            {order.note !== "" && (
-              <p className={`${styles.checkoutCardExtrasText}`}>
-                {t("note")}: {order.note}
-              </p>
-            )}
+            <div>
+            {order.upsale &&
+                (order.upsale![0].stepData || order.upsale![1].stepData) &&
+                order.upsale
+                  .slice(2, order.upsale.length)
+                  .map((step) => (
+                    <CheckoutCardExtraPreview
+                      stepData={step.stepData}
+                      order={order}
+                      key={step.step}
+                    />
+                  ))}
+              
+            </div>
           </div>
 
           <div className={styles.cardNoteBtnsWrapper}>
-            {order?.product?.HasUpsaleCollection && !isProductNoteInputVisible && (
-              <motion.button
-                key={"Edit Note Btn"}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={styles.addNoteBtn}
-                onClick={() => {
+            {order?.product?.HasUpsaleCollection &&
+              !isProductNoteInputVisible && (
+                <motion.button
+                  key={"Edit Note Btn"}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className={styles.addNoteBtn}
+                  onClick={() => {
+                    // delete product
+                    removeMealFromOrders(order.id);
 
-                  // delete product
-                  removeMealFromOrders(order.id);
+                    // delete upsale
+                    resetUpsale();
+                    // setMeal
 
-                  // delete upsale
-                  resetUpsale()
-                  // setMeal
-
-                  setMeal(order.product!)
-                  // run thru upsale
-                  handleStepChange('menuUpgrade')
-                }}
-              >
-                <Plus color={"#555555a0"} /> Edit
-              </motion.button>
-            )}
+                    setMeal(order.product!);
+                    // run thru upsale
+                    handleStepChange("menuUpgrade");
+                  }}
+                >
+                  <Plus color={"#555555a0"} /> Edit
+                </motion.button>
+              )}
 
             {!isProductNoteInputVisible && (
               <motion.button
@@ -291,10 +280,7 @@ const CheckoutCard = ({
                 >
                   {quantity === 1 ? <Trashcan /> : <Minus color="black" />}
                 </button>
-                <p
-                className={styles.orderQuantity}>
-                  {order.quantity}
-                </p>
+                <p className={styles.orderQuantity}>{order.quantity}</p>
                 <button
                   style={{
                     flexBasis: "33.333%",

@@ -1,4 +1,3 @@
-
 import { useContext, useState } from "react";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
@@ -13,6 +12,7 @@ import DefaultButton from "../../DefaultButton/DefaultButton";
 import Chevron from "../../SVG/Chevron";
 import UpsaleTopFixed from "../../UpsaleTopFixed/UpsaleTopFixed";
 import ViewFullScreenAnimated from "../../ViewFullScreenAnimated/ViewFullScreenAnimated";
+import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 
 type DualUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -28,28 +28,54 @@ const DualUpsaleOption = ({
   stepsLength,
 }: DualUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
-  const { resetUpsale } = useContext(UpsaleContext);
-  const { singleMeal } = useContext(OrderContext);
+  const { resetUpsale, upsaleData } = useContext(UpsaleContext);
+  const { singleMeal, placeMealInOrders, setUpsale } = useContext(OrderContext);
+  const { data } = useContext(DataContext);
+  const [selectedOption, setSelectedOption] = useState<Option[]>([]);
 
-  const [selectedOption, setSelectedOption] = useState<Option | undefined>(
-    undefined
+  const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
+
+  const upsaleSteps = data.TMKData[0].UpsaleColletions[0].UpsaleSteps;
+  const options = upsaleStepData.Options;
+  const isLastStep = upsaleSteps.length === upsaleStep + 1;
+  const isNextButtonDissabled = !(
+    upsaleData[upsaleStep].stepData.length >= upsaleStepData.MinSelection
   );
 
-  const options = upsaleStepData.Options;
-
   const handleOptionSelect = (option: Option) => {
-    setSelectedOption(option);
+    setSelectedOption([...selectedOption, option]);
   };
 
-  const onXButtonClick = () => {
+  console.log(upsaleStep)
 
+  const onXButtonClick = () => {
     if (upsaleStep === 0) {
       handleStepChange("order");
       resetUpsale();
     }
 
     handleUpsaleStepChange("decrease");
+  };
 
+  
+
+  const onNextButton = () => {
+    const someOptionHasFinnish = selectedOption.some((o) => o.Finish === true);
+
+    if (isLastStep || someOptionHasFinnish) {
+      setUpsale(upsaleData);
+      placeMealInOrders({
+        ...singleMeal,
+        id: new Date().valueOf(),
+        upsale: upsaleData,
+        itemGUI: undefined,
+      });
+
+      handleStepChange("order");
+      resetUpsale();
+    } else {
+      handleUpsaleStepChange("increase");
+    }
   };
 
   return (
@@ -58,21 +84,15 @@ const DualUpsaleOption = ({
       framerKey={`dual${upsaleStep}`}
       // className={styles.dualUpsaleView}
     >
-      {upsaleStep < 1 && (
-        <p className={styles.stepCounter}>
-          {upsaleStep + 1} / {stepsLength}
-        </p>
-      )}
-
       {/* top content */}
 
       <UpsaleTopFixed
         version={upsaleStep === 0 ? 0 : 1}
-        image={singleMeal.image!}
+        image={singleMeal.product?.ProductDetails?.ProductPictureUrl ?? topImage}
         productName={singleMeal.product!.Name!}
         xButtonClickHandler={onXButtonClick}
       />
-     
+
       {/* option choose */}
 
       <div>
@@ -99,59 +119,56 @@ const DualUpsaleOption = ({
       </div>
       {/* ribbon */}
 
-      {upsaleStep > 0 && (
-        <BottomButtonholderRibbon>
-          <DefaultButton
-            clickHandler={() => handleUpsaleStepChange("decrease")}
-            style={{
-              backgroundColor: "inherit",
-              height: "100%",
-              width: "30%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "0.5vh",
-              textTransform: "uppercase",
-            }}
-          >
-            <Chevron color="black" orientation="toLeft" />
-            Bestellen
-          </DefaultButton>
+      <BottomButtonholderRibbon>
+        <DefaultButton
+          clickHandler={onXButtonClick}
+          style={{
+            backgroundColor: "inherit",
+            height: "100%",
+            width: "30%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0.5vh",
+            textTransform: "uppercase",
+          }}
+        >
+          <Chevron color="black" orientation="toLeft" />
+          Bestellen
+        </DefaultButton>
 
-          {upsaleStep > 0 && (
-            <div
-              style={{
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "relative",
-              }}
-            >
-              <p className={styles.stepCounterOnRibbon}>
-                {upsaleStep + 1} / {stepsLength}
-              </p>
-            </div>
-          )}
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          <p className={styles.stepCounterOnRibbon}>
+            {upsaleStep + 1} / {stepsLength}
+          </p>
+        </div>
 
-          <DefaultButton
-            clickHandler={() => handleUpsaleStepChange("increase")}
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "30%",
-              color: "white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "0.5vh",
-              textTransform: "uppercase",
-            }}
-          >
-            Bestellen <Chevron color="white" />
-          </DefaultButton>
-        </BottomButtonholderRibbon>
-      )}
+        <DefaultButton
+          clickHandler={onNextButton}
+          dissabled={isNextButtonDissabled}
+          style={{
+            backgroundColor: isNextButtonDissabled ? "#2d2d2d33" : "black",
+            height: "100%",
+            width: "30%",
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0.5vh",
+            textTransform: "uppercase",
+          }}
+        >
+          Bestellen <Chevron color="white" />
+        </DefaultButton>
+      </BottomButtonholderRibbon>
     </ViewFullScreenAnimated>
   );
 };

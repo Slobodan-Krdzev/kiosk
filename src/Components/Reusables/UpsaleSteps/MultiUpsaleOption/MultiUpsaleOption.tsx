@@ -11,6 +11,7 @@ import UpsaleTopFixed from "../../UpsaleTopFixed/UpsaleTopFixed";
 import ViewFullScreenAnimated from "../../ViewFullScreenAnimated/ViewFullScreenAnimated";
 import MultiOptionselector from "./MultiOptionSelector/MultiOptionselector";
 import styles from "./MultiUpsaleOptionStyles.module.css";
+import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 
 type MultiUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -27,12 +28,16 @@ const MultiUpsaleOption = ({
 }: MultiUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
   const { placeMealInOrders, singleMeal, setUpsale } = useContext(OrderContext);
-  const { t } = useTranslation();
-
+  const { data } = useContext(DataContext);
   const { upsaleData, resetUpsale } = useContext(UpsaleContext);
+  const { t } = useTranslation();
+  const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
 
   const options = upsaleStepData.Options;
   const maxSelection = 2;
+  const upsaleSteps = data.TMKData[0].UpsaleColletions[0].UpsaleSteps;
+  const isLastStep = upsaleSteps.length === upsaleStep + 1;
+
   const isNextButtonDisabled = () => {
     if (
       upsaleStepData.MinSelection === 0 ||
@@ -45,7 +50,7 @@ const MultiUpsaleOption = ({
   };
 
   const onNextBtnClick = () => {
-    if (upsaleStepData.DisplayOrder === stepsLength - 1) {
+    if (isLastStep) {
       // OVDE UPDATE NA SIGNLE MEAL
       setUpsale(upsaleData);
       placeMealInOrders({
@@ -71,10 +76,9 @@ const MultiUpsaleOption = ({
 
       <UpsaleTopFixed
         version={1}
-        image={singleMeal.product!.SmallPictureUrl!}
+        image={singleMeal.product?.ProductDetails?.ProductPictureUrl ?? topImage}
         productName={singleMeal.product!.Name ?? ""}
       />
-      
 
       {/* option choose */}
 
@@ -99,7 +103,6 @@ const MultiUpsaleOption = ({
       </div>
       {/* ribbon */}
 
-   
       <BottomButtonholderRibbon>
         <DefaultButton
           clickHandler={() => handleUpsaleStepChange("decrease")}
@@ -150,10 +153,8 @@ const MultiUpsaleOption = ({
             textTransform: "uppercase",
           }}
         >
-          {isNextButtonDisabled() === false ? <>{t('next_Btn')}</> : "Choose"}
-          {isNextButtonDisabled() &&  <Chevron color="white" />}
-            
-          
+          {isNextButtonDisabled() === false ? <>{t("next_Btn")}</> : "Choose"}
+          {isNextButtonDisabled() && <Chevron color="white" />}
         </DefaultButton>
       </BottomButtonholderRibbon>
     </ViewFullScreenAnimated>

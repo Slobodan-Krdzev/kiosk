@@ -16,20 +16,16 @@ const UpsaleTopFixed = ({
   productName,
   xButtonClickHandler,
 }: UpsaleTopFixedProps) => {
-  const { theme } = useContext(DataContext);
+  const { data } = useContext(DataContext);
+
+  const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
 
   if (version === 0) {
     return (
       <div
         className={styles.topFixed}
-        style={{ backgroundColor: theme.activeTextColor }}
+        style={{ backgroundImage: `url(${topImage})` }}
       >
-        <h1
-          className={styles.topText}
-          style={{ backgroundColor: theme.activeTextColor }}
-        >
-          <b style={{ fontWeight: 800 }}>30%</b> off extras
-        </h1>
         <XButton
           clickHandler={() => {
             if (xButtonClickHandler) xButtonClickHandler();

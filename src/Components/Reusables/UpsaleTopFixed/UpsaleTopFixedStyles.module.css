@@ -5,16 +5,10 @@
     align-items: center;
     background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
     position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-}
-
-.topText{
-    font-size: 5.5vw;
-    font-family: var(--custom-font);
-    padding: 0.5vw 3vw;
-    border-radius: 50px;
-    font-weight: 400;
-    letter-spacing: -1.6px;
 }
 
 .overlay {

@@ -25,20 +25,20 @@ interface MealInfoProps {
 
 const MealInfo = ({ meal }: MealInfoProps) => {
   const [isAvailable, setIsAvailable] = useState<boolean>(!meal.OutOfStock);
-  const [quantity, setQuantity] = useState( 1 );
+  const [quantity, setQuantity] = useState(1);
 
   const { isTestMode, handleStepChange } = useContext(StepContext);
-  const { theme } = useContext(DataContext);
+  const { theme, data } = useContext(DataContext);
   const { placeMealInOrders, setMeal, orders } = useContext(OrderContext);
   const { handleSetMealForInfo } = useContext(StepContext);
 
+  const logo = data.ThemeResponse.LogoImage.Url;
   const isItemAllreadyAdded = Boolean(
     orders.find((m) => m.product?.ProductId === meal.ProductId)
   );
   const itemHasUpsale = meal.HasUpsaleCollection;
 
   const isAddBtnDisabled = isItemAllreadyAdded && !itemHasUpsale;
-
 
   const incrementBtn = () => {
     setQuantity((prevQuant) => prevQuant! + 1);
@@ -102,7 +102,6 @@ const MealInfo = ({ meal }: MealInfoProps) => {
           // removeMealFromOrders(product.ProductId) sadasdasd;
           return;
         } else {
-
           placeMealInOrders({
             id: new Date().valueOf(),
             product: meal,
@@ -116,7 +115,6 @@ const MealInfo = ({ meal }: MealInfoProps) => {
           });
 
           setQuantity(1);
-
         }
       }
     }
@@ -132,7 +130,12 @@ const MealInfo = ({ meal }: MealInfoProps) => {
     <div className={styles.mealInfoWrapper}>
       <div
         className={styles.image}
-        style={{ backgroundImage: `url(${meal.ProductDetails.ProductPictureUrl})` }}
+        style={{
+          backgroundImage: `url(${
+            meal.ProductDetails.ProductPictureUrl ?? logo
+          })`,
+          backgroundSize: meal.ProductDetails.ProductPictureUrl ? 'cover' : 'contain',
+        }}
       ></div>
 
       <div className={styles.titleQuantityWrapper}>

@@ -11,6 +11,8 @@ i18next
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    
+    lng: 'nl',
     fallbackLng: "en",
 
     ns: ["default"],

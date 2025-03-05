@@ -50,7 +50,6 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
 
     const uniqueGUI = uuidv4();
 
-
     const startingPrice = meal.product!.Price;
     console.log('Meal od Handler', startingPrice,meal)
 
