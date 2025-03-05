@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Counter from "../../Reusables/Counter/Counter";
 import styles from "./Confirmation.module.css";
+import { t } from "i18next";
 
 const Confirmation = () => {
   const [isCounterVisible, setIsCounterVisible] = useState(false);
@@ -30,8 +31,7 @@ const Confirmation = () => {
       <p
         className={styles.message}
       >
-        YOUR ORDER IS WAITING <br />
-        FOR YOU AT THE COUNTER{" "}
+        {t('pick_order')}
       </p>
 
       {isCounterVisible && (

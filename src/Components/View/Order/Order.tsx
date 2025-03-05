@@ -214,7 +214,7 @@ const Order = () => {
               style={{ textAlign: "center", fontSize: "2.6vw", width: "60%" }}
               className={`fontCustom1 paymentPagesSubtitle`}
             >
-              Are you sure you want to cancel your order?
+              {t('cancel_order_modal_question')}
             </h2>
             <div className={`modalBtnsWrapper`}>
               <DefaultButton
@@ -225,7 +225,7 @@ const Order = () => {
                   width: "100%",
                 }}
               >
-                No
+                {t('back_Btn')}
               </DefaultButton>
               <DefaultButton
                 clickHandler={cancelOrderClick}
@@ -237,7 +237,7 @@ const Order = () => {
                   border: '1px solid #FF4F4F'
                 }}
               >
-                Yes
+                {t('yes')}
               </DefaultButton>
             </div>
           </>

@@ -110,31 +110,32 @@ const Payment = () => {
         </button>
       </div>
 
-      <BottomButtonholderRibbon style={{
-        display: 'flex',
-        justifyContent: 'space-between'
-      }}>
-        
-          <DefaultButton
-            style={{
-              height: "100%",
-              flexBasis: "23%",
-            }}
-            clickHandler={() => handleStepChange('order')}
-          >
-            {t('back_Btn')}
-          </DefaultButton>
-          <DefaultButton
-            style={{
-              height: "100%",
-              flexBasis: "40%",
-              borderColor: "#FF4F4F",
-              color: "#FF4F4F",
-            }}
-            clickHandler={() => setIsCancelModalOpen(true)}
-          >
-            {t("cancel_order")}
-          </DefaultButton>
+      <BottomButtonholderRibbon
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <DefaultButton
+          style={{
+            height: "100%",
+            flexBasis: "23%",
+          }}
+          clickHandler={() => handleStepChange("order")}
+        >
+          {t("back_Btn")}
+        </DefaultButton>
+        <DefaultButton
+          style={{
+            height: "100%",
+            flexBasis: "40%",
+            borderColor: "#FF4F4F",
+            color: "#FF4F4F",
+          }}
+          clickHandler={() => setIsCancelModalOpen(true)}
+        >
+          {t("cancel_order")}
+        </DefaultButton>
       </BottomButtonholderRibbon>
 
       {isCancelModalOpen && (
@@ -144,7 +145,7 @@ const Payment = () => {
               style={{ textAlign: "center", fontSize: "2.6vw", width: "60%" }}
               className={`fontCustom1 paymentPagesSubtitle`}
             >
-              Are you sure you want to cancel your order?
+              {t("cancel_order_modal_question")}
             </h2>
             <div className={styles.modalBtnsWrapper}>
               <DefaultButton
@@ -154,7 +155,7 @@ const Payment = () => {
                   minHeight: "70px",
                 }}
               >
-                No
+                {t("back_Btn")}
               </DefaultButton>
               <DefaultButton
                 clickHandler={handleCancelOrder}
@@ -164,7 +165,7 @@ const Payment = () => {
                   color: "white",
                 }}
               >
-                Yes
+                {t("yes")}
               </DefaultButton>
             </div>
           </>
