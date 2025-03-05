@@ -122,7 +122,7 @@ const Payment = () => {
             }}
             clickHandler={() => handleStepChange('order')}
           >
-            Close
+            {t('back_Btn')}
           </DefaultButton>
           <DefaultButton
             style={{

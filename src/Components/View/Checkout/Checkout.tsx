@@ -253,7 +253,7 @@ const Checkout = () => {
               }}
               clickHandler={() => handleStepChange("order")}
             >
-              Cancel
+              {t('back_Btn')}
             </DefaultButton>
             <BottomOrderInfo
               width={"80%"}

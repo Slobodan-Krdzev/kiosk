@@ -122,7 +122,7 @@ const Finish = () => {
             handleRemoveNote();
           }}
         >
-          finish
+          {t('finish')}
         </DefaultButton>
       </BottomButtonholderRibbon>
      

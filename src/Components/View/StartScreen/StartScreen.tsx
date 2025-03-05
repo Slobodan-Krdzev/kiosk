@@ -5,6 +5,7 @@ import BottomOpacityContentWrapper from "../../Reusables/BottomOpacityContentWra
 import LanguageSelector from "../../Reusables/LanguageSelectors/LanguageSelector";
 import LargeBtn from "../../Reusables/LargeBtn/LargeBtn";
 import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
+import { t } from "i18next";
 
 const StartScreen = () => {
   const { handleStepChange } = useContext(StepContext);
@@ -44,7 +45,7 @@ const StartScreen = () => {
             document.documentElement.requestFullscreen();
           }}
         >
-          Start Ordering
+          {t("start_btn")}
         </LargeBtn>
       </BottomOpacityContentWrapper>
     </ViewFullScreenAnimated>

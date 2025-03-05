@@ -6,6 +6,7 @@ import Chevron from "../SVG/Chevron";
 import Takeaway from "../SVG/Takeaway";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import DineIn from "../SVG/DineIn";
+import { t } from "i18next";
 
 const SmallOrderTypeSelector = () => {
   const { finalInfo, handleSetTakeawayOption } = useContext(StepContext);
@@ -54,7 +55,7 @@ const SmallOrderTypeSelector = () => {
          
         
         <div className={styles.spanWrapper}>
-          <span className={styles.orderType}>Order Type</span>
+          <span className={styles.orderType}>{t('order_type')}</span>
           <span className={styles.value}>{finalInfo.orderType}</span>
         </div>
         <div>

@@ -3,6 +3,7 @@ import styles from "./BottomOrderInfoStyles.module.css";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import Chevron from "../SVG/Chevron";
 import PricePreviewer from "../PricePreviewer/PricePreviewer";
+import { t } from "i18next";
 
 interface BottomOrderInfoPropsType {
   total: number;
@@ -34,7 +35,7 @@ const BottomOrderInfo = ({
         <p>{numberOfProductsInCart}</p>
       </div>
       <div className={styles.orderTotal}>
-        <p style={{ fontSize: "3.2vw" }}>Total</p>
+        <p style={{ fontSize: "3.2vw" }}>{t('total')}</p>
         <div
           style={{
             display: "flex",
