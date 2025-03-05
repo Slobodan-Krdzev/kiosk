@@ -4,7 +4,8 @@
     /* grid-auto-rows: clamp(180px, 13vh, 300px); */
     /* grid-auto-rows: (calc((11vh * 2) + 20px)); */
     /* grid-auto-rows: minmax(calc((11vh * 2) + 20px), 320px); */
-    grid-auto-rows: 312px;
+    /* grid-auto-rows: 312px; */
+    grid-auto-rows: 430px;
 
     
     /* od ovde setirame height na karticka */
@@ -20,7 +21,9 @@
 }
 
 /* ova e resolucijata na tabletot na zidot s */
-@media (max-width: 1290px) {
+/* @media (max-width: 1290px) { */
+
+@media (max-width: 1790px) {
 
     .mealsListing {
         grid-template-columns: repeat(3, 1fr);
