@@ -156,8 +156,9 @@ const Order = () => {
               }}
             >
               {Boolean(getItemsFromCategory(category.SubCategoryId)) && (
-                <p className={styles.categoryItems}>
-                  {getItemsFromCategory(category.SubCategoryId)} items
+                <p className={styles.categoryItems} >
+                  {getItemsFromCategory(category.SubCategoryId)} 
+                  {getItemsFromCategory(category.SubCategoryId) === 1 ? <> item</> : <> items</>}
                 </p>
               )}
 

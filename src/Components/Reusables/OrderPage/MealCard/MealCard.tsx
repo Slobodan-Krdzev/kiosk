@@ -9,7 +9,7 @@ import Plus from "../../SVG/Plus";
 import Trashcan from "../../SVG/Trashcan";
 import styles from "./MealCardStyles.module.css";
 import { useTranslation } from "react-i18next";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 // import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 // import Info from "../../SVG/Info";
@@ -59,7 +59,7 @@ const MealCard = ({
     (o) => o.product?.ProductId === product.ProductId
   ) as SingleMealType;
 
- const handleCheckAvailability = async () => {
+  const handleCheckAvailability = async () => {
     try {
       const availability = await mutateAsync(product.ProductId);
 
@@ -154,10 +154,8 @@ const MealCard = ({
             // TUKA PRAVIME PROVERKA I DOKOLKU POSTOI UPSALE NA TMK
 
             if (!data.TMKData[0].UpsaleColletions.length) {
-              
               setUpsaleMessage(true);
             } else {
-             
               setQuantity((q) => q + 1);
               setIsButtonOpened(true);
               setMeal(product);
@@ -256,13 +254,15 @@ const MealCard = ({
             : product.Name}
         </p>
       </div>
-      {!isButtonOpened && <PricePreviewer
-        style={{ position: "absolute", bottom: "5px", left: "6%" }}
-        price={product.Price}
-        color={theme.activeTextColor}
-        fontSizeDecimal={"1.8vw"}
-      />}
-      
+      {!isButtonOpened && (
+        <PricePreviewer
+          style={{ position: "absolute", bottom: "5px", left: "6%" }}
+          price={product.Price}
+          color={theme.activeTextColor}
+          fontSizeDecimal={"1.8vw"}
+        />
+      )}
+
       <motion.div
         id="productCardBtnsWrapper"
         animate={{
@@ -271,24 +271,21 @@ const MealCard = ({
               ? "#000000"
               : "#F9F9F9",
           width:
-            isPlacedInOrder_Available_NoUpsale && isButtonOpened
-              ? "96%"
-              : "",
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "96%" : "",
           // minWidth: "24%",
           // height: "36%",
-          minHeight: '18%',
+          minHeight: "18%",
           maxWidth: "96%",
           // maxHeight: "36%",
           lineHeight: "36%",
           padding: 0,
-          aspectRatio: isButtonOpened ? "4.75 / 1" : '1 / 1',
-
-         
+          maxHeight: 50,
+          ...(isButtonOpened ? { height: "auto" } : { aspectRatio: "1 / 1" })
         }}
-        transition={{ type: "spring", duration: 0.7, ease: 'easeInOut' }}
+        transition={{ type: "spring", duration: 0.7, ease: "easeInOut" }}
         className={styles.cardButtonWrapper}
         style={{
-          aspectRatio: isButtonOpened ? "4.75 / 1" : '1 / 1',
+          aspectRatio: isButtonOpened ? "4.75 / 1" : "1 / 1",
           color: theme.activeTextColor,
           justifyContent:
             isPlacedInOrder_Available_NoUpsale && isButtonOpened
@@ -300,9 +297,7 @@ const MealCard = ({
           padding:
             isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "0 3vw" : 0,
           width:
-            isPlacedInOrder_Available_NoUpsale && isButtonOpened
-              ? "96%"
-              : "",
+            isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "96%" : "",
           display: "flex",
           cursor: "pointer",
         }}
@@ -328,14 +323,20 @@ const MealCard = ({
           !product.HasUpsaleCollection &&
           isButtonOpened && (
             <>
-              <button
+              <motion.button
+                whileTap={{ scale: 1.1, backgroundColor: "#393939", zoom: 2 }}
+                transition={{ ease: "easeInOut" }}
                 className={styles.quantityBtns}
                 onClick={takeOutBtnHandler}
               >
                 {" "}
                 {meal.quantity === 1 ? <Trashcan /> : <Minus color="black" />}
-              </button>
-              <div
+              </motion.button>
+              <motion.div
+                key={meal.quantity}
+                initial={{ scale: 1 }}
+                animate={{ scale: 1.4  }}
+                transition={{ duration: 0.3, ease: 'easeInOut'  }}
                 style={{
                   flexBasis: "33.333%",
                   color: "white",
@@ -347,14 +348,16 @@ const MealCard = ({
                 className={styles.quantityRender}
               >
                 {meal.quantity}
-              </div>
-              <button
+              </motion.div>
+              <motion.button
+                whileTap={{ scale: 1.1, backgroundColor: "#393939", zoom: 2 }}
+                transition={{ ease: "easeInOut" }}
                 className={styles.quantityBtns}
                 onClick={addMoreBtnHandler}
               >
                 {" "}
                 <Plus color="black" />{" "}
-              </button>
+              </motion.button>
             </>
           )}
       </motion.div>
