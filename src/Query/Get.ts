@@ -2,8 +2,6 @@ const Get = async (isTestMode: boolean ) => {
 
   const menuNumber = new URLSearchParams(window.location.search).get("menuId")
 
-  console.log(menuNumber)
-  
   const testApi = `https://my.tabletmenukaart.nl/service/kioskTestModeResources?menu=${menuNumber ?? 2408}`
   const prodApi = `https://kioskapi.dev.revelapps.com/api/getfullresources`
 

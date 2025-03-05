@@ -71,8 +71,7 @@ const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
     }
   };
 
-  console.log(currentStep)
-
+  
   return (
     <ViewFullScreenAnimated
       backgroundColor="#EDEDED"

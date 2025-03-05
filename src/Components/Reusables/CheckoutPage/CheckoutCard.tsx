@@ -63,8 +63,6 @@ const CheckoutCard = ({
       document.removeEventListener("mousedown", handleClickToCloseForm);
   }, [isProductNoteInputVisible]);
 
-  console.log(order);
-
   return (
     <div className={styles.checkoutCardNoteInputWrapper}>
       <div className={styles.checkoutCard}>

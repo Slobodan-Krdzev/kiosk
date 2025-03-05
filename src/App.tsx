@@ -70,7 +70,6 @@ function App() {
     <>
       {isCounterVisible && step !== 'start' && (
         <div className={`countOverlay`} onClick={() => {
-          console.log('Clicked')
           resetInactivityTimer()
           setIsCounterVisible(false)
         }}>

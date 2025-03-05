@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Option } from "../../Types/Types";
 import {
   UpsaleContext,
   UpsaleContextValueType,
   UpsaleData,
 } from "./UpsaleContext";
-import { Option } from "../../Types/Types";
 
 type UpsaleContentProviderPropsType = {
   children: JSX.Element;
@@ -21,26 +21,20 @@ const UpsaleContentProvider = ({
     { step: 4, stepData: [] },
   ]);
 
-  useEffect(() => console.log('upsale data', upsaleData),[upsaleData])
-
   const addNewOption = (step: number, option: Option, maxSelection: number, quantity: number) => {
 
-    console.log(maxSelection)
-
+   
     const formatedSteps: UpsaleData = upsaleData.map(s => {
       if (s.step === step) {
 
-        console.log('Istti Step')
-
+        
         if (maxSelection > 1) {
           // proverka dali vekje postoi opcijata vo stepData
-        console.log('maxSelection > 1')
-
+        
           const existingOption = s.stepData.find(item => item.option === option);
   
           if (existingOption) {
 
-            console.log('postoi opcijata')
             // ako postoi go vrakjame option menuvame quantity ako ne postoi dodadi
             return {
               step: s.step,
@@ -59,7 +53,6 @@ const UpsaleContentProvider = ({
           }
         } else {
 
-          console.log('treba tuka da vlezi ')
           return {
             step: s.step,
             stepData: [{ option, quantity }]

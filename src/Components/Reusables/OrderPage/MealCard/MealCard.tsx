@@ -154,12 +154,10 @@ const MealCard = ({
             // TUKA PRAVIME PROVERKA I DOKOLKU POSTOI UPSALE NA TMK
 
             if (!data.TMKData[0].UpsaleColletions.length) {
-              console.log("vleguvame vo false");
-
+              
               setUpsaleMessage(true);
             } else {
-              console.log("vleguvame vo true");
-
+             
               setQuantity((q) => q + 1);
               setIsButtonOpened(true);
               setMeal(product);

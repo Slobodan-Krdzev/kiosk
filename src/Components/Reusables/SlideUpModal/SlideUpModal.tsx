@@ -12,10 +12,9 @@ interface SlideUpModalProps {
 const SlideUpModal = ({ children, style }: SlideUpModalProps) => {
  const { handleSetMealForInfo } = useContext(StepContext);
 
-  const onParentClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onParentClick = () => {
 
     handleSetMealForInfo({} as Product, false);
-    console.log('Parent Click', event)
   }
 
   return (

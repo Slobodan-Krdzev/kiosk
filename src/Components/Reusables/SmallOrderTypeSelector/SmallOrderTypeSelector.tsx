@@ -34,7 +34,6 @@ const SmallOrderTypeSelector = () => {
   const options = ['Takeaway', 'Dine In']
   const onOptionClick = (option: 'Dine In' | 'Takeaway') => {
 
-    console.log(finalInfo.orderType)
     handleSetTakeawayOption(option)
     setIsOpen(false)
   }

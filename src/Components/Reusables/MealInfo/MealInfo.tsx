@@ -87,7 +87,7 @@ const MealInfo = ({ meal }: MealInfoProps) => {
           },
         });
       } else if (availability && hasUpsale_notPlacedInOrders) {
-        console.log("vleguvame vo true");
+     
 
         setQuantity((q) => q! + 1);
         setMeal(meal);

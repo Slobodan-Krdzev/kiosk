@@ -102,10 +102,8 @@ const MultiOptionselector = ({
       }}
       onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
-        console.log("Allready Selected");
-
+        
         if (isOptionAlreadySelected) {
-          console.log("Allready Selected");
           if (option.MaxSelection > 1) {
             setIsButtonOpened(true);
           } else {
