@@ -280,7 +280,9 @@ const MealCard = ({
           lineHeight: "36%",
           padding: 0,
           maxHeight: 50,
-          ...(isButtonOpened ? { height: "auto" } : { aspectRatio: "1 / 1" })
+          // ...(isButtonOpened ? { height: "auto" } : { aspectRatio: "1 / 1" })
+          aspectRatio: isButtonOpened ? "4.75 / 1" : "1 / 1",
+
         }}
         transition={{ type: "spring", duration: 0.7, ease: "easeInOut" }}
         className={styles.cardButtonWrapper}
@@ -325,6 +327,7 @@ const MealCard = ({
             <>
               <motion.button
                 whileTap={{ scale: 1.1, backgroundColor: "#393939", zoom: 2 }}
+                initial={{scale: 1}}
                 transition={{ ease: "easeInOut" }}
                 className={styles.quantityBtns}
                 onClick={takeOutBtnHandler}
