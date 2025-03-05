@@ -1,9 +1,8 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
-import styles from "./LanguageSelectorStyles.module.css";
-import ReactCountryFlag from "react-country-flag";
-import { AnimatePresence, motion } from "framer-motion";
 import Chevron from "../SVG/Chevron";
+import styles from "./LanguageSelectorStyles.module.css";
 
 const LanguageSelector = () => {
   const { data } = useContext(DataContext);
@@ -52,19 +51,14 @@ const LanguageSelector = () => {
                 <li
                   key={lang.Locale}
                   onClick={() => {
-                    setSelectedLang(lang)
-                    setIsOpen(false)
+                    setSelectedLang(lang);
+                    setIsOpen(false);
                   }}
                 >
-                  <ReactCountryFlag
-                    className="emojiFlag"
-                    countryCode={lang?.Locale.toUpperCase()}
-                    style={{
-                      fontSize: "1em",
-                      lineHeight: "2em",
-                    }}
-                    aria-label={lang?.Name}
-                    svg={true}
+                  <img
+                    className={styles.flag}
+                    alt={selectedLang?.Name}
+                    src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${lang?.Locale.toUpperCase()}.svg`}
                   />
                   {lang.Name}
                 </li>
@@ -77,15 +71,11 @@ const LanguageSelector = () => {
         className={styles.dropupButton}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <ReactCountryFlag
-          className="emojiFlag"
-          countryCode={selectedLang?.Locale.toUpperCase()}
-          style={{
-            fontSize: "1em",
-            lineHeight: "2em",
-          }}
-          aria-label={selectedLang?.Name}
-        />{" "}
+        <img
+          alt={selectedLang?.Name}
+          src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${selectedLang?.Locale.toUpperCase()}.svg`}
+          className={styles.flag}
+        />
         {selectedLang.Name}
         <Chevron orientation={isOpen ? "toBottom" : "toTop"} color="black" />
       </button>
