@@ -45,7 +45,8 @@ const StartScreen = () => {
             document.documentElement.requestFullscreen();
           }}
         >
-          {t("start_btn")}
+          {/* {t("start_btn")} */}
+          Start
         </LargeBtn>
       </BottomOpacityContentWrapper>
     </ViewFullScreenAnimated>

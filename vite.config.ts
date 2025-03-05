@@ -6,13 +6,18 @@ const hash = Math.floor(Math.random() * 90000) + 10000;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(new Date().getTime())
+  },
   plugins: [
     react(),
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,json,woff,woff2}"],
+        cleanupOutdatedCaches: true
       },
+      selfDestroying: true,
       manifest: {
         short_name: "KIOSK",
         name: "KIOSK",
