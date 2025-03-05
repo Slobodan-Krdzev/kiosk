@@ -1,18 +1,18 @@
-import { useContext, useState } from "react";
-import { StepContext } from "../../../../Contexts/StepContext/StepContext";
-import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
-import { Option, UpsaleStep } from "../../../../Types/Types";
-import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
-import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
-import styles from "./DualUpsaleOptionStyles.module.css";
 import { AnimatePresence } from "framer-motion";
 import { t } from "i18next";
+import { useContext } from "react";
+import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
+import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
+import { StepContext } from "../../../../Contexts/StepContext/StepContext";
+import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
+import { UpsaleStep } from "../../../../Types/Types";
 import BottomButtonholderRibbon from "../../BottomButtonHolderWibbon/BottomButtonholderRibbon";
 import DefaultButton from "../../DefaultButton/DefaultButton";
 import Chevron from "../../SVG/Chevron";
 import UpsaleTopFixed from "../../UpsaleTopFixed/UpsaleTopFixed";
 import ViewFullScreenAnimated from "../../ViewFullScreenAnimated/ViewFullScreenAnimated";
-import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
+import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
+import styles from "./DualUpsaleOptionStyles.module.css";
 
 type DualUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -31,23 +31,17 @@ const DualUpsaleOption = ({
   const { resetUpsale, upsaleData } = useContext(UpsaleContext);
   const { singleMeal, placeMealInOrders, setUpsale } = useContext(OrderContext);
   const { data } = useContext(DataContext);
-  const [selectedOption, setSelectedOption] = useState<Option[]>([]);
 
   const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
-
+const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
   const upsaleSteps = data.TMKData[0].UpsaleColletions[0].UpsaleSteps;
   const options = upsaleStepData.Options;
   const isLastStep = upsaleSteps.length === upsaleStep + 1;
   const isNextButtonDissabled = !(
     upsaleData[upsaleStep].stepData.length >= upsaleStepData.MinSelection
   );
-
-  const handleOptionSelect = (option: Option) => {
-    setSelectedOption([...selectedOption, option]);
-  };
-
-  console.log(upsaleStep)
-
+  const maxSelectionOnStep = currentStep.MaxSelection
+ 
   const onXButtonClick = () => {
     if (upsaleStep === 0) {
       handleStepChange("order");
@@ -57,10 +51,9 @@ const DualUpsaleOption = ({
     handleUpsaleStepChange("decrease");
   };
 
-  
-
   const onNextButton = () => {
-    const someOptionHasFinnish = selectedOption.some((o) => o.Finish === true);
+    const someOptionHasFinnish = upsaleData[upsaleStep].stepData.some((o) => o.option.Finish === true);
+
 
     if (isLastStep || someOptionHasFinnish) {
       setUpsale(upsaleData);
@@ -77,6 +70,8 @@ const DualUpsaleOption = ({
       handleUpsaleStepChange("increase");
     }
   };
+
+  console.log(currentStep)
 
   return (
     <ViewFullScreenAnimated
@@ -98,7 +93,7 @@ const DualUpsaleOption = ({
       <div>
         <h2 className={styles.subtitle}>{upsaleStepData.Name}</h2>
         <p className={styles.mealName}>
-          {upsaleStep > 1 ? singleMeal?.product?.Name : <>{t("only_one")}</>}
+          {maxSelectionOnStep > 1 ? <>{t("multiple_choice")}</> : <>{t("only_one")}</>}
         </p>
 
         <AnimatePresence mode="wait">
@@ -109,8 +104,6 @@ const DualUpsaleOption = ({
                 option={o}
                 upsaleStep={upsaleStep}
                 options={options}
-                currentSelectedOption={selectedOption}
-                handleOptionSelect={handleOptionSelect}
                 handleUpsaleStepChange={handleUpsaleStepChange}
               />
             ))}

@@ -30,7 +30,7 @@ const UpsaleContentProvider = ({
     const formatedSteps: UpsaleData = upsaleData.map(s => {
       if (s.step === step) {
 
-        console.log('Ist Step')
+        console.log('Istti Step')
 
         if (maxSelection > 1) {
           // proverka dali vekje postoi opcijata vo stepData
@@ -59,6 +59,7 @@ const UpsaleContentProvider = ({
           }
         } else {
 
+          console.log('treba tuka da vlezi ')
           return {
             step: s.step,
             stepData: [{ option, quantity }]

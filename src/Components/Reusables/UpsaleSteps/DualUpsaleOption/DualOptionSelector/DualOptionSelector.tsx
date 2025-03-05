@@ -11,7 +11,6 @@ import styles from "./DualOptionSelectorStyles.module.css";
 
 type DualOptionSelectorPropsType = {
   option: Option;
-  handleOptionSelect: (option: Option) => void;
   currentSelectedOption: Option[];
   options: Option[];
   upsaleStep: number;
@@ -21,7 +20,6 @@ type DualOptionSelectorPropsType = {
 const DualOptionSelector = ({
   option,
   upsaleStep,
-  handleOptionSelect,
 }: DualOptionSelectorPropsType) => {
   const { singleMeal } = useContext(OrderContext);
   const { theme, data } = useContext(DataContext);
@@ -58,7 +56,7 @@ const DualOptionSelector = ({
 
         } else {
           addNewOption(upsaleStep, option, maxSelection, 1);
-          handleOptionSelect(option);
+          // handleOptionSelect(option);
         }
 
         // if (upsaleStep > 0) {
