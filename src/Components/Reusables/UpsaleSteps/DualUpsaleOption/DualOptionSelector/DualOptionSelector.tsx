@@ -11,7 +11,6 @@ import styles from "./DualOptionSelectorStyles.module.css";
 
 type DualOptionSelectorPropsType = {
   option: Option;
-  currentSelectedOption: Option[];
   options: Option[];
   upsaleStep: number;
   handleUpsaleStepChange: (type: "increase" | "decrease") => void;

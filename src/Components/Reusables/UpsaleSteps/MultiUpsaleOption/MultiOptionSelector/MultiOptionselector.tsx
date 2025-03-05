@@ -62,17 +62,6 @@ const MultiOptionselector = ({
     } else {
       addNewOption(upsaleStep, option, maxSelection, quantity - 1);
     }
-
-    // if (quantity <= 1) {
-    //   setQuantity(1);
-    //   setIsButtonOpened(false);
-
-    //   removeMealFromOrders(meal.id);
-    // } else {
-    //   setQuantity((q) => q - 1);
-
-    //   setSingleMealQuantity(meal, "minus");
-    // }
   };
 
   const addBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
