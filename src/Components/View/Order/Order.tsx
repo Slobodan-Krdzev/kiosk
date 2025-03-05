@@ -95,11 +95,24 @@ const Order = () => {
 
   console.log("Orders from orfers screen", orders);
 
+  const getItemsFromCategory = (catId: number) => {
+    const items = orders
+      .slice()
+      .filter((item) => item.product?.SubCategoryId === catId);
+
+    return items.length;
+  };
+
+  console.log("Meals from same cat", getItemsFromCategory(40449));
+
   return (
     <ViewFullScreenAnimated framerKey={"order"}>
-      <TopFixedRibbon justifyContent={"space-between"} style={{
-        alignItems: 'stretch'
-      }}>
+      <TopFixedRibbon
+        justifyContent={"space-between"}
+        style={{
+          alignItems: "stretch",
+        }}
+      >
         <Logo source={data.ThemeResponse.LogoImage.Url} width={40} />
         <div
           style={{
@@ -142,6 +155,12 @@ const Order = () => {
                 handleCategoryChange(category.SubCategoryId);
               }}
             >
+              {Boolean(getItemsFromCategory(category.SubCategoryId)) && (
+                <p className={styles.categoryItems}>
+                  {getItemsFromCategory(category.SubCategoryId)} items
+                </p>
+              )}
+
               <img
                 src={"/alcohol.png"}
                 alt={category.Name.toLowerCase()}
@@ -187,7 +206,7 @@ const Order = () => {
             isRibbonVisible={orders.length > 0}
             removeOutOfStockProduct={removeOutOfStockProduct}
           />
-        </div> 
+        </div>
       </div>
 
       {/* RIBBON */}
@@ -214,7 +233,7 @@ const Order = () => {
               style={{ textAlign: "center", fontSize: "2.6vw", width: "60%" }}
               className={`fontCustom1 paymentPagesSubtitle`}
             >
-              {t('cancel_order_modal_question')}
+              {t("cancel_order_modal_question")}
             </h2>
             <div className={`modalBtnsWrapper`}>
               <DefaultButton
@@ -225,7 +244,7 @@ const Order = () => {
                   width: "100%",
                 }}
               >
-                {t('back_Btn')}
+                {t("back_Btn")}
               </DefaultButton>
               <DefaultButton
                 clickHandler={cancelOrderClick}
@@ -234,10 +253,10 @@ const Order = () => {
                   backgroundColor: "#FF4F4F",
                   color: "white",
                   width: "100%",
-                  border: '1px solid #FF4F4F'
+                  border: "1px solid #FF4F4F",
                 }}
               >
-                {t('yes')}
+                {t("yes")}
               </DefaultButton>
             </div>
           </>

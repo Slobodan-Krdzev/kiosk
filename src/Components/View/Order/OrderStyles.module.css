@@ -23,7 +23,7 @@
   margin-right: 0;
   margin-left: 0;
 
-  
+
 }
 
 .orderViewRightSide {
@@ -83,9 +83,10 @@
 
 
   box-shadow: 0px 2.94px 8.23px 0px #3131311A;
-  
+
 }
-.categoryCard:last-of-type{
+
+.categoryCard:last-of-type {
   margin-bottom: 400px;
 }
 
@@ -107,6 +108,22 @@
 
 }
 
+.categoryItems {
+  position: absolute;
+  top: 10%;
+  left: 8%;
+  font-size: 1.7vw;
+  letter-spacing: -0.7px;
+  font-family: var(--custom-font);
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  /* border: 2px solid red; */
+  max-width: 70%;
+}
+
 .image {
   position: absolute;
   top: 10%;
@@ -114,7 +131,7 @@
   width: 25%;
 }
 
-.absoluteChevron{
+.absoluteChevron {
   position: absolute;
   right: 12%;
   bottom: 6%;
