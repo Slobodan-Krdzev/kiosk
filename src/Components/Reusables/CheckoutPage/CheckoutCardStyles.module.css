@@ -62,13 +62,14 @@
     align-items: normal;
     justify-content: space-between;
     gap: 0.3vh;
-    padding: 1vh 1.7vw 1vh 0;
+    padding: 0.5vh 1.7vw 0.5vh 0;
     position: relative;
 
 }
 
 .mealInfoWrapperLeft{
-    flex-basis: 20%;
+    flex-basis: 80%;
+    overflow-y: auto;
 }
 .mealInfoWrapperRight{
     flex-basis: 70%;
@@ -101,14 +102,21 @@
 }
 
 .mealInfoWrapper{
-    flex-basis: 45.333%;
+    /* flex-basis: 45.333%;
     min-height: 33.333%;
-    height: 33.333%;
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    overflow: hidden;
+    height: 33.333%; */
+    width: 90%;
+    height: 20% !important;
+    /* flex-basis: 20% !important; */
+    /* display: flex;
+    flex-direction: column;
+    align-items: start; */
     gap: 5%;
+    overflow-y: scroll !important;
+}
+
+.mealInfoWrapper:last-child{
+    margin-bottom: 70px;
 }
 
 .orderQuantity{
@@ -239,6 +247,9 @@
     border-radius: 50px;
 }
 
+.checkoutCardExtrasText{
+    font-size: 1.5vw;
+}
 
 @media (max-width: 468px) {
 
@@ -274,9 +285,7 @@
         font-size: 5vw;
     }
 
-    .checkoutCardExtrasText{
-        font-size: 3vw;
-    }
+    
 
     
 

@@ -44,6 +44,9 @@ body {
   z-index: 9999999;
   left: 0;
 }
+.hg-button{
+  height: 5.2vh !important;
+}
 
 button {
   color: black;

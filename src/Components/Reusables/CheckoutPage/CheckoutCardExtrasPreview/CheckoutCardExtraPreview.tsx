@@ -12,8 +12,11 @@ const CheckoutCardExtraPreview = ({
   order
 }: CheckoutCardExtraPreviewProps) => {
   return (
-    <p className={`${styles.checkoutCardExtrasText}`}>
+    <p className={`${styles.checkoutCardExtrasText}`} style={{marginBottom: '0.7%'}}>
+      
+      <>&bull; </>
       {stepData.map((i, idx) => (
+        
         <span key={i.option.Id}>
           {i.option.Name}{" "}
           <span style={{ textTransform: "lowercase" }}> x{i.quantity}</span>{" "}

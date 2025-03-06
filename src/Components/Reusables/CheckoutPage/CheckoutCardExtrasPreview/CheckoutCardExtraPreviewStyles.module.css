@@ -1,8 +1,10 @@
 .checkoutCardExtrasText {
-    font-size: 1.8vw;
+    font-size: 1.6vw;
     font-weight: 300;
     line-height: 99%;
     letter-spacing: -0.25999999046325684px;
     color: #5A5A5A;
     font-family: var(--custom-font);
+    margin-bottom: 0;
+    padding-bottom: 0;
 }

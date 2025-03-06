@@ -144,12 +144,8 @@ const CheckoutCard = ({
             </div>
 
             <div className={styles.mealInfoWrapper}>
-              <div className={styles.mealInfoWrapperLeft}>
                 {order.upsale &&
-                  (order.upsale![0].stepData || order.upsale![1].stepData) &&
-                  order.upsale
-                    .slice(0, 2)
-                    .map((step) => (
+                  order.upsale.map((step) => (
                       <CheckoutCardExtraPreview
                         stepData={step.stepData}
                         order={order}
@@ -159,15 +155,15 @@ const CheckoutCard = ({
 
                 {order.note !== "" && (
                   <p className={`${styles.checkoutCardExtrasText}`}>
+                    <>&bull; </>
                     {t("note")}:{" "}
-                    {order.note.length > 15
+                    {order.note.length > 50
                       ? `${order.note.substring(0, 10)}...`
                       : order.note}
                   </p>
                 )}
-              </div>
 
-              <div className={styles.mealInfoWrapperRight}>
+              {/* <div className={styles.mealInfoWrapperRight}>
                 {order.upsale &&
                   (order.upsale![0].stepData || order.upsale![1].stepData) &&
                   order.upsale
@@ -179,7 +175,7 @@ const CheckoutCard = ({
                         key={step.step}
                       />
                     ))}
-              </div>
+              </div> */}
             </div>
 
             <div className={styles.cardNoteBtnsWrapper}>
