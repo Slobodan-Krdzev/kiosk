@@ -1,28 +1,32 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
+import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
 import { RootData, SingleMealType, ThemeType } from "../../../Types/Types";
-import Plus from "../SVG/Plus";
-import Trashcan from "../SVG/Trashcan";
-import styles from "./CheckoutCardStyles.module.css";
 import PricePreviewer from "../PricePreviewer/PricePreviewer";
 import Minus from "../SVG/Minus";
-import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
+import Plus from "../SVG/Plus";
+import Trashcan from "../SVG/Trashcan";
 import CheckoutCardExtraPreview from "./CheckoutCardExtrasPreview/CheckoutCardExtraPreview";
+import styles from "./CheckoutCardStyles.module.css";
 
 type CheckoutCardPropsType = {
   order: SingleMealType;
   theme: ThemeType;
   data: RootData;
   hideShowRibbon: (value: boolean) => void;
+  handleKeyboardActivity: (boolean: boolean) => void;
 };
 
 const CheckoutCard = ({
   order,
   theme,
   hideShowRibbon,
+  handleKeyboardActivity,
 }: CheckoutCardPropsType) => {
   const {
     orders,
@@ -40,15 +44,34 @@ const CheckoutCard = ({
   const [isProductNoteInputVisible, setIsProductNoteInputVisible] =
     useState(false);
 
+  const keyboardRef = useRef<HTMLDivElement | null>(null);
   const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
   const formRef = useRef<HTMLFormElement>(null);
 
   const { t } = useTranslation();
 
   const handleClickToCloseForm = (e: MouseEvent) => {
-    if (formRef.current && !formRef.current.contains(e.target as Node)) {
+    if (
+      formRef.current &&
+      !formRef.current.contains(e.target as Node) &&
+      keyboardRef.current &&
+      !keyboardRef.current.contains(e.target as Node)
+    ) {
       setIsProductNoteInputVisible(false);
+      handleKeyboardActivity(false);
     }
+  };
+
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log('submited')
+
+    e.preventDefault();
+
+    setSingleMealNote(inputValue ?? "", order);
+    setIsProductNoteInputVisible(false);
+    hideShowRibbon(true);
+    handleKeyboardActivity(false);
+    e.currentTarget.reset();
   };
 
   useEffect(() => {
@@ -62,251 +85,304 @@ const CheckoutCard = ({
       document.removeEventListener("mousedown", handleClickToCloseForm);
   }, [isProductNoteInputVisible]);
 
+  const handleKeyboardChange = (newValue: string) => {
+    console.log(newValue);
+
+    if (newValue === "Backspace") {
+      setInputValue((prevInput) => prevInput.slice(0, -1));
+    } else {
+      setInputValue(newValue);
+    }
+  };
+
+  const handleOnKetPresKeyboardChange = (button: string) => {
+    if (button === "{bksp}") {
+      setInputValue((prev) => prev.slice(0, -1));
+    } else if (button === "{enter}") {
+      onFormSubmit({
+        preventDefault: () => {}, // Prevent default behavior
+        currentTarget: formRef.current,
+      } as React.FormEvent<HTMLFormElement>);
+    }
+  };
+
+  
+  console.log('Order Upsale', order.product?.Name, order.upsale)
+
   return (
-    <div className={styles.checkoutCardNoteInputWrapper}>
-      <div className={styles.checkoutCard}>
-        {/* TOTAL PRICE */}
+    <>
+      <div
+        className={styles.checkoutCardNoteInputWrapper}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className={styles.checkoutCard}>
+          {/* TOTAL PRICE */}
 
-        <div
-          className={styles.checkoutCardPicture}
-          style={{
-            backgroundImage: `url(${order.product!.SmallPictureUrl})`,
-          }}
-        ></div>
+          <div
+            className={styles.checkoutCardPicture}
+            style={{
+              backgroundSize: order.upsale ? `auto` : 'cover',
+              backgroundImage: order.upsale ? `url(${order!.upsale[0]!.stepData[0].option.PictureUrl})` : `url(${order.product!.SmallPictureUrl})`,
+            }}
+          ></div>
 
-        <PricePreviewer
-          style={{ top: "2%", right: "5%" }}
-          price={order.totalPrice}
-          color={theme.activeTextColor}
-          fontSizeRound={"4.5vw"}
-          fontSizeDecimal={"1.8vw"}
-        />
+          <PricePreviewer
+            style={{ top: "2%", right: "5%" }}
+            price={order.totalPrice}
+            color={theme.activeTextColor}
+            fontSizeRound={"4.5vw"}
+            fontSizeDecimal={"1.8vw"}
+          />
 
-        <div className={styles.checkoutCardInfoWrapper}>
-          <div className={styles.cardTitlePriceRow}>
-            <p className={styles.checkoutCardMealName}>
-              {order.product!.Name.length > 35
-                ? `${order.product!.Name.substring(0, 35)}...`
-                : order.product!.Name}
-            </p>
-          </div>
-
-          <div className={styles.mealInfoWrapper}>
-            <div className={styles.mealInfoWrapperLeft}>
-              {order.upsale &&
-                (order.upsale![0].stepData || order.upsale![1].stepData) &&
-                order.upsale
-                  .slice(0, 2)
-                  .map((step) => (
-                    <CheckoutCardExtraPreview
-                      stepData={step.stepData}
-                      order={order}
-                      key={step.step}
-                    />
-                  ))}
-             
-
-              
-              {order.note !== "" && (
-                <p className={`${styles.checkoutCardExtrasText}`}>
-                  {t("note")}:{" "}
-                  {order.note.length > 15
-                    ? `${order.note.substring(0, 10)}...`
-                    : order.note}
-                </p>
-              )}
+          <div className={styles.checkoutCardInfoWrapper}>
+            <div className={styles.cardTitlePriceRow}>
+              <p className={styles.checkoutCardMealName}>
+                {order.product!.Name.length > 35
+                  ? `${order.product!.Name.substring(0, 35)}...`
+                  : order.product!.Name}
+              </p>
             </div>
 
-            <div className={styles.mealInfoWrapperRight}>
-            {order.upsale &&
-                (order.upsale![0].stepData || order.upsale![1].stepData) &&
-                order.upsale
-                  .slice(2, order.upsale.length)
-                  .map((step) => (
-                    <CheckoutCardExtraPreview
-                      stepData={step.stepData}
-                      order={order}
-                      key={step.step}
-                    />
-                  ))}
-              
-            </div>
-          </div>
+            <div className={styles.mealInfoWrapper}>
+              <div className={styles.mealInfoWrapperLeft}>
+                {order.upsale &&
+                  (order.upsale![0].stepData || order.upsale![1].stepData) &&
+                  order.upsale
+                    .slice(0, 2)
+                    .map((step) => (
+                      <CheckoutCardExtraPreview
+                        stepData={step.stepData}
+                        order={order}
+                        key={step.step}
+                      />
+                    ))}
 
-          <div className={styles.cardNoteBtnsWrapper}>
-            {order?.product?.HasUpsaleCollection &&
-              !isProductNoteInputVisible && (
+                {order.note !== "" && (
+                  <p className={`${styles.checkoutCardExtrasText}`}>
+                    {t("note")}:{" "}
+                    {order.note.length > 15
+                      ? `${order.note.substring(0, 10)}...`
+                      : order.note}
+                  </p>
+                )}
+              </div>
+
+              <div className={styles.mealInfoWrapperRight}>
+                {order.upsale &&
+                  (order.upsale![0].stepData || order.upsale![1].stepData) &&
+                  order.upsale
+                    .slice(2, order.upsale.length)
+                    .map((step) => (
+                      <CheckoutCardExtraPreview
+                        stepData={step.stepData}
+                        order={order}
+                        key={step.step}
+                      />
+                    ))}
+              </div>
+            </div>
+
+            <div className={styles.cardNoteBtnsWrapper}>
+              {order?.product?.HasUpsaleCollection &&
+                !isProductNoteInputVisible && (
+                  <motion.button
+                    key={"Edit Note Btn"}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className={styles.addNoteBtn}
+                    style={{ fontSize: "2vw" }}
+                    onClick={() => {
+                      // delete product
+                      removeMealFromOrders(order.id);
+
+                      // delete upsale
+                      resetUpsale();
+                      // setMeal
+
+                      setMeal(order.product!);
+                      // run thru upsale
+                      handleStepChange("menuUpgrade");
+                    }}
+                  >
+                    <img
+                      src="/edit.png"
+                      alt="edit"
+                      style={{
+                        width: "15%",
+                      }}
+                    />{" "}
+                    {t("edit_note")}
+                  </motion.button>
+                )}
+
+              {!isProductNoteInputVisible && (
                 <motion.button
-                  key={"Edit Note Btn"}
+                  key={"Add Note Btn"}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className={styles.addNoteBtn}
-                  style={{fontSize: '2vw'}}
+                  style={{ fontSize: "2vw" }}
                   onClick={() => {
-                    // delete product
-                    removeMealFromOrders(order.id);
-
-                    // delete upsale
-                    resetUpsale();
-                    // setMeal
-
-                    setMeal(order.product!);
-                    // run thru upsale
-                    handleStepChange("menuUpgrade");
+                    setIsProductNoteInputVisible(true);
+                    handleKeyboardActivity(true);
                   }}
                 >
-                  <img src="/edit.png" alt="edit" style={{
-                    width: '15%'
-                  }}/> {t('edit_note')}
+                  <img
+                    src="/editNotePlus.png"
+                    alt="Edit Note"
+                    style={{ width: "15%" }}
+                  />{" "}
+                  {t("note")}
                 </motion.button>
               )}
 
-            {!isProductNoteInputVisible && (
-              <motion.button
-                key={"Add Note Btn"}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={styles.addNoteBtn}
-                style={{fontSize: '2vw'}}
+              {isProductNoteInputVisible && (
+                <motion.form
+                  key={"noteForm"}
+                  ref={formRef}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className={`formStyles ${styles.productNoteForm}`}
+                  onSubmit={onFormSubmit}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <input
+                      id="note"
+                      type="text"
+                      style={{
+                        borderColor: theme.activeTextColor,
+                        width: inputValue.length > 4 ? "83%" : "100%",
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                      }}
+                      className="defInput"
+                      value={inputValue}
+                      onChange={(e) => {
+                        setInputValue(e.currentTarget.value);
+                      }}
+                    />
 
-                onClick={() => {
-                  setIsProductNoteInputVisible(true);
-                }}
-              >
-                <img src="/editNotePlus.png" alt="Edit Note" style={{width: '15%'}}/> {t('note')}
-              </motion.button>
-            )}
+                    <button
+                      type="submit"
+                      className={`defSubmitFormBtn`}
+                      style={{
+                        backgroundColor: theme.activeTextColor,
+                        borderColor: theme.activeTextColor,
+                        width: "22%",
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
+                        color: "white",
+                      }}
+                    >
+                      {order.note ? "Edit" : "Done"}
+                    </button>
+                  </div>
+                </motion.form>
+              )}
 
-            {isProductNoteInputVisible && (
-              <motion.form
-                key={"noteForm"}
-                ref={formRef}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={`formStyles ${styles.productNoteForm}`}
-                onSubmit={(e) => {
-                  e.preventDefault();
-
-                  setSingleMealNote(inputValue ?? "", order);
-                  setIsProductNoteInputVisible(false);
-                  hideShowRibbon(true);
-                  e.currentTarget.reset();
-                }}
-              >
-                <div
+              {/* BUTTONS */}
+              {!isProductNoteInputVisible && (
+                <motion.div
+                  key={"buttons"}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    backgroundColor: "#000000",
+                    flexBasis: "55%",
+                    borderRadius: "50px",
+                    border: "1px solid #525252",
                   }}
                 >
-                  <input
-                    id="note"
-                    type="text"
-                    style={{
-                      borderColor: theme.activeTextColor,
-                      width: inputValue.length > 4 ? "83%" : "100%",
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                    }}
-                    className="defInput"
-                    value={inputValue}
-                    onChange={(e) => {
-                      setInputValue(e.currentTarget.value);
-                    }}
-                  />
-
                   <button
-                    type="submit"
-                    className={`defSubmitFormBtn`}
                     style={{
-                      backgroundColor: theme.activeTextColor,
-                      borderColor: theme.activeTextColor,
-                      width: "22%",
-                      borderTopLeftRadius: 0,
-                      borderBottomLeftRadius: 0,
-                      color: "white",
+                      flexBasis: "33.3333%",
+                      height: "100%",
+                      borderRadius: "inherit",
+                      border: "none",
+                      backgroundColor: "white",
+                    }}
+                    onClick={() => {
+                      if (quantity === 1) {
+                        if (orders.length === 1) {
+                          handleStepChange("order");
+                        }
+
+                        setQuantity(1);
+                        removeMealFromOrders(order.id);
+                      } else {
+                        setQuantity((quantity) => quantity - 1);
+                        setSingleMealQuantity(order, "minus");
+                      }
                     }}
                   >
-                    {order.note ? "Edit" : "Done"}
+                    {quantity === 1 ? <Trashcan /> : <Minus color="black" />}
                   </button>
-                </div>
-              </motion.form>
-            )}
-
-            {/* BUTTONS */}
-            {!isProductNoteInputVisible && (
-              <motion.div
-                key={"buttons"}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor: "#000000",
-                  flexBasis: "55%",
-                  borderRadius: "50px",
-                  border: "1px solid #525252",
-                }}
-              >
-                <button
-                  style={{
-                    flexBasis: "33.3333%",
-                    height: "100%",
-                    borderRadius: "inherit",
-                    border: "none",
-                    backgroundColor: "white",
-                  }}
-                  onClick={() => {
-                    if (quantity === 1) {
-                      if (orders.length === 1) {
-                        handleStepChange("order");
-                      }
-
-                      setQuantity(1);
-                      removeMealFromOrders(order.id);
-                    } else {
-                      setQuantity((quantity) => quantity - 1);
-                      setSingleMealQuantity(order, "minus");
-                    }
-                  }}
-                >
-                  {quantity === 1 ? <Trashcan /> : <Minus color="black" />}
-                </button>
-                <p className={styles.orderQuantity}>{order.quantity}</p>
-                <button
-                  style={{
-                    flexBasis: "33.333%",
-                    height: "100%",
-                    borderRadius: "inherit",
-                    border: "none",
-                    backgroundColor: "white",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onClick={() => {
-                    setQuantity((quantity) => quantity + 1);
-                    setSingleMealQuantity(order, "plus");
-                  }}
-                >
-                  <Plus color="black" />
-                </button>
-              </motion.div>
-            )}
+                  <p className={styles.orderQuantity}>{order.quantity}</p>
+                  <button
+                    style={{
+                      flexBasis: "33.333%",
+                      height: "100%",
+                      borderRadius: "inherit",
+                      border: "none",
+                      backgroundColor: "white",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    onClick={() => {
+                      setQuantity((quantity) => quantity + 1);
+                      setSingleMealQuantity(order, "plus");
+                    }}
+                  >
+                    <Plus color="black" />
+                  </button>
+                </motion.div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {isProductNoteInputVisible && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            ref={keyboardRef}
+          >
+            <Keyboard
+            theme="hg-theme-default "
+              style={{
+                position: "fixed",
+                bottom: 0,
+                border: "2px solid red",
+                pointerEvents: "auto",
+              }}
+              onChange={handleKeyboardChange}
+              onKeyPress={handleOnKetPresKeyboardChange}
+            />
+          </motion.div>
+        </AnimatePresence>
+      )}
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
@@ -15,6 +15,7 @@ import styles from "./CheckoutStyles.module.css";
 import BottomFixedShadowLayer from "../../Reusables/BottomFixedShadowLayer/BottomFixedShadowLayer";
 import BottomOrderInfo from "../../Reusables/BottomOrderInfo/BottomOrderInfo";
 import DefaultButton from "../../Reusables/DefaultButton/DefaultButton";
+import Keyboard from "react-simple-keyboard";
 
 const Checkout = () => {
   const { handleStepChange, handleOrderNote, finalInfo, isTestMode } =
@@ -23,12 +24,14 @@ const Checkout = () => {
   const { theme, data } = useContext(DataContext);
   const { t } = useTranslation();
   const [isOrderFormVisible, setIsOrderFormVisible] = useState(true);
-
-  const orderNoteInput = useRef<HTMLInputElement | null>(null);
-
+  const [inputValue, setInputValue] = useState('')
   const [isRibbonShown, setIsRibbonShown] = useState(true);
   const [paddingTop, setPaddingTop] = useState(50);
+  const [isKeyboardActive, setIsKeyboardActive] = useState(false);
+  const [isParentKeyboardActive, setIsParentKeyboardActive] = useState(false)
   const scrollContRef = useRef<null | HTMLDivElement>(null);
+  const keyboardRef = useRef<HTMLDivElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null)
 
   const hideShowRibbon = (value: boolean) => {
     setIsRibbonShown(value);
@@ -127,6 +130,43 @@ const Checkout = () => {
     }
   };
 
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    hideShowRibbon(true);
+
+    setIsOrderFormVisible(false);
+    // OVDE SE DODAVA FULL ORDER NOTE
+    handleOrderNote(inputValue ?? "No Note");
+    e.currentTarget.reset();
+    setIsParentKeyboardActive(false)
+  };
+
+  const handleKeyboardActivity = (boolean: boolean) => {
+    setIsKeyboardActive(boolean);
+  };
+
+  const handleKeyboardChange = (newValue: string) => {
+    console.log(newValue);
+
+    if (newValue === "Backspace") {
+      setInputValue((prevInput) => prevInput.slice(0, -1));
+    } else {
+      setInputValue(newValue);
+    }
+  };
+
+  const handleOnKetPresKeyboardChange = (button: string) => {
+    if (button === "{bksp}") {
+      setInputValue((prev) => prev.slice(0, -1));
+    } else if (button === "{enter}") {
+      onFormSubmit({
+        preventDefault: () => {}, // Prevent default behavior
+        currentTarget: formRef.current,
+      } as React.FormEvent<HTMLFormElement>);
+    }
+  };
+
+
   return (
     <ViewFullScreenAnimated framerKey={"Checkout"} backgroundColor="#F1F1F1">
       <TopFixedRibbon justifyContent={"space-between"}>
@@ -149,6 +189,7 @@ const Checkout = () => {
             theme={theme}
             data={data}
             hideShowRibbon={hideShowRibbon}
+            handleKeyboardActivity={handleKeyboardActivity}
           />
         ))}
 
@@ -167,7 +208,10 @@ const Checkout = () => {
 
             <button
               className={styles.orderNoteEditBtn}
-              onClick={() => setIsOrderFormVisible(true)}
+              onClick={() =>{ 
+                setIsOrderFormVisible(true)
+                setIsParentKeyboardActive(true)
+                setIsRibbonShown(false)}}
             >
               <Pencil color={theme.activeTextColor} />
             </button>
@@ -176,19 +220,16 @@ const Checkout = () => {
 
         {isOrderFormVisible && (
           <motion.form
+          ref={formRef}
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className={`formStyles ${styles.inputField}`}
             onSubmit={(e) => {
-              e.preventDefault();
-              hideShowRibbon(true);
-
-              setIsOrderFormVisible(false);
-              // OVDE SE DODAVA FULL ORDER NOTE
-              handleOrderNote(orderNoteInput.current!.value ?? "No Note");
-              e.currentTarget.reset();
+              e.preventDefault()
+              onFormSubmit(e)
+              e.currentTarget.reset()
             }}
           >
             <label htmlFor="orderNoteInput" className="noteLabel fontSF">
@@ -197,7 +238,7 @@ const Checkout = () => {
 
             <div style={{ display: "flex" }}>
               <input
-                ref={orderNoteInput}
+              value={inputValue}
                 style={{
                   borderColor: theme.activeTextColor,
                   width: "80%",
@@ -215,9 +256,10 @@ const Checkout = () => {
                 }
                 onFocus={() => {
                   hideShowRibbon(false);
+                  setIsParentKeyboardActive(true)
                 }}
-                onBlur={() => {
-                  hideShowRibbon(true);
+                onChange={(e) => {
+                  setInputValue(e.currentTarget.value)
                 }}
               />
 
@@ -242,7 +284,7 @@ const Checkout = () => {
         )}
       </div>
 
-      {isRibbonShown && (
+      {isRibbonShown && !isKeyboardActive && (
         <BottomFixedShadowLayer>
           <>
             <DefaultButton
@@ -253,7 +295,7 @@ const Checkout = () => {
               }}
               clickHandler={() => handleStepChange("order")}
             >
-              {t('back_Btn')}
+              {t("back_Btn")}
             </DefaultButton>
             <BottomOrderInfo
               width={"80%"}
@@ -264,7 +306,30 @@ const Checkout = () => {
             />
           </>
         </BottomFixedShadowLayer>
-       
+      )}
+
+      {isParentKeyboardActive && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            ref={keyboardRef}
+          >
+            <Keyboard
+              theme="hg-theme-default"
+              style={{
+                position: "fixed",
+                bottom: 0,
+                border: "2px solid red",
+                pointerEvents: "auto",
+              }}
+              onChange={handleKeyboardChange}
+              onKeyPress={handleOnKetPresKeyboardChange}
+            />
+          </motion.div>
+        </AnimatePresence>
       )}
     </ViewFullScreenAnimated>
   );

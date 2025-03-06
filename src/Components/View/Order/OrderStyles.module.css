@@ -113,15 +113,16 @@
   top: 10%;
   left: 8%;
   font-size: 1.8vw;
-  letter-spacing: -0.7px;
+  letter-spacing: -0.3px;
   font-family: var(--custom-font);
-  font-weight: 600;
+  font-weight: 500;
   text-transform: capitalize;
   display: inline-block;
   overflow-wrap: break-word;
   overflow: hidden;
   /* border: 2px solid red; */
   max-width: 70%;
+  color: #6D6D6D;
 }
 
 .image {

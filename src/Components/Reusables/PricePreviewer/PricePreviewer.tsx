@@ -20,16 +20,18 @@ const PricePreviewer = ({ price, color, style, fontSizeDecimal = '2.5vw', fontSi
 
     let formated = priceDecimal
 
-    if(!priceDecimal || priceDecimal[0] === '0'){
-
-      formated = '00'
-    }else if(priceDecimal.length <= 1){
+    
+    if(priceDecimal && priceDecimal.length <= 1){
 
       formated = `${priceDecimal}0`
+      formated = formated.slice(0,2)
+    }else if(!priceDecimal){
+
+      formated = `00`
     }
 
 
-    return formated.slice(0,2)
+    return formated
   }
   
   return (

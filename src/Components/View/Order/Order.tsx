@@ -93,7 +93,6 @@ const Order = () => {
     cancelOrder();
   };
 
-  console.log("Orders from orfers screen", orders);
 
   const getItemsFromCategory = (catId: number) => {
     const items = orders
@@ -103,7 +102,8 @@ const Order = () => {
     return items.length;
   };
 
-  console.log("Meals from same cat", getItemsFromCategory(40449));
+  console.log("Orders from orders screen", orders);
+
 
   return (
     <ViewFullScreenAnimated framerKey={"order"}>

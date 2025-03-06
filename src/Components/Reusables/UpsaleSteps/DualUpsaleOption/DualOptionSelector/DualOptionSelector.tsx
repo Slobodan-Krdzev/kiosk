@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { t } from "i18next";
 import { useContext } from "react";
 import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
-import { OrderContext } from "../../../../../Contexts/OrderContext/OrderContext";
 import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
 import { Option } from "../../../../../Types/Types";
 import PricePreviewer from "../../../PricePreviewer/PricePreviewer";
@@ -20,7 +19,6 @@ const DualOptionSelector = ({
   option,
   upsaleStep,
 }: DualOptionSelectorPropsType) => {
-  const { singleMeal } = useContext(OrderContext);
   const { theme, data } = useContext(DataContext);
 
   const { upsaleData, addNewOption, removeAnOption } = useContext(UpsaleContext);
@@ -55,29 +53,14 @@ const DualOptionSelector = ({
 
         } else {
           addNewOption(upsaleStep, option, maxSelection, 1);
-          // handleOptionSelect(option);
+          
         }
-
-        // if (upsaleStep > 0) {
-        //   handleOptionSelect(option);
-        //   addNewOption(upsaleStep, option, 1, 1);
-        // } else {
-        //   if (option.Finish) {
-        //     resetUpsale();
-        //     placeMealInOrders(singleMeal);
-        //     handleStepChange("order");
-        //   }
-
-        //   handleUpsaleStepChange("increase");
-        //   handleOptionSelect(option);
-        //   addNewOption(upsaleStep, option, 1, 1);
-        // }
       }}
     >
       <div
         className={styles.image}
         style={{
-          backgroundImage: `url(${singleMeal.product?.SmallPictureUrl})`,
+          backgroundImage: `url(${option.PictureUrl})`,
         }}
       ></div>
 
