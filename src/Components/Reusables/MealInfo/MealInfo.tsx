@@ -143,7 +143,7 @@ const MealInfo = ({ meal }: MealInfoProps) => {
           <p className={styles.mealName}>{meal.Name}</p>
           <PricePreviewer
             price={meal.Price}
-            color={"black"}
+            color={theme.activeTextColor}
             style={{ position: "relative" }}
           />
         </div>

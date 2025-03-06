@@ -265,24 +265,19 @@ const MealCard = ({
 
       <motion.div
         id="productCardBtnsWrapper"
-        animate={{
+        initial={{ width: "50px", borderRadius: "50%", height: '50px' }}
+        
+        animate={{height: '50px',
+          width: isButtonOpened ? "100%" : "50px",
+          borderRadius: isButtonOpened ? "10px" : "50%",
           backgroundColor:
             isPlacedInOrder_Available_NoUpsale && isButtonOpened
               ? "#000000"
               : "#F9F9F9",
-          width:
-            isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "96%" : "",
-          // minWidth: "24%",
-          // height: "36%",
-          minHeight: "18%",
+         
           maxWidth: "96%",
-          // maxHeight: "36%",
           lineHeight: "36%",
           padding: 0,
-          maxHeight: 50,
-          // ...(isButtonOpened ? { height: "auto" } : { aspectRatio: "1 / 1" })
-          aspectRatio: isButtonOpened ? "4.75 / 1" : "1 / 1",
-
         }}
         transition={{ type: "spring", duration: 0.7, ease: "easeInOut" }}
         className={styles.cardButtonWrapper}
@@ -298,8 +293,7 @@ const MealCard = ({
             isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "black" : "",
           padding:
             isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "0 3vw" : 0,
-          width:
-            isPlacedInOrder_Available_NoUpsale && isButtonOpened ? "96%" : "",
+          
           display: "flex",
           cursor: "pointer",
         }}
@@ -315,7 +309,7 @@ const MealCard = ({
         {notPlacedInOrders_Available_OR_isPlacedInOrders_But_HasUpsale ? (
           <Plus color={"gray"} />
         ) : !isButtonOpened ? (
-          <p>{meal.quantity}</p>
+          <p className={styles.mealQuantityOnButtonClosed}>{meal.quantity}</p>
         ) : (
           ""
         )}

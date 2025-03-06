@@ -15,7 +15,10 @@
     background-color: black;
     box-shadow: 0px 8.22px 20.55px 0px #00000026;
     border: 0.69px solid #B6B6B6 ;
-    backdrop-filter: blur(13.701071739196777px)
+    backdrop-filter: blur(13.701071739196777px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .quantity {

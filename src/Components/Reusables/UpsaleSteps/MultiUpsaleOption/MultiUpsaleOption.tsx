@@ -34,7 +34,7 @@ const MultiUpsaleOption = ({
   const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
 
   const options = upsaleStepData.Options;
-  const maxSelection = 2;
+  const maxSelection = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep].MaxSelection;
   const upsaleSteps = data.TMKData[0].UpsaleColletions[0].UpsaleSteps;
   const isLastStep = upsaleSteps.length === upsaleStep + 1;
 

@@ -22,7 +22,6 @@ type CheckoutCardPropsType = {
 const CheckoutCard = ({
   order,
   theme,
-  // data,
   hideShowRibbon,
 }: CheckoutCardPropsType) => {
   const {
@@ -76,7 +75,7 @@ const CheckoutCard = ({
         ></div>
 
         <PricePreviewer
-          style={{ top: "10px", right: "5%" }}
+          style={{ top: "2%", right: "5%" }}
           price={order.totalPrice}
           color={theme.activeTextColor}
           fontSizeRound={"4.5vw"}
@@ -93,7 +92,7 @@ const CheckoutCard = ({
           </div>
 
           <div className={styles.mealInfoWrapper}>
-            <div>
+            <div className={styles.mealInfoWrapperLeft}>
               {order.upsale &&
                 (order.upsale![0].stepData || order.upsale![1].stepData) &&
                 order.upsale
@@ -118,7 +117,7 @@ const CheckoutCard = ({
               )}
             </div>
 
-            <div>
+            <div className={styles.mealInfoWrapperRight}>
             {order.upsale &&
                 (order.upsale![0].stepData || order.upsale![1].stepData) &&
                 order.upsale
@@ -144,6 +143,7 @@ const CheckoutCard = ({
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className={styles.addNoteBtn}
+                  style={{fontSize: '2vw'}}
                   onClick={() => {
                     // delete product
                     removeMealFromOrders(order.id);
@@ -157,7 +157,9 @@ const CheckoutCard = ({
                     handleStepChange("menuUpgrade");
                   }}
                 >
-                  <Plus color={"#555555a0"} /> Edit
+                  <img src="/edit.png" alt="edit" style={{
+                    width: '15%'
+                  }}/> {t('edit_note')}
                 </motion.button>
               )}
 
@@ -169,11 +171,13 @@ const CheckoutCard = ({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className={styles.addNoteBtn}
+                style={{fontSize: '2vw'}}
+
                 onClick={() => {
                   setIsProductNoteInputVisible(true);
                 }}
               >
-                <Plus color={"#555555a0"} /> Add
+                <img src="/editNotePlus.png" alt="Edit Note" style={{width: '15%'}}/> {t('note')}
               </motion.button>
             )}
 

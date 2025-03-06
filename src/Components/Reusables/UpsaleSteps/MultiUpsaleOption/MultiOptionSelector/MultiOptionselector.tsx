@@ -102,7 +102,7 @@ const MultiOptionselector = ({
       }}
       onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
-        
+
         if (isOptionAlreadySelected) {
           if (option.MaxSelection > 1) {
             setIsButtonOpened(true);
@@ -112,8 +112,12 @@ const MultiOptionselector = ({
         } else {
           setIsSelected(true);
           addNewOption(upsaleStep, option, maxSelection, 1);
-          setIsButtonOpened(true);
           setQuantity(1);
+
+          if(option.MaxSelection > 1){
+            setIsButtonOpened(true);
+
+          }
         }
       }}
     >
@@ -125,13 +129,15 @@ const MultiOptionselector = ({
         <p className={styles.optionName} style={{ textAlign: "left" }}>
           {option.Name}
         </p>
-        <PricePreviewer
-          price={option.Price}
-          color={theme.activeTextColor}
-          style={{
-            bottom: "3%",
-          }}
-        />
+        {!isButtonOpened  && (
+          <PricePreviewer
+            price={option.Price}
+            color={theme.activeTextColor}
+            style={{
+              bottom: "3%",
+            }}
+          />
+        )}
       </div>
 
       <motion.div
@@ -178,8 +184,12 @@ const MultiOptionselector = ({
       >
         {!isOptionAlreadySelected && <Plus color={"gray"} />}
 
-        {option.MaxSelection > 1 && isOptionAlreadySelected && !isButtonOpened && <>{quantity} </>}
-        {isOptionAlreadySelected && option.MaxSelection <= 1 && <CheckMark color="green" />}
+        {option.MaxSelection > 1 &&
+          isOptionAlreadySelected &&
+          !isButtonOpened && <>{quantity} </>}
+        {isOptionAlreadySelected && option.MaxSelection <= 1 && (
+          <CheckMark color="green" />
+        )}
 
         {isOptionAlreadySelected &&
           option.MaxSelection > 1 &&
@@ -209,9 +219,16 @@ const MultiOptionselector = ({
                 disabled={quantity === option.MaxSelection}
                 className={styles.quantityBtns}
                 onClick={addBtnHandler}
-                style={{backgroundColor: quantity === option.MaxSelection ? "#bfbfbf " : ''}}
+                style={{
+                  backgroundColor:
+                    quantity === option.MaxSelection ? "#bfbfbf " : "",
+                }}
               >
-                {quantity === option.MaxSelection ? 'Max' : <Plus color={"black"} />}
+                {quantity === option.MaxSelection ? (
+                  "Max"
+                ) : (
+                  <Plus color={"black"} />
+                )}
               </button>
             </>
           )}

@@ -67,6 +67,12 @@
 
 }
 
+.mealInfoWrapperLeft{
+    flex-basis: 20%;
+}
+.mealInfoWrapperRight{
+    flex-basis: 70%;
+}
 
 .cardTitlePriceRow{
     display: flex;
