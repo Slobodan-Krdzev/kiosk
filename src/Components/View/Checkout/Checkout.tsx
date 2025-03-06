@@ -26,7 +26,7 @@ const Checkout = () => {
   const [isOrderFormVisible, setIsOrderFormVisible] = useState(true);
   const [inputValue, setInputValue] = useState('')
   const [isRibbonShown, setIsRibbonShown] = useState(true);
-  const [paddingTop, setPaddingTop] = useState(50);
+  const [, setPaddingTop] = useState(50);
   const [isKeyboardActive, setIsKeyboardActive] = useState(false);
   const [isParentKeyboardActive, setIsParentKeyboardActive] = useState(false)
   const scrollContRef = useRef<null | HTMLDivElement>(null);
@@ -177,10 +177,8 @@ const Checkout = () => {
 
       <div
         ref={scrollContRef}
+        id="checkoutScrollParent"
         className={`hideScrollBar ${styles.checkoutCardWrapper}`}
-        style={{
-          paddingTop,
-        }}
       >
         {orders.map((product) => (
           <CheckoutCard

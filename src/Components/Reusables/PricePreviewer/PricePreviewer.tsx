@@ -31,7 +31,7 @@ const PricePreviewer = ({ price, color, style, fontSizeDecimal = '2.5vw', fontSi
     }
 
 
-    return formated
+    return formated.slice(0,2)
   }
   
   return (

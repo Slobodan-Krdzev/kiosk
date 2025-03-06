@@ -38,6 +38,10 @@ body {
   background-color: #fafafa;
 }
 
+.scrollPaddingTop{
+ scroll-padding-top: 8.5vh;
+}
+
 .hg-theme-default {
   position: fixed;
   bottom: 0;

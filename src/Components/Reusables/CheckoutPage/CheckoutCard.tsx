@@ -45,8 +45,10 @@ const CheckoutCard = ({
     useState(false);
 
   const keyboardRef = useRef<HTMLDivElement | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const [inputValue, setInputValue] = useState(order.note ?? ("" as string));
   const formRef = useRef<HTMLFormElement>(null);
+  const parentDiv = document.querySelector("#checkoutScrollParent");
 
   const { t } = useTranslation();
 
@@ -59,11 +61,12 @@ const CheckoutCard = ({
     ) {
       setIsProductNoteInputVisible(false);
       handleKeyboardActivity(false);
+      parentDiv?.classList.remove("scrollPaddingTop");
     }
   };
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('submited')
+    console.log("submited");
 
     e.preventDefault();
 
@@ -71,6 +74,7 @@ const CheckoutCard = ({
     setIsProductNoteInputVisible(false);
     hideShowRibbon(true);
     handleKeyboardActivity(false);
+    parentDiv?.classList.remove("scrollPaddingTop");
     e.currentTarget.reset();
   };
 
@@ -106,12 +110,23 @@ const CheckoutCard = ({
     }
   };
 
-  
-  console.log('Order Upsale', order.product?.Name, order.upsale)
+  const handleFocus = () => {
+    // Scroll the card into view within the container
+
+    parentDiv?.classList.add("scrollPaddingTop");
+
+    console.log(parentDiv);
+
+    cardRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start", // Align it to the top
+    });
+  };
 
   return (
     <>
       <div
+        ref={cardRef}
         className={styles.checkoutCardNoteInputWrapper}
         onClick={(e) => e.stopPropagation()}
       >
@@ -121,8 +136,10 @@ const CheckoutCard = ({
           <div
             className={styles.checkoutCardPicture}
             style={{
-              backgroundSize: order.upsale ? `auto` : 'cover',
-              backgroundImage: order.upsale ? `url(${order!.upsale[0]!.stepData[0].option.PictureUrl})` : `url(${order.product!.SmallPictureUrl})`,
+              backgroundSize: order.upsale ? `auto` : "cover",
+              backgroundImage: order.upsale
+                ? `url(${order!.upsale[0]!.stepData[0].option.PictureUrl})`
+                : `url(${order.product!.SmallPictureUrl})`,
             }}
           ></div>
 
@@ -144,24 +161,24 @@ const CheckoutCard = ({
             </div>
 
             <div className={styles.mealInfoWrapper}>
-                {order.upsale &&
-                  order.upsale.map((step) => (
-                      <CheckoutCardExtraPreview
-                        stepData={step.stepData}
-                        order={order}
-                        key={step.step}
-                      />
-                    ))}
+              {order.upsale &&
+                order.upsale.map((step) => (
+                  <CheckoutCardExtraPreview
+                    stepData={step.stepData}
+                    order={order}
+                    key={step.step}
+                  />
+                ))}
 
-                {order.note !== "" && (
-                  <p className={`${styles.checkoutCardExtrasText}`}>
-                    <>&bull; </>
-                    {t("note")}:{" "}
-                    {order.note.length > 50
-                      ? `${order.note.substring(0, 10)}...`
-                      : order.note}
-                  </p>
-                )}
+              {order.note !== "" && (
+                <p className={`${styles.checkoutCardExtrasText}`}>
+                  <>&bull; </>
+                  {t("note")}:{" "}
+                  {order.note.length > 50
+                    ? `${order.note.substring(0, 10)}...`
+                    : order.note}
+                </p>
+              )}
 
               {/* <div className={styles.mealInfoWrapperRight}>
                 {order.upsale &&
@@ -225,6 +242,7 @@ const CheckoutCard = ({
                   onClick={() => {
                     setIsProductNoteInputVisible(true);
                     handleKeyboardActivity(true);
+                    handleFocus();
                   }}
                 >
                   <img
@@ -365,7 +383,7 @@ const CheckoutCard = ({
             ref={keyboardRef}
           >
             <Keyboard
-            theme="hg-theme-default "
+              theme="hg-theme-default "
               style={{
                 position: "fixed",
                 bottom: 0,
