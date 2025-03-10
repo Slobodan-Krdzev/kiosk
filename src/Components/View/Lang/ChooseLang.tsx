@@ -4,7 +4,7 @@ import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import DineInOutBtn from "../../Reusables/DineInOutBtn/DineInOutBtn";
 import DineIn from "../../Reusables/SVG/DineIn";
-import Takeaway from "../../Reusables/SVG/Takeaway";
+import Takeaway from "../../Reusables/SVG/Takeaway"; 
 import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
 import styles from "./ChooseLangStyles.module.css";
 
@@ -47,9 +47,9 @@ const ChooseLang = () => {
     >
       <div className={styles.langViewMenuOptionsWrapper}>
         <DineInOutBtn
-          clickHandler={dineInClickHandler}
+          clickHandler={dineOutClickHandler}
           selectedOption={option}
-          option={"Dine In"}
+          option={"Takeaway"}
           themeColor={theme.activeTextColor}
         >
           <>
@@ -62,9 +62,9 @@ const ChooseLang = () => {
         </DineInOutBtn>
 
         <DineInOutBtn
-          clickHandler={dineOutClickHandler}
+          clickHandler={dineInClickHandler}
           selectedOption={option}
-          option={"Takeaway"}
+          option={"Dine In"}
           themeColor={theme.activeTextColor}
         >
           <>

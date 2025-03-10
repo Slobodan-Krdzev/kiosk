@@ -5,7 +5,7 @@ import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
-import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
+// import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
 import { RootData, SingleMealType, ThemeType } from "../../../Types/Types";
 import PricePreviewer from "../PricePreviewer/PricePreviewer";
 import Minus from "../SVG/Minus";
@@ -33,10 +33,10 @@ const CheckoutCard = ({
     setSingleMealQuantity,
     setSingleMealNote,
     removeMealFromOrders,
-    setMeal,
+    // setMeal,
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
-  const { resetUpsale, toggleEditMode, addUpsaleId } = useContext(UpsaleContext);
+  // const {  toggleEditMode, addUpsaleId } = useContext(UpsaleContext);
 
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
@@ -183,7 +183,7 @@ const CheckoutCard = ({
             </div>
 
             <div className={styles.cardNoteBtnsWrapper}>
-              {order?.product?.HasUpsaleCollection &&
+              {/* {order?.product?.HasUpsaleCollection &&
                 !isProductNoteInputVisible && (
                   <motion.button
                     key={"Edit Note Btn"}
@@ -217,7 +217,7 @@ const CheckoutCard = ({
                     />{" "}
                     {t("edit_note")}
                   </motion.button>
-                )}
+                )} */}
 
               {!isProductNoteInputVisible && (
                 <motion.button
