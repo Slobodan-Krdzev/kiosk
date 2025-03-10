@@ -14,6 +14,7 @@ const UpsaleContentProvider = ({
   children,
 }: UpsaleContentProviderPropsType) => {
   const [upsaleId, setUpsaleId] = useState<number>(0)
+  const [isEditMode, setIsEditMode] = useState(false)
   const [upsaleData, setUpsaleData] = useState<UpsaleData>([
     { step: 0, stepData: [] },
     { step: 1, stepData: [] },
@@ -106,6 +107,10 @@ const UpsaleContentProvider = ({
     setUpsaleData(upsale)
   }
 
+  const toggleEditMode = (mode: boolean) => {
+    setIsEditMode(mode)
+  }
+
   const contextValue: UpsaleContextValueType = {
     upsaleData,
     resetUpsale,
@@ -113,7 +118,9 @@ const UpsaleContentProvider = ({
     removeAnOption,
     predefineUpsale,
     addUpsaleId,
-    upsaleId
+    upsaleId,
+    isEditMode,
+    toggleEditMode
   };
 
   return (

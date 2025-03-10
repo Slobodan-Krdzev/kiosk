@@ -14,7 +14,7 @@ const Upsale = () => {
 
   const upsaleData = tmkData.UpsaleColletions.find(upsale => upsale.Id === upsaleId)
 
-  const stepsLength = upsaleData!.UpsaleSteps.length
+  const stepsLength = upsaleData?.UpsaleSteps?.length ?? 0
   const upsaleStepData =
   upsaleData!.UpsaleSteps[upsaleStep];
 

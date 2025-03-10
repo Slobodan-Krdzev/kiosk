@@ -30,7 +30,7 @@ const MultiUpsaleOption = ({
 }: MultiUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
   const { placeMealInOrders, singleMeal, setUpsale } = useContext(OrderContext);
-  const { upsaleData, resetUpsale } = useContext(UpsaleContext);
+  const { upsaleData, resetUpsale, isEditMode, toggleEditMode } = useContext(UpsaleContext);
   const { t } = useTranslation();
   const topImage = upsaleInfoData.UpsaleSteps[0].PictureUrl
 
@@ -67,6 +67,24 @@ const MultiUpsaleOption = ({
 
     handleUpsaleStepChange("increase");
   };
+
+  const onBackButton = () => {
+
+
+    // ako e prv step 
+    // - resetUpsale
+    // - orderScreen
+
+    if (upsaleStep === 0) {
+      handleStepChange("order");
+      resetUpsale();
+
+      if(isEditMode) toggleEditMode(false)
+    }
+
+    handleUpsaleStepChange("decrease");
+  }
+
 
   return (
     <ViewFullScreenAnimated
@@ -106,7 +124,7 @@ const MultiUpsaleOption = ({
 
       <BottomButtonholderRibbon>
         <DefaultButton
-          clickHandler={() => handleUpsaleStepChange("decrease")}
+          clickHandler={onBackButton}
           style={{
             backgroundColor: "inherit",
             height: "100%",

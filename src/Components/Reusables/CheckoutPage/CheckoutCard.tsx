@@ -36,7 +36,7 @@ const CheckoutCard = ({
     setMeal,
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
-  const { resetUpsale } = useContext(UpsaleContext);
+  const { resetUpsale, toggleEditMode } = useContext(UpsaleContext);
 
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
@@ -194,10 +194,10 @@ const CheckoutCard = ({
                     className={styles.addNoteBtn}
                     style={{ fontSize: "2vw" }}
                     onClick={() => {
-                      removeMealFromOrders(order.id);
+                      // removeMealFromOrders(order.id);
 
-                      resetUpsale();
-
+                      // resetUpsale();
+                      toggleEditMode(true)
                       setMeal(order.product!);
                       // run thru upsale
                       handleStepChange("menuUpgrade");

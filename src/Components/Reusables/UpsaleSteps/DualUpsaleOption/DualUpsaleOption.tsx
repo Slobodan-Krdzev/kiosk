@@ -29,7 +29,7 @@ const DualUpsaleOption = ({
   upsaleInfoData
 }: DualUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
-  const { resetUpsale, upsaleData } = useContext(UpsaleContext);
+  const { resetUpsale, upsaleData, isEditMode, toggleEditMode } = useContext(UpsaleContext);
   const { singleMeal, placeMealInOrders, setUpsale } = useContext(OrderContext);
   // const { data } = useContext(DataContext);
 
@@ -48,12 +48,9 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
   console.log("Selected Options",selectedOptions)
 
   const onXButtonClick = () => {
-    if (upsaleStep === 0) {
       handleStepChange("order");
       resetUpsale();
-    }
-
-    handleUpsaleStepChange("decrease");
+   
   };
 
   const onNextButton = () => {
@@ -85,6 +82,24 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
       handleUpsaleStepChange("increase");
     }
   };
+
+  const onBackButton = () => {
+
+
+    // ako e prv step 
+    // - resetUpsale
+    // - orderScreen
+
+    if (upsaleStep === 0) {
+      handleStepChange("order");
+      resetUpsale();
+
+      if(isEditMode) toggleEditMode(false)
+    }
+
+    handleUpsaleStepChange("decrease");
+  }
+
 
   
   return (
@@ -129,7 +144,7 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
 
       <BottomButtonholderRibbon>
         <DefaultButton
-          clickHandler={onXButtonClick}
+          clickHandler={onBackButton}
           style={{
             backgroundColor: "inherit",
             height: "100%",
