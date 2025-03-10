@@ -36,7 +36,7 @@ const CheckoutCard = ({
     setMeal,
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
-  const { resetUpsale, toggleEditMode } = useContext(UpsaleContext);
+  const { resetUpsale, toggleEditMode, addUpsaleId } = useContext(UpsaleContext);
 
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
@@ -198,6 +198,8 @@ const CheckoutCard = ({
 
                       // resetUpsale();
                       toggleEditMode(true)
+                      if(order) addUpsaleId(order?.product?.UpsaleCollectionId ?? 0)
+                      
                       setMeal(order.product!);
                       // run thru upsale
                       handleStepChange("menuUpgrade");
