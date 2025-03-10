@@ -1,11 +1,10 @@
 import { AnimatePresence } from "framer-motion";
 import { t } from "i18next";
 import { useContext } from "react";
-import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
-import { UpsaleStep } from "../../../../Types/Types";
+import { UpsaleColletion, UpsaleStep } from "../../../../Types/Types";
 import BottomButtonholderRibbon from "../../BottomButtonHolderWibbon/BottomButtonholderRibbon";
 import DefaultButton from "../../DefaultButton/DefaultButton";
 import Chevron from "../../SVG/Chevron";
@@ -19,6 +18,7 @@ type DualUpsaleOptionPropsType = {
   handleUpsaleStepChange: (type: "increase" | "decrease") => void;
   upsaleStep: number;
   stepsLength: number;
+  upsaleInfoData: UpsaleColletion
 };
 
 const DualUpsaleOption = ({
@@ -26,15 +26,16 @@ const DualUpsaleOption = ({
   handleUpsaleStepChange,
   upsaleStep,
   stepsLength,
+  upsaleInfoData
 }: DualUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
   const { resetUpsale, upsaleData } = useContext(UpsaleContext);
   const { singleMeal, placeMealInOrders, setUpsale } = useContext(OrderContext);
-  const { data } = useContext(DataContext);
+  // const { data } = useContext(DataContext);
 
-  const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
-const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
-  const upsaleSteps = data.TMKData[0].UpsaleColletions[0].UpsaleSteps;
+  const topImage = upsaleInfoData.UpsaleSteps[upsaleStep].PictureUrl
+const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
+  const upsaleSteps = upsaleInfoData.UpsaleSteps;
   const options = upsaleStepData.Options;
   const isLastStep = upsaleSteps.length === upsaleStep + 1;
   const isNextButtonDissabled = !(
@@ -42,6 +43,10 @@ const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
   );
   const maxSelectionOnStep = currentStep.MaxSelection
  
+  const selectedOptions = upsaleData[upsaleStep].stepData
+
+  console.log("Selected Options",selectedOptions)
+
   const onXButtonClick = () => {
     if (upsaleStep === 0) {
       handleStepChange("order");
@@ -52,10 +57,20 @@ const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
   };
 
   const onNextButton = () => {
-    const someOptionHasFinnish = upsaleData[upsaleStep].stepData.some((o) => o.option.Finish === true);
+    const someOptionHasFinnish = selectedOptions.some((o) => o.option.Finish === true);
+    
+    if (isLastStep) {
+      setUpsale(upsaleData);
+      placeMealInOrders({
+        ...singleMeal,
+        id: new Date().valueOf(),
+        upsale: upsaleData,
+        itemGUI: undefined,
+      });
 
-
-    if (isLastStep || someOptionHasFinnish) {
+      handleStepChange("order");
+      resetUpsale();
+    }else if(!isLastStep && someOptionHasFinnish){
       setUpsale(upsaleData);
       placeMealInOrders({
         ...singleMeal,
@@ -104,6 +119,7 @@ const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
                 upsaleStep={upsaleStep}
                 options={options}
                 handleUpsaleStepChange={handleUpsaleStepChange}
+                upsaleStepData={upsaleInfoData.UpsaleSteps[upsaleStep]}
               />
             ))}
           </div>
@@ -126,7 +142,7 @@ const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
           }}
         >
           <Chevron color="black" orientation="toLeft" />
-          Bestellen
+          {t("back_Btn")}
         </DefaultButton>
 
         <div
@@ -158,7 +174,7 @@ const currentStep = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep]
             textTransform: "uppercase",
           }}
         >
-          Bestellen <Chevron color="white" />
+          {t("view_order")} <Chevron color="white" />
         </DefaultButton>
       </BottomButtonholderRibbon>
     </ViewFullScreenAnimated>

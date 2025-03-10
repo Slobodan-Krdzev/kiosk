@@ -17,6 +17,7 @@ import PricePreviewer from "../../PricePreviewer/PricePreviewer";
 import Minus from "../../SVG/Minus";
 import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 import Modal from "../../Modal";
+import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
 
 type MealCardPropsType = {
   product: Product;
@@ -45,7 +46,8 @@ const MealCard = ({
     orders,
     setSingleMealQuantity,
   } = useContext(OrderContext);
-  const { data } = useContext(DataContext);
+  const { tmkData } = useContext(DataContext);
+  const {addUpsaleId} = useContext(UpsaleContext)
 
   const [quantity, setQuantity] = useState(1);
   const [isButtonOpened, setIsButtonOpened] = useState(false);
@@ -153,10 +155,13 @@ const MealCard = ({
           } else if (availability && hasUpsale_notPlacedInOrders) {
             // TUKA PRAVIME PROVERKA I DOKOLKU POSTOI UPSALE NA TMK
 
-            if (!data.TMKData[0].UpsaleColletions.length) {
+            if (!tmkData.UpsaleColletions.length) {
               setUpsaleMessage(true);
             } else {
               setQuantity((q) => q + 1);
+
+              if(product.UpsaleCollectionId)addUpsaleId(product.UpsaleCollectionId)
+              
               setIsButtonOpened(true);
               setMeal(product);
               handleStepChange("menuUpgrade");
@@ -164,6 +169,7 @@ const MealCard = ({
           } else if (isPlacedInOrders_Available_hasUpsale) {
             //OVA E CASE-OT ZA DOKOLKU IMA UPSALE A PRETHODNO E STAVEN VO ORDERS
             setIsButtonOpened(true);
+            if(product.UpsaleCollectionId)addUpsaleId(product.UpsaleCollectionId)
 
             setMeal(product);
             handleStepChange("menuUpgrade");

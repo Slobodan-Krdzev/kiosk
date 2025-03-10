@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { OrderContext } from "../../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../../Contexts/StepContext/StepContext";
 import { UpsaleContext } from "../../../../Contexts/UpsaleContext/UpsaleContext";
-import { UpsaleStep } from "../../../../Types/Types";
+import { UpsaleColletion, UpsaleStep } from "../../../../Types/Types";
 import BottomButtonholderRibbon from "../../BottomButtonHolderWibbon/BottomButtonholderRibbon";
 import DefaultButton from "../../DefaultButton/DefaultButton";
 import Chevron from "../../SVG/Chevron";
@@ -11,13 +11,14 @@ import UpsaleTopFixed from "../../UpsaleTopFixed/UpsaleTopFixed";
 import ViewFullScreenAnimated from "../../ViewFullScreenAnimated/ViewFullScreenAnimated";
 import MultiOptionselector from "./MultiOptionSelector/MultiOptionselector";
 import styles from "./MultiUpsaleOptionStyles.module.css";
-import { DataContext } from "../../../../Contexts/DataContext/Datacontext";
 
 type MultiUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
   handleUpsaleStepChange: (type: "increase" | "decrease") => void;
   upsaleStep: number;
   stepsLength: number;
+    upsaleInfoData: UpsaleColletion
+  
 };
 
 const MultiUpsaleOption = ({
@@ -25,17 +26,17 @@ const MultiUpsaleOption = ({
   handleUpsaleStepChange,
   upsaleStep,
   stepsLength,
+  upsaleInfoData
 }: MultiUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
   const { placeMealInOrders, singleMeal, setUpsale } = useContext(OrderContext);
-  const { data } = useContext(DataContext);
   const { upsaleData, resetUpsale } = useContext(UpsaleContext);
   const { t } = useTranslation();
-  const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
+  const topImage = upsaleInfoData.UpsaleSteps[0].PictureUrl
 
   const options = upsaleStepData.Options;
-  const maxSelection = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep].MaxSelection;
-  const upsaleSteps = data.TMKData[0].UpsaleColletions[0].UpsaleSteps;
+  const maxSelection = upsaleInfoData.UpsaleSteps[upsaleStep].MaxSelection;
+  const upsaleSteps = upsaleInfoData.UpsaleSteps;
   const isLastStep = upsaleSteps.length === upsaleStep + 1;
 
   const isNextButtonDisabled = () => {
@@ -118,7 +119,7 @@ const MultiUpsaleOption = ({
           }}
         >
           <Chevron color="black" orientation="toLeft" />
-          Bestellen
+          {t("back_Btn")}
         </DefaultButton>
 
         {upsaleStep > 0 && (
@@ -153,7 +154,7 @@ const MultiUpsaleOption = ({
             textTransform: "uppercase",
           }}
         >
-          {isNextButtonDisabled() === false ? <>{t("next_Btn")}</> : "Choose"}
+          {isNextButtonDisabled() === false ? <>{t("view_order")}</> : "Choose"}
           {isNextButtonDisabled() && <Chevron color="white" />}
         </DefaultButton>
       </BottomButtonholderRibbon>

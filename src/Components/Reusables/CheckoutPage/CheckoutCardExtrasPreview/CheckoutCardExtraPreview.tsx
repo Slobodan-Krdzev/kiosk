@@ -16,14 +16,14 @@ const CheckoutCardExtraPreview = ({
       style={{ marginBottom: "0.7%" }}
     >
       {stepData.map((i, idx) => (
-        <>
-          <>&bull; </>
+        <span key={i.option.Id}>
+          {idx === 0 && <>&bull; </>}
           <span key={i.option.Id}>
             {i.option.Name}{" "}
             <span style={{ textTransform: "lowercase" }}> x{i.quantity}</span>{" "}
             {idx === order!.upsale![0].stepData.length - 1 ? "" : "|"}{" "}
           </span>
-        </>
+        </span>
       ))}
     </p>
   );

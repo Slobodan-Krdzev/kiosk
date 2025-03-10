@@ -2,15 +2,21 @@ import { useContext, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import DualUpsaleOption from "../../Reusables/UpsaleSteps/DualUpsaleOption/DualUpsaleOption";
 import MultiUpsaleOption from "../../Reusables/UpsaleSteps/MultiUpsaleOption/MultiUpsaleOption";
+import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
 
 const Upsale = () => {
-  const { data } = useContext(DataContext);
+  const { tmkData } = useContext(DataContext);
+  const {upsaleId} = useContext(UpsaleContext)
+
+  // tuka ni treba upsale od ID
 
   const [upsaleStep, setUpsaleStep] = useState(0);
 
-  const stepsLength = data.TMKData[0].UpsaleColletions[0].UpsaleSteps.length
+  const upsaleData = tmkData.UpsaleColletions.find(upsale => upsale.Id === upsaleId)
+
+  const stepsLength = upsaleData!.UpsaleSteps.length
   const upsaleStepData =
-    data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep];
+  upsaleData!.UpsaleSteps[upsaleStep];
 
   const handleUpsaleStepChange = (type: "increase" | "decrease") => {
     if (type === "increase") {
@@ -20,6 +26,7 @@ const Upsale = () => {
     }
   };
 
+  console.log('Upsale Data',upsaleData)
 
   return (
     <section>
@@ -29,6 +36,7 @@ const Upsale = () => {
           upsaleStep={upsaleStep}
           upsaleStepData={upsaleStepData}
           handleUpsaleStepChange={handleUpsaleStepChange}
+          upsaleInfoData={upsaleData!}
         />
       ) : (
         <MultiUpsaleOption
@@ -36,6 +44,8 @@ const Upsale = () => {
           handleUpsaleStepChange={handleUpsaleStepChange}
           upsaleStep={upsaleStep}
           stepsLength={stepsLength}
+          upsaleInfoData={upsaleData!}
+
         />
       )}
     </section>

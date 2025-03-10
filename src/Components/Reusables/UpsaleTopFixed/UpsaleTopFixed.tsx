@@ -16,9 +16,9 @@ const UpsaleTopFixed = ({
   productName,
   xButtonClickHandler,
 }: UpsaleTopFixedProps) => {
-  const { data } = useContext(DataContext);
+  const { tmkData } = useContext(DataContext);
 
-  const topImage = data.TMKData[0].UpsaleColletions[0].UpsaleSteps[0].PictureUrl
+  const topImage = tmkData.UpsaleColletions[0].UpsaleSteps[0].PictureUrl
 
   if (version === 0) {
     return (

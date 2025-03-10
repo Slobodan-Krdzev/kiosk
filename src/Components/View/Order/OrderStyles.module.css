@@ -104,7 +104,7 @@
   overflow-wrap: break-word;
   overflow: hidden;
   /* border: 2px solid red; */
-  max-width: 70%;
+  max-width: 90%;
 
 }
 
@@ -134,7 +134,7 @@
 
 .absoluteChevron {
   position: absolute;
-  right: 12%;
+  right: 5%;
   bottom: 6%;
 }
 

@@ -136,7 +136,6 @@ const CheckoutCard = ({
           <div
             className={styles.checkoutCardPicture}
             style={{
-              backgroundSize: order.upsale ? `auto` : "cover",
               backgroundImage: order.upsale
                 ? `url(${order!.upsale[0]!.stepData[0].option.PictureUrl})`
                 : `url(${order.product!.SmallPictureUrl})`,
@@ -151,7 +150,7 @@ const CheckoutCard = ({
             fontSizeDecimal={"1.8vw"}
           />
 
-          <div className={styles.checkoutCardInfoWrapper}>
+          <div className={`hideScrollBar ${styles.checkoutCardInfoWrapper}`}>
             <div className={styles.cardTitlePriceRow}>
               <p className={styles.checkoutCardMealName}>
                 {order.product!.Name.length > 35
@@ -162,11 +161,11 @@ const CheckoutCard = ({
 
             <div className={styles.mealInfoWrapper}>
               {order.upsale &&
-                order.upsale.map((step) => (
+                order.upsale.map((step, idx: number) => (
                   <CheckoutCardExtraPreview
                     stepData={step.stepData}
                     order={order}
-                    key={step.step}
+                    key={idx}
                   />
                 ))}
 
@@ -180,19 +179,7 @@ const CheckoutCard = ({
                 </p>
               )}
 
-              {/* <div className={styles.mealInfoWrapperRight}>
-                {order.upsale &&
-                  (order.upsale![0].stepData || order.upsale![1].stepData) &&
-                  order.upsale
-                    .slice(2, order.upsale.length)
-                    .map((step) => (
-                      <CheckoutCardExtraPreview
-                        stepData={step.stepData}
-                        order={order}
-                        key={step.step}
-                      />
-                    ))}
-              </div> */}
+             
             </div>
 
             <div className={styles.cardNoteBtnsWrapper}>
@@ -207,16 +194,16 @@ const CheckoutCard = ({
                     className={styles.addNoteBtn}
                     style={{ fontSize: "2vw" }}
                     onClick={() => {
-                      // delete product
                       removeMealFromOrders(order.id);
 
-                      // delete upsale
                       resetUpsale();
-                      // setMeal
 
                       setMeal(order.product!);
                       // run thru upsale
                       handleStepChange("menuUpgrade");
+
+                      
+                      console.log(order)
                     }}
                   >
                     <img

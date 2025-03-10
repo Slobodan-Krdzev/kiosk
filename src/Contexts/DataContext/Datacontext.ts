@@ -1,8 +1,9 @@
 import { createContext } from "react";
-import { Product, RootData, SubCategory2, ThemeType } from "../../Types/Types";
+import { Product, RootData, SubCategory2, ThemeType, Tmkdaum } from "../../Types/Types";
 
 type DataContextValueType = {
   data: RootData;
+  tmkData: Tmkdaum;
   isError: boolean;
   isLoading: boolean;
   allCategories: SubCategory2[];

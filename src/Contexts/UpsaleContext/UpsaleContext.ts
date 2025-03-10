@@ -10,7 +10,10 @@ export type UpsaleContextValueType = {
     upsaleData: UpsaleData,
     resetUpsale: () => void,
     addNewOption: (step: number, option: Option, maxSelection: number, quantity: number) => void;
-    removeAnOption: (step:number, option: Option) => void
+    removeAnOption: (step:number, option: Option) => void,
+    predefineUpsale: (upsale: UpsaleData) => void,
+    addUpsaleId: (id: number) => void,
+    upsaleId: number
 }
 
 export const UpsaleContext = createContext({} as UpsaleContextValueType)

@@ -63,11 +63,12 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
 
   // OD BACKEND TREBA DA DOJDAT KAKO SUBCATEGORY 
 
+  const tmkData: Tmkdaum = data.TMKData.find((tmkItem: Tmkdaum) => tmkItem.Language === currentLanguage)
 
   // const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
-  const categoryToRender: MainCategory2 = data.TMKData.find((TMKItem: Tmkdaum) => TMKItem.Language === currentLanguage)?.MainCategories[isTestMode ? isKunkurent ? 8 : 0 : 9] ?? data.TMKData[0].MainCategories[9];
+  const categoryToRender: MainCategory2 = tmkData?.MainCategories[isTestMode ? isKunkurent ? 8 : 0 : 9] ?? data.TMKData[0].MainCategories[9];
 
-  console.log("Current Lang and Category", currentLanguage,data.TMKData[0].Language === currentLanguage);
+  console.log("Current Lang and Category", currentLanguage,tmkData);
 
   const allSubCategories = categoryToRender!.SubCategories;
 
@@ -92,6 +93,7 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
 
   const returnValue = {
     data,
+    tmkData,
     isError,
     isLoading,
     allCategories: allSubCategories,

@@ -13,6 +13,7 @@ type UpsaleContentProviderPropsType = {
 const UpsaleContentProvider = ({
   children,
 }: UpsaleContentProviderPropsType) => {
+  const [upsaleId, setUpsaleId] = useState<number>(0)
   const [upsaleData, setUpsaleData] = useState<UpsaleData>([
     { step: 0, stepData: [] },
     { step: 1, stepData: [] },
@@ -20,6 +21,10 @@ const UpsaleContentProvider = ({
     { step: 3, stepData: [] },
     { step: 4, stepData: [] },
   ]);
+
+  const addUpsaleId = (id: number) => {
+    setUpsaleId(id)
+  }
 
   const addNewOption = (step: number, option: Option, maxSelection: number, quantity: number) => {
 
@@ -97,11 +102,18 @@ const UpsaleContentProvider = ({
     ]);
   };
 
+  const predefineUpsale = (upsale: UpsaleData) => {
+    setUpsaleData(upsale)
+  }
+
   const contextValue: UpsaleContextValueType = {
     upsaleData,
     resetUpsale,
     addNewOption,
-    removeAnOption
+    removeAnOption,
+    predefineUpsale,
+    addUpsaleId,
+    upsaleId
   };
 
   return (

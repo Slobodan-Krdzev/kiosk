@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { useContext } from "react";
 import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
 import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
-import { Option } from "../../../../../Types/Types";
+import { Option, UpsaleStep } from "../../../../../Types/Types";
 import PricePreviewer from "../../../PricePreviewer/PricePreviewer";
 import Check from "../../../SVG/Check";
 import styles from "./DualOptionSelectorStyles.module.css";
@@ -13,13 +13,15 @@ type DualOptionSelectorPropsType = {
   options: Option[];
   upsaleStep: number;
   handleUpsaleStepChange: (type: "increase" | "decrease") => void;
+  upsaleStepData: UpsaleStep
 };
 
 const DualOptionSelector = ({
   option,
   upsaleStep,
+  upsaleStepData
 }: DualOptionSelectorPropsType) => {
-  const { theme, data } = useContext(DataContext);
+  const { theme } = useContext(DataContext);
 
   const { upsaleData, addNewOption, removeAnOption } = useContext(UpsaleContext);
 
@@ -28,8 +30,9 @@ const DualOptionSelector = ({
     upsaleDataSelectedOptions.find((o) => o.option.Id === option.Id)
   );
 
-  const maxSelection =
-    data.TMKData[0].UpsaleColletions[0].UpsaleSteps[upsaleStep].MaxSelection;
+  const maxSelection = upsaleStepData.MaxSelection
+
+  console.log('Upsale Data od Selector', upsaleStepData)
 
   return (
     <motion.div
