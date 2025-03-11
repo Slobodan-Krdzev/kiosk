@@ -24,14 +24,15 @@ const Checkout = () => {
   const { theme, data } = useContext(DataContext);
   const { t } = useTranslation();
   const [isOrderFormVisible, setIsOrderFormVisible] = useState(true);
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState("");
   const [isRibbonShown, setIsRibbonShown] = useState(true);
   const [, setPaddingTop] = useState(50);
   const [isKeyboardActive, setIsKeyboardActive] = useState(false);
-  const [isParentKeyboardActive, setIsParentKeyboardActive] = useState(false)
+  const [isParentKeyboardActive, setIsParentKeyboardActive] = useState(false);
   const scrollContRef = useRef<null | HTMLDivElement>(null);
   const keyboardRef = useRef<HTMLDivElement | null>(null);
-  const formRef = useRef<HTMLFormElement | null>(null)
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const parentDiv = document.querySelector("#checkoutScrollParent");
 
   const hideShowRibbon = (value: boolean) => {
     setIsRibbonShown(value);
@@ -121,6 +122,31 @@ const Checkout = () => {
     return () => container?.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleClickToCloseForm = (e: MouseEvent) => {
+    if (
+      formRef.current &&
+      !formRef.current.contains(e.target as Node) &&
+      keyboardRef.current &&
+      !keyboardRef.current.contains(e.target as Node)
+    ) {
+      setIsOrderFormVisible(true);
+      setIsParentKeyboardActive(false);
+      setIsRibbonShown(true);
+      parentDiv?.classList.remove("scrollPaddingTop");
+    }
+  };
+
+  useEffect(() => {
+    if (isOrderFormVisible) {
+      document.addEventListener("mousedown", handleClickToCloseForm);
+    } else {
+      document.removeEventListener("mousedown", handleClickToCloseForm);
+    }
+
+    return () =>
+      document.removeEventListener("mousedown", handleClickToCloseForm);
+  }, [isOrderFormVisible]);
+
   const handleNextAction = () => {
     if (isTestMode) {
       handleStepChange("payment");
@@ -138,7 +164,18 @@ const Checkout = () => {
     // OVDE SE DODAVA FULL ORDER NOTE
     handleOrderNote(inputValue ?? "No Note");
     e.currentTarget.reset();
-    setIsParentKeyboardActive(false)
+    setIsParentKeyboardActive(false);
+  };
+
+  const handleFocus = () => {
+    parentDiv?.classList.add("scrollPaddingTop");
+
+    console.log(parentDiv);
+
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start", 
+    });
   };
 
   const handleKeyboardActivity = (boolean: boolean) => {
@@ -165,7 +202,6 @@ const Checkout = () => {
       } as React.FormEvent<HTMLFormElement>);
     }
   };
-
 
   return (
     <ViewFullScreenAnimated framerKey={"Checkout"} backgroundColor="#F1F1F1">
@@ -206,28 +242,32 @@ const Checkout = () => {
 
             <button
               className={styles.orderNoteEditBtn}
-              onClick={() =>{ 
-                setIsOrderFormVisible(true)
-                setIsParentKeyboardActive(true)
-                setIsRibbonShown(false)}}
+              onClick={() => {
+                handleFocus();
+
+                setIsOrderFormVisible(true);
+                setIsParentKeyboardActive(true);
+                setIsRibbonShown(false);
+              }}
             >
               <Pencil color={theme.activeTextColor} />
             </button>
           </motion.div>
         )}
-
+    
         {isOrderFormVisible && (
           <motion.form
-          ref={formRef}
+            ref={formRef}
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className={`formStyles ${styles.inputField}`}
             onSubmit={(e) => {
-              e.preventDefault()
-              onFormSubmit(e)
-              e.currentTarget.reset()
+              e.preventDefault();
+              onFormSubmit(e);
+              setInputValue("");
+              e.currentTarget.reset();
             }}
           >
             <label htmlFor="orderNoteInput" className="noteLabel fontSF">
@@ -236,7 +276,7 @@ const Checkout = () => {
 
             <div style={{ display: "flex" }}>
               <input
-              value={inputValue}
+                value={inputValue}
                 style={{
                   borderColor: theme.activeTextColor,
                   width: "80%",
@@ -247,17 +287,14 @@ const Checkout = () => {
                 id="orderNoteInput"
                 required
                 className="defInput"
-                placeholder={
-                  finalInfo.orderNote !== ""
-                    ? finalInfo.orderNote
-                    : `${t("add_note")}`
-                }
+                placeholder={`${t("add_note")}`}
                 onFocus={() => {
                   hideShowRibbon(false);
-                  setIsParentKeyboardActive(true)
+                  setIsParentKeyboardActive(true);
+                  handleFocus();
                 }}
                 onChange={(e) => {
-                  setInputValue(e.currentTarget.value)
+                  setInputValue(e.currentTarget.value);
                 }}
               />
 
