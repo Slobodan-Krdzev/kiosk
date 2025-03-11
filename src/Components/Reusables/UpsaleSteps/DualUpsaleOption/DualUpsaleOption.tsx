@@ -18,7 +18,7 @@ type DualUpsaleOptionPropsType = {
   handleUpsaleStepChange: (type: "increase" | "decrease") => void;
   upsaleStep: number;
   stepsLength: number;
-  upsaleInfoData: UpsaleColletion
+  upsaleInfoData: UpsaleColletion;
 };
 
 const DualUpsaleOption = ({
@@ -26,36 +26,47 @@ const DualUpsaleOption = ({
   handleUpsaleStepChange,
   upsaleStep,
   stepsLength,
-  upsaleInfoData
+  upsaleInfoData,
 }: DualUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
-  const { resetUpsale, upsaleData, isEditMode, toggleEditMode } = useContext(UpsaleContext);
-  const { singleMeal, placeMealInOrders, setUpsale, copyOfEditingItem } = useContext(OrderContext);
+  const { resetUpsale, upsaleData, isEditMode, toggleEditMode } =
+    useContext(UpsaleContext);
+  const { singleMeal, placeMealInOrders, setUpsale, copyOfEditingItem } =
+    useContext(OrderContext);
   // const { data } = useContext(DataContext);
 
-  const topImage = upsaleInfoData.UpsaleSteps[upsaleStep].PictureUrl
-const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
+  const topImage = upsaleInfoData.UpsaleSteps[upsaleStep].PictureUrl;
+  const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep];
   const upsaleSteps = upsaleInfoData.UpsaleSteps;
   const options = upsaleStepData.Options;
   const isLastStep = upsaleSteps.length === upsaleStep + 1;
   const isNextButtonDissabled = !(
     upsaleData[upsaleStep].stepData.length >= upsaleStepData.MinSelection
   );
-  const maxSelectionOnStep = currentStep.MaxSelection
- 
-  const selectedOptions = upsaleData[upsaleStep].stepData
+  const maxSelectionOnStep = currentStep.MaxSelection;
 
-  console.log("Selected Options",selectedOptions)
+  const selectedOptions = upsaleData[upsaleStep].stepData;
+
+  console.log("Selected Options", selectedOptions);
 
   const onXButtonClick = () => {
-      handleStepChange("order");
+    
+    if (isEditMode) {
+      if (copyOfEditingItem) {
+        placeMealInOrders(copyOfEditingItem);
+        resetUpsale();
+        toggleEditMode(false);
+      }
+    } 
+    handleStepChange("order");
       resetUpsale();
-   
   };
 
   const onNextButton = () => {
-    const someOptionHasFinnish = selectedOptions.some((o) => o.option.Finish === true);
-    
+    const someOptionHasFinnish = selectedOptions.some(
+      (o) => o.option.Finish === true
+    );
+
     if (isLastStep) {
       setUpsale(upsaleData);
       placeMealInOrders({
@@ -65,10 +76,10 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
         itemGUI: undefined,
       });
 
-      toggleEditMode(false)
+      toggleEditMode(false);
       handleStepChange("order");
       resetUpsale();
-    }else if(!isLastStep && someOptionHasFinnish){
+    } else if (!isLastStep && someOptionHasFinnish) {
       setUpsale(upsaleData);
       placeMealInOrders({
         ...singleMeal,
@@ -77,7 +88,7 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
         itemGUI: undefined,
       });
 
-      toggleEditMode(false)
+      toggleEditMode(false);
       handleStepChange("order");
       resetUpsale();
     } else {
@@ -86,9 +97,7 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
   };
 
   const onBackButton = () => {
-
-
-    // ako e prv step 
+    // ako e prv step
     // - resetUpsale
     // - orderScreen
 
@@ -96,18 +105,15 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
       handleStepChange("order");
       resetUpsale();
 
-      if(isEditMode) {
-
-        if(copyOfEditingItem)
-        placeMealInOrders(copyOfEditingItem)
-        toggleEditMode(false)}
+      if (isEditMode) {
+        if (copyOfEditingItem) placeMealInOrders(copyOfEditingItem);
+        toggleEditMode(false);
+      }
     }
 
     handleUpsaleStepChange("decrease");
-  }
+  };
 
-
-  
   return (
     <ViewFullScreenAnimated
       backgroundColor="#EDEDED"
@@ -118,7 +124,9 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
 
       <UpsaleTopFixed
         version={upsaleStep === 0 ? 0 : 1}
-        image={singleMeal.product?.ProductDetails?.ProductPictureUrl ?? topImage}
+        image={
+          singleMeal.product?.ProductDetails?.ProductPictureUrl ?? topImage
+        }
         productName={singleMeal.product!.Name!}
         xButtonClickHandler={onXButtonClick}
       />
@@ -128,7 +136,11 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
       <div>
         <h2 className={styles.subtitle}>{upsaleStepData.Name}</h2>
         <p className={styles.mealName}>
-          {maxSelectionOnStep > 1 ? <>{t("multiple_choice")}</> : <>{t("only_one")}</>}
+          {maxSelectionOnStep > 1 ? (
+            <>{t("multiple_choice")}</>
+          ) : (
+            <>{t("only_one")}</>
+          )}
         </p>
 
         <AnimatePresence mode="wait">
