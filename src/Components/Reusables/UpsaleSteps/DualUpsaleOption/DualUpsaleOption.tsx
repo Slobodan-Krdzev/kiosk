@@ -12,6 +12,7 @@ import UpsaleTopFixed from "../../UpsaleTopFixed/UpsaleTopFixed";
 import ViewFullScreenAnimated from "../../ViewFullScreenAnimated/ViewFullScreenAnimated";
 import DualOptionSelector from "./DualOptionSelector/DualOptionSelector";
 import styles from "./DualUpsaleOptionStyles.module.css";
+import MultiOptionselector from "../MultiUpsaleOption/MultiOptionSelector/MultiOptionselector";
 
 type DualUpsaleOptionPropsType = {
   upsaleStepData: UpsaleStep;
@@ -50,16 +51,15 @@ const DualUpsaleOption = ({
   console.log("Selected Options", selectedOptions);
 
   const onXButtonClick = () => {
-    
     if (isEditMode) {
       if (copyOfEditingItem) {
         placeMealInOrders(copyOfEditingItem);
         resetUpsale();
         toggleEditMode(false);
       }
-    } 
+    }
     handleStepChange("order");
-      resetUpsale();
+    resetUpsale();
   };
 
   const onNextButton = () => {
@@ -145,16 +145,24 @@ const DualUpsaleOption = ({
 
         <AnimatePresence mode="wait">
           <div className={styles.optionsWrapper}>
-            {options.map((o) => (
-              <DualOptionSelector
-                key={o.Id}
-                option={o}
-                upsaleStep={upsaleStep}
-                options={options}
-                handleUpsaleStepChange={handleUpsaleStepChange}
-                upsaleStepData={upsaleInfoData.UpsaleSteps[upsaleStep]}
-              />
-            ))}
+            {options.map((o) =>
+              o.MaxSelection > 1 ? (
+                <MultiOptionselector
+                  option={o}
+                  maxSelection={maxSelectionOnStep}
+                  upsaleStep={upsaleStep}
+                />
+              ) : (
+                <DualOptionSelector
+                  key={o.Id}
+                  option={o}
+                  upsaleStep={upsaleStep}
+                  options={options}
+                  handleUpsaleStepChange={handleUpsaleStepChange}
+                  upsaleStepData={upsaleInfoData.UpsaleSteps[upsaleStep]}
+                />
+              )
+            )}
           </div>
         </AnimatePresence>
       </div>
