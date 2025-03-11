@@ -29,7 +29,7 @@ const MultiUpsaleOption = ({
   upsaleInfoData
 }: MultiUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
-  const { placeMealInOrders, singleMeal, setUpsale } = useContext(OrderContext);
+  const { placeMealInOrders, singleMeal, setUpsale, copyOfEditingItem } = useContext(OrderContext);
   const { upsaleData, resetUpsale, isEditMode, toggleEditMode } = useContext(UpsaleContext);
   const { t } = useTranslation();
   const topImage = upsaleInfoData.UpsaleSteps[0].PictureUrl
@@ -79,7 +79,11 @@ const MultiUpsaleOption = ({
       handleStepChange("order");
       resetUpsale();
 
-      if(isEditMode) toggleEditMode(false)
+      if(isEditMode) {
+
+        if(copyOfEditingItem)
+        placeMealInOrders(copyOfEditingItem)
+        toggleEditMode(false)}
     }
 
     handleUpsaleStepChange("decrease");

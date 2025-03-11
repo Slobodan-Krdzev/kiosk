@@ -17,7 +17,9 @@ export type OrderContextValue = {
     handleSetOrderNumber: (number: string) => void,
     orderNum: string,
     IdOrder: number,
-    handleSetIdOrderNumber: (number: number) => void
+    handleSetIdOrderNumber: (number: number) => void,
+    handleSetCopyOfEditingItem: (meal: SingleMealType) => void,
+    copyOfEditingItem: SingleMealType | undefined
 }
 
 export const OrderContext = createContext({} as OrderContextValue)

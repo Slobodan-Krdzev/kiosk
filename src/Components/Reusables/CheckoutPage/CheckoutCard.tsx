@@ -5,7 +5,7 @@ import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import { OrderContext } from "../../../Contexts/OrderContext/OrderContext";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
-// import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
+import { UpsaleContext } from "../../../Contexts/UpsaleContext/UpsaleContext";
 import { RootData, SingleMealType, ThemeType } from "../../../Types/Types";
 import PricePreviewer from "../PricePreviewer/PricePreviewer";
 import Minus from "../SVG/Minus";
@@ -36,8 +36,9 @@ const CheckoutCard = ({
     // setMeal,
   } = useContext(OrderContext);
   const { handleStepChange } = useContext(StepContext);
-  // const {  toggleEditMode, addUpsaleId } = useContext(UpsaleContext);
-
+  const { toggleEditMode, addUpsaleId, resetUpsale } =
+    useContext(UpsaleContext);
+  const { setMeal, handleSetCopyOfEditingItem } = useContext(OrderContext);
   const [quantity, setQuantity] = useState(
     order.quantity >= 1 ? order.quantity : 1
   );
@@ -178,12 +179,10 @@ const CheckoutCard = ({
                     : order.note}
                 </p>
               )}
-
-             
             </div>
 
             <div className={styles.cardNoteBtnsWrapper}>
-              {/* {order?.product?.HasUpsaleCollection &&
+              {order?.product?.HasUpsaleCollection &&
                 !isProductNoteInputVisible && (
                   <motion.button
                     key={"Edit Note Btn"}
@@ -194,18 +193,20 @@ const CheckoutCard = ({
                     className={styles.addNoteBtn}
                     style={{ fontSize: "2vw" }}
                     onClick={() => {
-                      // removeMealFromOrders(order.id);
 
-                      // resetUpsale();
-                      toggleEditMode(true)
-                      if(order) addUpsaleId(order?.product?.UpsaleCollectionId ?? 0)
-                      
-                      setMeal(order.product!);
-                      // run thru upsale
-                      handleStepChange("menuUpgrade");
+                      if (order) {
+                        
+                        handleSetCopyOfEditingItem(order);
+                        resetUpsale();
 
-                      
-                      console.log(order)
+                        toggleEditMode(true);
+                        addUpsaleId(order?.product?.UpsaleCollectionId ?? 0);
+
+                        setMeal(order.product!);
+                        removeMealFromOrders(order.id)
+                        handleStepChange("menuUpgrade");
+                      }
+
                     }}
                   >
                     <img
@@ -217,7 +218,7 @@ const CheckoutCard = ({
                     />{" "}
                     {t("edit_note")}
                   </motion.button>
-                )} */}
+                )}
 
               {!isProductNoteInputVisible && (
                 <motion.button

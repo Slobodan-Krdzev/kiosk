@@ -30,7 +30,7 @@ const DualUpsaleOption = ({
 }: DualUpsaleOptionPropsType) => {
   const { handleStepChange } = useContext(StepContext);
   const { resetUpsale, upsaleData, isEditMode, toggleEditMode } = useContext(UpsaleContext);
-  const { singleMeal, placeMealInOrders, setUpsale } = useContext(OrderContext);
+  const { singleMeal, placeMealInOrders, setUpsale, copyOfEditingItem } = useContext(OrderContext);
   // const { data } = useContext(DataContext);
 
   const topImage = upsaleInfoData.UpsaleSteps[upsaleStep].PictureUrl
@@ -65,6 +65,7 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
         itemGUI: undefined,
       });
 
+      toggleEditMode(false)
       handleStepChange("order");
       resetUpsale();
     }else if(!isLastStep && someOptionHasFinnish){
@@ -76,6 +77,7 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
         itemGUI: undefined,
       });
 
+      toggleEditMode(false)
       handleStepChange("order");
       resetUpsale();
     } else {
@@ -94,7 +96,11 @@ const currentStep = upsaleInfoData.UpsaleSteps[upsaleStep]
       handleStepChange("order");
       resetUpsale();
 
-      if(isEditMode) toggleEditMode(false)
+      if(isEditMode) {
+
+        if(copyOfEditingItem)
+        placeMealInOrders(copyOfEditingItem)
+        toggleEditMode(false)}
     }
 
     handleUpsaleStepChange("decrease");

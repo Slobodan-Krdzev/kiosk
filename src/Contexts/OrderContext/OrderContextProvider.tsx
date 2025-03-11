@@ -23,6 +23,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
 
   const [orders, setOrders] = useState<SingleMealType[]>([]);
   const [orderNum, setOrderNumber] = useState<string>('')
+  const [copyOfEditingItem, setCopyOfEditingItem] = useState<SingleMealType | undefined>()
   const [IdOrder, setIdOrder] = useState<number>(0)
 
   const [singleMeal, setSingleMeal] =
@@ -155,6 +156,11 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     setIdOrder(number)
   }
 
+  const handleSetCopyOfEditingItem = (meal: SingleMealType) => {
+
+    setCopyOfEditingItem(meal)
+  }
+
   const contextValue: OrderContextValue = {
     orders,
     singleMeal,
@@ -169,7 +175,9 @@ const OrderContextProvider = ({ children }: OrderContextProviderPropsType) => {
     handleSetOrderNumber,
     orderNum,
     handleSetIdOrderNumber,
-    IdOrder
+    IdOrder,
+    copyOfEditingItem,
+    handleSetCopyOfEditingItem
   };
 
   return (
