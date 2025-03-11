@@ -15,7 +15,9 @@ export default defineConfig({
       registerType: "autoUpdate",
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,json,woff,woff2}"],
-        cleanupOutdatedCaches: true
+        cleanupOutdatedCaches: true,
+        skipWaiting: true, 
+        clientsClaim: true,
       },
       selfDestroying: true,
       manifest: {

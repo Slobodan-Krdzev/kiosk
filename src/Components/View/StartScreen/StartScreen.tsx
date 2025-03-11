@@ -5,7 +5,7 @@ import BottomOpacityContentWrapper from "../../Reusables/BottomOpacityContentWra
 import LanguageSelector from "../../Reusables/LanguageSelectors/LanguageSelector";
 import LargeBtn from "../../Reusables/LargeBtn/LargeBtn";
 import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
-import { t } from "i18next";
+// import { t } from "i18next";
 
 const StartScreen = () => {
   const { handleStepChange } = useContext(StepContext);
@@ -45,7 +45,8 @@ const StartScreen = () => {
             document.documentElement.requestFullscreen();
           }}
         >
-          {t("start_btn")}
+          {/* {t("start_btn")} */}
+          Nema Cache / Fresh 
         </LargeBtn>
       </BottomOpacityContentWrapper>
     </ViewFullScreenAnimated>
