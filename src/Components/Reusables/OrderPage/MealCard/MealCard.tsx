@@ -123,7 +123,7 @@ const MealCard = ({
       initial={{ scale: 1, opacity: 0, y: 20 }}
       animate={{ scale: isMealPlacedInOrders ? 1.02 : 1, opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3, delay: 0.25 }}
+      transition={{ duration: 0.1 }}
       onClick={async () => {
         const availability = isTestMode
           ? true
