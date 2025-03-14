@@ -1,0 +1,59 @@
+{
+  "startScreen": {
+    "btn": "Commencer la commande"
+  },
+  "orderType": {
+    "dineIn": "Manger sur place",
+    "takeaway": "À emporter"
+  },
+  "order": {
+    "orderType": "Type de commande",
+    "toOrder": "Commander"
+  },
+  "checkout": {
+    "yourOrder": "Votre commande",
+    "edit": "Modifier",
+    "note": "Remarque",
+    "orderNoteQuestion": "Ajouter une note de commande",
+    "orderNotePlaceholder": "Ajouter une note"
+  },
+  "payment": {
+    "paymentTitle": "Paiement",
+    "scanQR": "Scannez votre QR-code"
+  },
+  "finishPage": {
+    "finishTitle": "Paiement réussi",
+    "finnishSubtitle": "Votre commande est prête au comptoir",
+    "orderNumber": "Numéro de commande",
+    "receiptEmail": "Entrez votre adresse e-mail pour recevoir votre reçu"
+  },
+  "confirmation": {
+    "message": "Votre commande est prête au comptoir"
+  },
+  "errorPage": {
+    "title": "Erreur de paiement",
+    "title2": "Quelque chose s'est mal passé",
+    "subtitle": "Veuillez contacter notre personnel et vérifier les détails de votre carte",
+    "btn": "Redémarrer"
+  },
+  "outOfOrder": {
+    "title": "Hors service",
+    "subtitle": "Veuillez commander au comptoir"
+  },
+  "total": "Total",
+  "back": "Retour",
+  "next": "Suivant",
+  "done": "Terminé",
+  "cancelOrder": "Annuler la commande",
+  "cancelQuestion": "Êtes-vous sûr de vouloir annuler votre commande?",
+  "yes": "Oui",
+  "finish": "Terminer",
+  "close": "Fermer",
+  "addToBasket": "Ajouter au panier",
+  "alreadyInBasket": "Déjà dans le panier",
+  "pregnancy": "Grossesse",
+  "vegan": "Végétalien",
+  "spicy": "Épicé",
+  "vegeterian": "Végétarien",
+  "alergens": "Allergènes"
+}

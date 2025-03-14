@@ -4,6 +4,7 @@ import { StepContext } from "../../../Contexts/StepContext/StepContext";
 import BottomOpacityContentWrapper from "../../Reusables/BottomOpacityContentWrapper/BottomOpacityContentWrapper";
 import LargeBtn from "../../Reusables/LargeBtn/LargeBtn";
 import styles from "./PaymentError.module.css";
+import { t } from "i18next";
 
 const PaymentError = () => {
   const { handleStepChange, step } = useContext(StepContext);
@@ -27,11 +28,13 @@ const PaymentError = () => {
         style={{ fontSize: "5vw", textAlign: "center", fontWeight: 500 }}
       >
         Oops!!! <br />{" "}
-        {step === "paymentErr" ? "Payment failed." : "Something Went Wrong!"}
+        {step === "paymentErr" ? (
+          <>{t("errorPage.title")}</>
+        ) : (
+          <>{t("errorPage.title2")}</>
+        )}
       </p>
-      <p className={styles.message}>
-        Please contact our staff and check your card details.
-      </p>
+      <p className={styles.message}>{t("errorPage.subtitle")}</p>
 
       <BottomOpacityContentWrapper
         style={{
@@ -55,7 +58,7 @@ const PaymentError = () => {
             document.documentElement.requestFullscreen();
           }}
         >
-          Restart
+          {t("errorPage.btn")}
         </LargeBtn>
       </BottomOpacityContentWrapper>
     </motion.section>

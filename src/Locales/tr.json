@@ -1,0 +1,43 @@
+{
+  "startScreen": {
+    "btn": "Siparişe Başla"
+  },
+  "orderType": {
+    "dineIn": "Restoranda Ye",
+    "takeaway": "Paket Servis"
+  },
+  "order": {
+    "orderType": "Sipariş Türü",
+    "toOrder": "Sipariş Ver"
+  },
+  "checkout": {
+    "yourOrder": "Siparişiniz",
+    "edit": "Düzenle",
+    "note": "Not",
+    "orderNoteQuestion": "Sipariş notu ekleyin",
+    "orderNotePlaceholder": "Not ekleyin"
+  },
+  "payment": {
+    "paymentTitle": "Ödeme",
+    "scanQR": "QR kodunuzu tarayın"
+  },
+  "finishPage": {
+    "finishTitle": "Ödeme başarılı",
+    "finnishSubtitle": "Siparişiniz tezgahta hazır",
+    "orderNumber": "Sipariş Numarası",
+    "receiptEmail": "Fişinizi almak için e-posta adresinizi girin"
+  },
+  "confirmation": {
+    "message": "Siparişiniz tezgahta hazır"
+  },
+  "errorPage": {
+    "title": "Ödeme Hatası",
+    "title2": "Bir şeyler yanlış gitti",
+    "subtitle": "Lütfen personelimizle iletişime geçin ve kart bilgilerinizi kontrol edin",
+    "btn": "Yeniden Başlat"
+  },
+  "outOfOrder": {
+    "title": "Hizmet Dışı",
+    "subtitle": "Lütfen tezgahtan sipariş verin"
+  }
+}

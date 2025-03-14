@@ -5,12 +5,14 @@ import BottomOpacityContentWrapper from "../../Reusables/BottomOpacityContentWra
 import LanguageSelector from "../../Reusables/LanguageSelectors/LanguageSelector";
 import LargeBtn from "../../Reusables/LargeBtn/LargeBtn";
 import ViewFullScreenAnimated from "../../Reusables/ViewFullScreenAnimated/ViewFullScreenAnimated";
-import { t } from "i18next";
+import { useTranslation } from 'react-i18next';
 
 const StartScreen = () => {
   const { handleStepChange } = useContext(StepContext);
   const { data } = useContext(DataContext);
+  const { t  } = useTranslation();
 
+ 
   return (
     <ViewFullScreenAnimated
       framerKey={"startScreen"}
@@ -45,7 +47,7 @@ const StartScreen = () => {
             document.documentElement.requestFullscreen();
           }}
         >
-          {t("start_btn")}
+          {t("startScreen.btn")}
         </LargeBtn>
       </BottomOpacityContentWrapper>
     </ViewFullScreenAnimated>

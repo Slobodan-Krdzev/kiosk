@@ -54,8 +54,8 @@ const SmallOrderTypeSelector = () => {
          
         
         <div className={styles.spanWrapper}>
-          <span className={styles.orderType}>{t('order_type')}</span>
-          <span className={styles.value}>{finalInfo.orderType}</span>
+          <span className={styles.orderType}>{t('order.orderType')}</span>
+          <span className={styles.value}>{finalInfo.orderType === "Takeaway" ? <>{t('orderType.takeaway')}</> : <>{t("orderType.dineIn")}</>}</span>
         </div>
         <div>
             <Chevron color="black" orientation={isOpen ? 'toTop': 'toBottom'}/>
@@ -74,7 +74,7 @@ const SmallOrderTypeSelector = () => {
             <ul className={styles.dropdownList}>
                 {options.map((op )=> <li key={op} onClick={() => {
                     onOptionClick(op as "Dine In" | "Takeaway")
-                }}>{op}</li>)}
+                }}>{op === 'Takeaway' ? <>{t('orderType.takeaway')}</> : <>{t("orderType.dineIn")}</>} </li>)}
              
             </ul>
           </motion.div>

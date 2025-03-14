@@ -1,0 +1,59 @@
+{
+  "startScreen": {
+    "btn": "Start Ordering"
+  },
+  "orderType": {
+    "dineIn": "Dine In",
+    "takeaway": "Takeaway"
+  },
+  "order": {
+    "orderType": "Order Type",
+    "toOrder": "Order"
+  },
+  "checkout": {
+    "yourOrder": "Your Order",
+    "edit": "Edit",
+    "note": "Note",
+    "orderNoteQuestion": "Add order note",
+    "orderNotePlaceholder": "Add note"
+  },
+  "payment": {
+    "paymentTitle": "Payment",
+    "scanQR": "Scan your QR-code"
+  },
+  "finishPage": {
+    "finishTitle": "Payment successful",
+    "finnishSubtitle": "Your order is ready for you at the counter",
+    "orderNumber": "Order Number",
+    "receiptEmail": "Enter your email address to receive your receipt"
+  },
+  "confirmation": {
+    "message": "Your order is ready for you at the counter"
+  },
+  "errorPage": {
+    "title": "Payment Error",
+    "title2": "Something went wrong",
+    "subtitle": "Please contact our staff and check your card details",
+    "btn": "Restart"
+  },
+  "outOfOrder": {
+    "title": "Out of order",
+    "subtitle": "Please order at the counter"
+  },
+  "total": "Total",
+  "back": "Back",
+  "next": "Next",
+  "done": "Done",
+  "cancelOrder": "Cancel Order",
+  "cancelQuestion": "Are you sure you want to cancel your order?",
+  "yes": "Yes",
+  "finish": "Finish",
+  "close": "Close",
+  "addToBasket": "Add to basket",
+  "alreadyInBasket": "Already in basket",
+  "pregnancy": "Pregnancy",
+  "vegan": "Vegan",
+  "spicy": "Spicy",
+  "vegeterian": "Vegeterian",
+  "alergens": "Alergens"
+}

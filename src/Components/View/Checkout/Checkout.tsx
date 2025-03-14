@@ -208,7 +208,7 @@ const Checkout = () => {
       <TopFixedRibbon justifyContent={"space-between"}>
         <Logo source={data.ThemeResponse.LogoImage.Url} width={50} />
 
-        <p className={styles.topText}>{t("my_order")}</p>
+        <p className={styles.topText}>{t("checkout.yourOrder")}</p>
       </TopFixedRibbon>
 
       <div
@@ -237,7 +237,7 @@ const Checkout = () => {
             style={{ borderColor: theme.activeTextColor }}
           >
             <p className="fontSF" style={{ fontSize: "2.6vw" }}>
-              {t("note")}: {finalInfo.orderNote}
+              {t("checkout.orderNoteQuestion")}: {finalInfo.orderNote}
             </p>
 
             <button
@@ -271,7 +271,7 @@ const Checkout = () => {
             }}
           >
             <label htmlFor="orderNoteInput" className="noteLabel fontSF">
-              {t("order_note")}
+              {t("checkout.orderNoteQuestion")}.
             </label>
 
             <div style={{ display: "flex" }}>
@@ -287,7 +287,7 @@ const Checkout = () => {
                 id="orderNoteInput"
                 required
                 className="defInput"
-                placeholder={`${t("add_note")}`}
+                placeholder={`${t("checkout.orderNotePlaceholder")}`}
                 onFocus={() => {
                   hideShowRibbon(false);
                   setIsParentKeyboardActive(true);
@@ -330,14 +330,14 @@ const Checkout = () => {
               }}
               clickHandler={() => handleStepChange("order")}
             >
-              {t("back_Btn")}
+              {t("back")}
             </DefaultButton>
             <BottomOrderInfo
               width={"80%"}
               clickHandler={handleNextAction}
               total={getOrderTotal()}
               numberOfProductsInCart={orders.length}
-              nextText={t("payment")}
+              nextText={t("next")}
             />
           </>
         </BottomFixedShadowLayer>

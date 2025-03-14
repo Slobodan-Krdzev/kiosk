@@ -229,7 +229,7 @@ const MealInfo = ({ meal }: MealInfoProps) => {
             textTransform: "uppercase",
           }}
         >
-          {isAddBtnDisabled ? <>{t('already_in_basket')}</> : <>{t('add_to_basket')}</>}
+          {isAddBtnDisabled ? <>{t('alreaInBasket')}</> : <>{t('addToBasket')}</>}
         </DefaultButton>
       </div>
     </div>

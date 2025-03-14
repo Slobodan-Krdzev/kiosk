@@ -77,16 +77,16 @@ const Finish = () => {
         {/* </div> */}
 
         <p className={`biggerPageTitles fontCustom1`}>
-          {t("order_successfull")}
+          {t("finishPage.finishTitle")}
         </p>
       </div>
 
       <p className={`${styles.subTitle} paymentPagesSubtitle fontSF`}>
-        {t("pick_order")}
+        {t("finishPage.finnishSubtitle")}
       </p>
 
       <div className={styles.orderNoWrapper}>
-        <p className={styles.orderNOTitle}>Order Number</p>
+        <p className={styles.orderNOTitle}>{t("finishPage.orderNumber")}</p>
         <p className={styles.orderNO}>{isTestMode ? 1 : orderNum}</p>
       </div>
 
@@ -96,11 +96,10 @@ const Finish = () => {
         onSubmit={(e) => {
           e.preventDefault();
 
-          console.log("Form Input Value", formInputVal.current!.value);
         }}
       >
         <label className={`noteLabel ${styles.formLabel}`} htmlFor="emailInput">
-          {t("enter_Email")}.
+          {t("finishPage.receiptEmail")}.
         </label>
         <input
           style={{ borderRadius: 8 }}

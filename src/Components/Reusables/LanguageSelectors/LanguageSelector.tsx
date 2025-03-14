@@ -3,10 +3,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../../Contexts/DataContext/Datacontext";
 import Chevron from "../SVG/Chevron";
 import styles from "./LanguageSelectorStyles.module.css";
+import { useTranslation } from "react-i18next";
 
 const LanguageSelector = () => {
-  const { data } = useContext(DataContext);
+  const { data, handleLangChange } = useContext(DataContext);
   const languageOptions = data.ThemeResponse.LanguagesList;
+  const {  i18n: {changeLanguage, language} } = useTranslation();
+  const [currentLanguage, setCurrentLanguage] = useState(language)
 
   const [selectedLang, setSelectedLang] = useState(
     data.ThemeResponse.LanguagesList[0]
@@ -32,6 +35,15 @@ const LanguageSelector = () => {
     };
   }, []);
 
+  
+  
+    const handleChangeLanguage = (lang: string) => {
+      const newLanguage = lang;
+      setCurrentLanguage(lang);
+      changeLanguage(newLanguage);
+      handleLangChange(lang)
+    }
+
   return (
     <div className={styles.dropupContainer} ref={dropdownRef}>
       {/* Event: Click button -> Toggle dropdown */}
@@ -53,12 +65,13 @@ const LanguageSelector = () => {
                   onClick={() => {
                     setSelectedLang(lang);
                     setIsOpen(false);
+                    handleChangeLanguage(lang.Locale)
                   }}
                 >
                   <img
                     className={styles.flag}
-                    alt={selectedLang?.Name}
-                    src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${lang?.Locale.toUpperCase()}.svg`}
+                    alt={currentLanguage}
+                    src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${lang?.Locale === 'en' ? 'GB' : lang?.Locale.toUpperCase()}.svg`}
                   />
                   {lang.Name}
                 </li>
@@ -73,7 +86,7 @@ const LanguageSelector = () => {
       >
         <img
           alt={selectedLang?.Name}
-          src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${selectedLang?.Locale.toUpperCase()}.svg`}
+          src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${selectedLang?.Locale === 'en' ? 'GB' : selectedLang?.Locale.toUpperCase()}.svg`}
           className={styles.flag}
         />
         {selectedLang.Name}

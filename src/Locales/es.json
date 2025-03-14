@@ -1,0 +1,60 @@
+{
+  "startScreen": {
+    "btn": "Comenzar pedido"
+  },
+  "orderType": {
+    "dineIn": "Comer en el local",
+    "takeaway": "Para llevar"
+  },
+  "order": {
+    "orderType": "Tipo de pedido",
+    "toOrder": "Ordenar"
+  },
+  "checkout": {
+    "yourOrder": "Tu pedido",
+    "edit": "Editar",
+    "note": "Nota",
+    "orderNoteQuestion": "Agregar nota al pedido",
+    "orderNotePlaceholder": "Añadir nota"
+  },
+  "payment": {
+    "paymentTitle": "Pago",
+    "scanQR": "Escanea tu código QR"
+  },
+  "finishPage": {
+    "finishTitle": "Pago exitoso",
+    "finnishSubtitle": "Tu pedido está listo en el mostrador",
+    "orderNumber": "Número de pedido",
+    "receiptEmail": "Ingresa tu correo electrónico para recibir tu recibo"
+  },
+  "confirmation": {
+    "message": "Tu pedido está listo en el mostrador"
+  },
+  "errorPage": {
+    "title": "Error de pago",
+    "title2": "Algo salió mal",
+
+    "subtitle": "Por favor, contacta a nuestro personal y revisa los detalles de tu tarjeta",
+    "btn": "Reiniciar"
+  },
+  "outOfOrder": {
+    "title": "Fuera de servicio",
+    "subtitle": "Por favor, ordena en el mostrador"
+  },
+  "total": "Total",
+  "back": "Atrás",
+  "next": "Siguiente",
+  "done": "Listo",
+  "cancelOrder": "Cancelar pedido",
+  "cancelQuestion": "¿Estás seguro de que quieres cancelar tu pedido?",
+  "yes": "Sí",
+  "finish": "Finalizar",
+  "close": "Cerrar",
+  "addToBasket": "Añadir a la cesta",
+  "alreadyInBasket": "Ya está en la cesta",
+  "pregnancy": "Embarazo",
+  "vegan": "Vegano",
+  "spicy": "Picante",
+  "vegeterian": "Vegetariano",
+  "alergens": "Alérgenos"
+}

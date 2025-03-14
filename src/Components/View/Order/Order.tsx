@@ -104,6 +104,7 @@ const Order = () => {
 
   console.log("Orders from orders screen", orders);
 
+  console.log(t('payment.paymentTitle'))
 
   return (
     <ViewFullScreenAnimated framerKey={"order"}>
@@ -219,7 +220,7 @@ const Order = () => {
                 clickHandler={() => handleStepChange("checkout")}
                 total={total}
                 numberOfProductsInCart={orders.length}
-                nextText={t("view_order")}
+                nextText={t("order.toOrder")}
                 width={"100%"}
               />
             </>
@@ -234,7 +235,7 @@ const Order = () => {
               style={{ textAlign: "center", fontSize: "2.6vw", width: "60%" }}
               className={`fontCustom1 paymentPagesSubtitle`}
             >
-              {t("cancel_order_modal_question")}
+              {t("cancelQuestion")}
             </h2>
             <div className={`modalBtnsWrapper`}>
               <DefaultButton
@@ -245,7 +246,7 @@ const Order = () => {
                   width: "100%",
                 }}
               >
-                {t("back_Btn")}
+                {t("back")}
               </DefaultButton>
               <DefaultButton
                 clickHandler={cancelOrderClick}

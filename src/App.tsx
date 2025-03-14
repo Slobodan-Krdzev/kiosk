@@ -16,36 +16,44 @@ import { StepContext } from "./Contexts/StepContext/StepContext";
 import OutOfServiceScreen from "./Components/View/OutOfService/OutOfServiceScreen";
 
 function App() {
-  const { step,  isTestMode } = useContext(StepContext);
-  const { data,  } = useContext(DataContext);
-  const [isCounterVisible, setIsCounterVisible] = useState(false)
+  const { step, isTestMode } = useContext(StepContext);
+  const { data } = useContext(DataContext);
+  const [isCounterVisible, setIsCounterVisible] = useState(false);
   const inactivityTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inactivityPeriod = 1000000; 
+  const inactivityPeriod = 1000000;
 
-  console.log('Test Mode', isTestMode)
+  console.log("Test Mode", isTestMode);
   console.log(data);
 
   const handleInactivity = () => {
-    setIsCounterVisible(true); 
+    setIsCounterVisible(true);
   };
 
   const handleCounterComplete = () => {
-    setIsCounterVisible(false); 
+    setIsCounterVisible(false);
   };
 
   const resetInactivityTimer = () => {
     if (inactivityTimeout.current) {
-      clearTimeout(inactivityTimeout.current); 
+      clearTimeout(inactivityTimeout.current);
     }
 
     if (step !== "start") {
-      inactivityTimeout.current = setTimeout(handleInactivity, inactivityPeriod);
+      inactivityTimeout.current = setTimeout(
+        handleInactivity,
+        inactivityPeriod
+      );
     }
-
   };
 
   useEffect(() => {
-    const events = ["mousemove", "keydown", "mousedown", "touchstart", "scroll"];
+    const events = [
+      "mousemove",
+      "keydown",
+      "mousedown",
+      "touchstart",
+      "scroll",
+    ];
 
     if (step !== "start") {
       events.forEach((event) => {
@@ -63,26 +71,29 @@ function App() {
         clearTimeout(inactivityTimeout.current);
       }
     };
-  }, [step])
- 
+  }, [step]);
+
+  const browserLang = navigator.language;
+  console.log("Browser Language:", browserLang);
 
   return (
     <>
-      {isCounterVisible && step !== 'start' && (
-        <div className={`countOverlay`} onClick={() => {
-          resetInactivityTimer()
-          setIsCounterVisible(false)
-        }}>
-          
-            <Counter start={5} onTimerFinnish={handleCounterComplete}/>
-          
+      {isCounterVisible && step !== "start" && (
+        <div
+          className={`countOverlay`}
+          onClick={() => {
+            resetInactivityTimer();
+            setIsCounterVisible(false);
+          }}
+        >
+          <Counter start={5} onTimerFinnish={handleCounterComplete} />
         </div>
       )}
 
       <AnimatePresence mode="wait">
         {step === "start" && <StartScreen />}
         {step === "lang" && <ChooseLang />}
-        {step === "order" && <Order />} 
+        {step === "order" && <Order />}
         {step === "menuUpgrade" && <Upsale />}
         {step === "checkout" && <Checkout />}
         {step === "payment" && <Payment />}
@@ -90,7 +101,6 @@ function App() {
         {step === "paymentErr" && <PaymentError />}
         {step === "confirmation" && <Confirmation />}
         {step === "outOfService" && <OutOfServiceScreen />}
-
       </AnimatePresence>
     </>
   );

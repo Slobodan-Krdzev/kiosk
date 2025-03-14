@@ -56,7 +56,7 @@ const ChooseLang = () => {
             <Takeaway color={theme.activeTextColor} size="large"/>
 
             <p className={styles.menuOptionsText}>
-              {t("takeaway")}
+              {t("orderType.takeaway")}
             </p>
           </>
         </DineInOutBtn>
@@ -71,7 +71,7 @@ const ChooseLang = () => {
             <DineIn color={theme.activeTextColor} size="large"/>
 
             <p className={styles.menuOptionsText}>
-              {t("dine_in").substring(0, 15)}
+              {t("orderType.dineIn").substring(0, 15)}
             </p>
           </>
         </DineInOutBtn>

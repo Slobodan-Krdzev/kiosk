@@ -31,7 +31,7 @@ const Confirmation = () => {
       <p
         className={styles.message}
       >
-        {t('pick_order')}
+        {t('confirmation.message')}
       </p>
 
       {isCounterVisible && (

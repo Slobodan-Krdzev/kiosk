@@ -70,6 +70,8 @@ const Payment = () => {
     handleStepChange("start");
   };
 
+  
+
   return (
     <ViewFullScreenAnimated framerKey={"qrPayment"} backgroundColor="#F0F0F0">
       <TopFixedRibbon justifyContent={"center"}>
@@ -77,9 +79,9 @@ const Payment = () => {
       </TopFixedRibbon>
 
       <div className={styles.midSection}>
-        <p className={styles.title}>{t("payment")}</p>
+        <p className={styles.title}>{t("payment.paymentTitle")}</p>
 
-        <p className={`${styles.subTitle}`}>{t("qr_title")}</p>
+        <p className={`${styles.subTitle}`}>{t("payment.scanQR")}</p>
 
         <button
           className={styles.qrCode}
@@ -123,7 +125,7 @@ const Payment = () => {
           }}
           clickHandler={() => handleStepChange("order")}
         >
-          {t("back_Btn")}
+          {t("back")}
         </DefaultButton>
         <DefaultButton
           style={{
@@ -131,10 +133,11 @@ const Payment = () => {
             flexBasis: "40%",
             borderColor: "#FF4F4F",
             color: "#FF4F4F",
+            textTransform: "capitalize"
           }}
           clickHandler={() => setIsCancelModalOpen(true)}
         >
-          {t("cancel_order")}
+          {t("cancelOrder")}
         </DefaultButton>
       </BottomButtonholderRibbon>
 
@@ -145,7 +148,7 @@ const Payment = () => {
               style={{ textAlign: "center", fontSize: "2.6vw", width: "60%" }}
               className={`fontCustom1 paymentPagesSubtitle`}
             >
-              {t("cancel_order_modal_question")}
+              {t("cancelQuestion")}
             </h2>
             <div className={styles.modalBtnsWrapper}>
               <DefaultButton
@@ -155,7 +158,7 @@ const Payment = () => {
                   minHeight: "70px",
                 }}
               >
-                {t("back_Btn")}
+                {t("back")}
               </DefaultButton>
               <DefaultButton
                 clickHandler={handleCancelOrder}

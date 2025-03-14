@@ -1,0 +1,60 @@
+{
+  "startScreen": {
+    "btn": "Bestellung starten"
+  },
+  "orderType": {
+    "dineIn": "Im Restaurant essen",
+    "takeaway": "Zum Mitnehmen"
+  },
+  "order": {
+    "orderType": "Bestelltyp",
+    "toOrder": "Bestellen"
+  },
+  "checkout": {
+    "yourOrder": "Ihre Bestellung",
+    "edit": "Bearbeiten",
+    "note": "Notiz",
+    "orderNoteQuestion": "Bestellnotiz hinzufügen",
+    "orderNotePlaceholder": "Notiz hinzufügen"
+  },
+  "payment": {
+    "paymentTitle": "Zahlung",
+    "scanQR": "Scannen Sie Ihren QR-Code"
+  },
+  "finishPage": {
+    "finishTitle": "Zahlung erfolgreich",
+    "finnishSubtitle": "Ihre Bestellung ist am Tresen abholbereit",
+    "orderNumber": "Bestellnummer",
+    "receiptEmail": "Geben Sie Ihre E-Mail-Adresse ein, um Ihre Quittung zu erhalten"
+  },
+  "confirmation": {
+    "message": "Ihre Bestellung ist am Tresen abholbereit"
+  },
+  "errorPage": {
+    "title": "Zahlungsfehler",
+    "title2": "Etwas ist schiefgelaufen",
+
+    "subtitle": "Bitte kontaktieren Sie unser Personal und überprüfen Sie Ihre Kartendaten",
+    "btn": "Neustarten"
+  },
+  "outOfOrder": {
+    "title": "Außer Betrieb",
+    "subtitle": "Bitte bestellen Sie am Tresen"
+  },
+  "total": "Gesamt",
+  "back": "Zurück",
+  "next": "Weiter",
+  "done": "Fertig",
+  "cancelOrder": "Bestellung stornieren",
+  "cancelQuestion": "Sind Sie sicher, dass Sie Ihre Bestellung stornieren möchten?",
+  "yes": "Ja",
+  "finish": "Beenden",
+  "close": "Schließen",
+  "addToBasket": "In den Warenkorb",
+  "alreadyInBasket": "Bereits im Warenkorb",
+  "pregnancy": "Schwangerschaft",
+  "vegan": "Vegan",
+  "spicy": "Scharf",
+  "vegeterian": "Vegetarisch",
+  "alergens": "Allergene"
+}

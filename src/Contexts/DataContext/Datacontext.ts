@@ -14,6 +14,7 @@ type DataContextValueType = {
     reference: string;
     qrCodeImg: string;
   }) => void;
+  handleLangChange: (lang: string) => void
 };
 
 export const DataContext = createContext({} as DataContextValueType);

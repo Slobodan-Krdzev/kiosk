@@ -1,0 +1,59 @@
+{
+  "startScreen": {
+    "btn": "Begin Met Bestellen"
+  },
+  "orderType": {
+    "dineIn": "Dineren",
+    "takeaway": "Afhaalmaaltijd"
+  },
+  "order": {
+    "orderType": "Besteltype",
+    "toOrder": "Bestellen"
+  },
+  "checkout": {
+    "yourOrder": "Jouw bestelling",
+    "edit": "Bewerken",
+    "note": "Notitie",
+    "orderNoteQuestion": "Voeg bestelnotitie toe",
+    "orderNotePlaceholder": "Notitie toevoegen"
+  },
+  "payment": {
+    "paymentTitle": "Betaling",
+    "scanQR": "Scan uw QR-code"
+  },
+  "finishPage": {
+    "finishTitle": "Bestelling Succesvol",
+    "finnishSubtitle": "Uw bestelling staat voor u klaar bij de balie",
+    "orderNumber": "Bestelnummer",
+    "receiptEmail": "Voer uw e-mailadres in om uw ontvangstbewijs te ontvangen"
+  },
+  "confirmation": {
+    "message": "Uw bestelling staat voor u klaar bij de balie"
+  },
+  "errorPage": {
+    "title": "Betaling mislukt",
+    "title2": "Er is iets misgegaan",
+    "subtitle": "Neem contact op met ons personeel en controleer uw kaartgegevens.",
+    "btn": "Herstarten"
+  },
+  "outOfOrder": {
+    "title": "Buiten dienst",
+    "subtitle": "Bestel alstublieft bij de balie"
+  },
+  "total": "Totaal",
+  "back": "Terug",
+  "next": "Volgende",
+  "done": "Klaar",
+  "cancelOrder": "bestelling Annuleren",
+  "cancelQuestion": "Weet u zeker dat u de bestelling wilt annuleren?",
+  "yes": "Ja",
+  "finish": "klaar",
+  "close": "Sluiten",
+  "addToBasket": "Toevoegen aan mandje",
+  "aleradyInBasket": "Al in mandje",
+  "pregnancy": "Zwangerschap",
+  "vegan": "Veganistisch",
+  "spicy": "Pittig",
+  "vegeterian": "Vegetarisch",
+  "alergens": "Allergenen"
+}

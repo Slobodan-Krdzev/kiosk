@@ -173,7 +173,7 @@ const CheckoutCard = ({
               {order.note !== "" && (
                 <p className={`${styles.checkoutCardExtrasText}`}>
                   <>&bull; </>
-                  {t("note")}:{" "}
+                  {t("checkout.note")}:{" "}
                   {order.note.length > 50
                     ? `${order.note.substring(0, 10)}...`
                     : order.note}
@@ -216,7 +216,7 @@ const CheckoutCard = ({
                         width: "15%",
                       }}
                     />{" "}
-                    {t("edit_note")}
+                    {t("checkout.edit")}
                   </motion.button>
                 )}
 
@@ -240,7 +240,7 @@ const CheckoutCard = ({
                     alt="Edit Note"
                     style={{ width: "15%" }}
                   />{" "}
-                  {t("note")}
+                  {t("checkout.note")}
                 </motion.button>
               )}
 
@@ -290,7 +290,7 @@ const CheckoutCard = ({
                         color: "white",
                       }}
                     >
-                      {order.note ? "Edit" : "Done"}
+                      {order.note ? <>{t("checkout.edit")}</> : <>{t("done")}</>}
                     </button>
                   </div>
                 </motion.form>

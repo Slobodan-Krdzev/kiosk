@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Components/Loading";
 import Get from "../../Query/Get";
-import { DataContext } from "./Datacontext";
 import {
   MainCategory2,
   Product,
@@ -8,8 +8,8 @@ import {
   ThemeType,
   Tmkdaum,
 } from "../../Types/Types";
-import Loading from "../../Components/Loading";
-import i18n from "i18next";
+import { DataContext } from "./Datacontext";
+// import i18n from "i18next";
 import { useContext, useState } from "react";
 import PaymentError from "../../Components/View/PaymentError/PaymentError";
 import { StepContext } from "../StepContext/StepContext";
@@ -19,12 +19,11 @@ type DataContextProviderPropsType = {
 };
 
 const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
+  const { isTestMode } = useContext(StepContext);
+  const [currentLang, setCurrentLang] = useState(localStorage.getItem('i18nextLng') ?? 'nl')
+  const menuID = new URLSearchParams(window.location.search).get("menuId");
 
-  const {isTestMode} = useContext(StepContext)
-  const menuID = new URLSearchParams(window.location.search).get("menuId")
-
-  const isDadawan = menuID && +menuID! === 2490 
-  const isKunkurent = menuID && +menuID === 2408
+  const isDadawan = menuID && +menuID! === 2490;
 
   const { data, isError, isLoading } = useQuery({
     queryFn: () => Get(isTestMode),
@@ -46,6 +45,11 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     });
   };
 
+  const handleLangChange = (lang: string) => {
+    setCurrentLang(lang)
+  }
+
+
   console.log("====================================");
   console.log(data);
   console.log("====================================");
@@ -58,18 +62,13 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     return <Loading />;
   }
 
-  const currentLanguage = i18n.language;
-  i18n.changeLanguage('nl')
+ 
+  // OD BACKEND TREBA DA DOJDAT KAKO SUBCATEGORY
 
-  // OD BACKEND TREBA DA DOJDAT KAKO SUBCATEGORY 
+  const tmkData: Tmkdaum = data.TMKData.find((tmkItem: Tmkdaum) => tmkItem.Language === currentLang) ?? data.TMKData[0];
+  const categoryToRender: MainCategory2 = tmkData?.MainCategories[0];
 
-  const tmkData: Tmkdaum = data.TMKData.find((tmkItem: Tmkdaum) => tmkItem.Language === currentLanguage)
-
-  // const categoryToRender: MainCategory2 = data.TMKData[0].MainCategories[0]; // FOOD TO SHARE KATEGORIJA
-  const categoryToRender: MainCategory2 = tmkData?.MainCategories[isTestMode ? isKunkurent ? 8 : 0 : 9] ?? data.TMKData[0].MainCategories[9];
-
-  console.log("Current Lang and Category", currentLanguage,tmkData);
-
+  console.log(tmkData)
   const allSubCategories = categoryToRender!.SubCategories;
 
   const getAllProducts = (subCategories: SubCategory2[]) => {
@@ -85,10 +84,13 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   const allProducts = getAllProducts(allSubCategories);
 
   const theme: ThemeType = {
-    bgColor:  categoryToRender.BackgroundColor,
-    textColor: isDadawan ? categoryToRender.TextColorActive :  categoryToRender.TextColor,
-    activeTextColor: isDadawan ? categoryToRender.TextColor : categoryToRender.TextColorActive,
-    
+    bgColor: categoryToRender.BackgroundColor,
+    textColor: isDadawan
+      ? categoryToRender.TextColorActive
+      : categoryToRender.TextColor,
+    activeTextColor: isDadawan
+      ? categoryToRender.TextColor
+      : categoryToRender.TextColorActive,
   };
 
   const returnValue = {
@@ -101,7 +103,10 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     theme,
     orderReferenceData,
     handleSetOrderReferenceData,
+    handleLangChange,
   };
+
+  console.log("Current Lang and Category", currentLang, tmkData);
 
   return (
     <DataContext.Provider value={returnValue}>{children}</DataContext.Provider>
