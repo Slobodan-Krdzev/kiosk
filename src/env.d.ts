@@ -1,10 +1,10 @@
-declare global {
-    interface Window {
-        kioskConfig: {
-            api: string;
-          };
-    }
-  }
+// declare global {
+//     interface Window {
+//         kioskConfig: {
+//             api: string;
+//           };
+//     }
+//   }
   
-  export {};
+//   export {};
   
