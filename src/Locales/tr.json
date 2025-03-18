@@ -10,6 +10,13 @@
     "orderType": "Sipariş Türü",
     "toOrder": "Sipariş Ver"
   },
+  "upsale": {
+    "chooseYour": "Seçiminiz",
+    "choose": "Seç",
+    "multipleChoice": "Birden fazla seçenek seçebilirsiniz",
+    "onlyOne": "Yalnızca birini seçin"
+  },
+
   "checkout": {
     "yourOrder": "Siparişiniz",
     "edit": "Düzenle",

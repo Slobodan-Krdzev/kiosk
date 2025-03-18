@@ -137,7 +137,7 @@ const CheckoutCard = ({
           <div
             className={styles.checkoutCardPicture}
             style={{
-              backgroundImage: order.upsale
+              backgroundImage: order?.upsale![0].stepData.length
                 ? `url(${order!.upsale[0]!.stepData[0].option.PictureUrl})`
                 : `url(${order.product!.SmallPictureUrl})`,
             }}
@@ -161,7 +161,7 @@ const CheckoutCard = ({
             </div>
 
             <div className={styles.mealInfoWrapper}>
-              {order.upsale &&
+            {order.upsale && order.upsale &&
                 order.upsale.map((step, idx: number) => (
                   <CheckoutCardExtraPreview
                     stepData={step.stepData}
@@ -169,6 +169,8 @@ const CheckoutCard = ({
                     key={idx}
                   />
                 ))}
+
+              
 
               {order.note !== "" && (
                 <p className={`${styles.checkoutCardExtrasText}`}>

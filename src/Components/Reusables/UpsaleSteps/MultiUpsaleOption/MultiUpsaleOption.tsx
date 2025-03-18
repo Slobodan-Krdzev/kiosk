@@ -107,11 +107,11 @@ const MultiUpsaleOption = ({
 
       <div className={styles.midSection}>
         <h2 className={styles.subtitle}>
-          {t("choose_your")} {upsaleStepData.Name}
+          {t("upsale.chooseYour")} {upsaleStepData.Name}
         </h2>
 
         <p className={styles.maxSelectionInfo}>
-          {maxSelection > 1 ? `${t("multiple_choice")}` : `${t("only_one")}`}
+          {maxSelection > 1 ? `${t("upsale.multipleChoice")}` : `${t("upsale.onlyOne")}`}
         </p>
         <div className={`hideScrollBar ${styles.optionsWrapper}`}>
           {options.map((o) => (
@@ -141,7 +141,7 @@ const MultiUpsaleOption = ({
           }}
         >
           <Chevron color="black" orientation="toLeft" />
-          {t("back_Btn")}
+          {t("back")}
         </DefaultButton>
 
         {upsaleStep > 0 && (
@@ -176,7 +176,7 @@ const MultiUpsaleOption = ({
             textTransform: "uppercase",
           }}
         >
-          {isNextButtonDisabled() === false ? <>{t("view_order")}</> : "Choose"}
+          {isNextButtonDisabled() === false ? <>{t("order.toOrder")}</> : <>{t("upsale.choose")}</>}
           {isNextButtonDisabled() && <Chevron color="white" />}
         </DefaultButton>
       </BottomButtonholderRibbon>

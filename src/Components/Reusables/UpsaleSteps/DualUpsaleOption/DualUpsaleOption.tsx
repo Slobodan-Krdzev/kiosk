@@ -97,10 +97,7 @@ const DualUpsaleOption = ({
   };
 
   const onBackButton = () => {
-    // ako e prv step
-    // - resetUpsale
-    // - orderScreen
-
+    
     if (upsaleStep === 0) {
       handleStepChange("order");
       resetUpsale();
@@ -137,9 +134,9 @@ const DualUpsaleOption = ({
         <h2 className={styles.subtitle}>{upsaleStepData.Name}</h2>
         <p className={styles.mealName}>
           {maxSelectionOnStep > 1 ? (
-            <>{t("multiple_choice")}</>
+            <>{t("upsale.multipleChoice")}</>
           ) : (
-            <>{t("only_one")}</>
+            <>{t("upsale.onlyOne")}</>
           )}
         </p>
 
@@ -183,7 +180,7 @@ const DualUpsaleOption = ({
           }}
         >
           <Chevron color="black" orientation="toLeft" />
-          {t("back_Btn")}
+          {t("back")}
         </DefaultButton>
 
         <div
@@ -215,7 +212,7 @@ const DualUpsaleOption = ({
             textTransform: "uppercase",
           }}
         >
-          {t("view_order")} <Chevron color="white" />
+          {isLastStep ? <>{t("order.toOrder")}</> : <>{t("next")}</>} <Chevron color="white" />
         </DefaultButton>
       </BottomButtonholderRibbon>
     </ViewFullScreenAnimated>

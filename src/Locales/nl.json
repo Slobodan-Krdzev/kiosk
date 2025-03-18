@@ -10,6 +10,12 @@
     "orderType": "Besteltype",
     "toOrder": "Bestellen"
   },
+  "upsale": {
+    "chooseYour": "Kies uw",
+    "choose": "Kiezen",
+    "multipleChoice": "U kunt meerdere opties kiezen",
+    "onlyOne": "Kies slechts één"
+  },
   "checkout": {
     "yourOrder": "Jouw bestelling",
     "edit": "Bewerken",

@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { t } from "i18next";
 import { useContext } from "react";
 import { DataContext } from "../../../../../Contexts/DataContext/Datacontext";
 import { UpsaleContext } from "../../../../../Contexts/UpsaleContext/UpsaleContext";
@@ -32,7 +31,7 @@ const DualOptionSelector = ({
 
   const maxSelection = upsaleStepData.MaxSelection
 
-  console.log('Upsale Data od Selector', upsaleStepData)
+  console.log('Upsale Data od Selector', option)
 
   return (
     <motion.div
@@ -84,7 +83,7 @@ const DualOptionSelector = ({
         >
           {option.Name}
         </p>
-        {upsaleStep === 0 && (
+        {/* {upsaleStep === 0 && (
           <p
             className={styles.optionBottomText}
             style={{
@@ -98,7 +97,7 @@ const DualOptionSelector = ({
               <>{t("make_it_a_combo")}</>
             )}
           </p>
-        )}
+        )} */}
 
         <AnimatePresence mode="wait">
           {upsaleStep > 0 && (

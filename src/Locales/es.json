@@ -10,6 +10,12 @@
     "orderType": "Tipo de pedido",
     "toOrder": "Ordenar"
   },
+  "upsale": {
+    "chooseYour": "Elige tu",
+    "choose": "Elegir",
+    "multipleChoice": "Puedes elegir varias opciones",
+    "onlyOne": "Elige solo una"
+  },
   "checkout": {
     "yourOrder": "Tu pedido",
     "edit": "Editar",
