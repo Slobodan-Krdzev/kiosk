@@ -137,9 +137,10 @@ const CheckoutCard = ({
           <div
             className={styles.checkoutCardPicture}
             style={{
-              backgroundImage: order?.upsale![0].stepData.length
-                ? `url(${order!.upsale[0]!.stepData[0].option.PictureUrl})`
-                : `url(${order.product!.SmallPictureUrl})`,
+              backgroundImage:
+                order?.upsale === undefined
+                  ? `url(${order.product!.SmallPictureUrl})`
+                  : order?.upsale[0].stepData[0] ?`url(${order!.upsale[0]!.stepData[0].option.PictureUrl})` : `url(${order.product!.SmallPictureUrl})`,
             }}
           ></div>
 
@@ -161,7 +162,8 @@ const CheckoutCard = ({
             </div>
 
             <div className={styles.mealInfoWrapper}>
-            {order.upsale && order.upsale &&
+              {order.upsale &&
+                order.upsale &&
                 order.upsale.map((step, idx: number) => (
                   <CheckoutCardExtraPreview
                     stepData={step.stepData}
@@ -169,8 +171,6 @@ const CheckoutCard = ({
                     key={idx}
                   />
                 ))}
-
-              
 
               {order.note !== "" && (
                 <p className={`${styles.checkoutCardExtrasText}`}>
@@ -195,9 +195,7 @@ const CheckoutCard = ({
                     className={styles.addNoteBtn}
                     style={{ fontSize: "2vw" }}
                     onClick={() => {
-
                       if (order) {
-                        
                         handleSetCopyOfEditingItem(order);
                         resetUpsale();
 
@@ -205,10 +203,9 @@ const CheckoutCard = ({
                         addUpsaleId(order?.product?.UpsaleCollectionId ?? 0);
 
                         setMeal(order.product!);
-                        removeMealFromOrders(order.id)
+                        removeMealFromOrders(order.id);
                         handleStepChange("menuUpgrade");
                       }
-
                     }}
                   >
                     <img
@@ -292,7 +289,11 @@ const CheckoutCard = ({
                         color: "white",
                       }}
                     >
-                      {order.note ? <>{t("checkout.edit")}</> : <>{t("done")}</>}
+                      {order.note ? (
+                        <>{t("checkout.edit")}</>
+                      ) : (
+                        <>{t("done")}</>
+                      )}
                     </button>
                   </div>
                 </motion.form>
