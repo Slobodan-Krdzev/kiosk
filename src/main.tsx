@@ -10,9 +10,7 @@ import { AnimatePresence } from "framer-motion";
 import UpsaleContentProvider from "./Contexts/UpsaleContext/UpsaleContentProvider.tsx";
 import "../src/i18n.js";
 import Loading from "./Components/Loading.tsx";
-// declare const kioskConfig: {
-//   api: string;
-// };
+
 
 // const API_BASE_URL = kioskConfig?.api || "default_value";
 // console.log(API_BASE_URL)

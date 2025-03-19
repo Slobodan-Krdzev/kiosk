@@ -1,4 +1,4 @@
-// window.kioskConfig = {
-//     api: "https://kioskapi.dev.revelapps.com/api/getfullresources"
-// }
+window.kioskConfig = {
+    api: "https://kioskapi.dev.revelapps.com/api/getfullresources"
+}
 
