@@ -13,6 +13,7 @@ import { DataContext } from "./Datacontext";
 import { useContext, useState } from "react";
 import PaymentError from "../../Components/View/PaymentError/PaymentError";
 import { StepContext } from "../StepContext/StepContext";
+import DB from "../../Data/DB.json"
 
 type DataContextProviderPropsType = {
   children: JSX.Element;
@@ -29,6 +30,10 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     queryFn: () => Get(isTestMode),
     queryKey: ["data"],
   });
+
+  const dummyData = DB 
+
+  console.log("Dummy Data", dummyData, data)
 
   const [orderReferenceData, setOrderReferenceData] = useState({
     reference: "",
@@ -65,7 +70,9 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
  
   // OD BACKEND TREBA DA DOJDAT KAKO SUBCATEGORY
 
+  // const dummyTmkData: Tmkdaum = dummyData.TMKData[0]
   const tmkData: Tmkdaum = data.TMKData.find((tmkItem: Tmkdaum) => tmkItem.Language === currentLang) ?? data.TMKData[0];
+  // const dummyCategoryToRender = dummyTmkData.MainCategories[0]
   const categoryToRender: MainCategory2 = tmkData?.MainCategories[0];
 
   console.log(tmkData)
@@ -96,6 +103,7 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
   const returnValue = {
     data,
     tmkData,
+    // dummyTmkData,
     isError,
     isLoading,
     allCategories: allSubCategories,
@@ -105,8 +113,6 @@ const DataContextProvider = ({ children }: DataContextProviderPropsType) => {
     handleSetOrderReferenceData,
     handleLangChange,
   };
-
-  console.log("Current Lang and Category", currentLang, tmkData);
 
   return (
     <DataContext.Provider value={returnValue}>{children}</DataContext.Provider>

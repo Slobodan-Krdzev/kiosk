@@ -41,7 +41,9 @@
     /* space between grid items */
     overflow-y: scroll;
     padding: 1%;
+    height: 50vh;
 }
+
 
 .stepCounterOnRibbon{
     

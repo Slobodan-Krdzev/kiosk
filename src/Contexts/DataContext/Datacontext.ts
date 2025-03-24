@@ -4,6 +4,7 @@ import { Product, RootData, SubCategory2, ThemeType, Tmkdaum } from "../../Types
 type DataContextValueType = {
   data: RootData;
   tmkData: Tmkdaum;
+  // dummyTmkData: Tmkdaum;
   isError: boolean;
   isLoading: boolean;
   allCategories: SubCategory2[];

@@ -12,26 +12,27 @@ type DualOptionSelectorPropsType = {
   options: Option[];
   upsaleStep: number;
   handleUpsaleStepChange: (type: "increase" | "decrease") => void;
-  upsaleStepData: UpsaleStep
+  upsaleStepData: UpsaleStep;
 };
 
 const DualOptionSelector = ({
   option,
   upsaleStep,
-  upsaleStepData
+  upsaleStepData,
 }: DualOptionSelectorPropsType) => {
   const { theme } = useContext(DataContext);
 
-  const { upsaleData, addNewOption, removeAnOption } = useContext(UpsaleContext);
+  const { upsaleData, addNewOption, removeAnOption } =
+    useContext(UpsaleContext);
 
   const upsaleDataSelectedOptions = upsaleData[upsaleStep].stepData;
   const isOptionSelected = Boolean(
     upsaleDataSelectedOptions.find((o) => o.option.Id === option.Id)
   );
 
-  const maxSelection = upsaleStepData.MaxSelection
+  const maxSelection = upsaleStepData.MaxSelection;
 
-  console.log('Upsale Data od Selector', option)
+  console.log("Upsale Data od Selector", option);
 
   return (
     <motion.div
@@ -51,11 +52,9 @@ const DualOptionSelector = ({
       role="button"
       onClick={() => {
         if (isOptionSelected) {
-          removeAnOption(upsaleStep, option)
-
+          removeAnOption(upsaleStep, option);
         } else {
           addNewOption(upsaleStep, option, maxSelection, 1);
-          
         }
       }}
     >
@@ -100,7 +99,7 @@ const DualOptionSelector = ({
         )} */}
 
         <AnimatePresence mode="wait">
-          {upsaleStep > 0 && (
+          {option.MaxSelection === 1 && (
             <div className={styles.checkMark}>
               {isOptionSelected && <Check />}
             </div>

@@ -7,7 +7,8 @@ import Modal from "../../Reusables/Modal";
 import { StepContext } from "../../../Contexts/StepContext/StepContext";
 
 const Upsale = () => {
-  const { tmkData } = useContext(DataContext);
+  // za dummy data i tuka treba da zemame od context
+  const { tmkData} = useContext(DataContext);
   const { upsaleId } = useContext(UpsaleContext);
   const { handleStepChange } = useContext(StepContext);
 
@@ -15,7 +16,7 @@ const Upsale = () => {
   // tuka ni treba upsale od ID
 
   const [upsaleStep, setUpsaleStep] = useState(0);
-
+  // VRATI VO TMK DATA
   const upsaleData = tmkData.UpsaleColletions.find(
     (upsale) => upsale.Id === upsaleId
   );
@@ -36,7 +37,7 @@ const Upsale = () => {
 
     return (
       <section>
-        {upsaleStepData.Options.length === 2 ? (
+        {upsaleStepData.Options.length <= 2 ? (
           <DualUpsaleOption
             stepsLength={stepsLength}
             upsaleStep={upsaleStep}

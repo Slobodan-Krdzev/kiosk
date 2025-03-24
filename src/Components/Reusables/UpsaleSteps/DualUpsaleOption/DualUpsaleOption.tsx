@@ -145,6 +145,7 @@ const DualUpsaleOption = ({
             {options.map((o) =>
               o.MaxSelection > 1 ? (
                 <MultiOptionselector
+                  key={o.Id}
                   option={o}
                   maxSelection={maxSelectionOnStep}
                   upsaleStep={upsaleStep}

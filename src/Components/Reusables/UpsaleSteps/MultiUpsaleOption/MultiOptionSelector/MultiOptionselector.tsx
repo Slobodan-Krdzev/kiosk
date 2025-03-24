@@ -26,7 +26,6 @@ const MultiOptionselector = ({
   const { theme } = useContext(DataContext);
   const { upsaleData, addNewOption, removeAnOption } =
     useContext(UpsaleContext);
-
   const [quantity, setQuantity] = useState(
     upsaleData[upsaleStep].stepData.find((o) => o.option.Id === option.Id)
       ?.quantity ?? 1
@@ -79,6 +78,7 @@ const MultiOptionselector = ({
     }
   };
 
+
   return (
     <div
       role="button"
@@ -93,7 +93,7 @@ const MultiOptionselector = ({
           : selectedOptionsLength === maxSelection
           ? "#F1F1F1"
           : "white",
-
+        flexBasis:  '33%',
         // OVDEKA ZA TESTIRANJE MAXSELECTION PROMENI GO SO ZAKUCAN BROJ
         pointerEvents:
           selectedOptionsLength >= maxSelection && !isOptionAlreadySelected
@@ -114,22 +114,24 @@ const MultiOptionselector = ({
           addNewOption(upsaleStep, option, maxSelection, 1);
           setQuantity(1);
 
-          if(option.MaxSelection > 1){
+          if (option.MaxSelection > 1) {
             setIsButtonOpened(true);
-
           }
         }
       }}
     >
       <div
-        style={{ backgroundImage: `url(${option.PictureUrl})` }}
+        style={{
+          backgroundImage: `url(${option.PictureUrl})`,
+        }}
         className={styles.optionImg}
-      ></div>
+      >
+      </div>
       <div className={styles.optionInfoWrapper}>
         <p className={styles.optionName} style={{ textAlign: "left" }}>
           {option.Name}
         </p>
-        {!isButtonOpened  && (
+        {!isButtonOpened && (
           <PricePreviewer
             price={option.Price}
             color={theme.activeTextColor}
