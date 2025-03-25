@@ -130,7 +130,7 @@ const Payment = () => {
         <DefaultButton
           style={{
             height: "100%",
-            flexBasis: "40%",
+            flexBasis: "73%",
             borderColor: "#FF4F4F",
             color: "#FF4F4F",
             textTransform: "capitalize"
